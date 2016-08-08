@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table name="message" catalog="forum" class="Message">
+		<primary-key>
+			<generator class="native"></generator>
+		</primary-key>
+		<column name="author" property="author"
+			type="java.lang.String">
+		</column>
+		<column name="publish_time" type="java.lang.String">
+		</column>
+	</table>
+	<table name="question" catalog="forum">
+		<column name="q_time" type="java.lang.String">
+		</column>
+	</table>
+	<table name="reply" catalog="forum">
+		<column name="reply_time" type="java.lang.String"></column>
+	</table>
+	<table name="user" catalog="forum">
+		<column name="birthday" type="java.lang.String"></column>
+	</table>
+</hibernate-reverse-engineering>
