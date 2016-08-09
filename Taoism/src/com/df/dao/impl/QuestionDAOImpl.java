@@ -17,11 +17,7 @@ import com.df.dao.util.HibernateSessionFactory;
 
 public class QuestionDAOImpl  implements IQuestionDAO  {
 	
-	@Override
-	public Session getSession() {
-		return HibernateSessionFactory.getSession();
-	}
-	
+
 	@Override
     public void save(Question transientInstance) {
     	Session session = null;

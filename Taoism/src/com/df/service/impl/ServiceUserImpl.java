@@ -2,6 +2,11 @@ package com.df.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.df.dao.idao.IUserDAO;
 import com.df.dao.factory.DaoFactory;
 import com.df.dao.pojo.QueryResult;
@@ -10,9 +15,14 @@ import com.df.service.iservice.IUserService;
 
 
 
+@Service("userService")
 public class ServiceUserImpl implements IUserService {
 
-	IUserDAO iud = DaoFactory.getUserDAOInstance();
+	@Autowired
+	@Qualifier("userDao")
+	private IUserDAO iud;
+	
+	@Transactional
 	@Override
 	public String save(User t) {
 		// TODO Auto-generated method stub
@@ -35,9 +45,9 @@ public class ServiceUserImpl implements IUserService {
 		return null;
 	}
 
+	@Transactional(readOnly=true)
 	@Override
 	public List<User> findAll() {
-		IUserDAO iud = DaoFactory.getUserDAOInstance();
 		List<User> users = null;
 		try {
 			users = iud.findAll();
@@ -55,7 +65,6 @@ public class ServiceUserImpl implements IUserService {
 
 	@Override
 	public QueryResult findAll(Integer k1, Integer k2) {
-		IUserDAO iud = DaoFactory.getUserDAOInstance();
 		QueryResult query = null;
 		try {
 			query = iud.findAll(k1,k2);
@@ -103,7 +112,6 @@ public class ServiceUserImpl implements IUserService {
 
 	@Override
 	public QueryResult findNeedExamine(Integer k1, Integer k2) {
-		IUserDAO iud = DaoFactory.getUserDAOInstance();
 		QueryResult query = null;
 		try {
 			query = iud.findNeedExamine(k1,k2);

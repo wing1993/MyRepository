@@ -6,7 +6,11 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import com.df.dao.idao.IUserDAO;
 import com.df.dao.pojo.User;
@@ -15,49 +19,24 @@ import com.df.dao.util.HibernateSessionFactory;
 
 
 
-
+@Repository("userDao")
 public class UserDAOImpl  implements IUserDAO  {
 	
-	@Override
-	public Session getSession() {
-		return HibernateSessionFactory.getSession();
-	}
+	@Autowired
+	@Qualifier("sessionFactory")
+	private SessionFactory sessionFactory;
 	
+
 	@Override
     public void save(User transientInstance) {
-    	Session session = null;
-		Transaction transaction = null;
-		try {
-			session = HibernateSessionFactory.getSession();
-			transaction = session.beginTransaction();
-			session.save(transientInstance);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (session != null)
-				session.close();
-		}
+   
+		sessionFactory.getCurrentSession().save(transientInstance);
+	
     }
 	@Override
 	public void delete(User persistentInstance) {
-		Session session = null;
-		Transaction transaction = null;
-		try {
-			session = HibernateSessionFactory.getSession();
-			transaction = session.beginTransaction();
-			session.delete(persistentInstance);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (session != null)
-				session.close();
-		}
+		
+		sessionFactory.getCurrentSession().save(persistentInstance);
     }
    
     
@@ -65,26 +44,13 @@ public class UserDAOImpl  implements IUserDAO  {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAll() {
-		Session session = null;
-		Transaction transaction = null;
+		System.out.println("1111111111111111111");
+		
 		List<User> userList = new ArrayList<User>();
-		try {
-			session = HibernateSessionFactory.getSession();
-			transaction = session.beginTransaction();
+		userList = sessionFactory.getCurrentSession().createQuery(
+				"FROM User u where u.state=1")
+				.list();
 			
-			userList = session.createQuery(
-					"FROM User u where u.state=1")
-					.list();
-			
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (session != null)
-				session.close();
-		}
 		return userList;
 	}
 

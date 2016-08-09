@@ -17,10 +17,6 @@ import com.df.dao.util.HibernateSessionFactory;
 
 public class MessageDAOImpl  implements IMessageDAO  {
 	
-	@Override
-	public Session getSession() {
-		return HibernateSessionFactory.getSession();
-	}
 	
 	@Override
     public void save(Message transientInstance) {

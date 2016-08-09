@@ -12,7 +12,6 @@ import com.df.dao.pojo.QueryResult;
  * @author MyEclipse Persistence Tools
  */
 public interface IBaseHibernateDAO<T,K> {
-	public Session getSession();
 	
 	/**
 	 * 保存

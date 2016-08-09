@@ -18,11 +18,6 @@ import com.df.dao.util.HibernateSessionFactory;
 public class ReplyDAOImpl  implements IReplyDAO  {
 	
 	@Override
-	public Session getSession() {
-		return HibernateSessionFactory.getSession();
-	}
-	
-	@Override
     public void save(Reply transientInstance) {
     	Session session = null;
 		Transaction transaction = null;

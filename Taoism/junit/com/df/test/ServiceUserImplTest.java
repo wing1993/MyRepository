@@ -6,19 +6,26 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.df.dao.factory.DaoFactory;
+import com.df.dao.idao.IUserDAO;
 import com.df.dao.pojo.User;
 import com.df.service.factory.ServiceFactory;
 import com.df.service.iservice.IUserService;
 
-public class ServiceUserImplTest {
 
-	IUserService ius = null;
+
+public class ServiceUserImplTest {
 	
+	
+
 	@Before
 	public void setUp() throws Exception {
-		ius = ServiceFactory.getUserServiceInstance();
+		
 	}
 
 	@Test
@@ -38,7 +45,23 @@ public class ServiceUserImplTest {
 
 	@Test
 	public void testFindAll() {
-		System.out.println(ius.findAll().toString());
+		IUserService ius;
+		{
+			ius = (IUserService) new ClassPathXmlApplicationContext("applicationContext.xml")
+					.getBean("userService");
+		}
+		System.out.println("2222222222222");
+		List<User> airs;
+		try {
+			airs = ius.findAll();
+			for (User air : airs) {
+				System.out.println(air.toString());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Test
