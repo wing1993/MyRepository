@@ -1,0 +1,59 @@
+body{
+	font-size:15px;
+	font-family:'Microsoft YaHei';
+}
+.bd{
+	position:fixed;
+	z-index:-10;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-image:url(../../images/register_bmg1.jpg);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+.main{
+	width:280px;
+	margin:150px auto;
+	padding:25px;
+	background:rgba(249,249,249,0.6);
+}
+.top{
+	width:100%;
+	text-align: center;
+	font-weight: bold;
+	font-size:25px;
+	margin-bottom:20px;
+}
+.item{
+	padding-bottom:20px;
+}
+.username,.password{
+	padding:8px;
+	width:94%;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:none;
+
+}
+input[type=button]{
+	width:100%;
+	color:#fff;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	padding:10px;
+	text-align: center;
+	vertical-align: center;
+	border:none;
+	background:#2842ff;
+	cursor:pointer;
+}
+.msg_error{
+	display: none;
+	margin-bottom:10px;
+	color:red;
+	height:15px;
+}
