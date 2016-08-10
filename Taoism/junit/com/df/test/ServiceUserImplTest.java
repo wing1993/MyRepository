@@ -11,17 +11,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.df.dao.factory.DaoFactory;
 import com.df.dao.idao.IUserDAO;
 import com.df.dao.pojo.User;
-import com.df.service.factory.ServiceFactory;
 import com.df.service.iservice.IUserService;
-
 
 
 public class ServiceUserImplTest {
 	
-	
+
+	private IUserService ias;
+	{
+		ias = (IUserService) new ClassPathXmlApplicationContext("applicationContext.xml")
+				.getBean("userService");
+	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -30,7 +32,11 @@ public class ServiceUserImplTest {
 
 	@Test
 	public void testSave() {
-		fail("Not yet implemented");
+		User user = new User("r","001","学员","女","广东汕头","18318743492","849306235@qq.com");
+		user.setUserId(4);
+		System.out.println(ias.save(user));
+		user.setUserId(100);
+		System.out.println(ias.save(user));
 	}
 
 	@Test

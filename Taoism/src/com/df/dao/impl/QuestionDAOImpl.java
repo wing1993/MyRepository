@@ -5,155 +5,74 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import com.df.dao.idao.IQuestionDAO;
-import com.df.dao.pojo.Question;
 import com.df.dao.pojo.QueryResult;
-import com.df.dao.util.HibernateSessionFactory;
+import com.df.dao.pojo.Question;
 
 
 
-
+@Repository("questionDao")
 public class QuestionDAOImpl  implements IQuestionDAO  {
 	
-
+	@Autowired
+	@Qualifier("sessionFactory")
+	private SessionFactory sessionFactory;
+	
 	@Override
     public void save(Question transientInstance) {
-    	Session session = null;
-		Transaction transaction = null;
-		try {
-			session = HibernateSessionFactory.getSession();
-			transaction = session.beginTransaction();
-			session.save(transientInstance);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (session != null)
-				session.close();
-		}
+		sessionFactory.getCurrentSession().save(transientInstance);	
     }
+	
 	@Override
 	public void delete(Question persistentInstance) {
-		Session session = null;
-		Transaction transaction = null;
-		try {
-			session = HibernateSessionFactory.getSession();
-			transaction = session.beginTransaction();
-			session.delete(persistentInstance);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (session != null)
-				session.close();
-		}
+		sessionFactory.getCurrentSession().delete(persistentInstance);
     }
    
-    
- 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Question> findAll() {
-		Session session = null;
-		Transaction transaction = null;
 		List<Question> questionList = new ArrayList<Question>();
-		try {
-			session = HibernateSessionFactory.getSession();
-			transaction = session.beginTransaction();
-			
-			questionList = session.createQuery(
-					"FROM Question")
-					.list();
-			
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (session != null)
-				session.close();
-		}
+		questionList = sessionFactory.getCurrentSession().createQuery(
+				"FROM Question")
+				.list();
 		return questionList;
 	}
 
 	@Override
 	public void update(Question question) {
-		Session session = HibernateSessionFactory.getSession();
-		Transaction transaction = null;
-		try{
-			transaction = session.beginTransaction();
-			
-			session.update(question);
-			
-			transaction.commit();
-		}catch(Exception e){
-			transaction.rollback();
-			e.printStackTrace();
-			throw e;
-		}finally{
-			session.close();
-		}
-		
+		sessionFactory.getCurrentSession().update(question);
 	}
+	
 	@Override
 	public Question getById(Integer id) {
-		Session session = HibernateSessionFactory.getSession();
-		Transaction transaction = null;
-		try{
-			transaction = session.beginTransaction();
-			
-			Question question = (Question)session.get(Question.class, id);
-			
-			transaction.commit();
-			return question;
-		}catch(Exception e){
-			transaction.rollback();
-			e.printStackTrace();
-			throw e;
-		}finally{
-			session.close();
-		}
+		Question question = (Question)sessionFactory
+				.getCurrentSession().get(Question.class, id);
+		return question;
 	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public QueryResult findAll(Integer firstResult, Integer maxResults) {
-		System.out.println(firstResult+"---"+maxResults);
-		Session session = null;
-		Transaction transaction = null;
 		List<Question> questionList = new ArrayList<Question>();
 		Long count = (long) 0;
-		try {
-			session = HibernateSessionFactory.getSession();
-			transaction = session.beginTransaction();
-			
-			//查询总记录数
-			count = (Long) session.createQuery(
-					"SELECT COUNT(*) FROM Question") 	
-					.uniqueResult();  
-			System.out.println(firstResult+"---"+maxResults+"---"+count);
-			//查询一页的数据列表
-			questionList = session.createQuery(
-					"FROM Question")
-					.setFirstResult(firstResult)
-					.setMaxResults(maxResults)
-					.list();
-			
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (session != null)
-				session.close();
-		}
+		//查询总记录数
+		count = (Long) sessionFactory.getCurrentSession().createQuery(
+				"SELECT COUNT(*) FROM Question") 	
+				.uniqueResult();  
+		System.out.println(firstResult+"---"+maxResults+"---"+count);
+		//查询一页的数据列表
+		questionList = sessionFactory.getCurrentSession().createQuery(
+				"FROM Question")
+				.setFirstResult(firstResult)
+				.setMaxResults(maxResults)
+				.list();
+	
 		return new QueryResult(count.intValue(),questionList);
 	}
 	

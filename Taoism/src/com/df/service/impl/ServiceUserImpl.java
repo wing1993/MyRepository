@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.df.dao.idao.IUserDAO;
-import com.df.dao.factory.DaoFactory;
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.User;
 import com.df.service.iservice.IUserService;
@@ -20,15 +19,22 @@ public class ServiceUserImpl implements IUserService {
 
 	@Autowired
 	@Qualifier("userDao")
-	private IUserDAO iud;
+	private IUserDAO userDao;
 	
 	@Transactional
 	@Override
 	public String save(User t) {
-		// TODO Auto-generated method stub
-		return null;
+		String msg = "error";
+		try {
+			userDao.save(t);
+			msg = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
+	@Transactional
 	@Override
 	public String delete(User t) {
 		// TODO Auto-generated method stub
@@ -38,7 +44,7 @@ public class ServiceUserImpl implements IUserService {
 	@Override
 	public String update(User newObj) {
 		try {
-			iud.update(newObj);
+			userDao.update(newObj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,7 +56,7 @@ public class ServiceUserImpl implements IUserService {
 	public List<User> findAll() {
 		List<User> users = null;
 		try {
-			users = iud.findAll();
+			users = userDao.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,7 +73,7 @@ public class ServiceUserImpl implements IUserService {
 	public QueryResult findAll(Integer k1, Integer k2) {
 		QueryResult query = null;
 		try {
-			query = iud.findAll(k1,k2);
+			query = userDao.findAll(k1,k2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -78,7 +84,7 @@ public class ServiceUserImpl implements IUserService {
 	public String login(User user) {
 		String msg = "error";
 		try {
-			msg = iud.login(user);
+			msg = userDao.login(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,7 +95,7 @@ public class ServiceUserImpl implements IUserService {
 	public String registry(User user) {
 		String msg = "error";
 		try {
-			iud.registry(user);
+			userDao.registry(user);
 			msg = "success";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,7 +108,7 @@ public class ServiceUserImpl implements IUserService {
 		
 		String msg = "error";
 		try {
-			iud.examine(user);
+			userDao.examine(user);
 			msg = "success";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,7 +120,7 @@ public class ServiceUserImpl implements IUserService {
 	public QueryResult findNeedExamine(Integer k1, Integer k2) {
 		QueryResult query = null;
 		try {
-			query = iud.findNeedExamine(k1,k2);
+			query = userDao.findNeedExamine(k1,k2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,7 +130,7 @@ public class ServiceUserImpl implements IUserService {
 	@Override
 	public String changeUserType(User user) {
 		try {
-			iud.changeUserType(user);
+			userDao.changeUserType(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
