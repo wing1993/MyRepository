@@ -16,7 +16,7 @@
 			<div class="top">
 				<span><a href="index.jsp">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="login.jsp">登录</a></span>
 			</div>
-			<form id="register_form" method="post" action="">
+			<form id="register_form" method="post" action="${pageContext.request.contextPath }/user_registry.action">
 				<table class="register_tb">
 					<tr>
 						<td>注册类型：</td>
@@ -140,7 +140,7 @@
 					</tr>
 				</table>
 				<div class="btn">
-					<input type="button" value="注册" id="register" onclick="sign_up()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="submit" value="注册" id="register" onclick="sign_up()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="reset" value="取消">
 				</div>
 			</form>

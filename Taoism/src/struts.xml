@@ -8,7 +8,7 @@
 			<result name="success" type="dispatcher">test.jsp</result>
 		</action>
 		<action name="user_registry" class="userAction" method="registry">
-			<result name="success" type="dispatcher">/user/pages/register.jsp</result>
+			<result name="success" type="dispatcher">/user/pages/login.jsp</result>
 		</action>
 	</package>
 </struts>
