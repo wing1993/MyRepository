@@ -15,7 +15,7 @@ import com.df.service.iservice.IUserService;
 
 
 @Service("userService")
-public class ServiceUserImpl implements IUserService {
+public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	@Qualifier("userDao")
@@ -63,12 +63,14 @@ public class ServiceUserImpl implements IUserService {
 		return users;
 	}
 
+	@Transactional
 	@Override
 	public User getById(Integer k) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public QueryResult findAll(Integer k1, Integer k2) {
 		QueryResult query = null;
@@ -80,6 +82,7 @@ public class ServiceUserImpl implements IUserService {
 		return query;
 	}
 
+	@Transactional
 	@Override
 	public String login(User user) {
 		String msg = "error";
@@ -91,6 +94,7 @@ public class ServiceUserImpl implements IUserService {
 		return msg;
 	}
 
+	@Transactional
 	@Override
 	public String registry(User user) {
 		String msg = "error";
@@ -103,6 +107,7 @@ public class ServiceUserImpl implements IUserService {
 		return msg;
 	}
 
+	@Transactional
 	@Override
 	public String examine(User user) {
 		
@@ -116,6 +121,7 @@ public class ServiceUserImpl implements IUserService {
 		return msg;
 	}
 
+	@Transactional
 	@Override
 	public QueryResult findNeedExamine(Integer k1, Integer k2) {
 		QueryResult query = null;
@@ -127,6 +133,7 @@ public class ServiceUserImpl implements IUserService {
 		return query;
 	}
 
+	@Transactional
 	@Override
 	public String changeUserType(User user) {
 		try {

@@ -21,6 +21,8 @@
 					$("#wrong_info").text("请输入密码");
 				}else if($("#valid_code").val()==""){
 					$("#wrong_info").text("请输入验证码");
+				}else {
+					$("form").submit();
 				}
 			});
 		});
@@ -34,7 +36,7 @@
 	<div class="bd"></div>
 	<div class="main">
 		<div class="main-top">用户登录</div>
-		<form action="" method="post">
+		<form action="${pageContext.request.contextPath }/user_login.action" method="post">
 		<div class="login-box">
 			<div class="tip" id="wrong_info"></div>
 			<div class="login-item">

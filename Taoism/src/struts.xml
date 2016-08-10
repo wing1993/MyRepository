@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-
-</struts>    
+	<package name="user_action" namespace="/" extends="struts-default">
+	
+		<action name="user_login" class="userAction" method="login">
+			<result name="error" type="dispatcher">test.jsp</result>
+			<result name="success" type="dispatcher">test.jsp</result>
+		</action>
+		<action name="user_registry" class="userAction" method="registry">
+			<result name="success" type="dispatcher">/user/pages/register.jsp</result>
+		</action>
+	</package>
+</struts>

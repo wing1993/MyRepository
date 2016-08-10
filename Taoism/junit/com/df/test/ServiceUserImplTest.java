@@ -19,9 +19,9 @@ import com.df.service.iservice.IUserService;
 public class ServiceUserImplTest {
 	
 
-	private IUserService ias;
+	private IUserService ius;
 	{
-		ias = (IUserService) new ClassPathXmlApplicationContext("applicationContext.xml")
+		ius = (IUserService) new ClassPathXmlApplicationContext("applicationContext.xml")
 				.getBean("userService");
 	}
 
@@ -34,9 +34,9 @@ public class ServiceUserImplTest {
 	public void testSave() {
 		User user = new User("r","001","学员","女","广东汕头","18318743492","849306235@qq.com");
 		user.setUserId(4);
-		System.out.println(ias.save(user));
+		System.out.println(ius.save(user));
 		user.setUserId(100);
-		System.out.println(ias.save(user));
+		System.out.println(ius.save(user));
 	}
 
 	@Test
