@@ -14,6 +14,7 @@
 	<!-- 1-使用属性文件配置数据源 -->
 	<!-- 1.1-导入属性文件 -->
 	<context:property-placeholder location="classpath:db.properties" />
+	
 	<!-- 1.2-设置数据源对象,此时hibernate.cfg.xml文档中的相关配置可以取消掉，只保留与Hibernate框架相关的配置 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="${jdbc.driverClass}"></property>

@@ -36,7 +36,7 @@
 	<div class="bd"></div>
 	<div class="main">
 		<div class="main-top">用户登录</div>
-		<form action="${pageContext.request.contextPath }/user_login.action" method="post">
+		<form action="${pageContext.request.contextPath }/user_login1.action" method="post">
 		<div class="login-box">
 			<div class="tip" id="wrong_info"></div>
 			<div class="login-item">

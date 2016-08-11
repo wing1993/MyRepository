@@ -10,5 +10,9 @@
 		<action name="user_registry" class="userAction" method="registry">
 			<result name="success" type="dispatcher">/user/pages/login.jsp</result>
 		</action>
+		<action name="user_login1" class="a" method="login">
+			<result name="error" type="dispatcher">test.jsp</result>
+			<result name="success" type="dispatcher">test.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -1,9 +1,9 @@
 package com.df.action.user;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,12 @@ import com.opensymphony.xwork2.ModelDriven;
 @Scope("prototype")
 public class UserAction implements Serializable, ModelDriven<User>, RequestAware {
 	
-	private static final long serialVersionUID = 1L;
-	
-	@Autowired
+	/*@Autowired
 	@Qualifier("userService")
+	private IUserService userService;*/
+	@Resource(name="userService")
 	private IUserService userService;
+	private static final long serialVersionUID = 1L;
 	
 	private int sumPage;     //总页数
 	private int currentPage; //当前页
@@ -39,6 +40,34 @@ public class UserAction implements Serializable, ModelDriven<User>, RequestAware
 		
 	}
 	
+	
+	public int getSumPage() {
+		return sumPage;
+	}
+
+	public void setSumPage(int sumPage) {
+		this.sumPage = sumPage;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+
+	public IUserService getUserService() {
+		return userService;
+	}
+
+
+	public void setUserService(IUserService userService) {
+		this.userService = userService;
+	}
+
+
 	// 1-取值（自动取值，自动类型转换，自动封装成对象供方法使用 --ModelDriven接口 ）
 	private User user;
 	{
@@ -66,8 +95,6 @@ public class UserAction implements Serializable, ModelDriven<User>, RequestAware
 	
 	
 	public String login() {
-		System.out.println("------");
-		User user = new User(this.user.getUsername(),this.user.getPassword());
 		String msg = userService.login(user);
 		requestMap.put("user", user);
 		return msg;
