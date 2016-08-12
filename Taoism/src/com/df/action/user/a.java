@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.df.dao.pojo.User;
+import com.df.service.impl.UserServiceImpl;
 import com.df.service.iservice.IUserService;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -53,7 +54,7 @@ public class a implements Serializable, ModelDriven<User>, RequestAware {
 		this.requestMap = requestMap;
 	}
 	public String login(){
-		
+		System.out.println(userService+"------1312222223131");
 		String msg = userService.login(user);
 		
 		return msg;

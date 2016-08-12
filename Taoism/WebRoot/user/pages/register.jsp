@@ -21,7 +21,7 @@
 					<tr>
 						<td>注册类型：</td>
 						<td>
-							<select name="user_type" id="user_type" onchange="user_type_change()">
+							<select name="userType" id="user_type" onchange="user_type_change()">
 								<option value="普通">普通</option>
 								<option value="学员">学员</option>
 								<option value="弟子">弟子</option>
@@ -31,7 +31,7 @@
 					<tr>
 						<td>性别：</td>
 						<td>
-							<select name="sex">
+							<select name="gender">
 								<option>男</option>
 								<option>女</option>
 							</select>
@@ -40,8 +40,8 @@
 					<tr>
 						<td>居住城市：</td>
 						<td>
-							<select placeholder="请选择省份" id="selProvince" onchange="provinceChange();" name=""></select>
-							<select id="selCity" name=""></select>
+							<select placeholder="请选择省份" id="selProvince" onchange="provinceChange();" name="city"></select>
+							<select id="selCity" name="con2"></select>
 							<span class="tip">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请如实填写所您居住的城市名称，方便就近沟通</span>
 						</td>
 					</tr>

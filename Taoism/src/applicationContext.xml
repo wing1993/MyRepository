@@ -10,6 +10,7 @@
 	
 
 	<!-- 配置Spring IOC容器的自动扫描功能，使用注解方式进行开发 -->
+	<context:annotation-config />
 	<context:component-scan base-package="com.df" />
 	<!-- 1-使用属性文件配置数据源 -->
 	<!-- 1.1-导入属性文件 -->

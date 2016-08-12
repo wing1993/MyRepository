@@ -22,26 +22,33 @@ import com.opensymphony.xwork2.ModelDriven;
 @Scope("prototype")
 public class UserAction implements Serializable, ModelDriven<User>, RequestAware {
 	
-	/*@Autowired
-	@Qualifier("userService")
-	private IUserService userService;*/
-	@Resource(name="userService")
-	private IUserService userService;
 	private static final long serialVersionUID = 1L;
 	
-	private int sumPage;     //总页数
-	private int currentPage; //当前页
+	@Autowired
+	@Qualifier("userService")
+	private IUserService userService;
+
+	// 1-取值（自动取值，自动类型转换，自动封装成对象供方法使用 --ModelDriven接口 ）
+	private User user;
 	//使用值栈中的Map栈
 	private Map<String , Object> requestMap;
+/*	private int sumPage;     //总页数
+	private int currentPage; //当前页
+*/	
 	
 	@Override
 	public void setRequest(Map<String, Object> arg0) {
 		requestMap = arg0;
 		
 	}
+
+	@Override
+	public User getModel() {
+		user = new User();
+		return user;
+	}
 	
-	
-	public int getSumPage() {
+	/*public int getSumPage() {
 		return sumPage;
 	}
 
@@ -55,7 +62,7 @@ public class UserAction implements Serializable, ModelDriven<User>, RequestAware
 
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
-	}
+	}*/
 
 
 	public IUserService getUserService() {
@@ -67,17 +74,13 @@ public class UserAction implements Serializable, ModelDriven<User>, RequestAware
 		this.userService = userService;
 	}
 
-
-	// 1-取值（自动取值，自动类型转换，自动封装成对象供方法使用 --ModelDriven接口 ）
-	private User user;
-	{
-		System.out.println(user.getUsername()+"------"+user.getPassword());
+	public Map<String, Object> getRequestMap() {
+		return requestMap;
 	}
-	@Override
-	public User getModel() {
-		user = new User();
-		return user;
+	public void setRequestMap(Map<String, Object> requestMap) {
+		this.requestMap = requestMap;
 	}
+	
 	
 	//2-处理
 	public String save(){
@@ -95,8 +98,9 @@ public class UserAction implements Serializable, ModelDriven<User>, RequestAware
 	
 	
 	public String login() {
+		System.out.println(userService+"---1212121111111");
 		String msg = userService.login(user);
-		requestMap.put("user", user);
+		/*requestMap.put("user", user);*/
 		return msg;
 	}
 
