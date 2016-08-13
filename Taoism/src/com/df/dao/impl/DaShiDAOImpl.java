@@ -70,7 +70,7 @@ public class DaShiDAOImpl implements IDaShiDAO {
 	@Override
 	public List<String> findDaShiLoc() throws Exception {
 		List<String> locList=null;
-		String hql="select distinct city from User where user_type=? and state=1";
+		String hql="select distinct con2 from User where user_type=? and state=1";
 		Query query=sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, "弟子");
 		locList=query.list();
@@ -81,7 +81,7 @@ public class DaShiDAOImpl implements IDaShiDAO {
 	@Override
 	public List<User> findDaShiByLoc(String loc) throws Exception {
 		List<User> dashiList=null;
-		String hql="from User where user_type=? and state=1 and city=?";
+		String hql="from User where user_type=? and state=1 and con2=?";
 		Query query=sessionFactory.getCurrentSession().createQuery(hql);
 		query.setString(0, "弟子");
 		query.setString(1,loc);

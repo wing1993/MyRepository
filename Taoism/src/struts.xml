@@ -14,5 +14,14 @@
 			<result name="error" type="dispatcher">test.jsp</result>
 			<result name="success" type="dispatcher">test.jsp</result>
 		</action>
+		<action name="dashi_load" class="dashiAction" method="load">
+			<result name="dashiList" type="dispatcher">/user/pages/index.jsp</result>
+		</action>
+		
 	</package>
+	<package name="dashi_action" namespace="/" extends="json-default">
+        <action name="dashi_findDashi" class="dashiAction">
+			<result name="dashiList" type="json"></result>
+		</action>
+    </package>
 </struts>

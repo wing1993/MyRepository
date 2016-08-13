@@ -1,12 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>老先生答疑</title>
-	<link rel="stylesheet" type="text/css" href="../css/index.css">
-	<script type="text/javascript" src="../../js/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/index.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/index.js"></script>
 	<script type="text/javascript">
 		
 	</script>
@@ -16,8 +17,8 @@
 	<div class="main">
 		<div class="head">
 			<div class="unlogin">
-				<span><a href="login.jsp">登录</a></span>&nbsp;&nbsp;|&nbsp;
-				<span><a href="register.jsp">注册</a></span>
+				<span><a href="${pageContext.request.contextPath }/user/pages/login.jsp">登录</a></span>&nbsp;&nbsp;|&nbsp;
+				<span><a href="${pageContext.request.contextPath }/user/pages/register.jsp">注册</a></span>
 			</div>
 			<div class="logined" style="display:none;">
 				Hi,<span id="username"></span>
@@ -27,7 +28,7 @@
 		</div>
 		<div class="wrap">
 			<div class="top">
-				<img src="../../images/home.png">&nbsp;&nbsp;
+				<img src="${pageContext.request.contextPath }/images/home.png">&nbsp;&nbsp;
 				<div class="top-box">
 					<a href="#" class="first-page">首页</a>&nbsp;&nbsp;>&nbsp;&nbsp;<span>老先生答疑</span>
 				</div>
@@ -45,68 +46,40 @@
 			<div class="master">
 				<div class="boss-title">大师团队<div class="fold_open" onclick="Fold_Open(this)" title="折叠">-</div></div>
 				<div class="master-box">
-					<ul class="location">
+					<!-- <ul class="location">
 						<li><a href="#">所有地区</a></li>
 						<li><a href="#">辽宁</a></li>
 						<li><a href="#">北京</a></li>
 						<li><a href="#">天津</a></li>
+					</ul> -->
+					<ul class="location">
+						<li><a href="javascript:void(0);" onclick="findDashi(this)">所有地区</a></li>
+						<c:forEach items="${loc}" var="locs">
+						<li><a href="javascript:void(0);" onclick="findDashi(this)">${locs }</a></li>
+						</c:forEach>
 					</ul>
 					<div class="master-sub-box">
 						<span class="ico-left">‹</span>
-						<div class="master-w">					
+						<div class="master-w">	
+						<c:forEach items="${dashis }" var="dashis">
 							<div class="master-data">
-								<div class="picture"><img src="../../images/1.jpg"></div>
-								<div class="master-detail">法号：<label class="dashi_name">hi</label></div>
-								<div class="master-detail">现居城市：<label class="now_city"></label></div>
-								<div class="master-detail" id="detail1">
-									<a href="ask_question.jsp" target="_blank" class="ask">我要提问</a>
+								<div class="picture"><img src="${pageContext.request.contextPath }/${dashis.picture}" onclick="showDetail(this)"></div>
+								<div class="master-detail">法号：<label class="dashi_name">${dashis.username }</label></div>
+								<div class="master-detail">现居城市：<label class="now_city">${dashis.con2 }${dashis.city }</label></div>
+								<div class="master-detail">
+									<a href="${pageContext.request.contextPath }/user/pages/ask_question.jsp" target="_blank" class="ask">我要提问</a>
 								</div>
+								<input type="hidden" value="${dashis.gender }" class="h_gender">
+								<input type="hidden" value="${dashis.birthday }" class="h_birth">
+								<input type="hidden" value="${dashis.phone }" class="h_phone">
+								<input type="hidden" value="${dashis.qq }" class="h_qq">								
+								<input type="hidden" value="${dashis.mail }" class="h_mail">								
+								<input type="hidden" value="${dashis.weixin }" class="h_weixin">								
+								<input type="hidden" value="${dashis.introduce }" class="h_introduce">								
 							</div>
-							<div class="master-data">
-								<div class="picture"><img src="../../images/register_bmg.jpg"></div>
-								<div class="master-detail">法号：<label class="dashi_name"></label></div>
-								<div class="master-detail">现居城市：<label class="now_city"></label></div>
-								<div class="master-detail" id="detail1"><a href="ask_question.jsp" target="_blank" class="ask">我要提问</a></div>
-							</div>
-							<div class="master-data">
-								<div class="picture"><img src="../../images/2.jpg"></div>
-								<div class="master-detail">法号：<label class="dashi_name"></label></div>
-								<div class="master-detail">现居城市：<label class="now_city"></label></div>
-								<div class="master-detail" id="detail1"><a href="ask_question.jsp" target="_blank" class="ask">我要提问</a></div>
-							</div>
-							<div class="master-data">
-								<div class="picture"><img src="../../images/3.jpg"></div>
-								<div class="master-detail">法号：<label class="dashi_name"></label></div>
-								<div class="master-detail">现居城市：<label class="now_city"></label></div>
-								<div class="master-detail" id="detail1"><a href="ask_question.jsp" target="_blank" class="ask">我要提问</a></div>
-							</div>
-							<div class="master-data">
-								<div class="picture"><img src="../../images/home.png"></div>
-								<div class="master-detail">法号：<label class="dashi_name"></label></div>
-								<div class="master-detail">现居城市：<label class="now_city"></label></div>
-								<div class="master-detail" id="detail1"><a href="ask_question.jsp" target="_blank" class="ask">我要提问</a></div>
-							</div>
-							<div class="master-data">
-								<div class="picture"><img src="../../images/register_bmg.jpg"></div>
-								<div class="master-detail">法号：<label class="dashi_name"></label></div>
-								<div class="master-detail">现居城市：<label class="now_city"></label></div>
-								<div class="master-detail" id="detail1"><a href="ask_question.jsp" target="_blank" class="ask">我要提问</a></div>
-							</div>
-							<div class="master-data">
-								<div class="picture"><img src="../../images/1.jpg"></div>
-								<div class="master-detail">法号：<label class="dashi_name"></label></div>
-								<div class="master-detail">现居城市：<label class="now_city"></label></div>
-								<div class="master-detail" id="detail1"><a href="ask_question.jsp" target="_blank" class="ask">我要提问</a></div>
-							</div>
-							<div class="master-data">
-								<div class="picture"><img src="../../images/1.jpg"></div>
-								<div class="master-detail">法号：<label class="dashi_name"></label></div>
-								<div class="master-detail">现居城市：<label class="now_city"></label></div>
-								<div class="master-detail" id="detail1"><a href="ask_question.jsp" target="_blank" class="ask">我要提问</a></div>
-							</div>
+						</c:forEach>
 						</div>	
-						<span class="sico ico-right">›</span>
-											
+						<span class="sico ico-right">›</span>										
 					</div>
 				</div>
 			</div>
@@ -118,7 +91,7 @@
 						<li><select class="qz_list"><option>问题列表区</option></select></li>
 						<!--问题分类初始化绑定，可由后台添加-->
 						<li><select class="qz_type"><option>问题分类</option></select></li>
-						<li><a href="post.jsp" class="ask" target="_blank">发帖</a></li>
+						<li><a href="${pageContext.request.contextPath }/user/pages/post.jsp" class="ask" target="_blank">发帖</a></li>
 						<li style="float:right !important;margin-right:30px;">
 							<input type="text" id="search_value">
 							<input type="button" value="搜索" id="search">
@@ -158,11 +131,11 @@
 		<div class="po-close" title="关闭"><div class="close-ico"></div></div>
 		<div class="popover-head">大师简介</div>
 		<div style="width:100%;height:172px;">
-			<div class="po-pic-box"></div>
+			<div class="po-pic-box"><img src="" style="width:100%;height:100%;"></div>
 			<!--detail中span的text来自所点击的master-data中hidden元素的值-->
 			<div class="po-detail">
 				<div class="po-sub-de">
-					法号：<span class="dashi_name"></span>性别：<span class="gender"></span>
+					法号：<span class="hdashi_name"></span>性别：<span class="gender"></span>
 				</div>
 				<div class="po-sub-de">
 					现居城市：<span class="living_city"></span>出生年份：<span class="birthday"></span>
@@ -171,16 +144,18 @@
 					手机：<span class="phone"></span>QQ：<span class="qq"></span>
 				</div>
 				<div class="po-sub-de">
-					邮箱：<span class="mail"></span>微信：<span class="weixin"></span>
+					邮箱：<span class="mail"></span>
 				</div>
 				<div class="po-sub-de">
-					地址：<span class="address"></span>
+					微信：<span class="weixin"></span>
 				</div>
 			</div>
 		</div>
 		<div style="width:90%;margin-bottom:6px;text-align:left;">个人简介</div>
 		<div class="po-introduce"></div><!--个人简介-->
-		<div style="width：100%;text-align:center;margin-top:15px;"><a href="ask_question.jsp" target="_blank" class="ask">我要提问</a></div>
+		<div style="width：100%;text-align:center;margin-top:15px;">
+			<a href="${pageContext.request.contextPath }/user/pages/ask_question.jsp" target="_blank" class="ask">我要提问</a>
+		</div>
 	</div>
 </body>
 </html>

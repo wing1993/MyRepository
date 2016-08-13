@@ -1,10 +1,9 @@
 package com.df.action.user;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Resource;
-
 import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,9 +33,15 @@ public class DaShiAction implements ModelDriven<User>, RequestAware {
 	// 1-取值（自动取值，自动类型转换，自动封装成对象供方法使用 --ModelDriven接口 ）
 	private User user;
 	{
-		System.out.println(user.getUsername()+"------"+user.getPassword());
+		//System.out.println(user.getUsername()+"------"+user.getPassword());
 	}
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	@Override
 	public User getModel() {
 		user = new User();
@@ -46,10 +51,29 @@ public class DaShiAction implements ModelDriven<User>, RequestAware {
 		this.user = user;
 	}
 	
+	private List<User> dashis;
+	
+	public List<User> getDashis() {
+		return dashis;
+	}
+	
+	//初始化页面
 	public String load(){
 		List<String> locs=dashiService.findDaShiLoc();
 		requestMap.put("loc", locs);
-		System.out.println(requestMap.toString());
-		return "success";
+		//System.out.println(requestMap.toString());
+		return this.findAll();
+	}
+	
+	public String findAll(){
+		dashis=dashiService.findAll();
+		requestMap.put("dashis", dashis);
+		return "dashiList";
+	}
+	
+	public String findByLoc(){
+		//System.out.println(user.getCon2());要加入user的set和get方法
+		dashis=dashiService.findDaShiByLoc(user.getCon2());
+		return "dashiList";
 	}
 }

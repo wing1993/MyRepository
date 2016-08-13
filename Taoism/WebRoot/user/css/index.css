@@ -147,8 +147,9 @@ body{
 .picture img{width:100%;height:100%;}
 .master-detail{
 	padding:5px 0 5px 0;
+	text-align:center;
 }
-#detail1{text-align:center;}
+.master-data .master-detail:nth-of-child(3){text-align:center;}
 input[type=button],.ask{
 	cursor:pointer;
 	padding:6px;

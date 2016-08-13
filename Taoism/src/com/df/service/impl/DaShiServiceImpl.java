@@ -39,10 +39,19 @@ public class DaShiServiceImpl implements IDaShiService {
 		return null;
 	}
 
+	/**
+	 * 查找所有地区的大师
+	 */
+	@Transactional
 	@Override
 	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> dashis=null;
+		try {
+			dashis=dashiDao.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dashis;
 	}
 
 	@Override
