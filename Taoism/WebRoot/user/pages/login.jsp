@@ -6,6 +6,7 @@
 	<title>用户登录</title>
 	<link rel="stylesheet" type="text/css" href="../css/login.css">
 	<script type="text/javascript" src="../../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery.form.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$("#login_btn").click(function(){
@@ -23,6 +24,21 @@
 					$("#wrong_info").text("请输入验证码");
 				}else {
 					$("form").submit();
+					/* var obj={
+							url:'user_login.action',
+							type:'post',
+							success:function(str){
+								
+								if(str=="error"){
+								alert("注册失败,用户名重复！");
+								window.location.href="register.jsp";
+								}else{
+									alert("注册成功！");
+									
+								}
+							}
+						};
+					$("#form").ajaxSubmit(obj); */
 				}
 			});
 		});

@@ -1,5 +1,6 @@
 package com.df.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,6 +143,18 @@ public class UserServiceImpl implements IUserService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Transactional
+	@Override
+	public List<User> findByUsername(User user) {
+		List<User> users = new ArrayList<User>();
+		try {
+			users = userDao.findByUsername(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 
 }

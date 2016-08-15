@@ -1,6 +1,7 @@
 package com.df.action.user;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -51,15 +52,12 @@ public class UserAction implements Serializable, ModelDriven<User>, RequestAware
 	/*public int getSumPage() {
 		return sumPage;
 	}
-
 	public void setSumPage(int sumPage) {
 		this.sumPage = sumPage;
 	}
-
 	public int getCurrentPage() {
 		return currentPage;
 	}
-
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}*/
@@ -98,16 +96,16 @@ public class UserAction implements Serializable, ModelDriven<User>, RequestAware
 	
 	
 	public String login() {
-		System.out.println(userService+"---1212121111111");
 		String msg = userService.login(user);
-		/*requestMap.put("user", user);*/
+		List<User> users = userService.findByUsername(user);
+		requestMap.put("UsersfromActions", users);
 		return msg;
 	}
 
 	public String registry() {
 		System.out.println("------");
 		String msg = userService.registry(user);
-		//requestMap.put("user", user);
+		requestMap.put("User", user);
 		return msg;
 	}
 }

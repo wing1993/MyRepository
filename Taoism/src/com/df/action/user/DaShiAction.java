@@ -1,9 +1,8 @@
 package com.df.action.user;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -61,6 +60,7 @@ public class DaShiAction implements ModelDriven<User>, RequestAware {
 	public String load(){
 		List<String> locs=dashiService.findDaShiLoc();
 		requestMap.put("loc", locs);
+		/*String str=new UserAction().login();*/
 		//System.out.println(requestMap.toString());
 		return this.findAll();
 	}

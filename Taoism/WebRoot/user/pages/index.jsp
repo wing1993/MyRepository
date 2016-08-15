@@ -16,15 +16,21 @@
 	<div class="bd"></div>
 	<div class="main">
 		<div class="head">
+		<c:choose>
+			<c:when test="${requestScope.user==null }">
 			<div class="unlogin">
 				<span><a href="${pageContext.request.contextPath }/user/pages/login.jsp">登录</a></span>&nbsp;&nbsp;|&nbsp;
 				<span><a href="${pageContext.request.contextPath }/user/pages/register.jsp">注册</a></span>
 			</div>
-			<div class="logined" style="display:none;">
-				Hi,<span id="username"></span>
-				<span><a href="edit.jsp">修改个人资料</a></span>&nbsp;&nbsp;|&nbsp;
+			</c:when>
+			<c:otherwise>
+			<div class="logined">
+				Hi,<span id="username">${user.username }</span>
+				<span><a href="${pageContext.request.contextPath }/edit.jsp">修改个人资料</a></span>&nbsp;&nbsp;|&nbsp;
 				<span><a href="#">退出</a></span>
 			</div>
+			</c:otherwise>
+		</c:choose>			
 		</div>
 		<div class="wrap">
 			<div class="top">

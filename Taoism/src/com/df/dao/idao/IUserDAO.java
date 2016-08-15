@@ -1,5 +1,7 @@
 package com.df.dao.idao;
 
+import java.util.List;
+
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.User;
 
@@ -44,4 +46,12 @@ public interface IUserDAO extends IBaseHibernateDAO<User, Integer> {
 	 * @throws Exception
 	 */
 	void changeUserType(User user)  throws Exception;
+	
+	/**
+	 * 通过用户登录的用户名获取用户信息
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */  
+	public List<User> findByUsername (User user) throws Exception;
 }

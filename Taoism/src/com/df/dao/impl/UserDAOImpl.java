@@ -40,7 +40,6 @@ public class UserDAOImpl  implements IUserDAO  {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAll() throws Exception{
-		System.out.println("1111111111111111111");
 		
 		List<User> userList = new ArrayList<User>();
 		userList = sessionFactory.getCurrentSession().createQuery(
@@ -147,6 +146,17 @@ public class UserDAOImpl  implements IUserDAO  {
 		sessionFactory.getCurrentSession().update(user);
 	
 		
+	}  
+	@Override
+	public List<User> findByUsername(User user) throws Exception {
+		user = (User)sessionFactory.getCurrentSession().createQuery(
+				"from User u where u.username=? and u.password=? and u.state=1")
+				.setString(0, user.getUsername())
+				.setString(1, user.getPassword())
+				.uniqueResult();
+		List<User> users = new ArrayList<User>();
+		users.add(user);
+		return users;
 	}
 	
 }

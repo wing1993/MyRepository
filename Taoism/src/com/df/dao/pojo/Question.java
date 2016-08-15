@@ -45,10 +45,11 @@ public class Question  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public Question(String username, String QTime, String QTypeName, String QTitle, String QContent, Integer state, String sharezone, Integer shareState) {
+    public Question(String username, String QTime, String QTypeName, String askWho, String QTitle, String QContent, Integer state, String sharezone, Integer shareState) {
         this.username = username;
         this.QTime = QTime;
         this.QTypeName = QTypeName;
+        this.askWho = askWho;
         this.QTitle = QTitle;
         this.QContent = QContent;
         this.state = state;

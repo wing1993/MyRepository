@@ -1,5 +1,7 @@
 package com.df.service.iservice;
 
+import java.util.List;
+
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.User;
 
@@ -35,5 +37,7 @@ public interface IUserService extends IBaseService<User, Integer> {
 	QueryResult findNeedExamine(Integer k1,Integer k2);
 	
 	String changeUserType (User user);
+	
+	List<User> findByUsername (User user);  
 
 }
