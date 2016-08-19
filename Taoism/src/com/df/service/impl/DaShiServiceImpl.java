@@ -17,7 +17,7 @@ public class DaShiServiceImpl implements IDaShiService {
 	@Autowired
 	@Qualifier("dashiDao")
 	private IDaShiDAO dashiDao;
-	
+
 	@Transactional
 	@Override
 	public String save(User t) {
@@ -39,15 +39,12 @@ public class DaShiServiceImpl implements IDaShiService {
 		return null;
 	}
 
-	/**
-	 * 查找所有地区的大师
-	 */
 	@Transactional
 	@Override
 	public List<User> findAll() {
-		List<User> dashis=null;
+		List<User> dashis = null;
 		try {
-			dashis=dashiDao.findAll();
+			dashis = dashiDao.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,9 +66,9 @@ public class DaShiServiceImpl implements IDaShiService {
 	@Transactional
 	@Override
 	public List<String> findDaShiLoc() {
-		List<String> locs=null;
+		List<String> locs = null;
 		try {
-			locs=dashiDao.findDaShiLoc();
+			locs = dashiDao.findDaShiLoc();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,14 +77,29 @@ public class DaShiServiceImpl implements IDaShiService {
 
 	@Transactional
 	@Override
-	public List<User> findDaShiByLoc(String loc) {
-		List<User> ds=null;
+	public List<User> findDaShiByLoc(String loc, String self) {
+		List<User> ds = null;
 		try {
-			ds=dashiDao.findDaShiByLoc(loc);
+			ds = dashiDao.findDaShiByLoc(loc, self);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ds;
+	}
+
+	/**
+	 * 查找所有地区的大师
+	 */
+	@Transactional
+	@Override
+	public List<User> findAllDaShi(String self) {
+		List<User> dashis = null;
+		try {
+			dashis = dashiDao.findAllDaShi(self);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dashis;
 	}
 
 }

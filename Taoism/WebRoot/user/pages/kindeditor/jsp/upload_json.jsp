@@ -16,10 +16,10 @@
  */
 
 //文件保存目录路径
-String savePath = pageContext.getServletContext().getRealPath("/") + "kindeditor/attached/";
+String savePath = pageContext.getServletContext().getRealPath("/") + "user/pages/kindeditor/attached/";
 
 //文件保存目录URL
-String saveUrl  = request.getContextPath() + "/kindeditor/attached/";
+String saveUrl  = request.getContextPath() + "/user/pages/kindeditor/attached/";
 
 //定义允许上传的文件扩展名
 HashMap<String, String> extMap = new HashMap<String, String>();

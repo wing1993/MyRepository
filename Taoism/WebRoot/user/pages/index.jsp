@@ -9,7 +9,16 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/index.js"></script>
 	<script type="text/javascript">
-		
+		function ask_pa(obj){
+			checkLogin(obj,$('.hdashi_name').text());
+		}
+		function checkLogin(obj,dashi){
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能向大师提问");
+			}else{			
+				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions[0].username }&askWho="+dashi);
+			}
+		}
 	</script>
 </head>
 <body>
@@ -17,7 +26,7 @@
 	<div class="main">
 		<div class="head">
 		<c:choose>
-			<c:when test="${requestScope.user==null }">
+			<c:when test="${sessionScope.UsersfromActions==null }">
 			<div class="unlogin">
 				<span><a href="${pageContext.request.contextPath }/user/pages/login.jsp">登录</a></span>&nbsp;&nbsp;|&nbsp;
 				<span><a href="${pageContext.request.contextPath }/user/pages/register.jsp">注册</a></span>
@@ -25,8 +34,8 @@
 			</c:when>
 			<c:otherwise>
 			<div class="logined">
-				Hi,<span id="username">${user.username }</span>
-				<span><a href="${pageContext.request.contextPath }/edit.jsp">修改个人资料</a></span>&nbsp;&nbsp;|&nbsp;
+				Hi,<span id="username">${sessionScope.UsersfromActions[0].username }</span>
+				<span><a href="${pageContext.request.contextPath }/user/pages/edit.jsp">修改个人资料</a></span>&nbsp;&nbsp;|&nbsp;
 				<span><a href="#">退出</a></span>
 			</div>
 			</c:otherwise>
@@ -73,7 +82,7 @@
 								<div class="master-detail">法号：<label class="dashi_name">${dashis.username }</label></div>
 								<div class="master-detail">现居城市：<label class="now_city">${dashis.con2 }${dashis.city }</label></div>
 								<div class="master-detail">
-									<a href="${pageContext.request.contextPath }/user/pages/ask_question.jsp" target="_blank" class="ask">我要提问</a>
+									<a href="javascript:void(0);" target="_blank" class="ask" onclick="checkLogin(this,$(this).parent().prev().prev().children('.dashi_name').text())">我要提问</a>
 								</div>
 								<input type="hidden" value="${dashis.gender }" class="h_gender">
 								<input type="hidden" value="${dashis.birthday }" class="h_birth">
@@ -94,9 +103,54 @@
 				<div class="qz-title">问题列表区</div>
 				<div class="qz-box">
 					<ul class="qz-list-ul">
-						<li><select class="qz_list"><option>问题列表区</option></select></li>
+						<li><select class="qz_list">
+							<c:if test="${sessionScope.UsersfromActions==null }">
+								<option value="公开区">公开区</option><option value="所有问题">所有问题</option>
+							</c:if>
+							<c:if test="${sessionScope.UsersfromActions[0].userType=='普通' }">
+								<option value="我的问题">我的问题</option>
+								<option value="公开区">公开区</option>
+								<option value="所有问题">所有问题</option>
+							</c:if>
+							<c:if test="${sessionScope.UsersfromActions[0].userType=='学员' }">
+								<option value="学员区">学员区</option>
+								<option value="所有问题">所有问题</option>
+								<option value="公开区">公开区</option>
+								<option value="我的问题">我的问题</option>
+							</c:if>
+							<c:if test="${sessionScope.UsersfromActions[0].userType=='弟子' }">
+								<option value="弟子区">弟子区</option>
+								<option value="所有问题">所有问题</option>
+								<option value="公开区">公开区</option>
+								<option value="我的问题">我的问题</option>
+								<option value="学员区">学员区</option>
+								<option value="答疑区">答疑区</option>
+							</c:if>
+							<c:if test="${sessionScope.UsersfromActions[0].userType=='老先生'}">
+								<option value="答疑区">答疑区</option>
+								<option value="学员区">学员区</option>
+								<option value="所有问题">所有问题</option>
+								<option value="公开区">公开区</option>
+								<option value="我的问题">我的问题</option>
+								<option value="弟子区">弟子区</option>
+							</c:if>
+						</select></li>
 						<!--问题分类初始化绑定，可由后台添加-->
-						<li><select class="qz_type"><option>问题分类</option></select></li>
+						<li><select class="qz_type">
+							<c:forEach items="${qtList }" var="qtList">
+								<option value="${qtList.QTypeName }">${qtList.QTypeName }</option>
+							</c:forEach>
+						</select></li>
+						<li><select class="deal_time">
+							<option value="今天">今天</option>
+							<option value="最近三天">最近三天</option>
+							<option value="最近七天">最近七天</option>
+							<option value="最近一个月">最近一个月</option>
+						</select></li>
+						<li><select class="state">
+							<option value="0">未回复</option>
+							<option value="1">已回复</option>
+						</select>
 						<li><a href="${pageContext.request.contextPath }/user/pages/post.jsp" class="ask" target="_blank">发帖</a></li>
 						<li style="float:right !important;margin-right:30px;">
 							<input type="text" id="search_value">
@@ -119,7 +173,16 @@
 						</thead>
 					</table>
 					<table class="qz-tb1" id="q_detail">
-						<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+						<tr>
+							<td class="icon-td" title="已回复">&#xe905;</td>
+							<td><a href="${pageContext.request.contextPath }/user/pages/q_detail.jsp" title="$(this)">××××××××××××</a></td>
+							<td>张三<br>2014-11-27</td>
+							<td>明全</td>
+							<td>明顺<br>2014-11-28</td>
+							<td>73</td>
+							<td>467</td>
+							<td>问事</td>
+						</tr>
 						<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					</table>
 					<div class="page-div">
@@ -160,8 +223,18 @@
 		<div style="width:90%;margin-bottom:6px;text-align:left;">个人简介</div>
 		<div class="po-introduce"></div><!--个人简介-->
 		<div style="width：100%;text-align:center;margin-top:15px;">
-			<a href="${pageContext.request.contextPath }/user/pages/ask_question.jsp" target="_blank" class="ask">我要提问</a>
+			<a href="javascript:;" target="_blank" class="ask" onclick="ask_pa(this)">我要提问</a>
 		</div>
+	</div>
+	<div class="r-box">
+		<div class="r-box-top">招生传法信息&nbsp;<span class="icon-r">&#xe91a;</span></div>
+		<div class="r-message"><a href="#">招生</a></div>
+		<div class="r-message"><a href="#">招生</a></div>
+		<div class="r-message"><a href="#">招生</a></div>
+		<div class="r-message"><a href="#">招生</a></div>
+		<div class="r-message"><a href="#">招生</a></div>
+		<div class="r-message"><a href="#">招生</a></div>
+		<div class="r-more"><a href="#">更多</a></div>
 	</div>
 </body>
 </html>

@@ -17,14 +17,17 @@ import com.df.service.iservice.IUserService;
 
 public class UserDAOImplTest {
 
-	/*@Autowired
-	@Qualifier("userDao")
-	private IUserDAO iud;*/
+	/*
+	 * @Autowired
+	 * 
+	 * @Qualifier("userDao") private IUserDAO iud;
+	 */
 	private IUserDAO iud;
 	{
-		iud = (IUserDAO) new ClassPathXmlApplicationContext("applicationContext.xml")
-				.getBean("userDao");
+		iud = (IUserDAO) new ClassPathXmlApplicationContext(
+				"applicationContext.xml").getBean("userDao");
 	}
+
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -32,7 +35,8 @@ public class UserDAOImplTest {
 	@Test
 	@Transactional
 	public void testSave() {
-		User user = new User("r","001","学员","男","广东汕头","18318743492","849306235@qq.com");
+		User user = new User("r", "001", "学员", "男", "广东汕头", "18318743492",
+				"849306235@qq.com");
 		try {
 			iud.save(user);
 		} catch (Exception e) {
@@ -48,7 +52,7 @@ public class UserDAOImplTest {
 
 	@Test
 	public void testFindAll() {
-		
+
 		System.out.println("2222222222222");
 		List<User> airs;
 		try {
@@ -60,7 +64,7 @@ public class UserDAOImplTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Test

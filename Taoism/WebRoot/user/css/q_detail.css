@@ -1,0 +1,99 @@
+html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
+.bd{
+	position:fixed;
+	z-index:-10;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-image:url(../../images/register_bmg1.jpg);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+.main{
+	width:900px;
+	margin:0 auto;
+	background:#fff;
+	border:1px solid #d0d0d0;
+	padding-bottom:20px;
+}
+.main-box{
+	padding:20px;
+	border-bottom:1px solid #bbbdbf;
+}
+.w-content-box{
+	border-bottom:1px solid #E1E4E6;
+	overflow:auto;/*解决float：left导致父元素高度无法自适应*/
+}
+.w-left{
+	float:left;
+	background:#FAFBFC;
+	width:150px;
+	text-align:center;
+}
+.respondent{
+	cursor:pointer;
+	
+}
+.ans-intro{
+	width:80px;
+	height:80px;
+	padding:3px;
+	border:1px solid #ccc; 
+	margin:20px auto;
+}
+.ans-intro img{width:80px;height:80px;border:0;}
+.w-right{
+	float:left;
+	background:#fff;
+	width:96%;
+	border-left:1px solid #E1E4E6;
+	padding:8px 15px 8px 15px;
+}
+.w-r-main{
+	min-height:100px;
+}
+.r-top{
+	height:30px;
+	line-height:30px;
+	text-align:right;
+}
+.r-time{color:#666;}
+.r-fold{
+	border:1px solid #f0f1f2;
+	cursor:pointer;
+	border-bottom:0;
+	text-align:center;
+	color:blue;
+	float:right;
+	padding:0 5px 0 5px;
+	background:#E7ECF5;
+}
+.sub-reply{
+	margin-left:50px;
+	border:1px solid #f0f1f2;
+	background:#E7ECF5;
+	margin-top:-1px;
+	padding:4px 15px 15px 15px;
+}
+.discuss{
+	padding-top:10px;
+}
+.answerer-img{
+	float:left;
+	width:32px;
+	height:32px;
+}
+.answerer-img img{
+	width:100%;
+	cursor:pointer;
+}
+.ans-content{
+	padding:10px;
+	font-size:14px;
+	line-height:20px;
+	word-wrap:break-word;
+}
+.ans-content a{text-decoration:none;color:blue;}
+.ans-co-bottom{text-align:right;}
+.ans-time{color:#666;}

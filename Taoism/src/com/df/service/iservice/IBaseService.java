@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.df.dao.pojo.QueryResult;
 
-public interface IBaseService<T,K> {
-	
+public interface IBaseService<T, K> {
 
 	String save(T t);
 
@@ -16,7 +15,7 @@ public interface IBaseService<T,K> {
 	List<T> findAll();
 
 	T getById(K k);
-	
-	QueryResult findAll(K k1,K k2);
+
+	QueryResult findAll(K k1, K k2);
 
 }

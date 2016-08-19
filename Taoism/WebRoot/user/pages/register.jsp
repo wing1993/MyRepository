@@ -6,7 +6,31 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/register.css">
 	<script type="text/javascript" src="../../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery.form.js"></script>
 	<script type="text/javascript" src="../js/register.js"></script>
+	<script type="text/javascript">
+		//注册
+		function sign_up(){
+			//检查所有的必填选项是否为空
+			if(check_null()){
+				//$("#register_form").submit();
+				var obj={
+						url:'${pageContext.request.contextPath }/imgFile_uploadFile.action',
+						type:'post',
+						//dataType : "json",
+						success:function(str){							
+							if(str=="success"){
+								alert("注册成功！");
+								window.location.href="login.jsp";
+							}else
+								alert("注册失败！");
+						}
+					};
+				$("form").ajaxSubmit(obj);
+			}
+			
+		}
+	</script>
 	<style type="text/css"></style>
 </head>
 <body>
@@ -14,9 +38,9 @@
 	<div class="main">
 		<div class="register_box">
 			<div class="top">
-				<span><a href="index.jsp">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="login.jsp">登录</a></span>
+				<span><a href="${pageContext.request.contextPath }/dashi_load.action">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="login.jsp">登录</a></span>
 			</div>
-			<form id="register_form" method="post" action="${pageContext.request.contextPath }/user_registry.action">
+			<form id="register_form" action="${pageContext.request.contextPath }/imgFile_uploadFile.action" method="post" enctype="multipart/form-data">
 				<table class="register_tb">
 					<tr>
 						<td>注册类型：</td>
@@ -40,8 +64,8 @@
 					<tr>
 						<td>居住城市：</td>
 						<td>
-							<select placeholder="请选择省份" id="selProvince" onchange="provinceChange();" name="city"></select>
-							<select id="selCity" name="con2"></select>
+							<select placeholder="请选择省份" id="selProvince" onchange="provinceChange();" name="con2"></select>
+							<select id="selCity" name="city"></select>
 							<span class="tip">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请如实填写所您居住的城市名称，方便就近沟通</span>
 						</td>
 					</tr>
@@ -109,10 +133,11 @@
 					<tr class="picture">
 						<td>照片：</td>
 						<td>
-							<input type="text" name="picture" id="picture" >
-							<!--不能使用button标签，因为使用表单提交？？-->
+							<input type="file" name="imgfile" id="picture" >
+							<!-- <input type="text" name="picture" id="picture" >
+							不能使用button标签，因为使用表单提交？？
 							<input type="button" onclick="path.click()" class="valid" value="浏览">
-							<input type="file" id="path" style="display:none;" onchange="picture.value=this.value">						
+							<input type="file" id="path" style="display:none;" onchange="picture.value=this.value"> -->						
 						</td>
 					</tr>
 					<tr>
@@ -140,7 +165,7 @@
 					</tr>
 				</table>
 				<div class="btn">
-					<input type="submit" value="注册" id="register" onclick="sign_up()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" value="注册" id="register" onclick="sign_up()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="reset" value="取消">
 				</div>
 			</form>

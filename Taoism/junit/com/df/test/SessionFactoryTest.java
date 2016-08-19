@@ -11,7 +11,8 @@ import com.df.dao.idao.IUserDAO;
 @Component
 public class SessionFactoryTest {
 
-		private IUserDAO iud;
+	private IUserDAO iud;
+
 	@Test
 	public void testgetSession() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(
@@ -19,8 +20,8 @@ public class SessionFactoryTest {
 		SessionFactory sessionFactory = (SessionFactory) ctx
 				.getBean("sessionFactory");
 		{
-			iud = (IUserDAO) new ClassPathXmlApplicationContext("applicationContext.xml")
-					.getBean("userDao");
+			iud = (IUserDAO) new ClassPathXmlApplicationContext(
+					"applicationContext.xml").getBean("userDao");
 		}
 		System.out.println(iud.toString());
 	}

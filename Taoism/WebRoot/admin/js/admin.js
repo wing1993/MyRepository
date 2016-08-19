@@ -1,6 +1,7 @@
 $(function(){
 	$(".left-item").click(function(){
 		$(this).next().slideToggle("slow");
+		//$(this).next().children("li").removeClass("selected");
 	});
 
 	$(".sub-item li").click(function(){

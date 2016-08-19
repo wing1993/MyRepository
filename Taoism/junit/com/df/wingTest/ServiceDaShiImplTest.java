@@ -13,7 +13,7 @@ import com.df.service.iservice.IDaShiService;
 public class ServiceDaShiImplTest {
 	private IDaShiService idashi;
 	{
-		idashi=(IDaShiService) new ClassPathXmlApplicationContext(
+		idashi = (IDaShiService) new ClassPathXmlApplicationContext(
 				"applicationContext.xml").getBean("dashiService");
 	}
 
@@ -49,13 +49,21 @@ public class ServiceDaShiImplTest {
 
 	@Test
 	public void testFindDaShiLoc() {
-		List<String> strs=idashi.findDaShiLoc();
+		List<String> strs = idashi.findDaShiLoc();
 		System.out.println(strs.toString());
 	}
 
 	@Test
 	public void testFindDaShiByLoc() {
-		System.out.println(idashi.findDaShiByLoc("汕头市"));
+		System.out.println(idashi.findDaShiByLoc("汕头市", "root"));
+	}
+
+	@Test
+	public void testFindAllDaShi() {
+		List<User> ulist = idashi.findAllDaShi("root");
+		for (User u : ulist) {
+			System.out.println(u.toString());
+		}
 	}
 
 }

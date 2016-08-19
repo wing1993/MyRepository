@@ -13,9 +13,10 @@ import com.df.dao.pojo.User;
 public class DaShiDAOImplTest {
 	private IDaShiDAO ids;
 	{
-		ids=(IDaShiDAO) new ClassPathXmlApplicationContext("applicationContext.xml")
-		.getBean("dashiDao");
+		ids = (IDaShiDAO) new ClassPathXmlApplicationContext(
+				"applicationContext.xml").getBean("dashiDao");
 	}
+
 	@Test
 	public void testGetSession() {
 		fail("Not yet implemented");
@@ -53,17 +54,17 @@ public class DaShiDAOImplTest {
 
 	@Test
 	public void testFindDaShiLoc() throws Exception {
-		
-		List<String> strs=ids.findDaShiLoc();
-/*		System.out.println(strs.toString());*/
-		for(String str:strs){
+
+		List<String> strs = ids.findDaShiLoc();
+		/* System.out.println(strs.toString()); */
+		for (String str : strs) {
 			System.out.println(str.toString());
 		}
 	}
 
 	@Test
 	public void testFindDaShiByLoc() throws Exception {
-		
+
 	}
 
 }

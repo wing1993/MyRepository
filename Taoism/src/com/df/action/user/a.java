@@ -14,13 +14,11 @@ import com.df.service.impl.UserServiceImpl;
 import com.df.service.iservice.IUserService;
 import com.opensymphony.xwork2.ModelDriven;
 
-
-
 @Controller("a")
 @Scope("prototype")
 public class a implements Serializable, ModelDriven<User>, RequestAware {
 	/**
-}
+	 * }
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -29,39 +27,40 @@ public class a implements Serializable, ModelDriven<User>, RequestAware {
 	@Qualifier("userService")
 	private IUserService userService;
 	private User user;
-	private Map<String , Object> requestMap;
+	private Map<String, Object> requestMap;
+
 	@Override
 	public void setRequest(Map<String, Object> arg0) {
 		requestMap = arg0;
 	}
+
 	@Override
 	public User getModel() {
 		user = new User();
 		return user;
 	}
-	
-	
+
 	public IUserService getUserService() {
 		return userService;
 	}
+
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
 	}
+
 	public Map<String, Object> getRequestMap() {
 		return requestMap;
 	}
+
 	public void setRequestMap(Map<String, Object> requestMap) {
 		this.requestMap = requestMap;
 	}
-	public String login(){
-		System.out.println(userService+"------1312222223131");
+
+	public String login() {
+		System.out.println(userService + "------1312222223131");
 		String msg = userService.login(user);
-		
+
 		return msg;
 	}
-	
-	
-	
-	
-	
+
 }

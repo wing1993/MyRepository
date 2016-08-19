@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<title>向大师提问</title>
 	<script type="text/javascript" src="../../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery.form.js"></script>
 	<script charset="utf-8" src="kindeditor/kindeditor-min.js"></script>
 	<script charset="utf-8" src="kindeditor/lang/zh_CN.js"></script>
 	<style type="text/css">
@@ -20,15 +21,16 @@
 		.tip{display:none;color:#f00000;}
 		.bd{width:100%;height:100%;position:fixed;z-index:-10;top:0;left:0;background-image:url(../../images/register_bmg1.jpg);
 			background-repeat:no-repeat;background-size:cover;}
+		#q_time{display:none;}
 	</style>
 	<!--引用插件-->
 	<script>
 		var editor;
 		KindEditor.ready(function(K) {
-			editor = K.create('textarea[name="content"]', {
-				cssPath : '../plugins/code/prettify.css',
-				uploadJson : '../jsp/upload_json.jsp',
-				fileManagerJson : '../jsp/file_manager_json.jsp',
+			editor = K.create('textarea[name="QContent"]', {
+				cssPath : 'kindeditor/plugins/code/prettify.css',
+				uploadJson : 'kindeditor/jsp/upload_json.jsp',
+				fileManagerJson : 'kindeditor/jsp/file_manager_json.jsp',
 				allowFileManager : true,
 				afterCreate : function() {
 					var self = this;
@@ -69,32 +71,68 @@
 				
 			}else{
 				$("textarea").next().css("display","none");
-				$("form").submit();
+				$("textarea").val(editor.html());
+				//$("form").submit();
+				var obj={
+						url:'${pageContext.request.contextPath }/ask_dashi.action',
+						type:'post',
+						success:function(str){						
+							if(str=="error"){
+								alert("提问失败");
+							}else{
+								alert("提问成功");
+								window.close();
+							}
+						}
+					};
+				$("form").ajaxSubmit(obj);
 			}
 		}
+		$(document).ready(function(){
+			var now=new Date();
+			var year=now.getFullYear();
+			var month=now.getMonth()+1;
+			var day=now.getDate();
+			var hour=now.getHours();
+			var minute=now.getMinutes();
+			var second=now.getSeconds();
+			var now_time=null;
+			if(month<10)
+				month="0"+month;
+			if(day<10)
+				day="0"+day;
+			now_time=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+
+			$("#QTime").val(now_time);
+			//alert($("#q_time").val());
+		});
 	</script>
 </head>
 <body>
 	<div class="bd"></div>
 	<div class="main">
 		<div class="title">向大师提问</div>
-		<form action="" method="post" name="example">
+		<form action="${pageContext.request.contextPath }/ask_dashi.action" method="post" name="example">
+			<input type="hidden" value="${param.username }" name="username">
+			<input type="hidden" value="${param.askWho }" name="askWho">
+			<input type="hidden" id="QTime" name="QTime">
+			<input type="hidden" id="state" name="state" value="0">
 			<table class="tb">
 				<tr>
 					<td>标题：</td>
 					<td>
-						<input type="text" id="q_title" onblur="disappear(this)" name="q_title">&nbsp;&nbsp;
+						<input type="text" id="q_title" onblur="disappear(this)" name="QTitle">&nbsp;&nbsp;
 						<span class="tip">请输入标题</span>
 					</td>
 				</tr>
 				<tr>
 					<td>问题类型：</td>
-					<td><select id="q_type" name="q_type"><option>问题类型</option></select></td>
+					<td><select id="q_type_name" name="QTypeName"><option>问题类型</option></select></td>
 				</tr>
 				<tr>
 					<td>内容：</td>
 					<td>
-						<textarea name="content" style="width:100%;height:300px;visibility:hidden;"></textarea>
+						<textarea name="QContent" style="width:100%;height:300px;visibility:hidden;"></textarea>
 						<div class="tip">请输入问题内容</div>
 					</td>
 				</tr>

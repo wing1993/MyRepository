@@ -13,15 +13,13 @@ import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.User;
 import com.df.service.iservice.IUserService;
 
-
-
 @Service("userService")
 public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	@Qualifier("userDao")
 	private IUserDAO userDao;
-	
+
 	@Transactional
 	@Override
 	public String save(User t) {
@@ -52,7 +50,7 @@ public class UserServiceImpl implements IUserService {
 		return null;
 	}
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	@Override
 	public List<User> findAll() {
 		List<User> users = null;
@@ -76,7 +74,7 @@ public class UserServiceImpl implements IUserService {
 	public QueryResult findAll(Integer k1, Integer k2) {
 		QueryResult query = null;
 		try {
-			query = userDao.findAll(k1,k2);
+			query = userDao.findAll(k1, k2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -111,7 +109,7 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public String examine(User user) {
-		
+
 		String msg = "error";
 		try {
 			userDao.examine(user);
@@ -127,7 +125,7 @@ public class UserServiceImpl implements IUserService {
 	public QueryResult findNeedExamine(Integer k1, Integer k2) {
 		QueryResult query = null;
 		try {
-			query = userDao.findNeedExamine(k1,k2);
+			query = userDao.findNeedExamine(k1, k2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

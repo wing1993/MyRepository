@@ -8,49 +8,48 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.df.dao.idao.IQuestionDAO;
+import com.df.dao.idao.IQuestionTypeDAO;
 import com.df.dao.pojo.QueryResult;
-import com.df.dao.pojo.Question;
-import com.df.service.iservice.IQuestionService;
+import com.df.dao.pojo.QuestionType;
+import com.df.service.iservice.IQuestionTypeService;
 
-@Service("questionService")
-public class QuestionServiceImpl implements IQuestionService {
+@Service("questionTypeService")
+public class QuestionTypeServiceImpl implements IQuestionTypeService {
 	@Autowired
-	@Qualifier("questionDao")
-	private IQuestionDAO questionDao;
+	@Qualifier("questionTypeDao")
+	private IQuestionTypeDAO questionTypeDao;
+	@Override
+	public String save(QuestionType t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String delete(QuestionType t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String update(QuestionType newObj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Transactional
 	@Override
-	public String save(Question t) {
-		String msg = "error";
+	public List<QuestionType> findAll() {
+		List<QuestionType> questionType=null;
 		try {
-			questionDao.save(t);
-			msg = "success";
+			questionType=questionTypeDao.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return questionType;
 	}
 
 	@Override
-	public String delete(Question t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String update(Question newObj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Question> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Question getById(Integer k) {
+	public QuestionType getById(Integer k) {
 		// TODO Auto-generated method stub
 		return null;
 	}

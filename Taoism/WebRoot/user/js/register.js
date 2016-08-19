@@ -318,17 +318,10 @@ $(function(){
 		$(".wrong_tip").hide();
 		$("#user_type").val("普通");
 		user_type_change();
-	})
+	});
 });
 
-//注册
-function sign_up(){
-	//检查所有的必填选项是否为空
-	if(check_null()){
-		$("#register_form").submit();
-	}
-	
-}
+
 
 //修改个人信息
 function edit(){

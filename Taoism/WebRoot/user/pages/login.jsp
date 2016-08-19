@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,29 +24,41 @@
 				}else if($("#valid_code").val()==""){
 					$("#wrong_info").text("请输入验证码");
 				}else {
-					$("form").submit();
-					/* var obj={
-							url:'user_login.action',
-							type:'post',
-							success:function(str){
-								
-								if(str=="error"){
-								alert("注册失败,用户名重复！");
-								window.location.href="register.jsp";
-								}else{
-									alert("注册成功！");
-									
-								}
-							}
-						};
-					$("#form").ajaxSubmit(obj); */
+					$.ajax({
+						cache: false,
+						async: false,
+						url:'${pageContext.request.contextPath }/vcode.action',
+						type:'post',
+						data:{valid_code:$("#valid_code").val()},
+						success:function(str){
+							if(str=="success"){
+								var obj={
+										url:'${pageContext.request.contextPath }/user_login.action',
+										type:'post',
+										//dataType : "json",
+										success:function(str){							
+											$("form").submit();							
+										},
+										error : function(data) {  
+								            $("#wrong_info").text("用户名或密码错误");  
+								        }
+									};
+								$("form").ajaxSubmit(obj);
+							}else{
+								$("#wrong_info").text("验证码错误");
+								$("#valid_code").select();
+							}}
+					});
 				}
 			});
 		});
 		
 
 		//点击验证码图案刷新
-		function change_code(){}
+		function change_code(){
+			$("#valid_img").attr("src",
+					"/Taoism/VerifyCodeServlet?a=" + new Date().getTime());
+		}
 	</script>
 </head>
 <body>
@@ -66,9 +79,9 @@
 			</div>
 			
 			<div class="login-item">
-				<input type="text" name="" id="valid_code" placeholder="验证码">
-				<img src="user.jpg" id="valid_img" title="点击刷新验证码" onclick="change_code()">
-			</div>
+				<input type="text" name="valid_code" id="valid_code" placeholder="验证码">
+				<img src="<c:url value='/VerifyCodeServlet'/>" id="valid_img" title="点击刷新验证码" onclick="change_code()">
+			</div>	
 			<input type="button" value="登录" id="login_btn">
 		</div>
 		<div class="bottom">

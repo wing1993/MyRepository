@@ -132,7 +132,7 @@
 				</table>
 				<div class="btn">
 					<a href="#" id="edit" onclick="edit()">提交</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="index.jsp">返回</a>
+					<a href="javascript:history.back()">返回</a>
 				</div>
 			</form>
 		</div>

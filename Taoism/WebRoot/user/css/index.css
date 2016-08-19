@@ -14,7 +14,7 @@ body{
 	background-size:cover;
 }
 .main{
-	width:1020px;
+	width:900px;
 	padding:30px;
 	margin:0 auto;
 	
@@ -119,7 +119,7 @@ body{
 	border:1px solid #d0d0d0;
 	position:relative;
 	overflow:hidden;
-	width:978px;
+	width:858px;
 	box-shadow:5px 5px 2px #d0d0d0;
 	border-radius:4px;
 	-moz-border-radius:4px;
@@ -133,7 +133,7 @@ body{
 }
 .master-data{
 	/* border:1px solid #000; */
-	padding-left:35px;
+	padding-left:30px;
 	padding-bottom:24px;
 	float:left;
 	z-index:-10;
@@ -143,6 +143,7 @@ body{
 	height:160px;
 	width:120px;
 	cursor:pointer;
+	text-align:center;
 }
 .picture img{width:100%;height:100%;}
 .master-detail{
@@ -202,10 +203,9 @@ input[type=button]:hover,.ask:hover{
 }
 .qz-box{border-bottom:0 !important;}
 .qz-list-ul li{
-	margin-right:20px;
+	margin-right:10px;
 }
 .qz-list-ul li select{
-	width:120px;
 	height:30px;
 	font-size:16px;
 }
@@ -304,3 +304,55 @@ input[type=button]:hover,.ask:hover{
 	padding:10px;
 	overflow-y:auto;
 }
+.r-box{
+	position:fixed;
+	top:150px;
+	left:50%;
+	margin-left:490px;
+	width:180px;
+	background:#E2F5F1;
+	text-align:center;
+	border-radius:5px;
+}
+.r-box-top{
+	height:40x;
+	line-height:40px;
+	border-bottom:1px solid #d0d0d0;
+}
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../../fonts/icomoon.eot?k86bsm');
+  src:  url('../../fonts/icomoon.eot?k86bsm#iefix') format('embedded-opentype'),
+    url('../../fonts/icomoon.ttf?k86bsm') format('truetype'),
+    url('../../fonts/icomoon.woff?k86bsm') format('woff'),
+    url('../../fonts/icomoon.svg?k86bsm#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"], [class*=" icon-"] {
+
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-r{
+	color:#EB7350;
+	font-size:20px;
+}
+.icon-td{font-size:20px;cursor:pointer;color:red;}
+#q_detail a{text-decoration:none;}
+.r-message{
+	height:35px;
+	line-height:35px;
+	border-bottom:1px dashed #d0d0d0;
+}
+.r-message a{text-decoration:none;}
+.r-more{height:25px;line-height:25px;}

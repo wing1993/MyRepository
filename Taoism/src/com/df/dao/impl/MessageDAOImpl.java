@@ -1,4 +1,5 @@
 package com.df.dao.impl;
+
 // default package
 
 import java.util.ArrayList;
@@ -13,31 +14,29 @@ import com.df.dao.idao.IMessageDAO;
 import com.df.dao.pojo.Message;
 import com.df.dao.pojo.QueryResult;
 
-
-
 @Repository("messageDao")
-public class MessageDAOImpl  implements IMessageDAO  {
-	
+public class MessageDAOImpl implements IMessageDAO {
+
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
-	
+
 	@Override
-    public void save(Message transientInstance) {
-		sessionFactory.getCurrentSession().save(transientInstance);	
-    }
+	public void save(Message transientInstance) {
+		sessionFactory.getCurrentSession().save(transientInstance);
+	}
+
 	@Override
 	public void delete(Message persistentInstance) {
 		sessionFactory.getCurrentSession().delete(persistentInstance);
-    }
-   
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Message> findAll() {
-		List<Message> messageList = new ArrayList<Message>();	
-		messageList = sessionFactory.getCurrentSession().createQuery(
-				"FROM Message")
-				.list();
+		List<Message> messageList = new ArrayList<Message>();
+		messageList = sessionFactory.getCurrentSession()
+				.createQuery("FROM Message").list();
 		return messageList;
 	}
 
@@ -45,33 +44,29 @@ public class MessageDAOImpl  implements IMessageDAO  {
 	public void update(Message message) {
 		sessionFactory.getCurrentSession().update(message);
 	}
-	
+
 	@Override
-	public Message getById(Integer id) {	
-		Message message = (Message)sessionFactory
-				.getCurrentSession().get(Message.class, id);	
+	public Message getById(Integer id) {
+		Message message = (Message) sessionFactory.getCurrentSession().get(
+				Message.class, id);
 		return message;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public QueryResult findAll(Integer firstResult, Integer maxResults) {
 		List<Message> messageList = new ArrayList<Message>();
 		Long count = (long) 0;
-		
-		//查询总记录数
-		count = (Long) sessionFactory.getCurrentSession().createQuery(
-				"SELECT COUNT(*) FROM Message") 	
-				.uniqueResult();  
-		System.out.println(firstResult+"---"+maxResults+"---"+count);
-		//查询一页的数据列表
-		messageList = sessionFactory.getCurrentSession().createQuery(
-				"FROM Message")
-				.setFirstResult(firstResult)
-				.setMaxResults(maxResults)
-				.list();
-		return new QueryResult(count.intValue(),messageList);
+
+		// 查询总记录数
+		count = (Long) sessionFactory.getCurrentSession()
+				.createQuery("SELECT COUNT(*) FROM Message").uniqueResult();
+		System.out.println(firstResult + "---" + maxResults + "---" + count);
+		// 查询一页的数据列表
+		messageList = sessionFactory.getCurrentSession()
+				.createQuery("FROM Message").setFirstResult(firstResult)
+				.setMaxResults(maxResults).list();
+		return new QueryResult(count.intValue(), messageList);
 	}
-	
-	
+
 }

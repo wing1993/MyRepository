@@ -57,14 +57,17 @@ input[type=text],input[type=password]{
 .tip{
 	height:30px;
 	line-height:30px;
+	color:#f00000;
+	font-weight:bold;
 }
 #valid_code{
-	width:120px !important;
+	width:140px !important;
 }
 #valid_img{
-	width:100px;
+	width:120px;
 	height:37px;
 	cursor:pointer;
+	margin-left:20px;
 }
 #login_btn{
 	width:100%;
@@ -79,7 +82,6 @@ input[type=text],input[type=password]{
 	font-family:'Microsoft YaHei';
 	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#2888FF), to(#0072E3));
 }
-.tip{color:#f00000;}
 .wrong{
 	color:#f00000;
 	border:1px solid #e85356;
