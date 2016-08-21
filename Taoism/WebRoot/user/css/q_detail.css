@@ -12,16 +12,36 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 }
 .main{
 	width:900px;
-	margin:0 auto;
-	background:#fff;
+	margin:-10px auto;
+	background:#FAFAFA;
 	border:1px solid #d0d0d0;
 	padding-bottom:20px;
 }
 .main-box{
-	padding:20px;
+	height:59px;
+}
+.main-box-fixed{
+	background:#fff;
+	position:fixed;
+	top:0;
+	z-index:10;
+	padding:15px;
 	border-bottom:1px solid #bbbdbf;
+	width:870px;
+}
+.q_title{
+	float:left;
+}
+.btn{
+	cursor:pointer;
+	display:inline-block;
+	float:right;
+	padding:4px;
+	border:1px solid #ccc;
+	font-size:14px;
 }
 .w-content-box{
+	background:#fff;
 	border-bottom:1px solid #E1E4E6;
 	overflow:auto;/*解决float：left导致父元素高度无法自适应*/
 }
@@ -33,7 +53,6 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 }
 .respondent{
 	cursor:pointer;
-	
 }
 .ans-intro{
 	width:80px;
@@ -48,10 +67,12 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 	background:#fff;
 	width:96%;
 	border-left:1px solid #E1E4E6;
-	padding:8px 15px 8px 15px;
+	padding:17px;
 }
 .w-r-main{
-	min-height:100px;
+	min-height:70px;
+	line-height:23px;
+	margin:15px 20px 15px 20px;
 }
 .r-top{
 	height:30px;
@@ -70,11 +91,14 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 	background:#E7ECF5;
 }
 .sub-reply{
-	margin-left:50px;
 	border:1px solid #f0f1f2;
 	background:#E7ECF5;
 	margin-top:-1px;
-	padding:4px 15px 15px 15px;
+	margin-left:70px;
+	margin-right:0px;
+	padding:0px 10px 10px 10px;
+	/* width:772px;
+	overflow:auto; */
 }
 .discuss{
 	padding-top:10px;
@@ -89,11 +113,75 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 	cursor:pointer;
 }
 .ans-content{
-	padding:10px;
+	padding:10px 0;
 	font-size:14px;
 	line-height:20px;
 	word-wrap:break-word;
+	border-bottom:1px dashed #ccc;
 }
-.ans-content a{text-decoration:none;color:blue;}
+.re-name{text-decoration:none;color:blue;}
 .ans-co-bottom{text-align:right;}
 .ans-time{color:#666;}
+.sub-add{margin-top:10px;text-align:right;}
+.comment{
+	border:1px solid #ccc;
+	padding:5px;
+	background-color:#f7f8fa;
+	border-radius:3px;
+	color:blue;
+	cursor:pointer;	
+	display:inline-block;
+	font-size:12px;
+}
+.sub-edit{margin-top:10px;text-align:right;display:none;}
+.sub-edit textarea{
+	resize:none;
+	overflow-y:auto;
+	width:100%;
+	height:70px;
+	word-break:break-all;
+	border:1px solid #ccc;
+	line-height:20px;
+}
+.sub-post{
+	cursor:pointer;
+	margin-top:10px;
+	color:#fff;
+	background-color:#398bfc;
+	padding:4px 6px;
+	border:none;
+}
+.page-div{
+	text-align: center;
+	margin-top:20px;
+	padding-bottom:18px;
+	border-bottom:1px solid #E1E4E6;
+}
+.page-div a{
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	width:27px;
+	height:27px;
+	line-height: 27px;
+	border-radius: 2px;
+	border:1px solid #d0d0d0;
+}
+.page-div a:hover{
+	border:1px solid #2877ff;
+}
+.abtn{
+	cursor:pointer;
+	padding:6px;
+	color:#fff;
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#28A6FF), to(#2877ff));/*谷歌*/
+	background:-moz-linear-gradient(top,#28A6FF,#2877ff);/*火狐*/
+	background:-ms-linear-gradient(top,#28A6FF,#2877ff);/*ie10*/
+	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#28A6FF,endColorStr=#2877ff); /*IE 6 7 8*/ 
+	border:none;
+	border-radius:2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+}
+.edit-div{padding:20px 0 15px 30px;}
+.edit-div input{margin:15px 0 0 350px;}

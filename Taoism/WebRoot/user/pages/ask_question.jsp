@@ -73,6 +73,21 @@
 				$("textarea").next().css("display","none");
 				$("textarea").val(editor.html());
 				//$("form").submit();
+				var now=new Date();
+				var year=now.getFullYear();
+				var month=now.getMonth()+1;
+				var day=now.getDate();
+				var hour=now.getHours();
+				var minute=now.getMinutes();
+				var second=now.getSeconds();
+				var now_time=null;
+				if(month<10)
+					month="0"+month;
+				if(day<10)
+					day="0"+day;
+				now_time=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+	
+				$("#QTime").val(now_time);
 				var obj={
 						url:'${pageContext.request.contextPath }/ask_dashi.action',
 						type:'post',
@@ -88,23 +103,8 @@
 				$("form").ajaxSubmit(obj);
 			}
 		}
-		$(document).ready(function(){
-			var now=new Date();
-			var year=now.getFullYear();
-			var month=now.getMonth()+1;
-			var day=now.getDate();
-			var hour=now.getHours();
-			var minute=now.getMinutes();
-			var second=now.getSeconds();
-			var now_time=null;
-			if(month<10)
-				month="0"+month;
-			if(day<10)
-				day="0"+day;
-			now_time=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
-
-			$("#QTime").val(now_time);
-			//alert($("#q_time").val());
+		$(function(){
+			alert($("input[name='askWho']").val());
 		});
 	</script>
 </head>

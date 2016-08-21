@@ -305,7 +305,10 @@ function check_null(){
 				return true;
 			else
 				return false;
-		}else{
+		}else if($("#user_type").val()=="普通"){
+			return true;
+		}
+		else{
 			return false;
 		}
 	}else{

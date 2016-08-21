@@ -11,11 +11,18 @@
 	<script type="text/javascript">
 		//注册
 		function sign_up(){
+			alert(check_null());
 			//检查所有的必填选项是否为空
 			if(check_null()){
 				//$("#register_form").submit();
+				var suburl=null;
+				if($("#user_type").val()=="弟子"){
+					suburl='${pageContext.request.contextPath }/imgFile_uploadFile.action';
+				}else{
+					subrul='${pageContext.request.contextPath }/user_registry.action';
+				}
 				var obj={
-						url:'${pageContext.request.contextPath }/imgFile_uploadFile.action',
+						url:suburl,
 						type:'post',
 						//dataType : "json",
 						success:function(str){							
@@ -164,6 +171,14 @@
 						<td><textarea name="introduce"></textarea></td>
 					</tr>
 				</table>
+				<input type="hidden" name="state" value="0">
+				<input type="hidden" name="con1" value="">
+				<input type="hidden" name="con2" value="">
+				<input type="hidden" name="con3" value="">
+				<input type="hidden" name="con4" value="">
+				<input type="hidden" name="con5" value="">
+				<input type="hidden" name="con6" value="">
+				<input type="hidden" name="con7" value="">
 				<div class="btn">
 					<input type="button" value="注册" id="register" onclick="sign_up()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="reset" value="取消">
