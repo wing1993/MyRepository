@@ -40,6 +40,13 @@ public class QuestionAction implements ModelDriven<Question>, RequestAware {
 	}
 
 	public String AskDashi() {
+
+		question.setQTime("2016/12/05 18:00:00");
+		question.setQTypeName("问事");
+		question.setQContent("是打飞阿斯蒂芬机快");
+		question.setState(1);
+		question.setSharezone("公开区域");
+		question.setShareState(1);
 		String msg = questionService.save(question);
 		return msg;
 	}

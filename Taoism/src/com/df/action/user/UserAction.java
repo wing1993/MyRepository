@@ -37,6 +37,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 
 	// 1-取值（自动取值，自动类型转换，自动封装成对象供方法使用 --ModelDriven接口 ）
 	private User user;
+	private String birthdayData;
 	// 使用值栈中的Map栈
 	private Map<String, Object> requestMap;
 	private Map<String,Object> sessionMap;
@@ -59,9 +60,26 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
 	}
+	
 	/*
 	 * private int sumPage; //总页数 private int currentPage; //当前页
 	 */
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public String getBirthdayData() {
+		return birthdayData;
+	}
+
+	public void setBirthdayData(String birthdayData) {
+		this.birthdayData = birthdayData;
+	}
 
 	public String getValid_code() {
 		return valid_code;
@@ -183,8 +201,18 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	}
 
 	public String registry() throws Exception {
-		System.out.println((User)requestMap.get("user"));
-		String msg = userService.registry((User)requestMap.get("user"));
+		//System.out.println((User)requestMap.get("user"));
+		//用户出生年月可以不写  但是存入数据库datetime类型不允许置空
+		if(!"".equals(birthdayData)){
+			user.setBirthday(this.getBirthdayData());
+		}
+		String msg;
+		if("弟子".equals(user.getUserType())){
+			msg = userService.registry((User)requestMap.get("user"));
+		}else{
+			System.out.println(user);
+			msg = userService.registry(user);
+		}
 		sessionMap.put("User", (User)requestMap.get("user"));
 		PrintWriter out = response.getWriter();
 		out.print(msg);

@@ -11,7 +11,6 @@
 	<script type="text/javascript">
 		//注册
 		function sign_up(){
-			alert(check_null());
 			//检查所有的必填选项是否为空
 			if(check_null()){
 				//$("#register_form").submit();
@@ -19,13 +18,13 @@
 				if($("#user_type").val()=="弟子"){
 					suburl='${pageContext.request.contextPath }/imgFile_uploadFile.action';
 				}else{
-					subrul='${pageContext.request.contextPath }/user_registry.action';
+					suburl='${pageContext.request.contextPath }/user_registry.action';
 				}
 				var obj={
 						url:suburl,
 						type:'post',
 						//dataType : "json",
-						success:function(str){							
+						success:function(str){						
 							if(str=="success"){
 								alert("注册成功！");
 								window.location.href="login.jsp";
@@ -47,7 +46,7 @@
 			<div class="top">
 				<span><a href="${pageContext.request.contextPath }/dashi_load.action">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="login.jsp">登录</a></span>
 			</div>
-			<form id="register_form" action="${pageContext.request.contextPath }/imgFile_uploadFile.action" method="post" enctype="multipart/form-data">
+			<form id="register_form" <%-- action="${pageContext.request.contextPath }/imgFile_uploadFile.action" method="post" enctype="multipart/form-data" --%>>
 				<table class="register_tb">
 					<tr>
 						<td>注册类型：</td>
@@ -132,7 +131,7 @@
 					<tr>
 						<td>出生年月：</td>
 						<td>
-							<input type="date" name="birthday">
+							<input type="date" name="birthdayData">
 							<span class="red" id="birthday"></span>
 							<div class="wrong_tip" id="null_date">请输入出生年月</div>
 						</td>

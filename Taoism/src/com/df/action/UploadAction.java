@@ -79,7 +79,16 @@ public class UploadAction extends ActionSupport implements ModelDriven<User>, Re
 	}
 
 	public String execute() throws Exception { 
-        uploadFile();   
+		System.out.println(10);
+        if("弟子".equals(user.getUserType())){
+        	System.out.println(100);
+        	uploadFile();  
+        }
+        else{
+        	System.out.println(1000);
+        	msg = "success";
+        }
+        requestMap.put("user",user);
         return msg;   
     }   
 	
@@ -127,7 +136,6 @@ public class UploadAction extends ActionSupport implements ModelDriven<User>, Re
             user.setPicture(UPLOADDIR+"/"+this.getImgfileFileName());
             System.out.println(user);
             msg = "success";
-            requestMap.put("user",user);
             
         } catch (FileNotFoundException ex) {   
             System.out.println("上传失败!");  
