@@ -1,5 +1,6 @@
 package com.df.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +58,31 @@ public class QuestionServiceImpl implements IQuestionService {
 
 	@Override
 	public QueryResult findAll(Integer k1, Integer k2) {
+		QueryResult query = null;
+		try {
+			query = questionDao.findAll(k1, k2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return query;
+	}
+
+	@Override
+	public int selectSumCount() throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
+	}
+
+	@Transactional
+	@Override
+	public List<Question> findByDynamicData(Question t) throws Exception {
+		List<Question> questionList = new ArrayList<Question>();
+		try{
+			questionList = questionDao.findByDynamicData(t);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return questionList;
 	}
 
 }

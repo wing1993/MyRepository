@@ -3,9 +3,11 @@ package com.df.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -68,5 +70,46 @@ public class QuestionDAOImpl implements IQuestionDAO {
 
 		return new QueryResult(count.intValue(), questionList);
 	}
+
+	@Override
+	public int selectSumCount() throws Exception {
+		int count = 0;
+		// 查询总记录数
+		count =  (int) sessionFactory.getCurrentSession()
+				.createQuery("SELECT COUNT(*) FROM Question")
+				.uniqueResult();
+		return count;
+	}
+
+	@Override
+	public List<Question> findByDynamicData(Question question) throws Exception {
+		Session session = sessionFactory.openSession();
+		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
+		System.out.println(question.getSharezone()+"========="+(question.getSharezone()!=null));
+		System.out.println("---------------");
+		System.out.println(question.toString());
+		
+		if(!"".equals(question.getSharezone())){
+			dc.add(Restrictions.eq("sharezone", question.getSharezone()));
+		}
+		if(!"".equals(question.getQTypeName())){
+			dc.add(Restrictions.eq("QTypeName", question.getQTypeName()));
+		}
+		if(!"".equals(question.getQTime())){
+			dc.add(Restrictions.ge("QTime", question.getQTime()));
+		}
+		if((question.getState()!=null)){
+			dc.add(Restrictions.eq("state", question.getState()));
+		}
+		if(question.getAskWho()!=null){
+			dc.add(Restrictions.eq("askWho", question.getAskWho()));
+		}
+		
+		Criteria c = dc.getExecutableCriteria(session);
+		List<Question> questionList = c.list();
+		System.out.println("dao层"+questionList.toString());
+		return questionList;
+	}
+
 
 }

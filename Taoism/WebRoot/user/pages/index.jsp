@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,20 @@
 				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions[0].username }&askWho="+dashi);
 			}
 		}
+		function findData(){
+			$.ajax({
+				cache: false,
+				async: false,
+				url:'${pageContext.request.contextPath }/question_find_findByDynamicData.action',
+				type:'post',
+				data:{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),QTime:$("#QTime").val(),state:$("#state").val()},
+				success:function(){
+			
+					var opt = "<table class='qz-tb1' id='q_detail'> <c:forEach items='${requestScope.questionsFromAction }' var='question'><tr><td class='icon-td' title='已回复'>&#xe905;</td><td><a href='${pageContext.request.contextPath }/user/pages/q_detail.jsp' title='$(this)'>××××××××××××</a></td><td>${question.username }<br>${question.QTime }</td><td>${question.askWho }</td><td>明顺<br>2014-11-28</td><td>73</td><td>${question.visits }</td><td>${question.QTypeName }</td></tr></c:forEach></table>";
+					
+				}	
+			});
+		};
 	</script>
 </head>
 <body>
@@ -102,53 +117,55 @@
 			<div class="question-zone">
 				<div class="qz-title">问题列表区</div>
 				<div class="qz-box">
+				<form id="getquestion_form" action="${pageContext.request.contextPath }/question_find_findByDynamicData.action" >
 					<ul class="qz-list-ul">
-						<li><select class="qz_list">
+						<li><select class="qz_list" id="sharezone" onchange="findData()">
 							<c:if test="${sessionScope.UsersfromActions==null }">
-								<option value="公开区">公开区</option><option value="所有问题">所有问题</option>
+								<option></option><option value="公开区">公开区</option><option value="所有问题">所有问题</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions[0].userType=='普通' }">
+								<option value="所有问题">所有问题</option>
 								<option value="我的问题">我的问题</option>
 								<option value="公开区">公开区</option>
-								<option value="所有问题">所有问题</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions[0].userType=='学员' }">
-								<option value="学员区">学员区</option>
 								<option value="所有问题">所有问题</option>
+								<option value="学员区">学员区</option>
 								<option value="公开区">公开区</option>
 								<option value="我的问题">我的问题</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions[0].userType=='弟子' }">
-								<option value="弟子区">弟子区</option>
 								<option value="所有问题">所有问题</option>
+								<option value="弟子区">弟子区</option>
 								<option value="公开区">公开区</option>
 								<option value="我的问题">我的问题</option>
 								<option value="学员区">学员区</option>
 								<option value="答疑区">答疑区</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions[0].userType=='老先生'}">
+								<option value="所有问题">所有问题</option>
 								<option value="答疑区">答疑区</option>
 								<option value="学员区">学员区</option>
-								<option value="所有问题">所有问题</option>
 								<option value="公开区">公开区</option>
 								<option value="我的问题">我的问题</option>
 								<option value="弟子区">弟子区</option>
 							</c:if>
 						</select></li>
 						<!--问题分类初始化绑定，可由后台添加-->
-						<li><select class="qz_type">
+						<li><select class="qz_type" id="QTypeName" onchange="findData()">
 							<c:forEach items="${qtList }" var="qtList">
 								<option value="${qtList.QTypeName }">${qtList.QTypeName }</option>
 							</c:forEach>
 						</select></li>
-						<li><select class="deal_time">
+						<li><select class="deal_time" id="QTime" onchange="findData()">
+							<option></option>
 							<option value="今天">今天</option>
 							<option value="最近三天">最近三天</option>
 							<option value="最近七天">最近七天</option>
 							<option value="最近一个月">最近一个月</option>
 						</select></li>
-						<li><select class="state">
-							<option value="0">未回复</option>
+						<li><select class="state" id="state" onchange="findData()">
+							<option value=></option><option value="0">未回复</option>
 							<option value="1">已回复</option>
 						</select>
 						<li><a href="${pageContext.request.contextPath }/user/pages/post.jsp" class="ask" target="_blank">发帖</a></li>
@@ -157,7 +174,7 @@
 							<input type="button" value="搜索" id="search">
 						</li>
 					</ul>
-					
+					</form>
 					<table class="qz-tb1">
 						<thead>
 							<tr>
@@ -172,25 +189,58 @@
 							</tr>
 						</thead>
 					</table>
+					<div id="showquestion">
 					<table class="qz-tb1" id="q_detail">
+					<c:forEach items="${requestScope.questionsFromAction }" var="question">
 						<tr>
 							<td class="icon-td" title="已回复">&#xe905;</td>
 							<td><a href="${pageContext.request.contextPath }/user/pages/q_detail.jsp" title="$(this)">××××××××××××</a></td>
-							<td>张三<br>2014-11-27</td>
-							<td>明全</td>
+							<td>${question.username }<br>${question.QTime }</td>
+							<td>${question.askWho }</td>
 							<td>明顺<br>2014-11-28</td>
 							<td>73</td>
-							<td>467</td>
-							<td>问事</td>
+							<td>${question.visits }</td>
+							<td>${question.QTypeName }</td>
 						</tr>
+					</c:forEach>
 						<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-					</table>
+					</table></div>
 					<div class="page-div">
-						<input type="button" value="上一页" id="pre">
+						<!-- <input type="button" value="上一页" id="pre">
 						<a href="javascript:;">1</a>
 						<a href="javascript:;">2</a>
 						<span>第&nbsp;<span id="now">1</span>/<span id="total">2</span>&nbsp;页</span>
-						<input type="button" value="下一页" id="next">
+						<input type="button" value="下一页" id="next"> -->
+						<s:if test="#request.page.hasPrePage">	
+						<a id="pre" href="${pageContext.request.contextPath }/question_find_findByDynamicData.action?currentPage=${page.currentPage-1 }"> <span> 
+								<span>上一页 </span> </span></a>
+						</s:if>
+						<s:else>
+							<a id="pre" href="javascript:;"> <span> 
+								<span> <s class="arrow"></s>上一页 </span> </span></a>
+						</s:else>
+						
+						 <s:iterator value="#request.pageList" var="data">
+							<s:if test="#data.page==0">
+								<a class="curr" href="${pageContext.request.contextPath }/question_find_findByDynamicData.action?currentPage=${request.page.currentPage }" ><span>${request.page.currentPage }</span></a>
+							</s:if>
+							<s:else>
+								<s:if test="#data.page==-1">
+									<ins>...</ins>
+								</s:if>
+								<s:else>
+									<a class="page" href="${pageContext.request.contextPath }/question_find_findByDynamicData.action?currentPage=${data.page }"><span>${data.page }</span></a>
+								</s:else>
+							</s:else>
+						</s:iterator>
+						<s:if test="#request.page.hasNextPage">	
+						<a id="next" href="${pageContext.request.contextPath }/question_find_findByDynamicData.action?currentPage=${page.currentPage+1 }"> <span> 
+								<span> <s class="arrow"></s>下一页 </span> </span></a>
+						</s:if>
+						<s:else>
+							<a id="next" href="javascript:;"> <span> 
+								<span> <s class="arrow"></s>下一页 </span> </span></a>
+						</s:else>
 					</div>
 				</div>
 			</div>

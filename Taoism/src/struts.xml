@@ -42,4 +42,10 @@
 			<result name="dashiList" type="dispatcher">/user/pages/index.jsp</result>
 		</action>
     </package>
+    <package name="question_action" namespace="/" extends="json-default">
+        <action name="question_find_*" class="questionAction" method="{1}">
+			<result name="success" type="dispatcher">/user/pages/index.jsp</result>
+		</action>
+		
+    </package>
 </struts>
