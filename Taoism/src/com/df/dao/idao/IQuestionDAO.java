@@ -3,6 +3,7 @@ package com.df.dao.idao;
 import java.util.List;
 
 import com.df.dao.pojo.Question;
+import com.df.dao.pojo.User;
 
 public interface IQuestionDAO extends IBaseHibernateDAO<Question, Integer> {
 	public int selectSumCount() throws Exception;
@@ -46,5 +47,5 @@ public interface IQuestionDAO extends IBaseHibernateDAO<Question, Integer> {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Question> findByDynamicData(Question question) throws Exception;
+	public List<Question> findByDynamicData(Question question,User user) throws Exception;
 }

@@ -21,19 +21,38 @@
 			}
 		}
 		function findData(){
-			$.ajax({
-				cache: false,
-				async: false,
-				url:'${pageContext.request.contextPath }/question_find_findByDynamicData.action',
-				type:'post',
-				data:{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),QTime:$("#QTime").val(),state:$("#state").val()},
-				success:function(){
-			
-					var opt = "<table class='qz-tb1' id='q_detail'> <c:forEach items='${requestScope.questionsFromAction }' var='question'><tr><td class='icon-td' title='已回复'>&#xe905;</td><td><a href='${pageContext.request.contextPath }/user/pages/q_detail.jsp' title='$(this)'>××××××××××××</a></td><td>${question.username }<br>${question.QTime }</td><td>${question.askWho }</td><td>明顺<br>2014-11-28</td><td>73</td><td>${question.visits }</td><td>${question.QTypeName }</td></tr></c:forEach></table>";
-					
-				}	
+			$("#getquestion_form").submit();
+		}
+		
+		//查找所有地区的大师
+		function findDashi(obj){
+			$(".master-w").empty();
+			var action=null;
+			var loc=null;
+			if($(obj).text()=="所有地区"){
+				action="dashi_findDashi!findAll.action";
+				loc=null;
+			}else{
+				action="dashi_findDashi!findByLoc.action";
+				loc=$(obj).text();
+			}
+			$.post(action,{"con2":loc},function(data){
+				$.each(data.dashis,function(i,value){
+					var str="<div class='master-data'><div class='picture'><img src='${pageContext.request.contextPath }/"+value.picture+"' onclick='showDetail(this)'></div>"+
+							"<div class='master-detail'>法号：<label class='dashi_name'>"+value.username+"</label></div>"+
+							"<div class='master-detail'>现居城市：<label class='now_city'>"+value.con2+value.city+"</label></div>"+
+							"<div class='master-detail' class='detail1'><a href='${pageContext.request.contextPath }/user/pages/ask_question.jsp' target='_blank' class='ask'>我要提问" +
+							"</a></div>";
+					var hideinfo="<input type='hidden' class='h_gender' value='"+value.gender+"'><input type='hidden' class='h_phone' value='"+value.phone+"'>" +
+							"<input type='hidden' class='h_birth' value='"+value.birthday+"'>" +
+							"<input type='hidden' class='h_qq' value='"+value.qq+"'><input type='hidden' class='h_weixin' value='"+value.weixin+"'>" +
+							"<input type='hidden' class='h_mail' value='"+value.mail+"'><input type='hidden' class='h_introduce' value='"+value.introduce+"'></div>";
+					$(".master-w").append(str+hideinfo);
+				});
 			});
-		};
+		}
+		
+		
 	</script>
 </head>
 <body>
@@ -119,7 +138,7 @@
 				<div class="qz-box">
 				<form id="getquestion_form" action="${pageContext.request.contextPath }/question_find_findByDynamicData.action" >
 					<ul class="qz-list-ul">
-						<li><select class="qz_list" id="sharezone" onchange="findData()">
+						<li><select class="qz_list" name="sharezone" onchange="findData()">
 							<c:if test="${sessionScope.UsersfromActions==null }">
 								<option></option><option value="公开区">公开区</option><option value="所有问题">所有问题</option>
 							</c:if>
@@ -152,19 +171,19 @@
 							</c:if>
 						</select></li>
 						<!--问题分类初始化绑定，可由后台添加-->
-						<li><select class="qz_type" id="QTypeName" onchange="findData()">
+						<li><select class="qz_type" name="QTypeName" onchange="findData()">
 							<c:forEach items="${qtList }" var="qtList">
 								<option value="${qtList.QTypeName }">${qtList.QTypeName }</option>
 							</c:forEach>
 						</select></li>
-						<li><select class="deal_time" id="QTime" onchange="findData()">
+						<li><select class="deal_time" name="QTime" onchange="findData()">
 							<option></option>
 							<option value="今天">今天</option>
 							<option value="最近三天">最近三天</option>
 							<option value="最近七天">最近七天</option>
 							<option value="最近一个月">最近一个月</option>
 						</select></li>
-						<li><select class="state" id="state" onchange="findData()">
+						<li><select class="state" name="state" onchange="findData()">
 							<option value=></option><option value="0">未回复</option>
 							<option value="1">已回复</option>
 						</select>
