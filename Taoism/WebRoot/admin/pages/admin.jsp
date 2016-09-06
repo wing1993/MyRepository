@@ -33,7 +33,7 @@
 			</ul>
 			<div class="left-item"><span class="icon-qz">&#xe920;</span>&nbsp;问题管理</div>
 			<ul class="sub-item">
-				<li><span class="icon-sub">&#xe924;</span>&nbsp;<span id="ma_q_type">&nbsp;类型管理</span></li>
+				<li><span class="icon-sub">&#xe924;</span>&nbsp;<span id="ma_q_type">类型管理</span></li>
 				<li>
 					<span class="icon-sub" style="font-weight:bold;font-size:17px !important;">&#xe909;</span>
 					<span id="m_message">留言管理</span>
@@ -41,7 +41,7 @@
 			</ul>
 			<div class="left-item"><span class="icon-qz">&#xe991;</span>&nbsp;数据维护</div>
 			<ul class="sub-item">
-				<li><span class="icon-sub">&#xe92c;</span>&nbsp;<span id="">&nbsp;数据备份</span></li>
+				<li><span class="icon-sub">&#xe92c;</span>&nbsp;<span id="">数据备份</span></li>
 				<li>
 					<span class="icon-sub">&#xea2e;</span>
 					<span id="">数据恢复</span>

@@ -37,9 +37,6 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	private IQuestionService questionService;
 	
 	HttpServletResponse response = ServletActionContext.getResponse(); 
-	@SuppressWarnings("unchecked")
-	private List<User> u = (List<User>) ServletActionContext.getRequest()
-			.getSession().getAttribute("UsersfromActions");
 	private Question question;
 	private Map<String, Object> requestMap;
 	private int sumPage;     //总页数
@@ -48,7 +45,9 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	private List<Question> qList;
 	private List<ClientPage> cList;
 	private Page page;
-	
+	@SuppressWarnings("unchecked")
+	private List<User> u = (List<User>) ServletActionContext.getRequest()
+			.getSession().getAttribute("UsersfromActions");
 	
 	
 	
@@ -102,6 +101,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	}
 
 	public String findByDynamicData(){
+		System.out.println("2222222222");
 		String userType = null;
 		if(null!=u) {userType = u.get(0).getUserType();}
 		String msg = "error";
@@ -114,13 +114,19 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 				dp = this.paging(questionList);
 				qList = dp.gettList();
 				cList = dp.getcList();
+				System.out.println(cList.toString());
+				System.out.println("----"+currentPage);
 				page = dp.getPage();
+				/*requestMap.put("qList1", qList);
+				requestMap.put("pageList", dp.getcList());
+				requestMap.put("page", dp.getPage());*/
 				msg = "success";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		System.out.println(msg);
 		return msg;
 	}
 	

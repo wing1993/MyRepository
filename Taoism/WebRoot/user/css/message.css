@@ -1,0 +1,74 @@
+html{font-family:'Microsoft YaHei';}
+.bd{
+	position:fixed;
+	z-index:-10;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-image:url(../../images/register_bmg1.jpg);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+.main{
+	width:960px;
+	margin:0 auto;
+	background:#fff;
+	padding:20px 40px 20px 40px;
+}
+.title{
+	text-align:center;
+	margin-top:20px;
+	font-size:30px;
+	color:#f00000;
+	font-weight:bold;
+}
+.release-news{overflow:auto;}
+.release-news a{
+	cursor:pointer;
+	padding:8px;
+	border:none;
+	color:#fff;
+	background:#6A99E3;
+	display:block;
+	width:70px;
+	float:right;
+	text-align:center;
+	text-decoration:none;
+}
+.unuse{background:#ccc !important;cursor:default !important}
+.me-box{
+	margin:20px auto;
+}
+.me-main{
+	width:100%;
+	height:38px;
+	line-height:38px;	
+	padding-left:10px;
+	padding-right:10px;
+}
+.me-main:nth-child(odd){background:rgba(230,228,228,0.5);}
+.me-title{display:block;float:left;text-decoration:none;font-size:18px;}
+.releaser{color:#988E8E;display:inline-block;margin-left:20px;font-size:14px;}
+.me-time{color:#988E8E;float:right;}
+.page-div{
+	text-align: center;
+	margin-top:25px;
+}
+.page-div input{
+	cursor:pointer;
+	height:28px;
+}
+.page-div a{
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	width:27px;
+	height:27px;
+	line-height: 27px;
+	border-radius: 2px;
+	border:1px solid #d0d0d0;
+}
+.page-div a:hover{
+	border:1px solid #2877ff;
+}

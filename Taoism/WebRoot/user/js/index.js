@@ -83,30 +83,3 @@ function showDetail(obj){
 	$(".po-pic-box img").attr("src",$(obj).attr("src"));
 	$(".popover").fadeIn();
 }
-//查找所有地区的大师
-function findDashi(obj){
-	$(".master-w").empty();
-	var action=null;
-	var loc=null;
-	if($(obj).text()=="所有地区"){
-		action="dashi_findDashi!findAll.action";
-		loc=null;
-	}else{
-		action="dashi_findDashi!findByLoc.action";
-		loc=$(obj).text();
-	}
-	$.post(action,{"con2":loc},function(data){
-		$.each(data.dashis,function(i,value){
-			var str="<div class='master-data'><div class='picture'><img src='"+value.picture+"' onclick='showDetail(this)'></div>"+
-					"<div class='master-detail'>法号：<label class='dashi_name'>"+value.username+"</label></div>"+
-					"<div class='master-detail'>现居城市：<label class='now_city'>"+value.con2+value.city+"</label></div>"+
-					"<div class='master-detail' class='detail1'><a href='${pageContext.request.contextPath }/user/pages/ask_question.jsp' target='_blank' class='ask'>我要提问" +
-					"</a></div></div>";
-			var hideinfo="<input type='hidden' class='h_gender' value='"+value.gender+"'><input type='hidden' class='h_phone' value='"+value.phone+"'>" +
-					"<input type='hidden' class='h_birth' value='"+value.birthday+"'>" +
-					"<input type='hidden' class='h_qq' value='"+value.qq+"'><input type='hidden' class='h_weixin' value='"+value.weixin+"'>" +
-					"<input type='hidden' class='h_mail' value='"+value.mail+"'><input type='hidden' class='h_introduce' value='"+value.introduce+"'>";
-			$(".master-w").append(str+hideinfo);
-		});
-	});
-}

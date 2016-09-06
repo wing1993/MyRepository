@@ -78,7 +78,7 @@
 <body>
 	<div class="bd"></div>
 	<div class="main">
-		<div class="title">向大师提问</div>
+		<div class="title">发帖</div>
 		<form action="" method="post" name="example">
 			<table class="tb">
 				<tr>

@@ -5,6 +5,7 @@ package com.df.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -67,6 +68,16 @@ public class MessageDAOImpl implements IMessageDAO {
 				.createQuery("FROM Message").setFirstResult(firstResult)
 				.setMaxResults(maxResults).list();
 		return new QueryResult(count.intValue(), messageList);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Message> findLatest() throws Exception {
+		List<Message> Latest=null;
+		String hql="from Message order by publish_time desc limit 6";
+		Query query=sessionFactory.getCurrentSession().createQuery(hql);
+		Latest=query.list();
+		return Latest;
 	}
 
 }

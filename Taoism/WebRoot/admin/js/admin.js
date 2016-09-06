@@ -17,6 +17,8 @@ $(function(){
 			$("#r_iframe").attr("src","../pages/updateClass.jsp");
 		}else if(loc=="用户信息"){
 			$("#r_iframe").attr("src","../pages/userInfo.jsp");
+		}else if(loc=="类型管理"){
+			$("#r_iframe").attr("src","../pages/qType.jsp");
 		}
 	});
 
