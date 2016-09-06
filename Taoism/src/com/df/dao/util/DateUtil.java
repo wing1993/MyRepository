@@ -4,8 +4,40 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class DateUtil {
+	public String changeToDate(String str) throws ParseException{
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();  
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(date);
+		if("".equals(str)){
+			cal = new GregorianCalendar(1970,01,01);
+			System.out.println("5555555555555555555555555555555555555555"+sf.format(cal.getTime()));
+		}
+		else if("今天".equals(str)){
+			cal.add(Calendar.DAY_OF_MONTH, -1);
+		}
+		else if("最近三天".equals(str)){
+			cal.add(Calendar.DAY_OF_MONTH, -3);
+		}
+		else if("最近七天".equals(str)){
+			cal.add(Calendar.DAY_OF_MONTH, -7);
+		}
+		else if("最近一个月".equals(str)){
+			cal.add(Calendar.MONTH, -1);
+		}
+		System.out.println(sf.format(cal.getTime())+" 23:59:59");
+    	return sf.format(cal.getTime())+" 23:59:59";
+	}
+	
+	public static Date stringToDate(String str) throws ParseException {
+		String string = str.substring(0, 10);
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(string);
+		return date;
+	}
+
 	public static String getDateyMdHms(Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(date);
@@ -62,9 +94,5 @@ public class DateUtil {
 		return result;
 	}
 
-	public static Date stringToDate(String str) throws ParseException {
-		String string = str.substring(0, 10);
-		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(string);
-		return date;
-	}
+	
 }

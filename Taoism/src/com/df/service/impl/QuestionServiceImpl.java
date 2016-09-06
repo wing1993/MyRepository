@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.df.dao.idao.IQuestionDAO;
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.Question;
+import com.df.dao.pojo.User;
 import com.df.service.iservice.IQuestionService;
 
 @Service("questionService")
@@ -75,10 +76,10 @@ public class QuestionServiceImpl implements IQuestionService {
 
 	@Transactional
 	@Override
-	public List<Question> findByDynamicData(Question t) throws Exception {
+	public List<Question> findByDynamicData(Question t,String s) throws Exception {
 		List<Question> questionList = new ArrayList<Question>();
 		try{
-			questionList = questionDao.findByDynamicData(t);
+			questionList = questionDao.findByDynamicData(t,s);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

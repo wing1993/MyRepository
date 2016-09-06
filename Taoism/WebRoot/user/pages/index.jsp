@@ -20,8 +20,50 @@
 				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions[0].username }&askWho="+dashi);
 			}
 		}
-		function findData(){
-			$("#getquestion_form").submit();
+		
+		//问题列表（glory）
+		function findData(obj){
+			$("body").scrollTop($("body").height());//滚动到最底部
+			$("#total").text("");
+			$("#now").text("");
+			$(".a-page").empty();$("#q_detail").empty();
+			$.post("${pageContext.request.contextPath }/question_find_findByDynamicData.action",{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),
+						QTime:$("#QTime").val(),state:$("#state").val(),currentPage:$(obj).text()},function(data){
+					if(null!=data.qList){
+						$.each(data.qList,function(i,value){
+							 var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";
+							 var str = "<tr>"+icon
+									+"<td><a href='${pageContext.request.contextPath }/user/pages/q_detail.jsp' title='$(this)'>"+value.QTitle+"</a></td>"
+									+"<td>"+value.username+"<br>"+value.QTime+"</td><td>"+value.askWho+"</td><td></td>"
+									+"<td>"+value.con1+"</td><td>"+value.visits+"</td>"
+									+"<td>"+value.QTypeName+"</td></tr>";
+							$("#q_detail").append(str);
+						}); 
+						$.each(data.cList,function(i,value){
+							var str = "";
+							if(value.page==0){
+							    str = str+"<a href='javascript:;' onclick='findData(this)'>"+data.page.currentPage+"</a>&nbsp;";}
+							else if(value.page==-1){
+								str = str+"<span>...</span>&nbsp;";}
+							else {str = str+"<a href='javascript:;' onclick='findData(this)'>"+value.page+"</a>&nbsp;";}
+							
+							$(".a-page").append(str);
+						});
+						$("#nowSub").text(data.page.currentPage-1);
+						$("#nowAdd").text(data.page.currentPage+1);
+						$("#total").text(data.page.totalPage);
+						$("#now").text(data.page.currentPage);
+					
+					}
+					if($("#total").text()==""){
+						$(".page-div").css("display","none");
+						$(".no-data").css("display","block");
+					}else{
+						$(".no-data").css("display","none");
+						$(".page-div").css("display","block");
+					}
+				    
+				});
 		}
 		
 		//查找所有地区的大师
@@ -51,7 +93,9 @@
 				});
 			});
 		}
-		
+		$(function(){
+			findData();
+		});
 		
 	</script>
 </head>
@@ -136,11 +180,11 @@
 			<div class="question-zone">
 				<div class="qz-title">问题列表区</div>
 				<div class="qz-box">
-				<form id="getquestion_form" action="${pageContext.request.contextPath }/question_find_findByDynamicData.action" >
-					<ul class="qz-list-ul">
-						<li><select class="qz_list" name="sharezone" onchange="findData()">
+				<%-- <form id="getquestion_form" action="${pageContext.request.contextPath }/question_find_findByDynamicData.action" >
+				 --%>	<ul class="qz-list-ul">
+						<li><select class="qz_list" id="sharezone" onchange="findData(this)">
 							<c:if test="${sessionScope.UsersfromActions==null }">
-								<option></option><option value="公开区">公开区</option><option value="所有问题">所有问题</option>
+								<option value="公开区">公开区</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions[0].userType=='普通' }">
 								<option value="所有问题">所有问题</option>
@@ -148,22 +192,22 @@
 								<option value="公开区">公开区</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions[0].userType=='学员' }">
-								<option value="所有问题">所有问题</option>
 								<option value="学员区">学员区</option>
+								<option value="所有问题">所有问题</option>
 								<option value="公开区">公开区</option>
 								<option value="我的问题">我的问题</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions[0].userType=='弟子' }">
-								<option value="所有问题">所有问题</option>
 								<option value="弟子区">弟子区</option>
+								<option value="所有问题">所有问题</option>
 								<option value="公开区">公开区</option>
 								<option value="我的问题">我的问题</option>
 								<option value="学员区">学员区</option>
 								<option value="答疑区">答疑区</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions[0].userType=='老先生'}">
-								<option value="所有问题">所有问题</option>
 								<option value="答疑区">答疑区</option>
+								<option value="所有问题">所有问题</option>
 								<option value="学员区">学员区</option>
 								<option value="公开区">公开区</option>
 								<option value="我的问题">我的问题</option>
@@ -171,20 +215,21 @@
 							</c:if>
 						</select></li>
 						<!--问题分类初始化绑定，可由后台添加-->
-						<li><select class="qz_type" name="QTypeName" onchange="findData()">
+						<li><select class="qz_type" id="QTypeName" onchange="findData(this)">
+								<option value="">问题分类</option>
 							<c:forEach items="${qtList }" var="qtList">
 								<option value="${qtList.QTypeName }">${qtList.QTypeName }</option>
 							</c:forEach>
 						</select></li>
-						<li><select class="deal_time" name="QTime" onchange="findData()">
-							<option></option>
+						<li><select class="deal_time" id="QTime" onchange="findData(this)">
+							<option value="" >按时间</option>
 							<option value="今天">今天</option>
 							<option value="最近三天">最近三天</option>
 							<option value="最近七天">最近七天</option>
 							<option value="最近一个月">最近一个月</option>
 						</select></li>
-						<li><select class="state" name="state" onchange="findData()">
-							<option value=></option><option value="0">未回复</option>
+						<li><select class="state" id="state" onchange="findData(this)">
+							<option value="">是否回复</option><option value="0">未回复</option>
 							<option value="1">已回复</option>
 						</select>
 						<li><a href="${pageContext.request.contextPath }/user/pages/post.jsp" class="ask" target="_blank">发帖</a></li>
@@ -193,7 +238,7 @@
 							<input type="button" value="搜索" id="search">
 						</li>
 					</ul>
-					</form>
+					<!-- </form> -->
 					<table class="qz-tb1">
 						<thead>
 							<tr>
@@ -210,7 +255,7 @@
 					</table>
 					<div id="showquestion">
 					<table class="qz-tb1" id="q_detail">
-					<c:forEach items="${requestScope.questionsFromAction }" var="question">
+					<c:forEach items="${qList }" var="question">
 						<tr>
 							<td class="icon-td" title="已回复">&#xe905;</td>
 							<td><a href="${pageContext.request.contextPath }/user/pages/q_detail.jsp" title="$(this)">××××××××××××</a></td>
@@ -225,42 +270,16 @@
 						<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 					</table></div>
 					<div class="page-div">
-						<!-- <input type="button" value="上一页" id="pre">
-						<a href="javascript:;">1</a>
-						<a href="javascript:;">2</a>
-						<span>第&nbsp;<span id="now">1</span>/<span id="total">2</span>&nbsp;页</span>
-						<input type="button" value="下一页" id="next"> -->
-						<s:if test="#request.page.hasPrePage">	
-						<a id="pre" href="${pageContext.request.contextPath }/question_find_findByDynamicData.action?currentPage=${page.currentPage-1 }"> <span> 
-								<span>上一页 </span> </span></a>
-						</s:if>
-						<s:else>
-							<a id="pre" href="javascript:;"> <span> 
-								<span> <s class="arrow"></s>上一页 </span> </span></a>
-						</s:else>
-						
-						 <s:iterator value="#request.pageList" var="data">
-							<s:if test="#data.page==0">
-								<a class="curr" href="${pageContext.request.contextPath }/question_find_findByDynamicData.action?currentPage=${request.page.currentPage }" ><span>${request.page.currentPage }</span></a>
-							</s:if>
-							<s:else>
-								<s:if test="#data.page==-1">
-									<ins>...</ins>
-								</s:if>
-								<s:else>
-									<a class="page" href="${pageContext.request.contextPath }/question_find_findByDynamicData.action?currentPage=${data.page }"><span>${data.page }</span></a>
-								</s:else>
-							</s:else>
-						</s:iterator>
-						<s:if test="#request.page.hasNextPage">	
-						<a id="next" href="${pageContext.request.contextPath }/question_find_findByDynamicData.action?currentPage=${page.currentPage+1 }"> <span> 
-								<span> <s class="arrow"></s>下一页 </span> </span></a>
-						</s:if>
-						<s:else>
-							<a id="next" href="javascript:;"> <span> 
-								<span> <s class="arrow"></s>下一页 </span> </span></a>
-						</s:else>
-					</div>
+						<input type="button" value="上一页" id="pre" onclick="findData($('#nowSub'))">
+						<input type="hidden" id="nowSub">
+						<span class="a-page">
+						<%-- <a href="javascript:;" onclick="">1</a>
+						<a href="javascript:;">2</a>--%></span> 
+						<span>第&nbsp;<span id="now"></span>/<span id="total"></span>&nbsp;页</span>
+						<input type="hidden" id="nowAdd">
+						<input type="button" value="下一页" id="next" onclick="findData($('#nowAdd'))">
+					</div> 
+					<div class="no-data">暂无数据</div>
 				</div>
 			</div>
 		</div>

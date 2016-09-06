@@ -47,5 +47,5 @@ public interface IQuestionDAO extends IBaseHibernateDAO<Question, Integer> {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Question> findByDynamicData(Question question,User user) throws Exception;
+	public List<Question> findByDynamicData(Question question,String userType) throws Exception;
 }

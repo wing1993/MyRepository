@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
@@ -14,10 +15,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.Page;
 import com.df.dao.pojo.Question;
 import com.df.dao.pojo.User;
 import com.df.dao.util.ClientPage;
+import com.df.dao.util.DateUtil;
 import com.df.dao.util.PageUtil;
 import com.df.service.iservice.IQuestionService;
 import com.opensymphony.xwork2.ModelDriven;
@@ -33,11 +36,53 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	@Qualifier("questionService")
 	private IQuestionService questionService;
 	
+	HttpServletResponse response = ServletActionContext.getResponse(); 
 	private Question question;
 	private Map<String, Object> requestMap;
 	private int sumPage;     //总页数
 	private int currentPage; //当前页
+	private DataPage<Question> dp;
+	private List<Question> qList;
+	private List<ClientPage> cList;
+	private Page page;
+	@SuppressWarnings("unchecked")
+	private List<User> u = (List<User>) ServletActionContext.getRequest()
+			.getSession().getAttribute("UsersfromActions");
 	
+	
+	
+	public List<ClientPage> getcList() {
+		return cList;
+	}
+
+	public void setcList(List<ClientPage> cList) {
+		this.cList = cList;
+	}
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
+
+	public List<Question> getqList() {
+		return qList;
+	}
+
+	public void setqList(List<Question> qList) {
+		this.qList = qList;
+	}
+
+/*	public DataPage<Question> getDp() {
+		return dp;
+	}
+
+	public void setDp(DataPage<Question> dp) {
+		this.dp = dp;
+	}*/
+
 	public String save() {
 		return questionService.save(question);
 	}
@@ -56,25 +101,37 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	}
 
 	public String findByDynamicData(){
+		System.out.println("2222222222");
+		String userType = null;
+		if(null!=u) {userType = u.get(0).getUserType();}
 		String msg = "error";
 		List<Question> questionList = new ArrayList<Question>();
 		try {
-			Question question1 = question;
-			System.out.println("action层"+question );
-			question1.setQTime("");
-			questionList = questionService.findByDynamicData(question1);
+			question.setQTime(new DateUtil().changeToDate(question.getQTime()));
+			questionList = questionService.findByDynamicData(question,userType);
 			if (questionList != null && questionList.size() > 0) {
-				//requestMap.put("questionsFromAction", questionList);
-				this.paging(questionList);
+				System.out.println(msg);//requestMap.put("questionsFromAction", questionList);
+				dp = this.paging(questionList);
+				qList = dp.gettList();
+				cList = dp.getcList();
+				System.out.println(cList.toString());
+				System.out.println("----"+currentPage);
+				page = dp.getPage();
+				/*requestMap.put("qList1", qList);
+				requestMap.put("pageList", dp.getcList());
+				requestMap.put("page", dp.getPage());*/
 				msg = "success";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println(msg);
 		return msg;
 	}
 	
-	private void paging(List<Question> questionList) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private DataPage<Question> paging(List<Question> questionList) {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		if(sumPage != 0) {
 			if(currentPage > sumPage)  //判断输入的页数是否大于总页数
@@ -82,7 +139,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 			else if(currentPage < 0)
 				currentPage = 1;
 		}
-		Page page = PageUtil.createPage(10, questionList.size(), currentPage);
+		Page page = PageUtil.createPage(1, questionList.size(), currentPage);
 		int endPage = page.getBeginIndex() + page.getEveryPage();
 		if (page.getBeginIndex() + page.getEveryPage() > page.getTotalCount()) {
 			endPage = page.getTotalCount();
@@ -109,8 +166,9 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 			
 			request.setAttribute("pageList", pageList);
 		}
-		
+		DataPage dp = new DataPage(questionList,pageList,page);
 		request.setAttribute("questionsFromAction", questionList);
+		return dp;
 	}
 	
 	

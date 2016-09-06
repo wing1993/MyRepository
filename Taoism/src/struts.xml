@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN" "http://struts.apache.org/dtds/struts-2.1.7.dtd">
 <struts>
 	<package name="user_action" namespace="/" extends="json-default">
 		<action name="vcode" class="userAction" method="CheckCode">
@@ -43,8 +43,22 @@
 		</action>
     </package>
     <package name="question_action" namespace="/" extends="json-default">
+      <!--  <result-types>
+                <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+        </result-types>
+        <interceptors>
+                <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+                <interceptor-stack name="p1">
+                        <interceptor-ref name="defaultStack"/>
+                        <interceptor-ref name="json"/>
+                </interceptor-stack>
+        </interceptors> -->
         <action name="question_find_*" class="questionAction" method="{1}">
-			<result name="success" type="dispatcher">/user/pages/index.jsp</result>
+			<!-- <result type="json">
+				<param name="root">qList</param>
+			</result> -->
+			<result name="success" type="json"></result>
+			<result name="error" type="json"></result>
 		</action>
 		
     </package>

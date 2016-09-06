@@ -83,42 +83,47 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	}
 
 	@Override
-	public List<Question> findByDynamicData(Question question,User user) throws Exception {
+	public List<Question> findByDynamicData(Question question,String userType) throws Exception {
 		Session session = sessionFactory.openSession();
 		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
 		System.out.println(question.getSharezone()+"========="+(question.getSharezone()!=null));
 		System.out.println("---------------");
 		System.out.println(question.toString());
+		//System.out.println(user+"用户");
 		if("所有问题".equals(question.getSharezone())){
 			String[] sharezone = null; 
-			if("普通".equals(user.getUserType())){
+			if("".equals(userType)){
+				sharezone = new String[] {"公开区"};
+				dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone)));
+			}
+			if("普通".equals(userType)){
 				sharezone = new String[] {"公开区"};
 				dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
 						Restrictions.eq("username", question.getUsername())));
-			}else if("学员".equals(user.getUserType())){
+			}else if("学员".equals(userType)){
 				sharezone = new String[] {"公开区","学员区"};
 				dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
 						Restrictions.eq("username", question.getUsername())));
-			}else if("弟子".equals(user.getUserType())||"老先生".equals(user.getUserType())){
+			}else if("弟子".equals(userType)||"老先生".equals(userType)){
 				sharezone = new String[] {"公开区","学员区","弟子区"};
 				dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
 						Restrictions.eq("username", question.getUsername()),
 						Restrictions.eq("askWho", question.getAskWho())));
 			}	
 		}else{
-			if(!"".equals(question.getSharezone())){
+			if(!"".equals(question.getSharezone())){System.out.println("1");
 				dc.add(Restrictions.eq("sharezone", question.getSharezone()));
 			}
-			if(!"".equals(question.getQTypeName())){
+			if(!"".equals(question.getQTypeName())){System.out.println("2");
 				dc.add(Restrictions.eq("QTypeName", question.getQTypeName()));
 			}
-			if(!"".equals(question.getQTime())){
+			if(!"".equals(question.getQTime())){System.out.println("3");
 				dc.add(Restrictions.ge("QTime", question.getQTime()));
 			}
-			if((question.getState()!=null)){
+			if((question.getState()!=null)){System.out.println("4");
 				dc.add(Restrictions.eq("state", question.getState()));
 			}
-			if(question.getAskWho()!=null){
+			if(question.getAskWho()!=null){System.out.println("5");
 				dc.add(Restrictions.eq("askWho", question.getAskWho()));
 			}
 		}

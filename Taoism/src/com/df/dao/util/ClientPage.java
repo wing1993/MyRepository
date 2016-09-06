@@ -10,4 +10,12 @@ public class ClientPage {
 	public void setPage(int page) {
 		this.page = page;
 	}
+
+	@Override
+	public String toString() {
+		return "ClientPage [page=" + page + "]";
+	}
+	
+	
+	
 }
