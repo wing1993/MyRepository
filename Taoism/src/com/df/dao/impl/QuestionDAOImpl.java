@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -89,42 +90,46 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		System.out.println(question.getSharezone()+"========="+(question.getSharezone()!=null));
 		System.out.println("---------------");
 		System.out.println(question.toString());
-		//System.out.println(user+"用户");
-		if("所有问题".equals(question.getSharezone())){
-			String[] sharezone = null; 
-			if("".equals(userType)){
-				sharezone = new String[] {"公开区"};
-				dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone)));
-			}
-			if("普通".equals(userType)){
-				sharezone = new String[] {"公开区"};
-				dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
-						Restrictions.eq("username", question.getUsername())));
-			}else if("学员".equals(userType)){
-				sharezone = new String[] {"公开区","学员区"};
-				dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
-						Restrictions.eq("username", question.getUsername())));
-			}else if("弟子".equals(userType)||"老先生".equals(userType)){
-				sharezone = new String[] {"公开区","学员区","弟子区"};
-				dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
-						Restrictions.eq("username", question.getUsername()),
-						Restrictions.eq("askWho", question.getAskWho())));
-			}	
-		}else{
-			if(!"".equals(question.getSharezone())){System.out.println("1");
-				dc.add(Restrictions.eq("sharezone", question.getSharezone()));
-			}
-			if(!"".equals(question.getQTypeName())){System.out.println("2");
-				dc.add(Restrictions.eq("QTypeName", question.getQTypeName()));
-			}
-			if(!"".equals(question.getQTime())){System.out.println("3");
-				dc.add(Restrictions.ge("QTime", question.getQTime()));
-			}
-			if((question.getState()!=null)){System.out.println("4");
-				dc.add(Restrictions.eq("state", question.getState()));
-			}
-			if(question.getAskWho()!=null){System.out.println("5");
-				dc.add(Restrictions.eq("askWho", question.getAskWho()));
+		
+		if(!"".equals(question.getQTitle())){
+			dc.add(Restrictions.like("QTitle",question.getQTitle(),MatchMode.ANYWHERE));
+		}else {
+			if("所有问题".equals(question.getSharezone())){
+				String[] sharezone = null; 
+				if("".equals(userType)){
+					sharezone = new String[] {"公开区"};
+					dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone)));
+				}
+				if("普通".equals(userType)){
+					sharezone = new String[] {"公开区"};
+					dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
+							Restrictions.eq("username", question.getUsername())));
+				}else if("学员".equals(userType)){
+					sharezone = new String[] {"公开区","学员区"};
+					dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
+							Restrictions.eq("username", question.getUsername())));
+				}else if("弟子".equals(userType)||"老先生".equals(userType)){
+					sharezone = new String[] {"公开区","学员区","弟子区"};
+					dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
+							Restrictions.eq("username", question.getUsername()),
+							Restrictions.eq("askWho", question.getAskWho())));
+				}	
+			}else{
+				if(!"".equals(question.getSharezone())){System.out.println("1");
+					dc.add(Restrictions.eq("sharezone", question.getSharezone()));
+				}
+				if(!"".equals(question.getQTypeName())){System.out.println("2");
+					dc.add(Restrictions.eq("QTypeName", question.getQTypeName()));
+				}
+				if(!"".equals(question.getQTime())){System.out.println("3");
+					dc.add(Restrictions.ge("QTime", question.getQTime()));
+				}
+				if((question.getState()!=null)){System.out.println("4");
+					dc.add(Restrictions.eq("state", question.getState()));
+				}
+				if(question.getAskWho()!=null){System.out.println("5");
+					dc.add(Restrictions.eq("askWho", question.getAskWho()));
+				}
 			}
 		}
 		

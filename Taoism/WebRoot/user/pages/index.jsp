@@ -23,12 +23,18 @@
 		
 		//问题列表（glory）
 		function findData(obj){
+			var Id=$(obj).attr("id");
+			alert(Id);
+			var qTitle = "";
+			if(Id=="sharezone"||Id=="QTypeName"||Id=="QTime"||Id=="state"){
+				$("#search_value").text("");
+			}else{qTitle = $("#search_value").val();}
 			$("body").scrollTop($("body").height());//滚动到最底部
 			$("#total").text("");
 			$("#now").text("");
 			$(".a-page").empty();$("#q_detail").empty();
 			$.post("${pageContext.request.contextPath }/question_find_findByDynamicData.action",{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),
-						QTime:$("#QTime").val(),state:$("#state").val(),currentPage:$(obj).text()},function(data){
+						QTime:$("#QTime").val(),state:$("#state").val(),QTitle:qTitle,currentPage:$(obj).text()},function(data){
 					if(null!=data.qList){
 						$.each(data.qList,function(i,value){
 							 var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";
@@ -235,7 +241,7 @@
 						<li><a href="${pageContext.request.contextPath }/user/pages/post.jsp" class="ask" target="_blank">发帖</a></li>
 						<li style="float:right !important;margin-right:30px;">
 							<input type="text" id="search_value">
-							<input type="button" value="搜索" id="search">
+							<input type="button" value="搜索" id="search" onclick="findData(this)">
 						</li>
 					</ul>
 					<!-- </form> -->
