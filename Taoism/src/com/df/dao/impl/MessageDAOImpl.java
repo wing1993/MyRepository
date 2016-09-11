@@ -37,7 +37,7 @@ public class MessageDAOImpl implements IMessageDAO {
 	public List<Message> findAll() {
 		List<Message> messageList = new ArrayList<Message>();
 		messageList = sessionFactory.getCurrentSession()
-				.createQuery("FROM Message").list();
+				.createQuery("FROM Message order by publish_time desc").list();
 		return messageList;
 	}
 
@@ -74,8 +74,9 @@ public class MessageDAOImpl implements IMessageDAO {
 	@Override
 	public List<Message> findLatest() throws Exception {
 		List<Message> Latest=null;
-		String hql="from Message order by publish_time desc limit 6";
+		String hql="from Message order by publish_time desc";
 		Query query=sessionFactory.getCurrentSession().createQuery(hql);
+		query.setMaxResults(5);//hql不能用limit
 		Latest=query.list();
 		return Latest;
 	}

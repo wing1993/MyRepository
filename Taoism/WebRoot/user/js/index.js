@@ -68,6 +68,11 @@ $(function(){
 	/*$(".master-data img").click(function(){
 		$(".popover").fadeIn();
 	});*/
+	$(".master-sub-box").mouseover(function(){
+		$(".master-sub-box span").css("display","block");
+	}).mouseout(function(){
+		$(".master-sub-box span").css("display","none");
+	});
 });
 
 function showDetail(obj){
@@ -83,3 +88,16 @@ function showDetail(obj){
 	$(".po-pic-box img").attr("src",$(obj).attr("src"));
 	$(".popover").fadeIn();
 }
+
+//显示最近的信息
+$(function(){
+	$(".r-box div[class='r-message']").remove();
+	$.post("/Taoism/message_findLatest.action",function(data){
+		$.each(data.messages,function(i,value){
+			var str="<div class='r-message'><a target='_blank' href='user/pages/message_content.jsp?author="+value.author
+				+"&publish_time="+value.publishTime.split('.')[0]+"&message_content="+value.messageContent+
+				"&message_title="+value.con1+"' title='"+value.con1+"'>"+value.con1+"</a></div>";
+			$(".r-more").before(str);
+		});
+	});
+});

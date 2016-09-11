@@ -48,9 +48,10 @@ html{font-family:'Microsoft YaHei';}
 	padding-right:10px;
 }
 .me-main:nth-child(odd){background:rgba(230,228,228,0.5);}
-.me-title{display:block;float:left;text-decoration:none;font-size:18px;}
-.releaser{color:#988E8E;display:inline-block;margin-left:20px;font-size:14px;}
-.me-time{color:#988E8E;float:right;}
+.me-main-a{overflow:hidden;float:left;width:60%;height:38px;line-height:38px;}
+.me-title{text-decoration:none;font-size:18px;}
+.releaser{color:#988E8E;display:inline-block;font-size:14px;float:right;}
+.me-time{color:#988E8E;float:right;margin-left:20px;}
 .page-div{
 	text-align: center;
 	margin-top:25px;
@@ -71,4 +72,8 @@ html{font-family:'Microsoft YaHei';}
 }
 .page-div a:hover{
 	border:1px solid #2877ff;
+}
+.selected{
+	color:#fff;
+	background:#2877ff;
 }

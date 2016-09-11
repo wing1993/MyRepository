@@ -18,7 +18,7 @@ public class Message implements java.io.Serializable {
 	private String author;
 	private String publishTime;
 	private String messageContent;
-	private String con1;
+	private String con1;//消息标题
 	private String con2;
 	private String con3;
 	private String con4;
@@ -69,13 +69,15 @@ public class Message implements java.io.Serializable {
 	}
 
 	public String getPublishTime() {
-		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-				.format(this.publishTime);
+		return this.publishTime;
+		/*return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(this.publishTime);*/
 	}
 
 	public void setPublishTime(String publishTime) {
-		this.publishTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-				.format(this.publishTime);
+		this.publishTime=publishTime;
+		/*this.publishTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(this.publishTime);*/
 	}
 
 	public String getMessageContent() {

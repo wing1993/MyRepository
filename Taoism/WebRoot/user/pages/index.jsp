@@ -8,6 +8,7 @@
 	<title>老先生答疑</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/index.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/common.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/index.js"></script>
 	<script type="text/javascript">
 		function ask_pa(obj){
@@ -23,8 +24,8 @@
 		
 		//问题列表（glory）
 		function findData(obj){
+			aSelected(obj);//无效？
 			var Id=$(obj).attr("id");
-			alert(Id);
 			var qTitle = "";
 			if(Id=="sharezone"||Id=="QTypeName"||Id=="QTime"||Id=="state"){
 				$("#search_value").text("");
@@ -39,8 +40,8 @@
 						$.each(data.qList,function(i,value){
 							 var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";
 							 var str = "<tr>"+icon
-									+"<td><a href='${pageContext.request.contextPath }/user/pages/q_detail.jsp' title='$(this)'>"+value.QTitle+"</a></td>"
-									+"<td>"+value.username+"<br>"+value.QTime+"</td><td>"+value.askWho+"</td><td></td>"
+									+"<td><a href='${pageContext.request.contextPath }/user/pages/q_detail.jsp' title='"+value.QTitle+"' onclick=''>"+value.QTitle+"</a></td>"
+									+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td></td>"
 									+"<td>"+value.con1+"</td><td>"+value.visits+"</td>"
 									+"<td>"+value.QTypeName+"</td></tr>";
 							$("#q_detail").append(str);
@@ -328,7 +329,7 @@
 		<div class="r-message"><a href="#">招生</a></div>
 		<div class="r-message"><a href="#">招生</a></div>
 		<div class="r-message"><a href="#">招生</a></div>
-		<div class="r-more"><a href="#">更多</a></div>
+		<div class="r-more"><a href="${pageContext.request.contextPath }/message_findAll.action">更多</a></div>
 	</div>
 </body>
 </html>

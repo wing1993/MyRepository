@@ -36,10 +36,16 @@ public class MessageServiceImpl implements IMessageService {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public List<Message> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Message> AllMessage=null;
+		try {
+			AllMessage=messageDao.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return AllMessage;
 	}
 
 	@Override

@@ -62,4 +62,11 @@
 		</action>
 		
     </package>
+    <package name="message_action" namespace="/" extends="json-default">
+    	<action name="message_*" class="messageAction" method="{1}">
+    		<result name="messageList" type="json"></result>
+    		<result name="success" type="dispatcher">/user/pages/message.jsp</result>
+    	</action>
+    
+    </package>
 </struts>
