@@ -1,7 +1,17 @@
-package com.df.dao.util;
+package com.df.dao.pojo;
 
 public class ClientPage {
 	int page;  //页码
+
+	
+	public ClientPage() {
+		super();
+	}
+
+	public ClientPage(int page) {
+		super();
+		this.page = page;
+	}
 
 	public int getPage() {
 		return page;

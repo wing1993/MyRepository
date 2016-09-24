@@ -1,5 +1,5 @@
 #MyEclipse Hibernate Properties
-#Wed Aug 03 16:17:08 CST 2016
+#Tue Sep 13 11:02:10 CST 2016
 genBasicCompId=false
 sessionFactoryName=com.df.dao.pojo.HibernateSessionFactory
 profile=
@@ -18,4 +18,3 @@ genAnnotations=false
 reSettingsFile=/Taoism/hibernate.reveng.xml
 configFile=/Taoism/src/hibernate.cfg.xml
 createConfigFile=true
-baseDaoClass=BaseHibernateDAO

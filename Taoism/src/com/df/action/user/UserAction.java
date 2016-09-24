@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.df.dao.pojo.ClientPage;
 import com.df.dao.pojo.Page;
 import com.df.dao.pojo.User;
-import com.df.dao.util.ClientPage;
 import com.df.dao.util.PageUtil;
 import com.df.service.iservice.IUserService;
 import com.opensymphony.xwork2.ModelDriven;
@@ -152,10 +152,10 @@ public class UserAction implements Serializable, ModelDriven<User>,
 
 	public String findAll(){
 		List<User> userList = userService.findAll();
-		this.paging(userList);
+		//this.paging(userList);
 		return "success";
 	}
-	private void paging(List<User> userList) {
+	/*private void paging(List<User> userList) {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		if(sumPage != 0) {
 			if(currentPage > sumPage)  //判断输入的页数是否大于总页数
@@ -192,7 +192,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		}
 		
 		request.setAttribute("userByPages", userList);
-	}
+	}*/
 	public String login() throws IOException {
 		String msg = userService.login(user);
 		List<User> users = userService.findByUsername(user);

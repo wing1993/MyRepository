@@ -15,11 +15,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.df.dao.pojo.ClientPage;
 import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.Page;
+import com.df.dao.pojo.QueryCriteria;
+import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.Question;
 import com.df.dao.pojo.User;
-import com.df.dao.util.ClientPage;
 import com.df.dao.util.DateUtil;
 import com.df.dao.util.PageUtil;
 import com.df.service.iservice.IQuestionService;
@@ -38,6 +40,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	
 	HttpServletResponse response = ServletActionContext.getResponse(); 
 	private Question question;
+	//private QueryCriteria queryCriteria;
 	private Map<String, Object> requestMap;
 	private int sumPage;     //总页数
 	private int currentPage; //当前页
@@ -100,7 +103,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		return msg;
 	}
 
-	public String findByDynamicData(){
+	/*public String findByDynamicData(){
 		System.out.println("2222222222");
 		String userType = null;
 		if(null!=u) {userType = u.get(0).getUserType();}
@@ -117,9 +120,9 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 				System.out.println(cList.toString());
 				System.out.println("----"+currentPage);
 				page = dp.getPage();
-				/*requestMap.put("qList1", qList);
+				requestMap.put("qList1", qList);
 				requestMap.put("pageList", dp.getcList());
-				requestMap.put("page", dp.getPage());*/
+				requestMap.put("page", dp.getPage());
 				msg = "success";
 			}
 		} catch (Exception e) {
@@ -169,8 +172,40 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		DataPage dp = new DataPage(questionList,pageList,page);
 		request.setAttribute("questionsFromAction", questionList);
 		return dp;
+	}*/
+	public String findByDynamicData(){
+		String userType = null;
+		if(null!=u) {userType = u.get(0).getUserType();}
+		String msg = "error";
+		/*if(sumPage != 0) {
+			if(currentPage > sumPage)  //判断输入的页数是否大于总页数
+				currentPage = sumPage;
+			else if(currentPage < 0)
+				currentPage = 1;
+		}*/
+		try {
+			System.out.println(question+"wwwwwwwwwwwwwwwwww");
+			question.setQTime(new DateUtil().changeToDate(question.getQTime()));
+			dp = questionService.findByDynamicData(question,currentPage,userType);
+			if (dp.gettList() != null && dp.gettList().size() > 0) {
+				/*System.out.println(msg);//requestMap.put("questionsFromAction", questionList);
+				dp = this.paging(questionList);*/
+				qList = dp.gettList();
+				cList = dp.getcList();
+				System.out.println("----"+currentPage);
+				page = dp.getPage();
+				/*requestMap.put("qList1", qList);
+				requestMap.put("pageList", dp.getcList());
+				requestMap.put("page", dp.getPage());*/
+				msg = "success";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(msg);
+		return msg;
 	}
-	
 	
 	public IQuestionService getQuestionService() {
 		return questionService;

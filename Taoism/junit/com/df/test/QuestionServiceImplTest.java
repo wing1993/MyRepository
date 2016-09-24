@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.Question;
 import com.df.service.iservice.IQuestionService;
-import com.df.service.iservice.IUserService;
 
 public class QuestionServiceImplTest {
 
@@ -43,7 +43,11 @@ public class QuestionServiceImplTest {
 
 	@Test
 	public void testFindAll() {
-		fail("Not yet implemented");
+		List<Question> q = iqs.findAll();
+		for (Question qt : q) {
+			System.out.println(qt.toString());
+		}
+		
 	}
 
 	@Test

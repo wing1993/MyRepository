@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.df.dao.pojo.ClientPage;
 import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.Message;
 import com.df.dao.pojo.Page;
 import com.df.dao.pojo.Question;
-import com.df.dao.util.ClientPage;
 import com.df.service.iservice.IMessageService;
 import com.opensymphony.xwork2.ModelDriven;
 

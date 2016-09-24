@@ -2,8 +2,6 @@ package com.df.dao.pojo;
 
 import java.util.List;
 
-import com.df.dao.util.ClientPage;
-
 public class DataPage<T> {
 	private List<T> tList;
 	private List<ClientPage> cList;

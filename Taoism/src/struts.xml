@@ -43,24 +43,16 @@
 		</action>
     </package>
     <package name="question_action" namespace="/" extends="json-default">
-      <!--  <result-types>
-                <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
-        </result-types>
-        <interceptors>
-                <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
-                <interceptor-stack name="p1">
-                        <interceptor-ref name="defaultStack"/>
-                        <interceptor-ref name="json"/>
-                </interceptor-stack>
-        </interceptors> -->
         <action name="question_find_*" class="questionAction" method="{1}">
-			<!-- <result type="json">
-				<param name="root">qList</param>
-			</result> -->
 			<result name="success" type="json"></result>
 			<result name="error" type="json"></result>
 		</action>
-		
+    </package>
+     <package name="post_action" namespace="/" extends="json-default">
+        <action name="post_find_*" class="postAction" method="{1}">
+			<result name="success" type="json"></result>
+			<result name="error" type="json"></result>
+		</action>
     </package>
     <package name="message_action" namespace="/" extends="json-default">
     	<action name="message_*" class="messageAction" method="{1}">

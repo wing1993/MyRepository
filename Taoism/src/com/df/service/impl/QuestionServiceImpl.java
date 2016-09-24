@@ -1,6 +1,5 @@
 package com.df.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.df.dao.idao.IQuestionDAO;
+import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.Question;
-import com.df.dao.pojo.User;
 import com.df.service.iservice.IQuestionService;
 
 @Service("questionService")
@@ -47,8 +46,14 @@ public class QuestionServiceImpl implements IQuestionService {
 
 	@Override
 	public List<Question> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Question> ql = null;
+		try {
+			ql = questionDao.findAll();
+			System.out.println(ql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ql;
 	}
 
 	@Override
@@ -62,6 +67,7 @@ public class QuestionServiceImpl implements IQuestionService {
 		QueryResult query = null;
 		try {
 			query = questionDao.findAll(k1, k2);
+			System.out.println(query);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,14 +82,15 @@ public class QuestionServiceImpl implements IQuestionService {
 
 	@Transactional
 	@Override
-	public List<Question> findByDynamicData(Question t,String s) throws Exception {
-		List<Question> questionList = new ArrayList<Question>();
+	public DataPage<Question> findByDynamicData(Question t,int i,String s) throws Exception {
+		DataPage<Question> dp = new DataPage<Question>();
 		try{
-			questionList = questionDao.findByDynamicData(t,s);
+			dp = questionDao.findByDynamicData(t,i,s);
+			System.out.println("service层"+dp.gettList());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return questionList;
+		return dp;
 	}
 
 }

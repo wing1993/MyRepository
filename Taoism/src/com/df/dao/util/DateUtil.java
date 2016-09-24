@@ -13,8 +13,9 @@ public class DateUtil {
 		Calendar cal = new GregorianCalendar();
 		cal.setTime(date);
 		if("".equals(str)){
-			cal = new GregorianCalendar(1970,01,01);
-			System.out.println("5555555555555555555555555555555555555555"+sf.format(cal.getTime()));
+			return null;
+			/*cal = new GregorianCalendar(1970,01,01);
+			System.out.println("5555555555555555555555555555555555555555"+sf.format(cal.getTime()));*/
 		}
 		else if("今天".equals(str)){
 			cal.add(Calendar.DAY_OF_MONTH, -1);

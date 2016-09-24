@@ -30,13 +30,13 @@
 			if(Id=="sharezone"||Id=="QTypeName"||Id=="QTime"||Id=="state"){
 				$("#search_value").text("");
 			}else{qTitle = $("#search_value").val();}
-			$("body").scrollTop($("body").height());//滚动到最底部
 			$("#total").text("");
 			$("#now").text("");
 			$(".a-page").empty();$("#q_detail").empty();
 			$.post("${pageContext.request.contextPath }/question_find_findByDynamicData.action",{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),
 						QTime:$("#QTime").val(),state:$("#state").val(),QTitle:qTitle,currentPage:$(obj).text()},function(data){
 					if(null!=data.qList){
+					/*  for(var i=0;i<data.postList.length;i++){ */
 						$.each(data.qList,function(i,value){
 							 var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";
 							 var str = "<tr>"+icon
@@ -45,7 +45,9 @@
 									+"<td>"+value.con1+"</td><td>"+value.visits+"</td>"
 									+"<td>"+value.QTypeName+"</td></tr>";
 							$("#q_detail").append(str);
-						}); 
+						});
+					/* }  */ 
+					
 						$.each(data.cList,function(i,value){
 							var str = "";
 							if(value.page==0){
@@ -71,6 +73,7 @@
 					}
 				    
 				});
+			$("body").scrollTop($("body").height());//滚动到最底部
 		}
 		
 		//查找所有地区的大师

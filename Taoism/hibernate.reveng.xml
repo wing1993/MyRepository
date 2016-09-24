@@ -9,12 +9,10 @@
 		<column name="author" property="author"
 			type="java.lang.String">
 		</column>
-		<column name="publish_time" type="java.lang.String">
-		</column>
+		<column name="publish_time" type="java.lang.String"></column>
 	</table>
 	<table name="question" catalog="forum">
-		<column name="q_time" type="java.lang.String">
-		</column>
+		<column name="q_time" type="java.lang.String"></column>
 	</table>
 	<table name="reply" catalog="forum">
 		<column name="reply_time" type="java.lang.String"></column>
@@ -22,4 +20,5 @@
 	<table name="user" catalog="forum">
 		<column name="birthday" type="java.lang.String"></column>
 	</table>
+	<table name="disciple_area" catalog="forum"></table>
 </hibernate-reverse-engineering>
