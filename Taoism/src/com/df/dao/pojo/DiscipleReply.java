@@ -16,7 +16,7 @@ public class DiscipleReply  implements java.io.Serializable {
 
      private Integer replyId;
      private DiscipleReply discipleReply;
-     private DiscipleArea discipleArea;
+     private Question question;
      private String respondent;
      private Timestamp replyTime;
      private String replyContent;
@@ -38,17 +38,17 @@ public class DiscipleReply  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public DiscipleReply(DiscipleArea discipleArea, String respondent, Timestamp replyTime, String replyContent) {
-        this.discipleArea = discipleArea;
+    public DiscipleReply(Question question, String respondent, Timestamp replyTime, String replyContent) {
+        this.question = question;
         this.respondent = respondent;
         this.replyTime = replyTime;
         this.replyContent = replyContent;
     }
     
     /** full constructor */
-    public DiscipleReply(DiscipleReply discipleReply, DiscipleArea discipleArea, String respondent, Timestamp replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set discipleReplies) {
+    public DiscipleReply(DiscipleReply discipleReply, Question question, String respondent, Timestamp replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set discipleReplies) {
         this.discipleReply = discipleReply;
-        this.discipleArea = discipleArea;
+        this.question = question;
         this.respondent = respondent;
         this.replyTime = replyTime;
         this.replyContent = replyContent;
@@ -82,12 +82,12 @@ public class DiscipleReply  implements java.io.Serializable {
         this.discipleReply = discipleReply;
     }
 
-    public DiscipleArea getDiscipleArea() {
-        return this.discipleArea;
+    public Question getQuestion() {
+        return this.question;
     }
     
-    public void setDiscipleArea(DiscipleArea discipleArea) {
-        this.discipleArea = discipleArea;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public String getRespondent() {

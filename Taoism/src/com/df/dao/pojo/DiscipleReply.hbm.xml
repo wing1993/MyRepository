@@ -15,7 +15,7 @@
                 <comment>二级回复id（依赖于reply_id）</comment>
             </column>
         </many-to-one>
-        <many-to-one name="discipleArea" class="com.df.dao.pojo.DiscipleArea" fetch="select">
+        <many-to-one name="question" class="com.df.dao.pojo.Question" fetch="select">
             <column name="q_id" not-null="true">
                 <comment>回复的问题的编号</comment>
             </column>

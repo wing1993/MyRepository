@@ -36,7 +36,7 @@
             </column>
         </property>
         <property name="QContent" type="java.lang.String">
-            <column name="q_content" length="20" not-null="true">
+            <column name="q_content" not-null="true">
                 <comment>问题内容</comment>
             </column>
         </property>
@@ -81,6 +81,14 @@
         <property name="con7" type="java.lang.String">
             <column name="con7" />
         </property>
+        <set name="publicReplies" inverse="true">
+            <key>
+                <column name="q_id" not-null="true">
+                    <comment>回复的问题的编号</comment>
+                </column>
+            </key>
+            <one-to-many class="com.df.dao.pojo.PublicReply" />
+        </set>
         <set name="replies" inverse="true">
             <key>
                 <column name="q_id" not-null="true">
@@ -88,6 +96,30 @@
                 </column>
             </key>
             <one-to-many class="com.df.dao.pojo.Reply" />
+        </set>
+        <set name="discipleReplies" inverse="true">
+            <key>
+                <column name="q_id" not-null="true">
+                    <comment>回复的问题的编号</comment>
+                </column>
+            </key>
+            <one-to-many class="com.df.dao.pojo.DiscipleReply" />
+        </set>
+        <set name="myquestionReplies" inverse="true">
+            <key>
+                <column name="q_id" not-null="true">
+                    <comment>回复的问题的编号</comment>
+                </column>
+            </key>
+            <one-to-many class="com.df.dao.pojo.MyquestionReply" />
+        </set>
+        <set name="studentReplies" inverse="true">
+            <key>
+                <column name="q_id" not-null="true">
+                    <comment>回复的问题的编号</comment>
+                </column>
+            </key>
+            <one-to-many class="com.df.dao.pojo.StudentReply" />
         </set>
     </class>
 </hibernate-mapping>

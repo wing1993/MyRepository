@@ -16,7 +16,7 @@ public class PublicReply  implements java.io.Serializable {
 
      private Integer replyId;
      private PublicReply publicReply;
-     private PublicArea publicArea;
+     private Question question;
      private String respondent;
      private Timestamp replyTime;
      private String replyContent;
@@ -38,17 +38,17 @@ public class PublicReply  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public PublicReply(PublicArea publicArea, String respondent, Timestamp replyTime, String replyContent) {
-        this.publicArea = publicArea;
+    public PublicReply(Question question, String respondent, Timestamp replyTime, String replyContent) {
+        this.question = question;
         this.respondent = respondent;
         this.replyTime = replyTime;
         this.replyContent = replyContent;
     }
     
     /** full constructor */
-    public PublicReply(PublicReply publicReply, PublicArea publicArea, String respondent, Timestamp replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set publicReplies) {
+    public PublicReply(PublicReply publicReply, Question question, String respondent, Timestamp replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set publicReplies) {
         this.publicReply = publicReply;
-        this.publicArea = publicArea;
+        this.question = question;
         this.respondent = respondent;
         this.replyTime = replyTime;
         this.replyContent = replyContent;
@@ -82,12 +82,12 @@ public class PublicReply  implements java.io.Serializable {
         this.publicReply = publicReply;
     }
 
-    public PublicArea getPublicArea() {
-        return this.publicArea;
+    public Question getQuestion() {
+        return this.question;
     }
     
-    public void setPublicArea(PublicArea publicArea) {
-        this.publicArea = publicArea;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public String getRespondent() {

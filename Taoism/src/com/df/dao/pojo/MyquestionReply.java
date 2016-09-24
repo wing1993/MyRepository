@@ -16,7 +16,7 @@ public class MyquestionReply  implements java.io.Serializable {
 
      private Integer replyId;
      private MyquestionReply myquestionReply;
-     private Myquestion myquestion;
+     private Question question;
      private String respondent;
      private Timestamp replyTime;
      private String replyContent;
@@ -38,17 +38,17 @@ public class MyquestionReply  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public MyquestionReply(Myquestion myquestion, String respondent, Timestamp replyTime, String replyContent) {
-        this.myquestion = myquestion;
+    public MyquestionReply(Question question, String respondent, Timestamp replyTime, String replyContent) {
+        this.question = question;
         this.respondent = respondent;
         this.replyTime = replyTime;
         this.replyContent = replyContent;
     }
     
     /** full constructor */
-    public MyquestionReply(MyquestionReply myquestionReply, Myquestion myquestion, String respondent, Timestamp replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set myquestionReplies) {
+    public MyquestionReply(MyquestionReply myquestionReply, Question question, String respondent, Timestamp replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set myquestionReplies) {
         this.myquestionReply = myquestionReply;
-        this.myquestion = myquestion;
+        this.question = question;
         this.respondent = respondent;
         this.replyTime = replyTime;
         this.replyContent = replyContent;
@@ -82,12 +82,12 @@ public class MyquestionReply  implements java.io.Serializable {
         this.myquestionReply = myquestionReply;
     }
 
-    public Myquestion getMyquestion() {
-        return this.myquestion;
+    public Question getQuestion() {
+        return this.question;
     }
     
-    public void setMyquestion(Myquestion myquestion) {
-        this.myquestion = myquestion;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public String getRespondent() {

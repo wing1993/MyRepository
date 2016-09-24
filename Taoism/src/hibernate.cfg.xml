@@ -18,7 +18,13 @@
 		<property name="format_sql">true</property>
 		<!-- 优化数据库服务器的访问和服务性能 -->
 		<property name="hibernate.jdbc.fetch_size">100</property>
-		<property name="hibernate.jdbc.batch_size">30</property>
+		<property name="hibernate.jdbc.batch_size">30</property><!-- 
+		<mapping resource="com/df/dao/pojo/StudentReply.hbm.xml" />
+		<mapping resource="com/df/dao/pojo/Reply.hbm.xml" />
+		<mapping resource="com/df/dao/pojo/PublicReply.hbm.xml" />
+		<mapping resource="com/df/dao/pojo/MyquestionReply.hbm.xml" />
+		<mapping resource="com/df/dao/pojo/DiscipleReply.hbm.xml" />
+		<mapping resource="com/df/dao/pojo/Question.hbm.xml" /> -->
 
 
 	</session-factory>

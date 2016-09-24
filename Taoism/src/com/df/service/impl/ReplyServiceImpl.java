@@ -1,6 +1,5 @@
 package com.df.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import com.df.service.iservice.IReplyService;
 @Service("replyService")
 public class ReplyServiceImpl implements IReplyService {
 
-	@Autowired
+	/*@Autowired
 	@Qualifier("publicReplyDao")
 	private IPublicReplyDAO publicReplyDao;
 	
@@ -33,7 +32,7 @@ public class ReplyServiceImpl implements IReplyService {
 	
 	@Autowired
 	@Qualifier("myquestionReplyDao")
-	private IMyquestionDAO myquestionReplyDao;
+	private IMyquestionDAO myquestionReplyDao;*/
 	
 	@Override
 	public String save(Reply t) {
@@ -72,9 +71,10 @@ public class ReplyServiceImpl implements IReplyService {
 	}
 	@Override
 	public List<Reply> findByQid(Question question){
-		List<Reply> replyList = new ArrayList<Reply> ();
+		/*List<Reply> replyList = new ArrayList<Reply> ();
 		if("公开区".equals(question.getSharezone())){
 			
-		}
+		}*/
+		return null;
 	}
 }
