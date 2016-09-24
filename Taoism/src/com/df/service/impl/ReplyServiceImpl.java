@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.df.dao.idao.IDiscipleReplyDAO;
-import com.df.dao.idao.IMyquestionDAO;
 import com.df.dao.idao.IPublicReplyDAO;
 import com.df.dao.idao.IStudentReplyDAO;
 import com.df.dao.pojo.QueryResult;
