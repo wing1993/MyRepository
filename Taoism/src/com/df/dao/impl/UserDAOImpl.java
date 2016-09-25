@@ -149,4 +149,16 @@ public class UserDAOImpl implements IUserDAO {
 		return users;
 	}
 
+	@Override
+	public List<User> findByMail(User user) throws Exception {
+		user = (User) sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"from User u where u.mail=?")
+				.setString(0, user.getMail()).uniqueResult();
+		List<User> users = new ArrayList<User>();
+		users.add(user);
+		return users;
+	}
+
 }

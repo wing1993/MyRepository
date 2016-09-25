@@ -93,11 +93,16 @@ function showDetail(obj){
 $(function(){
 	$(".r-box div[class='r-message']").remove();
 	$.post("/Taoism/message_findLatest.action",function(data){
+		if(null!=data.messages){
+			$(".r-box").css("display","block");
+		}
 		$.each(data.messages,function(i,value){
-			var str="<div class='r-message'><a target='_blank' href='user/pages/message_content.jsp?author="+value.author
-				+"&publish_time="+value.publishTime.split('.')[0]+"&message_content="+value.messageContent+
-				"&message_title="+value.con1+"' title='"+value.con1+"'>"+value.con1+"</a></div>";
-			$(".r-more").before(str);
+			
+				var str="<div class='r-message'><a target='_blank' href='user/pages/message_content.jsp?author="+value.author
+					+"&publish_time="+value.publishTime.split('.')[0]+"&message_content="+value.messageContent+
+					"&message_title="+value.con1+"' title='"+value.con1+"'>"+value.con1+"</a></div>";
+				$(".r-more").before(str);
+			
 		});
 	});
 });

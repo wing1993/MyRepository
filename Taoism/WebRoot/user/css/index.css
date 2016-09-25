@@ -154,8 +154,8 @@ input[type=button],.ask{
 	cursor:pointer;
 	padding:6px;
 	color:#fff;
-	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#28A6FF), to(#2877ff));/*谷歌*/
-	background:-moz-linear-gradient(top,#28A6FF,#2877ff);/*火狐*/
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#28A6FF), to(#2877ff));/*璋锋瓕*/
+	background:-moz-linear-gradient(top,#28A6FF,#2877ff);/*鐏嫄*/
 	background:-ms-linear-gradient(top,#28A6FF,#2877ff);/*ie10*/
 	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#28A6FF,endColorStr=#2877ff); /*IE 6 7 8*/ 
 	border:none;
@@ -220,13 +220,13 @@ input[type=button]:hover,.ask:hover{
 	border:1px solid #d0d0d0;
 	height:40px;
 }
-.qz-tb1 td:nth-of-type(1){width:5%;}/*状态*/
-.qz-tb1 td:nth-of-type(2){width:35%;}/*标题*/
-.qz-tb1 td:nth-of-type(3){width:12%;}/*提问者*/
-.qz-tb1 td:nth-of-type(4){width:7%;}/*大师*/
-.qz-tb1 td:nth-of-type(5){width:12%;}/*最后回复*/
-.qz-tb1 td:nth-of-type(6){width:8%;}/*回复人数*/
-.qz-tb1 td:nth-of-type(7){width:8%;}/*问题分类*/
+.qz-tb1 td:nth-of-type(1){width:5%;}/*鐘舵�*/
+.qz-tb1 td:nth-of-type(2){width:35%;}/*鏍囬*/
+.qz-tb1 td:nth-of-type(3){width:12%;}/*鎻愰棶鑰�/
+.qz-tb1 td:nth-of-type(4){width:7%;}/*澶у笀*/
+.qz-tb1 td:nth-of-type(5){width:12%;}/*鏈�悗鍥炲*/
+.qz-tb1 td:nth-of-type(6){width:8%;}/*鍥炲浜烘暟*/
+.qz-tb1 td:nth-of-type(7){width:8%;}/*闂鍒嗙被*/
 
 .page-div{
 	text-align: center;
@@ -308,6 +308,7 @@ input[type=button]:hover,.ask:hover{
 	overflow-y:auto;
 }
 .r-box{
+	display:none;
 	position:fixed;
 	top:150px;
 	left:50%;

@@ -85,7 +85,7 @@
 			<input type="button" value="登录" id="login_btn">
 		</div>
 		<div class="bottom">
-			<a href="#" style="float:left;">忘记密码</a>
+			<a href="${pageContext.request.contextPath }/user/pages/forgetPwd.jsp" style="float:left;">忘记密码</a>
 			<a href="register.jsp" style="float:right;">立即注册</a>
 		</div>
 		</form>

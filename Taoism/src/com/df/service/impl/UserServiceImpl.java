@@ -40,6 +40,7 @@ public class UserServiceImpl implements IUserService {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public String update(User newObj) {
 		try {
@@ -65,8 +66,14 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public User getById(Integer k) {
-		// TODO Auto-generated method stub
-		return null;
+		User user=new User();
+		try {
+			user=userDao.getById(k);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 	@Transactional
@@ -149,6 +156,18 @@ public class UserServiceImpl implements IUserService {
 		List<User> users = new ArrayList<User>();
 		try {
 			users = userDao.findByUsername(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
+	}
+
+	@Transactional
+	@Override
+	public List<User> findByMail(User user) {
+		List<User> users = new ArrayList<User>();
+		try {
+			users = userDao.findByMail(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

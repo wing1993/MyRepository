@@ -12,6 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/q_detail.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/q_detail.js"></script>
 	<script charset="utf-8" src="kindeditor/kindeditor-min.js"></script>
@@ -63,11 +64,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							day="0"+day;
 						now_time=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;//计算当前时间
 						
-						var obj="<div class='ans-content'><a href='#' class='re-name'>"+${sessionScope.UsersfromActions[0].username}+"</a>"+
+						/* var obj="<div class='ans-content'><a href='#' class='re-name'>"+${sessionScope.UsersfromActions[0].username}+"</a>"+
 						"<span class='main-content'>"+$(this).prev().val()+"</span><div class='ans-co-bottom'></div><span class='ans-time'>"+
 						now_time+"</span></div>";//未完待续
 						
-						$(this).parent().prev().prev().append(obj);
+						$(this).parent().prev().prev().append(obj); */
 					}else{
 						alert("评论失败");
 					}
@@ -82,6 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="main-box"></div>
     	<div class="main-box-fixed">
     		<div class="q_title">微微一笑很倾城</div>
+    		<a class="btn" id="forward">转发</a>
     		<a class="btn" id="btn">回复</a>
     	</div>
     	<div class="w-content-box">
@@ -178,5 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<input type="button" value="发表" class="abtn">
     	</div>
     </div>
+    <div class="icon-rtop">&#xe933;</div>
+    <div id="returntop">返回顶部</div>
   </body>
 </html>

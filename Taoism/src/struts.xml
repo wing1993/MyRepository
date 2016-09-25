@@ -57,8 +57,25 @@
     <package name="message_action" namespace="/" extends="json-default">
     	<action name="message_*" class="messageAction" method="{1}">
     		<result name="messageList" type="json"></result>
-    		<result name="success" type="dispatcher">/user/pages/message.jsp</result>
+    		<result name="AllList" type="dispatcher">/user/pages/message.jsp</result>
+    		<result name="success" type="json"></result>
+    		<result name="error" type="json"></result>
+    		<result name="findByAuthor" type="dispatcher">/user/pages/myMessage.jsp</result>
     	</action>
     
+    </package>
+    <package name="mail_action" namespace="/" extends="json-default">
+    	<action name="sendmail" class="findPwdAction" method="sendmail">
+    		<result name="success" type="json"></result>
+    		<result name="error" type="json"></result>
+    	</action>
+    	<action name="checkLink" class="findPwdAction" method="checkResetLink">
+    		<result name="error" type="dispatcher">/user/pages/error.jsp</result>
+    		<result name="success" type="dispatcher">/user/pages/changePwd.jsp</result>
+    	</action>
+    	<action name="changeKey" class="findPwdAction" method="changeKey">
+    		<result name="success" type="json"></result>
+    		<result name="error" type="json"></result>
+    	</action>
     </package>
 </struts>
