@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.df.dao.idao.IMessageDAO;
 import com.df.dao.pojo.Message;
 import com.df.dao.pojo.QueryResult;
+import com.df.dao.pojo.User;
 import com.df.service.iservice.IMessageService;
 
 @Service("messageService")
@@ -17,23 +18,43 @@ public class MessageServiceImpl implements IMessageService {
 	@Autowired
 	@Qualifier("messageDao")
 	private IMessageDAO messageDao;
+	private String msg="error";
 	
+	@Transactional
 	@Override
 	public String save(Message t) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			messageDao.save(t);
+			msg="success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
+	@Transactional
 	@Override
 	public String delete(Message t) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			messageDao.delete(t);
+			msg="success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
+	@Transactional
 	@Override
 	public String update(Message newObj) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			messageDao.update(newObj);
+			msg="success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(msg);
+		return msg;
 	}
 
 	@Transactional
@@ -70,6 +91,18 @@ public class MessageServiceImpl implements IMessageService {
 			e.printStackTrace();
 		}
 		return latest;
+	}
+
+	@Transactional
+	@Override
+	public List<Message> findByAuthor(User user) {
+		List<Message> list=null;
+		try {
+			list=messageDao.findByAuthor(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 }

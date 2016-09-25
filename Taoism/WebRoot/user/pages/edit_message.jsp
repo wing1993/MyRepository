@@ -12,6 +12,7 @@
 	<meta http-equiv="description" content="This is my page">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/common.js"></script>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -55,6 +56,18 @@
 				now_time=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
 		
 				$("#publishTime").val(now_time);
+				var obj={
+					url:'/Taoism/message_sava.action',
+					type:'post',
+					success:function(data){
+						if(data=="success"){
+							alert("发布成功！");
+						}else{
+							alert("发布失败，请稍后再试！");
+						}
+					}
+				};
+				$("form").ajaxSubmit(obj);
 			}
 		}
 	</script>
@@ -75,11 +88,10 @@
     			</tr>
     		</table>
     		<input type="hidden" value="${sessionScope.UsersfromActions[0].username }" name="author">
-    		<input type="hidden" name="messageContent" id="messageContent">
     		<input type="hidden" name="publishTime" id="publishTime">
     		<div class="btn">
 	    		<input type="button" value="发布" onclick="check()">&nbsp;&nbsp;
-	    		<input type="reset" value="取消">
+	    		<input type="button" value="取消" onclick="cancel()">
     		</div>
     	</form>
     </div>

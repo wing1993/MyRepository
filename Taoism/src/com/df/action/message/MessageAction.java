@@ -1,9 +1,13 @@
 package com.df.action.message;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,7 +18,7 @@ import com.df.dao.pojo.ClientPage;
 import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.Message;
 import com.df.dao.pojo.Page;
-import com.df.dao.pojo.Question;
+import com.df.dao.pojo.User;
 import com.df.service.iservice.IMessageService;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -31,6 +35,7 @@ public class MessageAction implements ModelDriven<Message>, Serializable,Request
 	private Message message;
 	private List<Message> messages;
 	private Map<String,Object> requestMap;
+	private String msg="error";
 	private int sumPage;     //总页数
 	private int currentPage; //当前页
 	private DataPage<Message> dp;
@@ -107,7 +112,42 @@ public class MessageAction implements ModelDriven<Message>, Serializable,Request
 	public String findAll(){
 		messages=messageService.findAll();
 		requestMap.put("messages", messages);
-		return "success";
+		return "AllList";
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<User> u = (List<User>) ServletActionContext.getRequest()
+			.getSession().getAttribute("UsersfromActions");
+
+	//通过作者查找信息
+	public String findByAuthor(){
+		messages=messageService.findByAuthor(u.get(0));
+		requestMap.put("messages", messages);
+		return "findByAuthor";
+	}
+	
+	HttpServletResponse response=ServletActionContext.getResponse();
+	//更新消息
+	public String update() throws Exception{
+		System.out.println(message+"00000");
+		msg=messageService.update(message);
+		System.out.println(message+msg);
+		response.getWriter().print(msg);
+		return null;
+	}
+	
+	//删除消息
+	public String delete() throws IOException{
+		msg=messageService.delete(message);
+		response.getWriter().print(msg);
+		return null;
+	}
+	
+	//插入消息
+	public String sava()throws Exception{
+		msg=messageService.save(message);
+		response.getWriter().print(msg);
+		return null;
 	}
 	@Override
 	public void setRequest(Map<String, Object> arg0) {

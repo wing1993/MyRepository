@@ -3,6 +3,7 @@ package com.df.service.iservice;
 import java.util.List;
 
 import com.df.dao.pojo.Message;
+import com.df.dao.pojo.User;
 
 public interface IMessageService extends IBaseService<Message, Integer> {
 	/**
@@ -10,4 +11,10 @@ public interface IMessageService extends IBaseService<Message, Integer> {
 	 * @return
 	 */
 	List<Message> findLatest();
+	
+	/**
+	 * 通过作者查找消息
+	 * @return
+	 */
+	List<Message> findByAuthor(User user);
 }

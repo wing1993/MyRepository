@@ -60,7 +60,7 @@
     		<result name="AllList" type="dispatcher">/user/pages/message.jsp</result>
     		<result name="success" type="json"></result>
     		<result name="error" type="json"></result>
-    		<result name="findByAuthor" type="dispatcher">/user/pages/myMessage.jsp</result>
+    		<result name="findByAuthor" type="dispatcher">/user/pages/personal_center.jsp</result>
     	</action>
     
     </package>

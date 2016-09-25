@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.df.dao.idao.IMessageDAO;
 import com.df.dao.pojo.Message;
 import com.df.dao.pojo.QueryResult;
+import com.df.dao.pojo.User;
 
 @Repository("messageDao")
 public class MessageDAOImpl implements IMessageDAO {
@@ -79,6 +80,16 @@ public class MessageDAOImpl implements IMessageDAO {
 		query.setMaxResults(5);//hql不能用limit
 		Latest=query.list();
 		return Latest;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Message> findByAuthor(User user) throws Exception {
+		List<Message> list=null;
+		String hql="from Message where author=?";
+		Query query=sessionFactory.getCurrentSession().createQuery(hql).setString(0, user.getUsername());
+		list=query.list();
+		return list;
 	}
 
 }

@@ -22,17 +22,7 @@
 	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			var query=decodeURI(location.search.substring(1));//获取student.jsp传递过来的数据,要用decodeURI进行解码
-			//alert(query);
-			$.post('ScanMessageServlet',{method:'showDetail',title:query},function(data){
-				var obj=eval('('+data+')');
-				$.each(obj,function(index,p){
-					$(".top-1").html(obj[index].message_title);
-					$(".top-2").html("发布时间："+obj[index].message_time);
-					$(".msg-content").html(obj[index].message_content);
-					$(".releaser").html("发布人："+obj[index].message_authorName);
-				});
-			});
+			
 			$("input").click(function(){
 				window.close();
 			});

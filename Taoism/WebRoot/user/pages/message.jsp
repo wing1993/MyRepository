@@ -30,7 +30,7 @@
    	<div class="bd"></div>
    	<div class="main">
    		<div class="title">最新资讯消息</div>
-   		<div class="release-news"><a href="edit_message.jsp" >发布消息</a></div>
+   		<div class="release-news"><a href="${pageContext.request.contextPath }/user/pages/edit_message.jsp" target="_blank">发布消息</a></div>
    		<div class="me-box">
    			<c:forEach items="${messages}" var="messages">
    			<div class="me-main">
