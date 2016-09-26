@@ -44,7 +44,7 @@ public interface IUserService extends IBaseService<User, Integer> {
 
 	String changeUserType(User user);
 
-	List<User> findByUsername(User user);
+	User findByUsername(User user);
 	
 	/**
 	 * 通过邮箱找用户

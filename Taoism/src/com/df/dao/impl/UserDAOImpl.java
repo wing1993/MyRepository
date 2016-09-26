@@ -137,16 +137,16 @@ public class UserDAOImpl implements IUserDAO {
 	}
 
 	@Override
-	public List<User> findByUsername(User user) throws Exception {
+	public User findByUsername(User user) throws Exception {
 		user = (User) sessionFactory
 				.getCurrentSession()
 				.createQuery(
 						"from User u where u.username=? and u.password=? and u.state=1")
 				.setString(0, user.getUsername())
 				.setString(1, user.getPassword()).uniqueResult();
-		List<User> users = new ArrayList<User>();
-		users.add(user);
-		return users;
+		/*List<User> users = new ArrayList<User>();
+		users.add(user);*/
+		return user;
 	}
 
 	@Override

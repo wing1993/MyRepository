@@ -33,6 +33,10 @@
 			<result name="error" type="json"></result>
 			<result name="success" type="json"></result>
 		</action>
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="success" type="json"></result>
+			<result name="error" type="json"></result>
+		</action>
 	</package>
 	<package name="dashi_action" namespace="/" extends="json-default">
         <action name="dashi_findDashi" class="dashiAction">

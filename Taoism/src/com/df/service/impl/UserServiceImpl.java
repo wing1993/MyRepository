@@ -19,11 +19,12 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	@Qualifier("userDao")
 	private IUserDAO userDao;
+	private String msg="error";
 
 	@Transactional
 	@Override
 	public String save(User t) {
-		String msg = "error";
+		msg = "error";
 		try {
 			userDao.save(t);
 			msg = "success";
@@ -45,10 +46,11 @@ public class UserServiceImpl implements IUserService {
 	public String update(User newObj) {
 		try {
 			userDao.update(newObj);
+			msg="success";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return msg;
 	}
 
 	@Transactional(readOnly = true)
@@ -91,7 +93,6 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public String login(User user) {
-		String msg = "error";
 		try {
 			msg = userDao.login(user);
 		} catch (Exception e) {
@@ -103,7 +104,6 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public String registry(User user) {
-		String msg = "error";
 		try {
 			userDao.registry(user);
 			msg = "success";
@@ -116,8 +116,6 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public String examine(User user) {
-
-		String msg = "error";
 		try {
 			userDao.examine(user);
 			msg = "success";
@@ -144,22 +142,23 @@ public class UserServiceImpl implements IUserService {
 	public String changeUserType(User user) {
 		try {
 			userDao.changeUserType(user);
+			msg="success";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return msg;
 	}
 
 	@Transactional
 	@Override
-	public List<User> findByUsername(User user) {
-		List<User> users = new ArrayList<User>();
+	public User findByUsername(User user) {
+		User u=new User();
 		try {
-			users = userDao.findByUsername(user);
+			u = userDao.findByUsername(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return users;
+		return u;
 	}
 
 	@Transactional

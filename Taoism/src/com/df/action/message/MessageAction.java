@@ -116,12 +116,12 @@ public class MessageAction implements ModelDriven<Message>, Serializable,Request
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<User> u = (List<User>) ServletActionContext.getRequest()
+	private User u = (User) ServletActionContext.getRequest()
 			.getSession().getAttribute("UsersfromActions");
 
 	//通过作者查找信息
 	public String findByAuthor(){
-		messages=messageService.findByAuthor(u.get(0));
+		messages=messageService.findByAuthor(u);
 		requestMap.put("messages", messages);
 		return "findByAuthor";
 	}

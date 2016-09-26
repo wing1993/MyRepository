@@ -83,7 +83,7 @@ public class DaShiAction extends ActionSupport implements ModelDriven<User>,
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<User> u = (List<User>) ServletActionContext.getRequest()
+	private User u =  (User) ServletActionContext.getRequest()
 			.getSession().getAttribute("UsersfromActions");
 
 	// 初始化页面
@@ -96,11 +96,11 @@ public class DaShiAction extends ActionSupport implements ModelDriven<User>,
 	}
 
 	public String findAll() {	
-		if(u==null||u.get(0).getUserType()=="弟子"){
+		if(u==null||u.getUserType()=="弟子"){
 			dashis = dashiService.findAll();//当用户还没有登录时，直接查找所有大师信息
 		}
 		else{
-			dashis = dashiService.findAllDaShi(u.get(0).getUsername());
+			dashis = dashiService.findAllDaShi(u.getUsername());
 		}
 		System.out.println(dashis);
 		requestMap.put("dashis", dashis);
@@ -112,8 +112,7 @@ public class DaShiAction extends ActionSupport implements ModelDriven<User>,
 		if(u==null){
 			dashis = dashiService.findDaShiByLoc(user.getCon2(), " ");
 		}else{
-			dashis = dashiService.findDaShiByLoc(user.getCon2(), u.get(0)
-				.getUsername());
+			dashis = dashiService.findDaShiByLoc(user.getCon2(), u.getUsername());
 		}
 		return "dashiList";
 	}

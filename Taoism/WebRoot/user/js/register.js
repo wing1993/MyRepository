@@ -326,9 +326,3 @@ $(function(){
 
 
 
-//修改个人信息
-function edit(){
-	if(check_null()){
-		$("#edit_form").submit();
-	}
-}

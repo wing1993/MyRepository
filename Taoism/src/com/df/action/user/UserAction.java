@@ -44,6 +44,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	private int sumPage;     //总页数
 	private int currentPage; //当前页
 	private String valid_code;
+	private String msg="error";
 	HttpServletResponse response = ServletActionContext.getResponse(); 
 	public int getSumPage() {
 		return sumPage;
@@ -146,8 +147,14 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		return userService.delete(user);
 	}
 
-	public String update() {
-		return userService.update(user);
+	public String update() throws IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		System.out.println(user);
+		msg=userService.update(user);
+		response.getWriter().print(msg);
+		sessionMap.clear();
+		sessionMap.put("UsersfromActions", user);
+		return null;
 	}
 
 	public String findAll(){
@@ -194,9 +201,9 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		request.setAttribute("userByPages", userList);
 	}*/
 	public String login() throws IOException {
-		String msg = userService.login(user);
-		List<User> users = userService.findByUsername(user);
-		sessionMap.put("UsersfromActions", users);
+		msg = userService.login(user);
+		User u = userService.findByUsername(user);
+		sessionMap.put("UsersfromActions", u);
 		return msg;
 	}
 
@@ -206,7 +213,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		if(!"".equals(birthdayData)){
 			user.setBirthday(this.getBirthdayData());
 		}
-		String msg;
+		
 		if("弟子".equals(user.getUserType())){
 			msg = userService.registry((User)requestMap.get("user"));
 		}else{
@@ -222,7 +229,6 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	public String CheckCode() throws Exception{
         response.setContentType("text/html;charset=UTF-8");  
         PrintWriter out = response.getWriter();  
-		String msg="error";
 		System.out.println((String)sessionMap.get("vCode")+"----"+valid_code);
 		System.out.println(valid_code.equalsIgnoreCase(((String)sessionMap.get("vCode"))));
 		if(valid_code.equalsIgnoreCase((String)sessionMap.get("vCode"))){
@@ -231,4 +237,5 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		}
 		return null;
 	}
+	
 }
