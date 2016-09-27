@@ -1,5 +1,6 @@
 package com.df.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.df.dao.idao.IDiscipleReplyDAO;
+import com.df.dao.idao.IMyquestionReplyDAO;
+import com.df.dao.idao.IPublicReplyDAO;
 import com.df.dao.idao.IQuestionDAO;
+import com.df.dao.idao.IStudentReplyDAO;
 import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.Question;
@@ -18,7 +23,23 @@ public class QuestionServiceImpl implements IQuestionService {
 	@Autowired
 	@Qualifier("questionDao")
 	private IQuestionDAO questionDao;
-
+	
+	@Autowired
+	@Qualifier("publicReplyDao")
+	private IPublicReplyDAO publicReplyDao;
+	
+	@Autowired
+	@Qualifier("discipleReplyDao")
+	private IDiscipleReplyDAO discipleReplyDao;
+	
+	@Autowired
+	@Qualifier("studentReplyDao")
+	private IStudentReplyDAO studentReplyDao;
+	
+	@Autowired
+	@Qualifier("myquestionReplyDao")
+	private IMyquestionReplyDAO myquestionReplyDao;
+	
 	@Transactional
 	@Override
 	public String save(Question t) {
@@ -74,15 +95,10 @@ public class QuestionServiceImpl implements IQuestionService {
 		return query;
 	}
 
-	@Override
-	public int selectSumCount() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Transactional
 	@Override
-	public DataPage<Question> findByDynamicData(Question t,int i,String s) throws Exception {
+	public DataPage<Question> findByDynamicData(Question t,int i,String s) {
 		DataPage<Question> dp = new DataPage<Question>();
 		try{
 			dp = questionDao.findByDynamicData(t,i,s);
@@ -92,5 +108,26 @@ public class QuestionServiceImpl implements IQuestionService {
 		}
 		return dp;
 	}
-
+	@Transactional
+	@Override
+	public List<Object> findByQid(Question question) {
+		List<Object> replyList = new ArrayList<Object> ();
+		try {
+			if("公开区".equals(question.getSharezone())){
+				replyList = publicReplyDao.findByQid(question.getQId());
+			}
+			else if("学员区".equals(question.getSharezone())){
+				replyList = studentReplyDao.findByQid(question.getQId());
+			}
+			else if("弟子区".equals(question.getSharezone())){
+				replyList = discipleReplyDao.findByQid(question.getQId());
+			}
+			else if("我的问题".equals(question.getSharezone())){
+				replyList = myquestionReplyDao.findByQid(question.getQId());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return replyList;
+	}
 }

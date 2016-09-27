@@ -135,7 +135,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 					dc.add(Restrictions.eq("askWho", question.getAskWho()));
 				}
 			}
-		}
+		} 
 		Criteria c = dc.getExecutableCriteria(session);
 		List<Question> questionList = c.list();
 		System.out.println("dao层"+questionList.toString());
@@ -144,6 +144,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public DataPage<Question> findByDynamicData(Question question,int currentPage,String userType) throws Exception {
+		System.out.println("前台获取的question"+question);
 		Session session = sessionFactory.openSession();
 		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
 		DetachedCriteria dc1 = DetachedCriteria. forClass (Question. class );
@@ -182,9 +183,20 @@ public class QuestionDAOImpl implements IQuestionDAO {
 							Restrictions.eq("username", question.getUsername())));
 				}	
 			}else{
-				if(!"".equals(question.getSharezone())){System.out.println("1");
+				if("公开区".equals(question.getSharezone())||"弟子区".equals(question.getSharezone())
+						||"学员区".equals(question.getSharezone())){System.out.println("1");
 					dc.add(Restrictions.eq("sharezone", question.getSharezone()));
 					dc1.add(Restrictions.eq("sharezone", question.getSharezone()));
+				}
+				if("我的问题".equals(question.getSharezone())){System.out.println("5");
+						dc.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
+								Restrictions.eq("sharezone", question.getSharezone())));
+						dc1.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
+								Restrictions.eq("sharezone", question.getSharezone())));
+				}
+				if("答疑区".equals(question.getSharezone())){System.out.println("6");
+						dc.add(Restrictions.eq("askWho", question.getAskWho()));
+						dc1.add(Restrictions.eq("askWho", question.getAskWho()));
 				}
 				if(!"".equals(question.getQTypeName())){System.out.println("2");
 					dc.add(Restrictions.eq("QTypeName", question.getQTypeName()));

@@ -1,11 +1,9 @@
 package com.df.action.question;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
@@ -18,12 +16,9 @@ import org.springframework.stereotype.Controller;
 import com.df.dao.pojo.ClientPage;
 import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.Page;
-import com.df.dao.pojo.QueryCriteria;
-import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.Question;
 import com.df.dao.pojo.User;
 import com.df.dao.util.DateUtil;
-import com.df.dao.util.PageUtil;
 import com.df.service.iservice.IQuestionService;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -45,9 +40,11 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	private int sumPage;     //总页数
 	private int currentPage; //当前页
 	private DataPage<Question> dp;
-	private List<Question> qList;
-	private List<ClientPage> cList;
-	private Page page;
+	private List<Question> qList;   //保存获取的问题
+	private List<ClientPage> cList; //保存要显示的页码
+	private Page page;              //分页的情况（每页显示的数量，总页数，当前页，是否有上一页下一页等）
+	private List<Object> replyList; //用户的针对某个问题的回复
+	
 	@SuppressWarnings("unchecked")
 	private List<User> u = (List<User>) ServletActionContext.getRequest()
 			.getSession().getAttribute("UsersfromActions");
@@ -103,86 +100,19 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		return msg;
 	}
 
-	/*public String findByDynamicData(){
-		System.out.println("2222222222");
-		String userType = null;
-		if(null!=u) {userType = u.get(0).getUserType();}
-		String msg = "error";
-		List<Question> questionList = new ArrayList<Question>();
-		try {
-			question.setQTime(new DateUtil().changeToDate(question.getQTime()));
-			questionList = questionService.findByDynamicData(question,userType);
-			if (questionList != null && questionList.size() > 0) {
-				System.out.println(msg);//requestMap.put("questionsFromAction", questionList);
-				dp = this.paging(questionList);
-				qList = dp.gettList();
-				cList = dp.getcList();
-				System.out.println(cList.toString());
-				System.out.println("----"+currentPage);
-				page = dp.getPage();
-				requestMap.put("qList1", qList);
-				requestMap.put("pageList", dp.getcList());
-				requestMap.put("page", dp.getPage());
-				msg = "success";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println(msg);
-		return msg;
+	public String findReplyByQId(){
+		replyList = questionService.findByQid(question);
+		requestMap.put("questionfromAction", question);
+		System.out.println("123456789"+replyList);
+		return null;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private DataPage<Question> paging(List<Question> questionList) {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		if(sumPage != 0) {
-			if(currentPage > sumPage)  //判断输入的页数是否大于总页数
-				currentPage = sumPage;
-			else if(currentPage < 0)
-				currentPage = 1;
-		}
-		Page page = PageUtil.createPage(1, questionList.size(), currentPage);
-		int endPage = page.getBeginIndex() + page.getEveryPage();
-		if (page.getBeginIndex() + page.getEveryPage() > page.getTotalCount()) {
-			endPage = page.getTotalCount();
-		}
-		questionList = questionList.subList(page.getBeginIndex(), endPage);
-		request.setAttribute("page", page);
-		
-		//前台页码显示
-		int sum = page.getTotalPage();
-		int current = page.getCurrentPage();
-		int index;
-		List<ClientPage> pageList = PageUtil.getClientPage(current,sum);
-		System.out.println("获取的记录数："+questionList.size());
-		if(pageList.size()!=0){
-			if(sum<=10){
-				index=1;
-			}else if(sum>10 && current<=5){
-				index=1;
-			}else{
-				index=current-4;
-			}
-					
-			pageList.get(page.getCurrentPage()-index).setPage(0);
-			
-			request.setAttribute("pageList", pageList);
-		}
-		DataPage dp = new DataPage(questionList,pageList,page);
-		request.setAttribute("questionsFromAction", questionList);
-		return dp;
-	}*/
 	public String findByDynamicData(){
 		String userType = null;
-		if(null!=u) {userType = u.get(0).getUserType();}
+		if(null!=u) {userType = u.get(0).getUserType();
+		question.setAskWho(u.get(0).getUsername());
+		question.setUsername(u.get(0).getUsername());}
 		String msg = "error";
-		/*if(sumPage != 0) {
-			if(currentPage > sumPage)  //判断输入的页数是否大于总页数
-				currentPage = sumPage;
-			else if(currentPage < 0)
-				currentPage = 1;
-		}*/
 		try {
 			System.out.println(question+"wwwwwwwwwwwwwwwwww");
 			question.setQTime(new DateUtil().changeToDate(question.getQTime()));
@@ -194,9 +124,6 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 				cList = dp.getcList();
 				System.out.println("----"+currentPage);
 				page = dp.getPage();
-				/*requestMap.put("qList1", qList);
-				requestMap.put("pageList", dp.getcList());
-				requestMap.put("page", dp.getPage());*/
 				msg = "success";
 			}
 		} catch (Exception e) {
