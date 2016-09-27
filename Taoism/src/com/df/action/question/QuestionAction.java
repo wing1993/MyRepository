@@ -46,7 +46,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	private List<Object> replyList; //用户的针对某个问题的回复
 	
 	@SuppressWarnings("unchecked")
-	private List<User> u = (List<User>) ServletActionContext.getRequest()
+	private User u = (User) ServletActionContext.getRequest()
 			.getSession().getAttribute("UsersfromActions");
 	
 	
@@ -109,9 +109,9 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	
 	public String findByDynamicData(){
 		String userType = null;
-		if(null!=u) {userType = u.get(0).getUserType();
-		question.setAskWho(u.get(0).getUsername());
-		question.setUsername(u.get(0).getUsername());}
+		if(null!=u) {userType = u.getUserType();
+		question.setAskWho(u.getUsername());
+		question.setUsername(u.getUsername());}
 		String msg = "error";
 		try {
 			System.out.println(question+"wwwwwwwwwwwwwwwwww");

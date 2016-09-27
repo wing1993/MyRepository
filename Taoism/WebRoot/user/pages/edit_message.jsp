@@ -70,6 +70,9 @@
 				$("form").ajaxSubmit(obj);
 			}
 		}
+		function close(){
+			window.href("${pageContext.request.contextPath}/message_findAll.action");
+		}
 	</script>
   </head>
   
@@ -87,11 +90,11 @@
     				<td><textarea name="messageContent" id="messageContent" onblur="disappear(this)"></textarea><div class="tip2">请输入内容</div></td>
     			</tr>
     		</table>
-    		<input type="hidden" value="${sessionScope.UsersfromActions[0].username }" name="author">
+    		<input type="hidden" value="${sessionScope.UsersfromActions.username }" name="author">
     		<input type="hidden" name="publishTime" id="publishTime">
     		<div class="btn">
 	    		<input type="button" value="发布" onclick="check()">&nbsp;&nbsp;
-	    		<input type="button" value="取消" onclick="cancel()">
+	    		<input type="button" value="关闭" onclick="close()">
     		</div>
     	</form>
     </div>

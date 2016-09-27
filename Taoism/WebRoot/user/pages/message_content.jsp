@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +37,8 @@
 			<div class="top">
 				<div class="top-1">${param.message_title }</div>
 				<div class="top-2">
-					<span class="p-time">${param.publish_time }</span>&nbsp;
+					<c:set var="pTime" value="${param.publish_time }"></c:set>
+					<span class="p-time">${fn:substring(pTime,0,19)}</span>&nbsp;
 					<span class="author">发布人：${param.author }</span>
 				</div>
 			</div>

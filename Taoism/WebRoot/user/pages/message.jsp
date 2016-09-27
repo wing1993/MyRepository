@@ -17,7 +17,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/common.js"></script>
 	<script>
 		$(function(){
-			if(${sessionScope.UsersfromActions[0].userType!="弟子" }){
+			if(${sessionScope.UsersfromActions.userType!="弟子" }){
 				$(".release-news a").addClass("unuse");
 				$(".release-news a").attr("disabled",true);
 				$(".release-news a").attr("href","#");
@@ -34,7 +34,7 @@
    		<div class="me-box">
    			<c:forEach items="${messages}" var="messages">
    			<div class="me-main">
-   				<div class="me-main-a"><a href="${pageContext.request.contextPath }/user/pages/message_context.jsp?message_title=${messages.con1 }
+   				<div class="me-main-a"><a href="${pageContext.request.contextPath }/user/pages/message_content.jsp?message_title=${messages.con1 }
    				&author=${messages.author}&publish_time=${messages.publishTime}&message_content=${messages.messageContent}" 
    				class="me-title" target="_blank" title="${messages.con1 }">${messages.con1 }</a></div>
    				<div class="releaser">&nbsp;&nbsp;&nbsp;&nbsp;发布者：<span>${messages.author }</span></div>

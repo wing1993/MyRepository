@@ -82,7 +82,6 @@ public class DaShiAction extends ActionSupport implements ModelDriven<User>,
 		return dashis;
 	}
 
-	@SuppressWarnings("unchecked")
 	private User u =  (User) ServletActionContext.getRequest()
 			.getSession().getAttribute("UsersfromActions");
 

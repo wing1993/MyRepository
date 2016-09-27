@@ -1,6 +1,5 @@
 package com.df.dao.pojo;
 
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,11 +13,15 @@ public class MyquestionReply  implements java.io.Serializable {
 
     // Fields    
 
-     private Integer replyId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer replyId;
      private MyquestionReply myquestionReply;
      private Question question;
      private String respondent;
-     private Timestamp replyTime;
+     private String replyTime;
      private String replyContent;
      private String voice;
      private String con1;
@@ -38,7 +41,7 @@ public class MyquestionReply  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public MyquestionReply(Question question, String respondent, Timestamp replyTime, String replyContent) {
+    public MyquestionReply(Question question, String respondent, String replyTime, String replyContent) {
         this.question = question;
         this.respondent = respondent;
         this.replyTime = replyTime;
@@ -46,7 +49,7 @@ public class MyquestionReply  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public MyquestionReply(MyquestionReply myquestionReply, Question question, String respondent, Timestamp replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set myquestionReplies) {
+    public MyquestionReply(MyquestionReply myquestionReply, Question question, String respondent, String replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set myquestionReplies) {
         this.myquestionReply = myquestionReply;
         this.question = question;
         this.respondent = respondent;
@@ -98,11 +101,11 @@ public class MyquestionReply  implements java.io.Serializable {
         this.respondent = respondent;
     }
 
-    public Timestamp getReplyTime() {
+    public String getReplyTime() {
         return this.replyTime;
     }
     
-    public void setReplyTime(Timestamp replyTime) {
+    public void setReplyTime(String replyTime) {
         this.replyTime = replyTime;
     }
 

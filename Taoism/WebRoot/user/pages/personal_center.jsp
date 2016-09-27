@@ -60,7 +60,7 @@
     				</div>
     			</div>
     			<div class="middle-m">
-    				<div class="username">${sessionScope.UsersfromActions[0].username }</div>
+    				<div class="username">${sessionScope.UsersfromActions.username }</div>
     			</div>
     		</div>
     	</div>

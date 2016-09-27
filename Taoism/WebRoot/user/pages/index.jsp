@@ -18,13 +18,13 @@
 			if(${sessionScope.UsersfromActions==null}){
 				alert("您还没有登录，不能向大师提问");
 			}else{			
-				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions[0].username }&askWho="+dashi);
+				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions.username }&askWho="+dashi);
 			}
 		}
 		
 		//问题列表（glory）
 		function findData(obj){
-			aSelected(obj);//无效？
+			//aSelected(obj);//无效？
 			var Id=$(obj).attr("id");
 			var qTitle = "";
 			if(Id=="sharezone"||Id=="QTypeName"||Id=="QTime"||Id=="state"){
@@ -122,8 +122,8 @@
 			</c:when>
 			<c:otherwise>
 			<div class="logined">
-				Hi,<span id="username">${sessionScope.UsersfromActions[0].username }</span>
-				<span><a href="${pageContext.request.contextPath }/user/pages/edit.jsp">修改个人资料</a></span>&nbsp;&nbsp;|&nbsp;
+				Hi,<span id="username">${sessionScope.UsersfromActions.username }</span>
+				<span><a href="${pageContext.request.contextPath }/message_findByAuthor.action">个人中心</a></span>&nbsp;&nbsp;|&nbsp;
 				<span><a href="#">退出</a></span>
 			</div>
 			</c:otherwise>
@@ -196,18 +196,18 @@
 							<c:if test="${sessionScope.UsersfromActions==null }">
 								<option value="公开区">公开区</option>
 							</c:if>
-							<c:if test="${sessionScope.UsersfromActions[0].userType=='普通' }">
+							<c:if test="${sessionScope.UsersfromActions.userType=='普通' }">
 								<option value="所有问题">所有问题</option>
 								<option value="我的问题">我的问题</option>
 								<option value="公开区">公开区</option>
 							</c:if>
-							<c:if test="${sessionScope.UsersfromActions[0].userType=='学员' }">
+							<c:if test="${sessionScope.UsersfromActions.userType=='学员' }">
 								<option value="学员区">学员区</option>
 								<option value="所有问题">所有问题</option>
 								<option value="公开区">公开区</option>
 								<option value="我的问题">我的问题</option>
 							</c:if>
-							<c:if test="${sessionScope.UsersfromActions[0].userType=='弟子' }">
+							<c:if test="${sessionScope.UsersfromActions.userType=='弟子' }">
 								<option value="弟子区">弟子区</option>
 								<option value="所有问题">所有问题</option>
 								<option value="公开区">公开区</option>
@@ -215,7 +215,7 @@
 								<option value="学员区">学员区</option>
 								<option value="答疑区">答疑区</option>
 							</c:if>
-							<c:if test="${sessionScope.UsersfromActions[0].userType=='老先生'}">
+							<c:if test="${sessionScope.UsersfromActions.userType=='老先生'}">
 								<option value="答疑区">答疑区</option>
 								<option value="所有问题">所有问题</option>
 								<option value="学员区">学员区</option>

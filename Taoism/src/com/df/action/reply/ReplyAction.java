@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.df.dao.pojo.PublicReply;
 import com.df.dao.pojo.Question;
 import com.df.dao.pojo.User;
 import com.df.dao.util.DateUtil;
@@ -29,18 +30,28 @@ public class ReplyAction implements Serializable,RequestAware{
 
 	private Map<String, Object> requestMap;
 	private List<Object> replyList;
-	private int QId;
+	//private int QId;
 	private String replyTime;
-	private String sharezone;
+	//private String sharezone;
 	private String replyContent;
-	private List<User> u = (List<User>) ServletActionContext.getRequest()
+	private User u = (User) ServletActionContext.getRequest()
 			.getSession().getAttribute("UsersfromActions");
 	private Question question = (Question) ServletActionContext.getRequest()
 			.getSession().getAttribute("QuestionfromActions");
 	
 	public String save() {
-		
-		return replyService.save(studentReply,question);
+		if("公开区".equals(question.getSharezone())){
+			PublicReply studentReply = new PublicReply(question,u.getUsername(),u.getUsername(),replyContent);
+			return replyService.save(studentReply,question);}
+		if("公开区".equals(question.getSharezone())){
+			PublicReply studentReply = new PublicReply(question,u.getUsername(),u.getUsername(),replyContent);
+			return replyService.save(studentReply,question);}
+		if("公开区".equals(question.getSharezone())){
+			PublicReply studentReply = new PublicReply(question,u.getUsername(),u.getUsername(),replyContent);
+			return replyService.save(studentReply,question);}
+		if("公开区".equals(question.getSharezone())){
+			PublicReply studentReply = new PublicReply(question,u.getUsername(),u.getUsername(),replyContent);
+			return replyService.save(studentReply,question);}
 	}
 
 	public String delete() {
@@ -59,7 +70,7 @@ public class ReplyAction implements Serializable,RequestAware{
 		this.replyList = replyList;
 	}
 
-	public int getQId() {
+	/*public int getQId() {
 		return QId;
 	}
 
@@ -73,7 +84,7 @@ public class ReplyAction implements Serializable,RequestAware{
 
 	public void setSharezone(String sharezone) {
 		this.sharezone = sharezone;
-	}
+	}*/
 
 	public String getReplyContent() {
 		return replyContent;
