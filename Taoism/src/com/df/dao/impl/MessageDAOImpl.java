@@ -94,12 +94,17 @@ public class MessageDAOImpl implements IMessageDAO {
 		return list;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public DataPage<Message> findAlldata(int currentPage){
 		Long count = null;
 		count = (Long)sessionFactory.getCurrentSession()
 				.createQuery("SELECT COUNT(*) FROM Message")
 				.uniqueResult();
-		List<Message> messageList = findAll();
+		List<Message> messageList = new ArrayList<Message>();
+		messageList = sessionFactory.getCurrentSession()
+				.createQuery("FROM Message order by publish_time desc")
+				.setFirstResult((currentPage-1)*3)
+				.setMaxResults(3).list();
 		DataPage<Message> dp = PageUtil.paging(messageList,count.intValue(), currentPage);
 		return dp;
 	}

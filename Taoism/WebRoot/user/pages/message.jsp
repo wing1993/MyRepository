@@ -44,14 +44,24 @@
    			</c:forEach>
    		</div>
 		<div class="page-div">
-			<input type="button" value="上一页" id="pre">
-			<!-- <a href="javascript:;" onclick="aSelected(this)">1</a>
-			<a href="javascript:;" onclick="aSelected(this)">2</a> -->
-			<c:forEach items="${cList }" var="page">
-				<a href="javascript:;" onclick="aSelected(this)">${page.page }</a>
+			<c:set var="pages" value="${page }"></c:set>
+			<c:if test="${pages.hasPrePage }">
+				<a href="${pageContext.request.contextPath }/message_findAll.action?currentPage=${pages.currentPage-1}" class="abtn">上一页</a>
+			</c:if>
+			<c:forEach items="${cList }" var="cList">
+				<c:choose>
+				<c:when test="${cList.page==0 }">
+					<a href="${pageContext.request.contextPath }/message_findAll.action?currentPage=${pages.currentPage }" onclick="aSelected(this)">${pages.currentPage }</a>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath }/message_findAll.action?currentPage=${cList.page }" onclick="aSelected(this)" onclick="aSelected(this)">${cList.page }</a>
+				</c:otherwise>
+				</c:choose>
 			</c:forEach>
-			<span>第&nbsp;<span id="now">1</span>/<span id="total">2</span>&nbsp;页</span>
-			<input type="button" value="下一页" id="next">
+			<span>第&nbsp;<span id="now">${page.currentPage }</span>/<span id="total">${page.totalPage }</span>&nbsp;页</span>
+			<c:if test="${pages.hasNextPage }">
+				<a href="${pageContext.request.contextPath }/message_findAll.action?currentPage=${pages.currentPage+1}" class="abtn">下一页</a>
+			</c:if>
 		</div>
    	</div>
   </body>

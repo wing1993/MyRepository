@@ -24,7 +24,7 @@ public class PageUtil {
 			else if(currentPage < 0)
 				currentPage = 1;
 		}
-		Page page = createPage(10, listSize, currentPage);
+		Page page = createPage(3, listSize, currentPage);
 		
 		//前台页码显示
 		int sum = page.getTotalPage();

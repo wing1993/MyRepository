@@ -77,3 +77,10 @@ html{font-family:'Microsoft YaHei';}
 	color:#fff;
 	background:#2877ff;
 }
+.abtn{
+	width:50px !important;
+	padding-left:8px;
+	padding-right:8px;
+	background:#2877ff;
+	color:#fff;
+}
