@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.df.dao.idao.IMessageDAO;
+import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.Message;
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.User;
+import com.df.dao.util.PageUtil;
 
 @Repository("messageDao")
 public class MessageDAOImpl implements IMessageDAO {
@@ -91,5 +93,17 @@ public class MessageDAOImpl implements IMessageDAO {
 		list=query.list();
 		return list;
 	}
+	
+	public DataPage<Message> findAlldata(int currentPage){
+		Long count = null;
+		count = (Long)sessionFactory.getCurrentSession()
+				.createQuery("SELECT COUNT(*) FROM Message")
+				.uniqueResult();
+		List<Message> messageList = findAll();
+		DataPage<Message> dp = PageUtil.paging(messageList,count.intValue(), currentPage);
+		return dp;
+	}
+	
+	
 
 }

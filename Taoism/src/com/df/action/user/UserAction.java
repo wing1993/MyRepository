@@ -3,10 +3,10 @@ package com.df.action.user;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
@@ -17,10 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.df.dao.pojo.ClientPage;
-import com.df.dao.pojo.Page;
 import com.df.dao.pojo.User;
-import com.df.dao.util.PageUtil;
 import com.df.service.iservice.IUserService;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -45,6 +42,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	private int currentPage; //当前页
 	private String valid_code;
 	private String msg="error";
+	private List<User> u=new ArrayList();
 	HttpServletResponse response = ServletActionContext.getResponse(); 
 	public int getSumPage() {
 		return sumPage;
@@ -217,8 +215,18 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		if("弟子".equals(user.getUserType())){
 			msg = userService.registry((User)requestMap.get("user"));
 		}else{
-			System.out.println(user);
-			msg = userService.registry(user);
+			System.out.println(userService.findSameName(user));
+			if(userService.findSameName(user)){//查找该用户名是否已被注册
+				if(CheckMail()){
+					//msg = userService.registry(user);//当用户名和邮箱都未被注册的时候，验证成功
+					System.out.println();
+				}else{
+					msg="mail_registered";//邮箱已被注册
+				}
+			}else{
+				msg="name_registered";//用户名已被注册
+			}
+			
 		}
 		sessionMap.put("User", (User)requestMap.get("user"));
 		PrintWriter out = response.getWriter();
@@ -238,4 +246,20 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		return null;
 	}
 	
+	/**
+	 * 检测邮箱是否被注册过
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean CheckMail()throws Exception{
+		u=userService.findByMail(user);
+		System.out.println("okokoko"+u.toString());
+		if(u.size()>0){
+			return false;
+		}else{
+			return true;
+		}
+		
+		
+	}
 }

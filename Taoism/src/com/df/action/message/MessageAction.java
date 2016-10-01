@@ -38,7 +38,6 @@ public class MessageAction implements ModelDriven<Message>, Serializable,Request
 	private String msg="error";
 	private int sumPage;     //总页数
 	private int currentPage; //当前页
-	private DataPage<Message> dp;
 	private List<Message> mList;
 	private List<ClientPage> cList;
 	private Page page;
@@ -106,12 +105,17 @@ public class MessageAction implements ModelDriven<Message>, Serializable,Request
 	}
 
 	/**
-	 * 按照时间顺序查找所有的信息
+	 * 根据页码查询分页数据
+	 * 并按照时间顺序查找
 	 * @return
 	 */
 	public String findAll(){
-		messages=messageService.findAll();
-		requestMap.put("messages", messages);
+		DataPage<Message> dp = messageService.findAlldata(currentPage);
+		if (dp.gettList() != null && dp.gettList().size() > 0) {
+			requestMap.put("mList",dp.gettList());
+			requestMap.put("cList",dp.getcList());
+			requestMap.put("page",dp.getPage());
+		}
 		return "AllList";
 	}
 	

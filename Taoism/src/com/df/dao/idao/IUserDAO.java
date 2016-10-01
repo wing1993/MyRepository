@@ -67,4 +67,12 @@ public interface IUserDAO extends IBaseHibernateDAO<User, Integer> {
 	 * @throws Exception
 	 */
 	public List<User> findByMail(User user)throws Exception;
+	
+	/**
+	 * 查找相同用户名
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public User findSameName(User user) throws Exception;
 }

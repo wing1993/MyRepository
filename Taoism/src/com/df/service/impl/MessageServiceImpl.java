@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.df.dao.idao.IMessageDAO;
+import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.Message;
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.User;
@@ -103,6 +104,18 @@ public class MessageServiceImpl implements IMessageService {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Transactional
+	@Override
+	public DataPage<Message> findAlldata(int currentPage) {
+		DataPage<Message> dp = new DataPage<Message>();
+		try {
+			dp= messageDao.findAlldata(currentPage);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dp;
 	}
 
 }

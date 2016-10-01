@@ -52,5 +52,12 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 * @return
 	 */
 	List<User> findByMail(User user);
+	
+	/**
+	 * 查找相同的用户名
+	 * @param user
+	 * @return
+	 */
+	boolean findSameName(User user);
 
 }

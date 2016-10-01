@@ -20,6 +20,7 @@ public class UserServiceImpl implements IUserService {
 	@Qualifier("userDao")
 	private IUserDAO userDao;
 	private String msg="error";
+	private User u;
 
 	@Transactional
 	@Override
@@ -152,7 +153,6 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public User findByUsername(User user) {
-		User u=new User();
 		try {
 			u = userDao.findByUsername(user);
 		} catch (Exception e) {
@@ -171,6 +171,22 @@ public class UserServiceImpl implements IUserService {
 			e.printStackTrace();
 		}
 		return users;
+	}
+
+	@Transactional
+	@Override
+	public boolean findSameName(User user) {
+		try {
+			u=userDao.findSameName(user);
+			System.out.println("ture/false"+u);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(null==u)
+			return true;
+		else
+			return false;
 	}
 
 }

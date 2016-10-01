@@ -32,7 +32,7 @@
    		<div class="title">最新资讯消息</div>
    		<div class="release-news"><a href="${pageContext.request.contextPath }/user/pages/edit_message.jsp" target="_blank">发布消息</a></div>
    		<div class="me-box">
-   			<c:forEach items="${messages}" var="messages">
+   			<c:forEach items="${mList}" var="messages">
    			<div class="me-main">
    				<div class="me-main-a"><a href="${pageContext.request.contextPath }/user/pages/message_content.jsp?message_title=${messages.con1 }
    				&author=${messages.author}&publish_time=${messages.publishTime}&message_content=${messages.messageContent}" 
@@ -45,8 +45,11 @@
    		</div>
 		<div class="page-div">
 			<input type="button" value="上一页" id="pre">
-			<a href="javascript:;" onclick="aSelected(this)">1</a>
-			<a href="javascript:;" onclick="aSelected(this)">2</a>
+			<!-- <a href="javascript:;" onclick="aSelected(this)">1</a>
+			<a href="javascript:;" onclick="aSelected(this)">2</a> -->
+			<c:forEach items="${cList }" var="page">
+				<a href="javascript:;" onclick="aSelected(this)">${page.page }</a>
+			</c:forEach>
 			<span>第&nbsp;<span id="now">1</span>/<span id="total">2</span>&nbsp;页</span>
 			<input type="button" value="下一页" id="next">
 		</div>

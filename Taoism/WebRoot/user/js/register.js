@@ -279,6 +279,8 @@ function check_mail(obj){
 	var email=$("input[name='mail']").val();
 	if($(obj).val()!="" && !email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)){
 		$("#wrong_mail").css("display","block");
+	}else{
+		
 	}
 }
 

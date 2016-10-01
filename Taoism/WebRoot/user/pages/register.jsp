@@ -28,8 +28,13 @@
 							if(str=="success"){
 								alert("注册成功！");
 								window.location.href="login.jsp";
-							}else
+							}else if(str=="name_registered"){
+								$("#registered_name").css("display","block");
+							}else if(str=="mail_registered"){
+								$("#registered_mail").css("display","block");
+							}else{
 								alert("注册失败！");
+							}
 						}
 					};
 				$("form").ajaxSubmit(obj);
@@ -83,6 +88,7 @@
 							<span class="tip">不能少于4个字符；各弟子请使用赐名注册</span>
 							<div class="wrong_tip" id="wrong_name">用户名的长度不正确，请重新输入</div>
 							<div class="wrong_tip" id="null_name">用户名不能为空！</div>
+							<div class="wrong_tip" id="registered_name">该用户名已被注册</div>
 						</td>
 					</tr>
 					<tr>
@@ -158,7 +164,9 @@
 						<td>邮箱：</td>
 						<td>
 							<input type="text" name="mail" onblur="check_mail(this)">
+							<span class="red">&nbsp;*&nbsp;</span>
 							<div class="wrong_tip" id="wrong_mail">邮箱的格式不正确，请重新填写</div>
+							<div class="wrong_tip" id="registered_mail">该邮箱已被注册</div>
 						</td>
 					</tr>
 					<tr>
@@ -171,13 +179,13 @@
 					</tr>
 				</table>
 				<input type="hidden" name="state" value="0">
-				<input type="hidden" name="con1" value="">
+				<!-- <input type="hidden" name="con1" value="">
 				<input type="hidden" name="con2" value="">
 				<input type="hidden" name="con3" value="">
 				<input type="hidden" name="con4" value="">
 				<input type="hidden" name="con5" value="">
 				<input type="hidden" name="con6" value="">
-				<input type="hidden" name="con7" value="">
+				<input type="hidden" name="con7" value=""> -->
 				<div class="btn">
 					<input type="button" value="注册" id="register" onclick="sign_up()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input type="reset" value="取消">

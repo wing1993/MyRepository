@@ -18,6 +18,7 @@ public class UserDAOImpl implements IUserDAO {
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
+	private User u;
 
 	@Override
 	public void save(User transientInstance) throws Exception {
@@ -149,16 +150,25 @@ public class UserDAOImpl implements IUserDAO {
 		return user;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findByMail(User user) throws Exception {
-		user = (User) sessionFactory
+		List<User> users = null;
+		users = (List<User>) sessionFactory
 				.getCurrentSession()
 				.createQuery(
 						"from User u where u.mail=?")
-				.setString(0, user.getMail()).uniqueResult();
-		List<User> users = new ArrayList<User>();
-		users.add(user);
+				.setString(0, user.getMail()).list();
+		
 		return users;
+	}
+
+	@Override
+	public User findSameName(User user) throws Exception {
+		u=(User) sessionFactory.getCurrentSession()
+				.createQuery("from User u where u.username=?")
+				.setString(0, user.getUsername()).uniqueResult();	
+		return u;
 	}
 
 }
