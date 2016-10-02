@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -64,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							day="0"+day;
 						now_time=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;//计算当前时间
 						
-						/* var obj="<div class='ans-content'><a href='#' class='re-name'>"+${sessionScope.UsersfromActions[0].username}+"</a>"+
+						/* var obj="<div class='ans-content'><a href='#' class='re-name'>"+${sessionScope.UsersfromActions.username}+"</a>"+
 						"<span class='main-content'>"+$(this).prev().val()+"</span><div class='ans-co-bottom'></div><span class='ans-time'>"+
 						now_time+"</span></div>";//未完待续
 						
@@ -75,6 +76,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});			
 			});
 		});
+		
+		function reply(obj){
+			var $edit=$(obj).parent().parent().parent().find(".sub-edit");
+			var name=$(obj).parent().parent().find(".re-name").text();
+			$edit.find(".add-re").val('${sessionScope.UsersfromActions.username}'+" 回复 "+name+"：");
+			$edit.show(200);
+		}
 	</script>
   </head>
   <body>
@@ -82,10 +90,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main">
     	<div class="main-box"></div>
     	<div class="main-box-fixed">
-    		<div class="q_title">微微一笑很倾城</div>
+    		<div class="q_title">${requestScope.replysfromAction[0].question.QTitle }</div>
     		<a class="btn" id="forward">转发</a>
     		<a class="btn" id="btn">回复</a>
     	</div>
+    	<c:out value="${replysfromAction }"></c:out>
+    	<c:forEach items="${replysfromAction }" var="reply">
     	<div class="w-content-box">
     		<!-- <div class="w-left">
     			<div class="ans-intro"><img src=""></div>
@@ -93,30 +103,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div> -->
     		<div class="w-right">
     			<div class="w-r-main">
-    				<a href="#" class="re-name">一笑奈何</a>:
-						<span class="main-content">微微忽然就觉得，自己纠结了半天的问题一点都不重要了。 就算哪天服务器真的关闭了也没关系。 
-   							只要她记得他在何时何地跟她说了第一句话。 记得他们去哪里看了风景。 记得他们共乘白雕掠过了山山水水…… 
-   							那些回忆并不会因为数据的消失而消失。 所以，就算将来这个游戏关闭了，这个世界上也永远会有一处地方——也许我心,
-   							也许彼心，白衣红影并肩而立。 看落霞峰上，永不落霞。陌上花开蝴蝶飞，江山犹是昔人非；遗民几度垂垂老，游女长歌缓缓归！</span>							
+    				<a href="#" class="re-name">${reply.respondent }</a>:
+						<span class="main-content">${reply.replyContent }</span>							
     			</div>
     			<div class="w-reply">
     				<div class="r-top">
-    					<span class="r-time">2016-8-18 22:15</span>&nbsp;
+    					<span class="r-time">${fn:substring(reply.replyTime,0,19) }</span>&nbsp;
     					<div class="r-fold">评论</div>
     				</div>
     				<div class="sub-reply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
-   						<div class="ans-content">
-   							<a href="#" class="re-name">芦苇微微</a>:
-   							<span class="main-content">微微忽然就觉得，自己纠结了半天的问题一点都不重要了。 就算哪天服务器真的关闭了也没关系。 
-   							只要她记得他在何时何地跟她说了第一句话。 记得他们去哪里看了风景。 记得他们共乘白雕掠过了山山水水…… 
-   							那些回忆并不会因为数据的消失而消失。 所以，就算将来这个游戏关闭了，这个世界上也永远会有一处地方——也许我心,
-   							也许彼心，白衣红影并肩而立。 看落霞峰上，永不落霞。陌上花开蝴蝶飞，江山犹是昔人非；遗民几度垂垂老，游女长歌缓缓归！</span>
-   							<div class="ans-co-bottom">
-   								<span class="ans-time">2016-8-18 22:15</span>
-   								<a href="#">回复</a>
-   							</div>
-   						</div>
+   						<c:forEach items="${reply.discipleReplies }" var="dReply">
+   							<div class="ans-content">
+	   							<a href="#" class="re-name">${dReply.respondent }</a>:
+	   							<span class="main-content">${dReply.replyContent }</span>
+	   							<div class="ans-co-bottom">
+	   								<span class="ans-time">${fn:substring(dReply.replyTime,0,19) }</span>
+	   								<a href="javascript:;" onclick="reply(this)">回复</a>
+	   							</div>
+	   						</div>
+   						</c:forEach>
     					<div class="sub-add"><span class="comment">我要评论</span></div>
     					<div class="sub-edit">
     						<textarea class="add-re"></textarea>
@@ -126,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</div>
     		</div>
     	</div>
-    	
+    	</c:forEach>
     	<div class="w-content-box">
     		<!-- <div class="w-left">
     			<div class="ans-intro"><img src=""></div>
@@ -166,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				</div>
     			</div>
     		</div>
-    	</div>
+    	</div> 
     	
     	<div class="page-div">
 			<input type="button" value="上一页" id="next"  class="abtn">

@@ -46,7 +46,7 @@
             </column>
         </property>
         <property name="visits" type="java.lang.Integer">
-            <column name="visits">
+            <column name="visits" not-null="true">
                 <comment>访问次数</comment>
             </column>
         </property>

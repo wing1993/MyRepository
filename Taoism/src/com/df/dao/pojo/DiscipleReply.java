@@ -1,14 +1,19 @@
 package com.df.dao.pojo;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
  * DiscipleReply entity. @author MyEclipse Persistence Tools
  */
 
-public class DiscipleReply  implements java.io.Serializable {
+public class DiscipleReply  implements Comparable<DiscipleReply>,java.io.Serializable {
 
 
     // Fields    
@@ -29,7 +34,7 @@ public class DiscipleReply  implements java.io.Serializable {
      private String con5;
      private String con6;
      private String con7;
-     private Set discipleReplies = new HashSet(0);
+     private Set<DiscipleReply> discipleReplies = new TreeSet<DiscipleReply>();
 
 
     // ConstructorsString
@@ -179,20 +184,44 @@ public class DiscipleReply  implements java.io.Serializable {
         this.con7 = con7;
     }
 
-    public Set getDiscipleReplies() {
+    public Set<DiscipleReply> getDiscipleReplies() {
         return this.discipleReplies;
     }
     
-    public void setDiscipleReplies(Set discipleReplies) {
+    public void setDiscipleReplies(Set<DiscipleReply> discipleReplies) {
+    	List<DiscipleReply> dList = new ArrayList<DiscipleReply>(discipleReplies);
+        Collections.sort(dList,new Comparator<DiscipleReply>(){
+
+			@Override
+			public int compare(DiscipleReply o1, DiscipleReply o2) {
+				// TODO Auto-generated method stub
+				return o1.replyId.compareTo(o2.replyId);
+			}
+       
+        });
+        discipleReplies = new LinkedHashSet<DiscipleReply>(dList);
         this.discipleReplies = discipleReplies;
     }
-   
 
+	@Override
+	public String toString() {
+		return "DiscipleReply [replyId=" + replyId + ", question=" + question
+				+ ", respondent=" + respondent + ", replyTime=" + replyTime
+				+ ", replyContent=" + replyContent + ", voice=" + voice
+				+ ", con1=" + con1 + ", con2=" + con2 + ", con3=" + con3
+				+ ", con4=" + con4 + ", con5=" + con5 + ", con6=" + con6
+				+ ", con7=" + con7 + ", discipleReplies=" + discipleReplies
+				+ "]";
+	}
 
+	@Override
+	public int compareTo(DiscipleReply o) {
+		int result = this.replyTime.compareTo(o.replyTime);
+		if (result == 0){
+			return this.replyId.compareTo(o.replyId);
+		}
+		return result;
+	}
 
-
-
-
-
-
+	 
 }

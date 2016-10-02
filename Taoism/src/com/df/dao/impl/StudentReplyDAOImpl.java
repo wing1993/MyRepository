@@ -61,7 +61,7 @@ public class StudentReplyDAOImpl implements IStudentReplyDAO {
 	public List<Object> findByQid(Integer k1) throws Exception {
 		List<Object> stdentList = new ArrayList<Object>();
 		stdentList = sessionFactory.getCurrentSession()
-				.createQuery("FROM StudentReply s where s.question.QId=?")
+				.createQuery("FROM StudentReply s where s.question.QId=? ORDER BY replyTime")
 				.setInteger(0,k1 )
 				.list();
 		return stdentList;
