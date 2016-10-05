@@ -43,11 +43,16 @@ public class PublicReply  implements java.io.Serializable {
 	/** minimal constructor */
     public PublicReply(Question question, String respondent, String replyTime, String replyContent) {
         this.question = question;
-        this.respondent = respondent;
+    	this.respondent = respondent;
         this.replyTime = replyTime;
         this.replyContent = replyContent;
     }
-    
+    public PublicReply(PublicReply publicReply, String respondent, String replyTime, String replyContent) {
+        this.publicReply = publicReply;
+    	this.respondent = respondent;
+        this.replyTime = replyTime;
+        this.replyContent = replyContent;
+    }
     /** full constructor */
     public PublicReply(PublicReply publicReply, Question question, String respondent, String replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set publicReplies) {
         this.publicReply = publicReply;

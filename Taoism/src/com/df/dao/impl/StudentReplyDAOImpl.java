@@ -22,8 +22,7 @@ public class StudentReplyDAOImpl implements IStudentReplyDAO {
 	
 	@Override
 	public void save(StudentReply t) throws Exception {
-		// TODO Auto-generated method stub
-
+		sessionFactory.getCurrentSession().save(t);
 	}
 
 	@Override

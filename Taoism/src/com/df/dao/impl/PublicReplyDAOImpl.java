@@ -20,8 +20,7 @@ public class PublicReplyDAOImpl implements IPublicReplyDAO {
 	
 	@Override
 	public void save(PublicReply t) throws Exception {
-		// TODO Auto-generated method stub
-
+		sessionFactory.getCurrentSession().save(t);
 	}
 
 	@Override

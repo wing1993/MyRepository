@@ -16,15 +16,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/q_detail.js"></script>
-	<script charset="utf-8" src="kindeditor/kindeditor-min.js"></script>
-	<script charset="utf-8" src="kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/lang/zh_CN.js"></script>
 	<script>
 		var editor;
 		KindEditor.ready(function(K) {
 			editor = K.create('textarea[name="card"]', {
-				cssPath : 'kindeditor/plugins/code/prettify.css',
-				uploadJson : 'kindeditor/jsp/upload_json.jsp',
-				fileManagerJson : 'kindeditor/jsp/file_manager_json.jsp',
+				cssPath : '${pageContext.request.contextPath }/user/pages/kindeditor/plugins/code/prettify.css',
+				uploadJson : '${pageContext.request.contextPath }/user/pages/kindeditor/jsp/upload_json.jsp',
+				fileManagerJson : '${pageContext.request.contextPath }/user/pages/kindeditor/jsp/file_manager_json.jsp',
 				allowFileManager : true,
 				afterCreate : function() {
 					var self = this;
@@ -46,42 +46,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					'media',  'emoticons', 'link', 'unlink', ]
 			});			
 		});
-		$(function(){
-			//发表评论
-			$(".sub-post").click(function(){
-				$.psot('',{},function(data){//待实现
-					if(data=="success"){
-						var now=new Date();
-						var year=now.getFullYear();
-						var month=now.getMonth()+1;
-						var day=now.getDate();
-						var hour=now.getHours();
-						var minute=now.getMinutes();
-						var second=now.getSeconds();
-						var now_time=null;
-						if(month<10)
-							month="0"+month;
-						if(day<10)
-							day="0"+day;
-						now_time=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;//计算当前时间
-						
-						/* var obj="<div class='ans-content'><a href='#' class='re-name'>"+${sessionScope.UsersfromActions.username}+"</a>"+
-						"<span class='main-content'>"+$(this).prev().val()+"</span><div class='ans-co-bottom'></div><span class='ans-time'>"+
-						now_time+"</span></div>";//未完待续
-						
-						$(this).parent().prev().prev().append(obj); */
+		function subPost(obj){
+			$.post("${pageContext.request.contextPath }/reply_saveSubReply.action",
+					{sharezone:$(".sharezone").val(),replyId:$(obj).prev().val(),
+					replyContent:$(obj).prev().prev().val()},function(data){
+					if(null!=data){
+						alert(data.replyTime+"成功");
+						var str="<div class='ans-content'>"+
+		   							"<a href='#' class='re-name'>${sessionScope.UsersfromActions.username }</a>:"+
+		   							"<span class='main-content'>"+$(obj).prev().prev().val()+"</span>"+
+		   							"<div class='ans-co-bottom'>"+
+		   								"<span class='ans-time'>"+data.replyTime+"</span>&nbsp;"+
+		   								"<a href='javascript:;' onclick='reply(this)'>回复</a></div></div>";
+		   							
+						$(obj).parent().parent().parent().find(".sub-add").before(str); 
+						$(obj).parent().parent().parent().find(".sub-add").val("");
 					}else{
-						alert("评论失败");
+						alert(data.replyTime+"评论失败");
 					}
-				});			
-			});
-		});
+			}); 
+		}
 		
 		function reply(obj){
 			var $edit=$(obj).parent().parent().parent().find(".sub-edit");
 			var name=$(obj).parent().parent().find(".re-name").text();
-			$edit.find(".add-re").val('${sessionScope.UsersfromActions.username}'+" 回复 "+name+"：");
+			$edit.find(".add-re").val(" 回复 "+name+"：");
 			$edit.show(200);
+			$edit.find(".add-re").focus();
+		}
+		
+		$(function(){
+			
+		});
+		function fold(obj){
+			if($(obj).text()=="收起回复"){
+				$(obj).text("回复");
+				$(obj).parent().next().css("display","none");
+			}else{
+				$(obj).text("收起回复");
+				$(obj).parent().next().css("display","block");
+			}
+		}
+		
+		function Post(){
+			if(editor.html()==""){
+				alert("请输入内容");
+			}else{
+				alert(editor.html());
+				$.post("${pageContext.request.contextPath }/reply_saveSubReply.action",
+					{sharezone:$(".sharezone").val(),replyId:$(obj).prev().val(),
+					replyContent:$(obj).prev().prev().val()},function(data){
+					if(null!=data){
+						alert(data.replyTime+"成功");
+						var str="<div class='ans-content'>"+
+		   							"<a href='#' class='re-name'>${sessionScope.UsersfromActions.username }</a>:"+
+		   							"<span class='main-content'>"+$(obj).prev().prev().val()+"</span>"+
+		   							"<div class='ans-co-bottom'>"+
+		   								"<span class='ans-time'>"+data.replyTime+"</span>&nbsp;"+
+		   								"<a href='javascript:;' onclick='reply(this)'>回复</a></div></div>";
+		   							
+						$(obj).parent().parent().parent().find(".sub-add").before(str); 
+						$(obj).parent().parent().parent().find(".sub-add").val("");
+					}else{
+						alert(data.replyTime+"评论失败");
+					}
+			}); 
+			}
 		}
 	</script>
   </head>
@@ -94,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<a class="btn" id="forward">转发</a>
     		<a class="btn" id="btn">回复</a>
     	</div>
-    	<c:out value="${replysfromAction }"></c:out>
+    	<input type="hidden" value="${replysfromAction[0].question.sharezone }" class="sharezone">
     	<c:forEach items="${replysfromAction }" var="reply">
     	<div class="w-content-box">
     		<!-- <div class="w-left">
@@ -109,12 +139,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="w-reply">
     				<div class="r-top">
     					<span class="r-time">${fn:substring(reply.replyTime,0,19) }</span>&nbsp;
-    					<div class="r-fold">评论</div>
-    				</div>
+    					<div class="r-fold" onclick="fold(this)">收起回复</div>
+    				</div>    				
     				<div class="sub-reply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
    							<div class="ans-content">
+   								<input type="hidden" value="${dReply.replyId}" id="${dReply.replyId}">
 	   							<a href="#" class="re-name">${dReply.respondent }</a>:
 	   							<span class="main-content">${dReply.replyContent }</span>
 	   							<div class="ans-co-bottom">
@@ -122,22 +153,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   								<a href="javascript:;" onclick="reply(this)">回复</a>
 	   							</div>
 	   						</div>
+   						<!-- <script>
+   							if(${dReply.replyId==null }){
+   								$("#"+"${dReply.replyId}").parent().parent().prev().find(".r-fold").text("回复");
+   								//$("#"+"${reply.replyId}").parent().next().css("display","none");
+   							}
+   						</script> -->
    						</c:forEach>
     					<div class="sub-add"><span class="comment">我要评论</span></div>
     					<div class="sub-edit">
     						<textarea class="add-re"></textarea>
-    						<input type="button" value="发表" class="post">
+    						<input type="hidden" value="${reply.replyId}">
+    						<input type="button" value="发表" class="sub-post" onclick="subPost(this)">
     					</div>
     				</div>
     			</div>
     		</div>
     	</div>
     	</c:forEach>
-    	<div class="w-content-box">
-    		<!-- <div class="w-left">
+    	<!-- <div class="w-content-box">
+    		<div class="w-left">
     			<div class="ans-intro"><img src=""></div>
     			<div class="respondent">*****</div>
-    		</div> -->
+    		</div>
     		<div class="w-right">
     			<div class="w-r-main">
     				<a href="#" class="re-name">一笑奈何</a>:
@@ -152,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<div class="r-fold">评论</div>
     				</div>
     				<div class="sub-reply">
-   						<!-- <div class="answerer-img"><img src=""/></div> -->
+   						<div class="answerer-img"><img src=""/></div>
    						<div class="ans-content">
    							<a href="#" class="re-name">芦苇微微</a>:
    							<span class="main-content">微微忽然就觉得，自己纠结了半天的问题一点都不重要了。 就算哪天服务器真的关闭了也没关系。 
@@ -172,18 +210,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				</div>
     			</div>
     		</div>
-    	</div> 
+    	</div>  -->
     	
-    	<div class="page-div">
+    	<!-- <div class="page-div">
 			<input type="button" value="上一页" id="next"  class="abtn">
 			<a href="javascript:;">1</a>
 			<a href="javascript:;">2</a>
 			<span>第&nbsp;<span id="now">1</span>/<span id="total">2</span>&nbsp;页</span>
 			<input type="button" value="下一页" id="next"  class="abtn">
-		</div>
+		</div> -->
     	<div class="edit-div">
     		<textarea name="card" style="width:80%;height:200px;visibility:hidden;"></textarea>
-    		<input type="button" value="发表" class="abtn">
+    		<input type="button" value="发表" class="abtn" onclick="Post()">
     	</div>
     </div>
     <div class="icon-rtop">&#xe933;</div>

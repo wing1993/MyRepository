@@ -36,6 +36,7 @@
 		<action name="user_*" class="userAction" method="{1}">
 			<result name="success" type="json"></result>
 			<result name="error" type="json"></result>
+			<result name="Unexamined" type="dispatcher">/admin/pages/rsgCheck.jsp</result>
 		</action>
 	</package>
 	<package name="dashi_action" namespace="/" extends="json-default">
@@ -67,7 +68,12 @@
     		<result name="error" type="json"></result>
     		<result name="findByAuthor" type="dispatcher">/user/pages/personal_center.jsp</result>
     	</action>
-    
+    </package>
+    <package name="reply_action" namespace="/" extends="json-default">	
+        <action name="reply_*" class="replyAction" method="{1}">
+			<result name="success" type="json"></result>
+			<result name="error" type="json"></result>
+		</action>
     </package>
     <package name="mail_action" namespace="/" extends="json-default">
     	<action name="sendmail" class="findPwdAction" method="sendmail">

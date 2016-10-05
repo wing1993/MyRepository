@@ -43,10 +43,17 @@ public class DiscipleReply  implements Comparable<DiscipleReply>,java.io.Seriali
     public DiscipleReply() {
     }
 
-	/** minimal constructor */
+	/** minimal constructor 添加回复*/
     public DiscipleReply(Question question, String respondent, String replyTime, String replyContent) {
         this.question = question;
-        this.respondent = respondent;
+    	this.respondent = respondent;
+        this.replyTime = replyTime;
+        this.replyContent = replyContent;
+    }
+    /** 添加二级回复*/
+    public DiscipleReply(DiscipleReply discipleReply, String respondent, String replyTime, String replyContent) {
+        this.discipleReply = discipleReply;
+    	this.respondent = respondent;
         this.replyTime = replyTime;
         this.replyContent = replyContent;
     }

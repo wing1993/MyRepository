@@ -20,9 +20,8 @@ public class MyquestionReplyDAOImpl implements IMyquestionReplyDAO {
 	
 	@Override
 	public void save(MyquestionReply t) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
+		sessionFactory.getCurrentSession().save(t);
+		}
 
 	@Override
 	public void delete(MyquestionReply t) throws Exception {

@@ -16,7 +16,7 @@
             </column>
         </many-to-one>
         <many-to-one name="question" class="com.df.dao.pojo.Question" fetch="select">
-            <column name="q_id" not-null="true">
+            <column name="q_id">
                 <comment>回复的问题的编号</comment>
             </column>
         </many-to-one>

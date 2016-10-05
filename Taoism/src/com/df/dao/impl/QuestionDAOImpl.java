@@ -175,7 +175,11 @@ public class QuestionDAOImpl implements IQuestionDAO {
 
 	@Override
 	public void addReadTimes(Integer k1) throws Exception {
-		// TODO Auto-generated method stub
+		System.out.println("dao层addReadTimes函数获取的qid为"+k1);
+		sessionFactory.getCurrentSession()
+				.createQuery("UPDATE Question q SET q.visits=q.visits+1 WHERE q.QId=?")
+				.setInteger(0, k1)
+				.executeUpdate();
 		
 	}
 	
