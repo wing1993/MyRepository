@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import com.df.dao.pojo.DiscipleReply;
 import com.df.dao.pojo.MyquestionReply;
 import com.df.dao.pojo.PublicReply;
+import com.df.dao.pojo.Question;
 import com.df.dao.pojo.StudentReply;
 import com.df.dao.pojo.User;
 import com.df.dao.util.DateUtil;
@@ -38,82 +39,69 @@ public class ReplyAction implements Serializable,RequestAware{
 	private int replyId;
 	private String replyTime;
 	private String sharezone;
+	private int QId;
 	private User u = (User) ServletActionContext.getRequest()
 			.getSession().getAttribute("UsersfromActions");
-	/*private Question question = (Question) ServletActionContext.getRequest()
-			.getSession().getAttribute("QuestionfromActions");*/
 	HttpServletResponse response=ServletActionContext.getResponse();
-	public String saveSubReply() throws IOException {
+	
+	
+	public String saveReply() throws IOException {
 		String msg = "error";
-		replyTime = DateUtil.getDateyMdHms();
-		System.out.println(sharezone+"lasdkjfdlfj");
+		replyTime = DateUtil.getDateyMdHms();//获取当前时间
+		Object object;
+		Question q = new Question();
 		if("公开区".equals(sharezone)){
 			PublicReply pr = new PublicReply();
-			pr.setReplyId(replyId);
-			Object object = 
-					new PublicReply(pr,u.getUsername(),replyTime,replyContent);
+			if(replyId!=0){//保存二级回复（对问题回复的回复）
+				pr.setReplyId(replyId);
+				object = new PublicReply(pr,u.getUsername(),replyTime,replyContent);
+			}
+			else{//保存对问题的回复
+				q.setQId(QId);
+				object = new PublicReply(q,u.getUsername(),replyTime,replyContent);
+			}
 			msg = replyService.saveReply(object,sharezone);
 		}
 		else if("学员区".equals(sharezone)){
 			StudentReply sr = new StudentReply();
-			sr.setReplyId(replyId);
-			Object object = 
-					new StudentReply(sr,u.getUsername(),replyTime,replyContent);
+			if(replyId!=0){
+				sr.setReplyId(replyId);
+				object = new StudentReply(sr,u.getUsername(),replyTime,replyContent);
+			}
+			else{
+				q.setQId(QId);
+				object = new StudentReply(q,u.getUsername(),replyTime,replyContent);
+			}
 			msg = replyService.saveReply(object,sharezone);
 		}
 		else if("弟子区".equals(sharezone)){
 			DiscipleReply dr = new DiscipleReply();
-			dr.setReplyId(replyId);
-			Object object = 
-					new DiscipleReply(dr,u.getUsername(),replyTime,replyContent);
+			if(replyId!=0){
+				dr.setReplyId(replyId);
+				object = new DiscipleReply(dr,u.getUsername(),replyTime,replyContent);
+			}
+			else{
+				q.setQId(QId);
+				object = new DiscipleReply(q,u.getUsername(),replyTime,replyContent);
+			}
 			msg = replyService.saveReply(object,sharezone);
 		}
 		else if("我的问题".equals(sharezone)){
 			MyquestionReply mr = new MyquestionReply();
-			mr.setReplyId(replyId);
-			Object object = 
-					new MyquestionReply(mr,u.getUsername(),replyTime,replyContent);
+			if(replyId!=0){
+				mr.setReplyId(replyId);
+				object = new MyquestionReply(mr,u.getUsername(),replyTime,replyContent);
+			}
+			else{
+				q.setQId(QId);
+				object = new MyquestionReply(q,u.getUsername(),replyTime,replyContent);
+			}
 			msg = replyService.saveReply(object,sharezone);
 		}
 		System.out.println(msg);
 		return msg;
 	}
 
-	public String saveReply() throws IOException {
-		String msg = "error";
-		replyTime = DateUtil.getDateyMdHms();
-		System.out.println(sharezone+"lasdkjfdlfj");
-		if("公开区".equals(sharezone)){
-			PublicReply pr = new PublicReply();
-			pr.setReplyId(replyId);
-			Object object = 
-					new PublicReply(pr,u.getUsername(),replyTime,replyContent);
-			msg = replyService.saveReply(object,sharezone);
-		}
-		else if("学员区".equals(sharezone)){
-			StudentReply sr = new StudentReply();
-			sr.setReplyId(replyId);
-			Object object = 
-					new StudentReply(sr,u.getUsername(),replyTime,replyContent);
-			msg = replyService.saveReply(object,sharezone);
-		}
-		else if("弟子区".equals(sharezone)){
-			DiscipleReply dr = new DiscipleReply();
-			dr.setReplyId(replyId);
-			Object object = 
-					new DiscipleReply(dr,u.getUsername(),replyTime,replyContent);
-			msg = replyService.saveReply(object,sharezone);
-		}
-		else if("我的问题".equals(sharezone)){
-			MyquestionReply mr = new MyquestionReply();
-			mr.setReplyId(replyId);
-			Object object = 
-					new MyquestionReply(mr,u.getUsername(),replyTime,replyContent);
-			msg = replyService.saveReply(object,sharezone);
-		}
-		System.out.println(msg);
-		return msg;
-	}
 	
 	public String delete() {
 		//return replyService.delete(Object object,String s);
@@ -166,5 +154,13 @@ public class ReplyAction implements Serializable,RequestAware{
 
 	public void setSharezone(String sharezone) {
 		this.sharezone = sharezone;
+	}
+
+	public int getQId() {
+		return QId;
+	}
+
+	public void setQId(int qId) {
+		QId = qId;
 	}
 }

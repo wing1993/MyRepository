@@ -33,7 +33,8 @@ public class UploadAction extends ActionSupport implements ModelDriven<User>, Re
 	private static final long serialVersionUID = 1L;   
 
 	//上传用户照片存放的路径
-	private final String UPLOADDIR = "/user_img";
+	//private final String UPLOADDIR = "/user_img";
+	private final String UPLOADDIR = "E:/MyEclipse/MyRepository/Taoism/WebRoot/user_images";
 	//上传的图片
 	private File imgfile;
 	//上传的图片名
@@ -93,15 +94,17 @@ public class UploadAction extends ActionSupport implements ModelDriven<User>, Re
     }   
 	
 	 //执行上传功能   
-    @SuppressWarnings({ "deprecation", "resource" })
+    @SuppressWarnings({ "resource" })
 	private void uploadFile() throws FileNotFoundException, IOException {   
     	System.out.println("-----------进来了");
         try {   
             InputStream in = new FileInputStream(imgfile);   
-            String dir = ServletActionContext.getRequest()
+            /*String dir = ServletActionContext.getRequest()
             		.getSession()
             		.getServletContext()
-            		.getRealPath(UPLOADDIR);  
+            		.getRealPath(UPLOADDIR); */
+            //String dir = "E:/MyEclipse/MyRepository/Taoism/WebRoot/user_images";
+            String dir = UPLOADDIR;
             File fileLocation = new File(dir);  
            
             //此处也可以在应用根目录手动建立目标上传目录
@@ -131,10 +134,10 @@ public class UploadAction extends ActionSupport implements ModelDriven<User>, Re
             }   
             in.close();   
             out.close();   
-            
+            System.out.println("1211111111111111111111111111122");
             //将图片的路径添加到用户资料中你用request
-            user.setPicture(UPLOADDIR+"/"+this.getImgfileFileName());
-            System.out.println(user);
+            user.setPicture("/user_images"+"/"+this.getImgfileFileName());
+            System.out.println("4564646545645464464646"+user);
             msg = "success";
             
         } catch (FileNotFoundException ex) {   

@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});			
 		});
 		function subPost(obj){
-			$.post("${pageContext.request.contextPath }/reply_saveSubReply.action",
+			$.post("${pageContext.request.contextPath }/reply_saveReply.action",
 					{sharezone:$(".sharezone").val(),replyId:$(obj).prev().val(),
 					replyContent:$(obj).prev().prev().val()},function(data){
 					if(null!=data){
@@ -93,20 +93,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("请输入内容");
 			}else{
 				alert(editor.html());
-				$.post("${pageContext.request.contextPath }/reply_saveSubReply.action",
-					{sharezone:$(".sharezone").val(),replyId:$(obj).prev().val(),
-					replyContent:$(obj).prev().prev().val()},function(data){
+				$.post("${pageContext.request.contextPath }/reply_saveReply.action",
+					{sharezone:$(".sharezone").val(),QId:$(".QId").val(),
+					replyContent:editor.html()},function(data){
 					if(null!=data){
-						alert(data.replyTime+"成功");
-						var str="<div class='ans-content'>"+
-		   							"<a href='#' class='re-name'>${sessionScope.UsersfromActions.username }</a>:"+
-		   							"<span class='main-content'>"+$(obj).prev().prev().val()+"</span>"+
-		   							"<div class='ans-co-bottom'>"+
-		   								"<span class='ans-time'>"+data.replyTime+"</span>&nbsp;"+
-		   								"<a href='javascript:;' onclick='reply(this)'>回复</a></div></div>";
-		   							
-						$(obj).parent().parent().parent().find(".sub-add").before(str); 
-						$(obj).parent().parent().parent().find(".sub-add").val("");
+						alert(data);
 					}else{
 						alert(data.replyTime+"评论失败");
 					}
@@ -125,6 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<a class="btn" id="btn">回复</a>
     	</div>
     	<input type="hidden" value="${replysfromAction[0].question.sharezone }" class="sharezone">
+    	<input type="hidden" value="${replysfromAction[0].question.QId }" class="QId">  	
     	<c:forEach items="${replysfromAction }" var="reply">
     	<div class="w-content-box">
     		<!-- <div class="w-left">
