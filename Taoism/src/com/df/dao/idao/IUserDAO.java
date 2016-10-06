@@ -33,15 +33,7 @@ public interface IUserDAO extends IBaseHibernateDAO<User, Integer> {
 	 */
 	void examine(User user) throws Exception;
 
-	/**
-	 * 查询出已注册需要管理员审核的用户
-	 * 
-	 * @param k1
-	 * @param k2
-	 * @return
-	 * @throws Exception
-	 */
-	public QueryResult findNeedExamine(Integer k1, Integer k2) throws Exception;
+	
 
 	/**
 	 * 当用户修改用户类型时需要管理员审核 审核成功执行update操作
@@ -75,4 +67,11 @@ public interface IUserDAO extends IBaseHibernateDAO<User, Integer> {
 	 * @throws Exception
 	 */
 	public User findSameName(User user) throws Exception;
+	
+	/**
+	 * 查询未审核的用户
+	 * @return
+	 * @throws Exception
+	 */
+	public List<User> findUnexamined()throws Exception;
 }

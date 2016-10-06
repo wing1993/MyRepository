@@ -277,7 +277,7 @@ function check_pw2(){
 function check_mail(obj){
 	$("#wrong_mail").css("display","none");
 	var email=$("input[name='mail']").val();
-	if($(obj).val()!="" && !email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)){
+	if($(obj).val()=="" && !email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)){
 		$("#wrong_mail").css("display","block");
 	}else{
 		
@@ -295,6 +295,8 @@ function check_null(){
 		$("#null_password").css("display","block");
 		check_pw2();
 	}
+	
+	
 	if(($("#user_type").val()=="学员" ||$("#user_type").val()=="弟子") && $("input[name='realname']").val()==""){
 		$("#null_realname").css("display","block");
 	}

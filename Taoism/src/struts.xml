@@ -36,6 +36,7 @@
 		<action name="user_*" class="userAction" method="{1}">
 			<result name="success" type="json"></result>
 			<result name="error" type="json"></result>
+			<result name="Unexamined" type="dispatcher">/admin/pages/rsgCheck.jsp</result>
 		</action>
 	</package>
 	<package name="dashi_action" namespace="/" extends="json-default">

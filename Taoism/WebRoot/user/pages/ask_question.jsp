@@ -28,9 +28,9 @@
 		var editor;
 		KindEditor.ready(function(K) {
 			editor = K.create('textarea[name="QContent"]', {
-				cssPath : 'kindeditor/plugins/code/prettify.css',
-				uploadJson : 'kindeditor/jsp/upload_json.jsp',
-				fileManagerJson : 'kindeditor/jsp/file_manager_json.jsp',
+				cssPath : '${pageContext.request.contextPath }/user/pages/kindeditor/plugins/code/prettify.css',
+				uploadJson : '${pageContext.request.contextPath }/user/pages/kindeditor/jsp/upload_json.jsp',
+				fileManagerJson : '${pageContext.request.contextPath }/user/pages/kindeditor/jsp/file_manager_json.jsp',
 				allowFileManager : true,
 				afterCreate : function() {
 					var self = this;

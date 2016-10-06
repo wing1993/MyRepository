@@ -128,18 +128,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Transactional
 	@Override
-	public QueryResult findNeedExamine(Integer k1, Integer k2) {
-		QueryResult query = null;
-		try {
-			query = userDao.findNeedExamine(k1, k2);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return query;
-	}
-
-	@Transactional
-	@Override
 	public String changeUserType(User user) {
 		try {
 			userDao.changeUserType(user);
@@ -187,6 +175,19 @@ public class UserServiceImpl implements IUserService {
 			return true;
 		else
 			return false;
+	}
+
+	@Transactional
+	@Override
+	public List<User> findUnexamined() {
+		List<User> users=new ArrayList<User>();
+		try {
+			users=userDao.findUnexamined();
+			System.out.println("未审核的用户"+users);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 
 }

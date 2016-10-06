@@ -42,7 +42,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	private int currentPage; //当前页
 	private String valid_code;
 	private String msg="error";
-	private List<User> u=new ArrayList();
+	private List<User> u=new ArrayList<User>();
 	HttpServletResponse response = ServletActionContext.getResponse(); 
 	public int getSumPage() {
 		return sumPage;
@@ -211,23 +211,22 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		if(!"".equals(birthdayData)){
 			user.setBirthday(this.getBirthdayData());
 		}
-		
-		if("弟子".equals(user.getUserType())){
-			msg = userService.registry((User)requestMap.get("user"));
-		}else{
-			System.out.println(userService.findSameName(user));
-			if(userService.findSameName(user)){//查找该用户名是否已被注册
-				if(CheckMail()){
-					//msg = userService.registry(user);//当用户名和邮箱都未被注册的时候，验证成功
-					System.out.println();
+		if(userService.findSameName(user)){//查找该用户名是否已被注册
+			if(CheckMail()){
+				if("弟子".equals(user.getUserType())){
+					msg = userService.registry((User)requestMap.get("user"));
 				}else{
-					msg="mail_registered";//邮箱已被注册
+					System.out.println(userService.findSameName(user));
+					msg = userService.registry(user);//当用户名和邮箱都未被注册的时候，验证成功					
 				}
+				System.out.println();
 			}else{
-				msg="name_registered";//用户名已被注册
+				msg="mail_registered";//邮箱已被注册
 			}
-			
+		}else{
+			msg="name_registered";//用户名已被注册
 		}
+		
 		sessionMap.put("User", (User)requestMap.get("user"));
 		PrintWriter out = response.getWriter();
 		out.print(msg);
@@ -258,8 +257,17 @@ public class UserAction implements Serializable, ModelDriven<User>,
 			return false;
 		}else{
 			return true;
-		}
-		
-		
+		}		
+	}
+	/**
+	 * 查询未审核的用户
+	 * @return
+	 * @throws Exception
+	 */
+	public String findUnexamined()throws Exception{
+		u=userService.findUnexamined();
+		System.out.println(u.toString());
+		requestMap.put("findUnexamined", u);
+		return "Unexamined";
 	}
 }

@@ -3,14 +3,15 @@ package com.df.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.df.dao.idao.IUserDAO;
-import com.df.dao.pojo.User;
 import com.df.dao.pojo.QueryResult;
+import com.df.dao.pojo.User;
 
 @Repository("userDao")
 public class UserDAOImpl implements IUserDAO {
@@ -107,25 +108,7 @@ public class UserDAOImpl implements IUserDAO {
 		sessionFactory.getCurrentSession().update(user);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public QueryResult findNeedExamine(Integer firstResult, Integer maxResults)
-			throws Exception {
-
-		List<User> userList = new ArrayList<User>();
-		Long count = (long) 0; // 总记录数
-
-		// 查询总记录数
-		count = (Long) sessionFactory.getCurrentSession()
-				.createQuery("SELECT COUNT(*) FROM User").uniqueResult();
-		System.out.println(firstResult + "---" + maxResults + "---" + count);
-		// 查询一页的数据列表
-		userList = sessionFactory.getCurrentSession()
-				.createQuery("FROM User u WHERE u.state=0")
-				.setFirstResult(firstResult).setMaxResults(maxResults).list();
-
-		return new QueryResult(count.intValue(), userList);
-	}
+	
 
 	@Override
 	public void changeUserType(User user) throws Exception {
@@ -169,6 +152,16 @@ public class UserDAOImpl implements IUserDAO {
 				.createQuery("from User u where u.username=?")
 				.setString(0, user.getUsername()).uniqueResult();	
 		return u;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> findUnexamined() throws Exception {
+		List<User> users=new ArrayList<User>();
+		String hql="from User u where u.state=0";
+		Query query=sessionFactory.getCurrentSession().createQuery(hql);
+		users=query.list();
+		return users;
 	}
 
 }

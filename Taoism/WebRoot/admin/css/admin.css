@@ -143,8 +143,6 @@ html,body,div,span,ul,input{
 	border:1px solid #6B99E4;
 }
 #r_iframe{
-/* 	border:1px solid #000; */
-	margin:20px;
-	width:1110px;
+	width:1140px;
 	height:500px;
 }

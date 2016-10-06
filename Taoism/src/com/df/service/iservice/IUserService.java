@@ -33,14 +33,6 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 */
 	String examine(User user);
 
-	/**
-	 * 需要审核的用户
-	 * 
-	 * @param k1
-	 * @param k2
-	 * @return
-	 */
-	QueryResult findNeedExamine(Integer k1, Integer k2);
 
 	String changeUserType(User user);
 
@@ -59,5 +51,11 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 * @return
 	 */
 	boolean findSameName(User user);
+	
+	/**
+	 * 查找所有未审核的用户
+	 * @return
+	 */
+	List<User> findUnexamined();
 
 }
