@@ -21,8 +21,7 @@ public class DiscipleReplyDAOImpl implements IDiscipleReplyDAO {
 	
 	@Override
 	public void save(DiscipleReply t) throws Exception {
-		// TODO Auto-generated method stub
-
+		sessionFactory.getCurrentSession().save(t);
 	}
 
 	@Override
@@ -60,9 +59,10 @@ public class DiscipleReplyDAOImpl implements IDiscipleReplyDAO {
 	public List<Object> findByQid(Integer k1) throws Exception {
 		List<Object> discipleReplyList = new ArrayList<Object>();
 		discipleReplyList = sessionFactory.getCurrentSession()
-				.createQuery("FROM DiscipleReplyList d where d.question.QId=?")
-				.setInteger(0,k1 )
+				.createQuery("FROM DiscipleReply d where d.question.QId=? ORDER BY d.replyId")
+				.setInteger(0, k1)
 				.list();
+		System.out.println("5555555555555555"+discipleReplyList);
 		return discipleReplyList;
 	}
 }

@@ -40,7 +40,7 @@
 						$.each(data.qList,function(i,value){
 							 var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";
 							 var str = "<tr>"+icon
-									+"<td><a href='${pageContext.request.contextPath }/user/pages/q_detail.jsp' title='"+value.QTitle+"' onclick=''>"+value.QTitle+"</a></td>"
+									+"<td><a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' title='"+value.QTitle+"'>"+value.QTitle+"</a></td>"
 									+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td></td>"
 									+"<td>"+value.con1+"</td><td>"+value.visits+"</td>"
 									+"<td>"+value.QTypeName+"</td></tr>";

@@ -2,7 +2,6 @@ package com.df.service.iservice;
 
 import java.util.List;
 
-import com.df.dao.pojo.Question;
 
 
 
@@ -20,11 +19,11 @@ public interface IReplyService<T>{
 	 * @param t  使用了分表 不同的区域不同的类
 	 * @return
 	 */
-	public String save(T t,Question q);
+	public String saveReply(Object t,String sharezone);
 	/**
 	 * 删除回复
 	 * @param t
 	 * @return
 	 */
-	public String delete(T t,Question q);
+	public String delete(T t,String sharezone);
 }

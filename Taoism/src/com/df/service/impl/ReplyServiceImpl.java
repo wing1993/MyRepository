@@ -6,11 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.df.dao.idao.IDiscipleReplyDAO;
 import com.df.dao.idao.IMyquestionReplyDAO;
 import com.df.dao.idao.IPublicReplyDAO;
 import com.df.dao.idao.IStudentReplyDAO;
+import com.df.dao.pojo.DiscipleReply;
+import com.df.dao.pojo.MyquestionReply;
+import com.df.dao.pojo.PublicReply;
+import com.df.dao.pojo.StudentReply;
+import com.df.dao.util.DateUtil;
 import com.df.service.iservice.IReplyService;
 
 @Service("replyService")
@@ -32,6 +38,7 @@ public class ReplyServiceImpl implements IReplyService<Object> {
 	@Qualifier("myquestionReplyDao")
 	private IMyquestionReplyDAO myquestionReplyDao;
 
+	@Transactional
 	@Override
 	public List<Object> findByQid(Integer qId,String sharezone) {
 		List<Object> replyList = new ArrayList<Object> ();
@@ -54,14 +61,43 @@ public class ReplyServiceImpl implements IReplyService<Object> {
 		return replyList;
 	}
 
+	@Transactional
 	@Override
-	public String save(Object t) {
-		// TODO Auto-generated method stub
-		return null;
+	public String saveReply(Object t,String sharezone) {
+		String msg = "error";
+		try{
+			if("公开区".equals(sharezone)){
+				PublicReply pr = (PublicReply)t;
+				publicReplyDao.save(pr);
+				msg = "success";
+				System.out.println("1"+pr);
+			}
+			else if("学员区".equals(sharezone)){
+				StudentReply sr = (StudentReply)t;
+				studentReplyDao.save(sr);
+				msg = "success";
+				System.out.println("2"+sr);
+			}
+			else if("弟子区".equals(sharezone)){
+				DiscipleReply dr = (DiscipleReply)t;
+				discipleReplyDao.save(dr);
+				msg = "success";
+				System.out.println("3"+dr);
+			}
+			else if("我的问题".equals(sharezone)){
+				MyquestionReply mr = (MyquestionReply)t;
+				myquestionReplyDao.save(mr);
+				msg = "success";  
+				System.out.println("4"+mr);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
 	@Override
-	public String delete(Object t) {
+	public String delete(Object t,String sharezone) {
 		// TODO Auto-generated method stub
 		return null;
 	}

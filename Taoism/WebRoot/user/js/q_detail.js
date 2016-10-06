@@ -4,6 +4,7 @@ $(function(){
 		$(".ke-edit-iframe").focus();
 	});
 	$(".comment").click(function(){
+		$(this).parent().next().find('.add-re').val('');
 		$(this).parent().next().toggle();
 	});
 	

@@ -86,61 +86,6 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		return count;
 	}
 
-	/*@Override
-	public List<Question> findByDynamicData(Question question,String userType) throws Exception {
-		Session session = sessionFactory.openSession();
-		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
-		System.out.println(question.getSharezone()+"========="+(question.getSharezone()!=null));
-		System.out.println("---------------");
-		System.out.println(question.toString());
-		//System.out.println(user+"用户");
-		if(!"".equals(question.getQTitle())){
-			dc.add(Restrictions.like("QTitle",question.getQTitle(),MatchMode.ANYWHERE));
-		}
-		else {
-			if("所有问题".equals(question.getSharezone())){
-				String[] sharezone = null; 
-				if("".equals(userType)){
-					sharezone = new String[] {"公开区"};
-					dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone)));
-				}
-				if("普通".equals(userType)){
-					sharezone = new String[] {"公开区"};
-					dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
-							Restrictions.eq("username", question.getUsername())));
-				}else if("学员".equals(userType)){
-					sharezone = new String[] {"公开区","学员区"};
-					dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
-							Restrictions.eq("username", question.getUsername())));
-				}else if("弟子".equals(userType)||"老先生".equals(userType)){
-					sharezone = new String[] {"公开区","学员区","弟子区"};
-					dc.add(Restrictions.or(Restrictions.in("sharezone", sharezone),
-							Restrictions.eq("username", question.getUsername()),
-							Restrictions.eq("askWho", question.getAskWho())));
-				}	
-			}else{
-				if(!"".equals(question.getSharezone())){System.out.println("1");
-					dc.add(Restrictions.eq("sharezone", question.getSharezone()));
-				}
-				if(!"".equals(question.getQTypeName())){System.out.println("2");
-					dc.add(Restrictions.eq("QTypeName", question.getQTypeName()));
-				}
-				if(!"".equals(question.getQTime())){System.out.println("3");
-					dc.add(Restrictions.ge("QTime", question.getQTime()));
-				}
-				if((question.getState()!=null)){System.out.println("4");
-					dc.add(Restrictions.eq("state", question.getState()));
-				}
-				if(question.getAskWho()!=null){System.out.println("5");
-					dc.add(Restrictions.eq("askWho", question.getAskWho()));
-				}
-			}
-		} 
-		Criteria c = dc.getExecutableCriteria(session);
-		List<Question> questionList = c.list();
-		System.out.println("dao层"+questionList.toString());
-		return questionList;
-	}*/
 	@SuppressWarnings("unchecked")
 	@Override
 	public DataPage<Question> findByDynamicData(Question question,int currentPage,String userType) throws Exception {
@@ -227,58 +172,15 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		System.out.println("dao层"+dp.gettList().toString());
 		return dp;
 	}
-	/*public PageInfo<Auction> select(Auction condition, int pageIndex){
-		PageInfo<Auction> pageInfo = new PageInfo<Auction>();
-	    Session session = HibernateUtil.currentSession();
-	    DetachedCriteria dc = DetachedCriteria.forClass(Auction.class);
-	    Criteria c = session.createCriteria(Auction.class);// 用于列表
-	    Criteria c1 = session.createCriteria(Auction.class);// 用于查询总记录数
-	    if (condition.getAuctionname() != null
-	            && !condition.getAuctionname().equals("")) {
-	        c.add(Restrictions.ilike("auctionname", condition.getAuctionname(),
-	                MatchMode.ANYWHERE));
-	        c1.add(Restrictions.ilike("auctionname",
-	                condition.getAuctionname(), MatchMode.ANYWHERE));
-	    }
-	    if (condition.getAuctiondesc() != null
-	            && !"".equals(condition.getAuctiondesc())) {
-	        c.add(Restrictions.ilike("auctiondesc", condition.getAuctiondesc(),
-	                MatchMode.ANYWHERE));
-	        c1.add(Restrictions.ilike("auctiondesc",
-	                condition.getAuctiondesc(), MatchMode.ANYWHERE));
-	    }
-	    if (condition.getAuctionstarttime() != null) {
-	        c.add(Restrictions.ge("auctionstarttime",
-	                condition.getAuctionstarttime()));
-	        c1.add(Restrictions.ge("auctionstarttime",
-	                condition.getAuctionstarttime()));
-	    }
-	    if (condition.getAuctionendtime() != null) {
-	        c.add(Restrictions.le("auctionendtime",
-	                condition.getAuctionendtime()));
-	        c1.add(Restrictions.le("auctionendtime",
-	                condition.getAuctionendtime()));
-	    }
-	    if (condition.getAuctionstartprice() != null) {
-	        c.add(Restrictions.ge("auctionstartprice",
-	                condition.getAuctionstartprice()));
-	        c1.add(Restrictions.ge("auctionstartprice",
-	                condition.getAuctionstartprice()));
-	    }
-	    c.addOrder(Order.desc("auctionstarttime"));
-	    // 总记录数
-	    int count = (Integer) c1.setProjection(Projections.rowCount())
-	            .uniqueResult();
-	    pageInfo.setCount(count);
-	    // 当前页号
-	    pageInfo.setPageIndex(pageIndex);
-	    // 分页
-	    // 每页显示的记录数
-	    c.setMaxResults(PageInfo.PAGESIZE);
-	    c.setFirstResult((pageIndex - 1) * PageInfo.PAGESIZE);
-	    List<Auction> list = c.list();
-	    pageInfo.setPageList(list);
-	    return pageInfo;
-	}*/
 
+	@Override
+	public void addReadTimes(Integer k1) throws Exception {
+		System.out.println("dao层addReadTimes函数获取的qid为"+k1);
+		sessionFactory.getCurrentSession()
+				.createQuery("UPDATE Question q SET q.visits=q.visits+1 WHERE q.QId=?")
+				.setInteger(0, k1)
+				.executeUpdate();
+		
+	}
+	
 }

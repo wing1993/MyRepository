@@ -45,7 +45,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	private Page page;              //分页的情况（每页显示的数量，总页数，当前页，是否有上一页下一页等）
 	private List<Object> replyList; //用户的针对某个问题的回复
 	
-	@SuppressWarnings("unchecked")
+
 	private User u = (User) ServletActionContext.getRequest()
 			.getSession().getAttribute("UsersfromActions");
 	
@@ -101,10 +101,11 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	}
 
 	public String findReplyByQId(){
+		System.out.println("123456789"+question);
 		replyList = questionService.findByQid(question);
-		requestMap.put("questionfromAction", question);
+		requestMap.put("replysfromAction", replyList);
 		System.out.println("123456789"+replyList);
-		return null;
+		return "replys";
 	}
 	
 	public String findByDynamicData(){
@@ -175,6 +176,14 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	public Question getModel() {
 		question = new Question();
 		return question;
+	}
+
+	public List<Object> getReplyList() {
+		return replyList;
+	}
+
+	public void setReplyList(List<Object> replyList) {
+		this.replyList = replyList;
 	}
 
 }

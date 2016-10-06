@@ -24,7 +24,7 @@
 						url:suburl,
 						type:'post',
 						//dataType : "json",
-						success:function(str){						
+						success:function(str){	alert(str);					
 							if(str=="success"){
 								alert("注册成功！");
 								window.location.href="login.jsp";

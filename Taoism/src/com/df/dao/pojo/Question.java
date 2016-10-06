@@ -49,13 +49,14 @@ public class Question  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public Question(String username, String QTime, String QTypeName, String QTitle, String QContent, Integer state, String sharezone, Integer shareState) {
+    public Question(String username, String QTime, String QTypeName, String QTitle, String QContent, Integer state, Integer visits, String sharezone, Integer shareState) {
         this.username = username;
         this.QTime = QTime;
         this.QTypeName = QTypeName;
         this.QTitle = QTitle;
         this.QContent = QContent;
         this.state = state;
+        this.visits = visits;
         this.sharezone = sharezone;
         this.shareState = shareState;
     }
@@ -272,6 +273,17 @@ public class Question  implements java.io.Serializable {
     public void setStudentReplies(Set studentReplies) {
         this.studentReplies = studentReplies;
     }
+
+	@Override
+	public String toString() {
+		return "Question [QId=" + QId + ", username=" + username + ", QTime="
+				+ QTime + ", QTypeName=" + QTypeName + ", askWho=" + askWho
+				+ ", QTitle=" + QTitle + ", QContent=" + QContent + ", state="
+				+ state + ", visits=" + visits + ", sharezone=" + sharezone
+				+ ", shareState=" + shareState + ", con1=" + con1 + ", con2="
+				+ con2 + ", con3=" + con3 + ", con4=" + con4 + ", con5=" + con5
+				+ ", con6=" + con6 + ", con7=" + con7 +  "]";
+	}
    
 
 

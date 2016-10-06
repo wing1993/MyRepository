@@ -113,6 +113,7 @@ public class QuestionServiceImpl implements IQuestionService {
 	public List<Object> findByQid(Question question) {
 		List<Object> replyList = new ArrayList<Object> ();
 		try {
+			questionDao.addReadTimes(question.getQId());
 			if("公开区".equals(question.getSharezone())){
 				replyList = publicReplyDao.findByQid(question.getQId());
 			}

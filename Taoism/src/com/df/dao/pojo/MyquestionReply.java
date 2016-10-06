@@ -43,11 +43,16 @@ public class MyquestionReply  implements java.io.Serializable {
 	/** minimal constructor */
     public MyquestionReply(Question question, String respondent, String replyTime, String replyContent) {
         this.question = question;
-        this.respondent = respondent;
+    	this.respondent = respondent;
         this.replyTime = replyTime;
         this.replyContent = replyContent;
     }
-    
+    public MyquestionReply(MyquestionReply myquestionReply, String respondent, String replyTime, String replyContent) {
+        this.myquestionReply = myquestionReply;
+    	this.respondent = respondent;
+        this.replyTime = replyTime;
+        this.replyContent = replyContent;
+    }
     /** full constructor */
     public MyquestionReply(MyquestionReply myquestionReply, Question question, String respondent, String replyTime, String replyContent, String voice, String con1, String con2, String con3, String con4, String con5, String con6, String con7, Set myquestionReplies) {
         this.myquestionReply = myquestionReply;

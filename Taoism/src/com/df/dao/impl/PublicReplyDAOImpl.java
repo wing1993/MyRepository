@@ -20,8 +20,7 @@ public class PublicReplyDAOImpl implements IPublicReplyDAO {
 	
 	@Override
 	public void save(PublicReply t) throws Exception {
-		// TODO Auto-generated method stub
-
+		sessionFactory.getCurrentSession().save(t);
 	}
 
 	@Override
@@ -59,7 +58,7 @@ public class PublicReplyDAOImpl implements IPublicReplyDAO {
 	public List<Object> findByQid(Integer k1) throws Exception {
 		List<Object> publicReplyList = new ArrayList<Object>();
 		publicReplyList = sessionFactory.getCurrentSession()
-				.createQuery("FROM PublicReply p where p.question.QId=?")
+				.createQuery("FROM PublicReply p where p.question.QId=? ORDER BY replyTime")
 				.setInteger(0,k1 )
 				.list();
 		return publicReplyList;
