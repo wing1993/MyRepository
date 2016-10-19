@@ -69,6 +69,10 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 	line-height:23px;
 	margin:15px 20px 15px 20px;
 }
+.w-r-main img{
+	max-width:400px;
+	max-height:500px;
+}
 .r-top{
 	height:30px;
 	line-height:30px;

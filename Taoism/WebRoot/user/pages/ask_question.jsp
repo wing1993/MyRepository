@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,8 +7,8 @@
 	<title>向大师提问</title>
 	<script type="text/javascript" src="../../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.form.js"></script>
-	<script charset="utf-8" src="kindeditor/kindeditor-min.js"></script>
-	<script charset="utf-8" src="kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/lang/zh_CN.js"></script>
 	<style type="text/css">
 		body{font-family: 'Microsoft YaHei';}
 		.main{width:780px;margin:60px auto;padding:40px;background:#fff;}
@@ -103,9 +104,6 @@
 				$("form").ajaxSubmit(obj);
 			}
 		}
-		$(function(){
-			alert($("input[name='askWho']").val());
-		});
 	</script>
 </head>
 <body>
@@ -127,7 +125,13 @@
 				</tr>
 				<tr>
 					<td>问题类型：</td>
-					<td><select id="q_type_name" name="QTypeName"><option>问题类型</option></select></td>
+					<td>
+						<select id="q_type_name" name="QTypeName">
+						<c:forEach items="${qtList }" var="qtList">
+							<option value="${qtList.QTypeName }">${qtList.QTypeName }</option>
+						</c:forEach>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>内容：</td>

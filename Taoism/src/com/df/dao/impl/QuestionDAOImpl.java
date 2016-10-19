@@ -70,7 +70,8 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		System.out.println(firstResult + "---" + maxResults + "---" + count);
 		// 查询一页的数据列表
 		questionList = sessionFactory.getCurrentSession()
-				.createQuery("FROM Question").setFirstResult(firstResult)
+				.createQuery("FROM Question")
+				.setFirstResult(firstResult)
 				.setMaxResults(maxResults).list();
 
 		return new QueryResult(count.intValue(), questionList);

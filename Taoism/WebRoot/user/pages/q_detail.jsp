@@ -47,6 +47,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});			
 		});
 		function subPost(obj){
+			var t=null;
+			if($(obj).parent().find(".add-re").val()==""){
+				alert("请输入内容");
+				return;
+			}
 			$.post("${pageContext.request.contextPath }/reply_saveReply.action",
 					{sharezone:$(".sharezone").val(),replyId:$(obj).prev().val(),
 					replyContent:$(obj).prev().prev().val()},function(data){
@@ -60,7 +65,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   								"<a href='javascript:;' onclick='reply(this)'>回复</a></div></div>";
 		   							
 						$(obj).parent().parent().parent().find(".sub-add").before(str); 
-						$(obj).parent().parent().parent().find(".sub-add").val("");
+						$(obj).parent().find(".add-re").val("");
+						t=parseInt($(obj).parent().parent().prev().find(".t").text())+1;
+						$(obj).parent().parent().prev().find(".t").text(t);
 					}else{
 						alert(data.replyTime+"评论失败");
 					}
@@ -76,14 +83,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		$(function(){
-			
+			$(".sub-reply").css("display","none");
+			//$(".r-top").find("div").next();
 		});
 		function fold(obj){
-			if($(obj).text()=="收起回复"){
-				$(obj).text("回复");
+			if($(obj).find(".r").text()=="收起回复"){
+				$(obj).find(".r").text("回复");
 				$(obj).parent().next().css("display","none");
 			}else{
-				$(obj).text("收起回复");
+				$(obj).find(".r").text("收起回复");
 				$(obj).parent().next().css("display","block");
 			}
 		}
@@ -93,15 +101,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				alert("请输入内容");
 			}else{
 				alert(editor.html());
+				var str=null;
 				$.post("${pageContext.request.contextPath }/reply_saveReply.action",
 					{sharezone:$(".sharezone").val(),QId:$(".QId").val(),
 					replyContent:editor.html()},function(data){
 					if(null!=data){
 						alert(data);
+						str="<div class='w-content-box'><div class='w-right'><div class='w-r-main'><a href='#' class='re-name'>${sessionScope.UsersfromActions.username }</a>："+
+							"<span class='main-content'>"+editor.html()+"</span></div><div class='w-reply'><div class='r-top'>"+
+			    			"<span class='r-time'>"+data.replyTime+"</span>&nbsp;<div class='r-fold'>回复</div></div><div class='sub-reply'>"+
+			   				"<div class='sub-add'><span class='comment'>我要评论</span></div><div class='sub-edit'>"+
+			    			"<textarea class='add-re'></textarea><input type='button' value='发表' class='sub-post' onclick='subPost(this)'></div></div></div></div></div>";
+					
+						$(".edit-div").before(str);
+						editor.html("");
 					}else{
 						alert(data.replyTime+"评论失败");
 					}
-			}); 
+				}); 
 			}
 		}
 	</script>
@@ -131,11 +148,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="w-reply">
     				<div class="r-top">
     					<span class="r-time">${fn:substring(reply.replyTime,0,19) }</span>&nbsp;
-    					<div class="r-fold" onclick="fold(this)">收起回复</div>
+    					<c:set var="times" value="${reply.discipleReplies }"></c:set>
+    					<div class="r-fold" onclick="fold(this)"><span class="r">回复</span>(<span class="t">${fn:length(times)}</span>)</div>
     				</div>    				
     				<div class="sub-reply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
+   							<input type="hidden" value="${fn:length(items)}" class="rTimes">
    							<div class="ans-content">
    								<input type="hidden" value="${dReply.replyId}" id="${dReply.replyId}">
 	   							<a href="#" class="re-name">${dReply.respondent }</a>:

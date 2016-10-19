@@ -96,6 +96,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	}	
 	
 	public String AskDashi() {
+		question.setVisits(0);
 		String msg = questionService.save(question);
 		return msg;
 	}
