@@ -34,7 +34,7 @@ public class UploadAction extends ActionSupport implements ModelDriven<User>, Re
 
 	//上传用户照片存放的路径
 	//private final String UPLOADDIR = "/user_img";
-	private final String UPLOADDIR = "E:/MyEclipse/MyRepository/Taoism/WebRoot/user_images";
+	private final String UPLOADDIR = "D:/myeclipse/MyRepository/Taoism/WebRoot/user_images";
 	//上传的图片
 	private File imgfile;
 	//上传的图片名

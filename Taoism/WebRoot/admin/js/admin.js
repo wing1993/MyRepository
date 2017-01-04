@@ -1,4 +1,26 @@
-$(function(){
+var tab, h, w;
+
+function initDom(){	
+	h = $(window).height() - $(".top").height();
+	w = $(window).width();
+	$(".main").width(w - 30);
+	$(".left").height(h);
+	$("#main-bd").height(h);
+	$(".right").width(w -30 - $(".left").width());
+	tab = $("#page_tab").ligerTab({
+		height: 200, //高度
+		changeHeightOnResize: !0, //自适应高度
+		dragToMove: true,
+		onBeforeAddTabItem: function(a) { //	增加前事件
+//			setCurrentNav(a);
+		},
+		onAfterSelectTabItem: function(a) { //选择后事件
+//			setCurrentNav(a);
+		}
+	});
+}
+
+function initEvent(){
 	$(".left-item").click(function(){
 		$(this).next().slideToggle("slow");
 		//$(this).next().children("li").removeClass("selected");
@@ -10,16 +32,20 @@ $(function(){
 		$(this).addClass("selected");
 		var loc=$(($(this).find("span"))[1]).text();
 		$(".loc").text(loc);//显示当前位置
-		
-		if(loc=="注册审核"){			
-			$("#r_iframe").attr("src","/Taoism/user_findUnexamined.action");
-		}else if(loc=="身份升级"){
-			$("#r_iframe").attr("src","../pages/updateClass.jsp");
-		}else if(loc=="用户信息"){
-			$("#r_iframe").attr("src","../pages/userInfo.jsp");
-		}else if(loc=="类型管理"){
-			$("#r_iframe").attr("src","../pages/qType.jsp");
-		}
+		var tid = $(this).attr("tabid"),
+			_url = $(this).attr("tab_url");
+			
+		tab.isTabItemExist(tid) ? (tab.selectTabItem(tid), tab.reload(tid)) : tab.addTabItem({ //动态添加标签页
+			tabid: tid,
+			text: loc,
+			url: _url,
+			showClose: 1
+		});
+		$("#page_tab").find("iframe").height(h - $(".l-tab-links").height());
 	});
+}
 
+$(function(){
+	initDom();
+	initEvent();	
 });

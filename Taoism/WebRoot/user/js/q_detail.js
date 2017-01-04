@@ -29,5 +29,7 @@ $(function(){
 			$(".icon-rtop").css("display","none");
 		}
 	});
+	
+	alert($(".r-fold").length);
 });
 

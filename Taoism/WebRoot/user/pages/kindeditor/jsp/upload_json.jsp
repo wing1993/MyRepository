@@ -17,11 +17,12 @@
 
 //文件保存目录路径
 //String savePath = pageContext.getServletContext().getRealPath("/") + "user/pages/kindeditor/attached/";
-String savePath = "D:/myeclipse/MyRepository/Taoism/WebRoot/user/pages/kindeditor/attached/";
+//String savePath = "D:/myeclipse/MyRepository/Taoism/WebRoot/user/pages/kindeditor/attached/";
+String savePath = "D:/images/";
 
 //文件保存目录URL
-//String saveUrl  = request.getContextPath() + "/user/pages/kindeditor/attached/";
-String saveUrl  = "Taoism/user/pages/kindeditor/attached/";
+String saveUrl  = request.getContextPath() + "/user/pages/kindeditor/attached/";
+//String saveUrl  = "Taoism/user/pages/kindeditor/attached/";
 
 //定义允许上传的文件扩展名
 HashMap<String, String> extMap = new HashMap<String, String>();

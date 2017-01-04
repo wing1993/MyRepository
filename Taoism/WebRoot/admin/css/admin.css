@@ -28,7 +28,7 @@ html,body,div,span,ul,input{
 	font-family:'Microsoft YaHei';
 }
 .main{
-	width:1340px;
+	/* width:1350px; */
 	margin:0 auto;
 	position:relative;
 }
@@ -39,19 +39,18 @@ html,body,div,span,ul,input{
 	color:#fff;
 }
 .left{
+	overflow: auto;
 	position:absolute;
 	left:0;
 	width:170px;
-	height:600px;
 	background:#6B99E4;
 	color:#fff;
 }
 .right{
 	position:absolute;
 	right:0;
-	width:1170px;
-	height:600px;
-	/* border:1px solid #000; */
+	/* width:1170px; */
+	/* float:right; */
 }
 .wel{
 	width:100%;
@@ -76,10 +75,10 @@ html,body,div,span,ul,input{
 	padding:6px;
 }
 .title span:not(:last-child),a{
-	display: inline-block;
+	/* display: inline-block;
 	float:left;
 	height:60px;
-	line-height: 60px;
+	line-height: 60px; */
 }
 .logo{
 	background-image: url();
@@ -142,7 +141,68 @@ html,body,div,span,ul,input{
 	height:540px;
 	border:1px solid #6B99E4;
 }
-#r_iframe{
-	width:1140px;
-	height:500px;
+.page-tab{
+	
+}
+.l-tab-links {
+	position: relative;
+	background: #f4f4f4;
+	height: 45px;
+	overflow: hidden;
+	z-index: 1;
+}
+.l-tab-links ul {
+	padding: 2px 0 0 1px;
+	margin: 5px 0 0 20px;
+	list-style: none;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+/*标签默认背景色*/
+.l-tab-links li {
+	display: inline-block;
+	height: 25px;
+	line-height: 25px;
+	padding:5px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	border: 1px solid #dedede;
+	background-color: #f9f9f9;
+	border-bottom: none;	
+}
+.l-tab-links li a{
+	display:inline-block;
+	margin:0px 20px 0 6px;
+}
+/*标签选中背景色*/
+.l-tab-links li.l-selected {
+	height: 30px;
+	line-height: 30px;
+	border: 1px solid #CCC;
+	background: #fff;
+}
+.l-tab-links-item-close {
+	width: 12px;
+	height: 12px;
+	overflow: hidden;
+	position: absolute;
+	top: 8px;
+	right: 5px;
+	z-index: 12;
+	display:inline-block;
+	background: url('../../images/ligerui/tab_close.png') no-repeat;
+	background-position:-10px 5px;
+	cursor: pointer;
+}
+
+.l-selected .l-tab-links-item-close {
+	background-position: 0 -12px;
+	top: 12px;
+}
+
+.l-tab-content-item iframe{
+	width:100%;
 }
