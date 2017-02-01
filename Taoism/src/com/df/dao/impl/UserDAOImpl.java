@@ -164,4 +164,22 @@ public class UserDAOImpl implements IUserDAO {
 		return users;
 	}
 
+	@Override
+	public int queryResultsCount() throws Exception {
+		// 查询总记录数
+		Long resultCount =  (Long) sessionFactory.getCurrentSession()
+				.createQuery("SELECT COUNT(*) FROM User u where u.state=0").uniqueResult();
+		return resultCount.intValue();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> queryByPage(int firstResult, int maxResults)throws Exception {
+		List<User> userList = new ArrayList<User>();
+		userList = sessionFactory.getCurrentSession().createQuery("FROM User u where u.state=0")
+				.setFirstResult(firstResult).setMaxResults(maxResults).list();
+
+		return userList;
+	}
+
 }

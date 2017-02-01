@@ -68,6 +68,21 @@ public class UserServiceImpl implements IUserService {
 
 	@Transactional
 	@Override
+	public int queryResultsCount() throws Exception{
+		int resultsCount = userDao.queryResultsCount();
+		return resultsCount;
+	}
+	
+	@Transactional
+	@Override
+	public List<User> queryByPage(int from, int length) throws Exception{
+		List<User> users = userDao.queryByPage(from, length);
+		return users;
+	}
+	
+	
+	@Transactional
+	@Override
 	public User getById(Integer k) {
 		User user=new User();
 		try {

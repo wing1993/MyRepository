@@ -57,5 +57,21 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 * @return
 	 */
 	List<User> findUnexamined();
+	
+	/**
+	 * 查询记录数
+	 * @return
+	 * @throws Exception
+	 */
+	int queryResultsCount() throws Exception;
+	
+	/**
+	 * 查询要显示的记录
+	 * @param from
+	 * @param length
+	 * @return
+	 * @throws Exception
+	 */
+	List<User> queryByPage(int from, int length) throws Exception;
 
 }
