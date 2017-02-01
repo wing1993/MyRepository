@@ -70,8 +70,8 @@
 				$("form").ajaxSubmit(obj);
 			}
 		}
-		function close(){
-			window.href("${pageContext.request.contextPath}/message_findAll.action");
+		function closeWin(){
+			window.close();
 		}
 	</script>
   </head>
@@ -93,8 +93,8 @@
     		<input type="hidden" value="${sessionScope.UsersfromActions.username }" name="author">
     		<input type="hidden" name="publishTime" id="publishTime">
     		<div class="btn">
-	    		<input type="button" value="发布" onclick="check()">&nbsp;&nbsp;
-	    		<input type="button" value="关闭" onclick="close()">
+	    		<input type="button" value="发布" onclick="check();">&nbsp;&nbsp;
+	    		<input type="button" value="关闭" onclick="closeWin();">
     		</div>
     	</form>
     </div>

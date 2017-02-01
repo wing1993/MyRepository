@@ -23,6 +23,12 @@
 				$(".release-news a").attr("href","#");
 			}
 			
+			if($(".release-news a").attr("disabled") != "disabled"){
+				$(".release-news a").attr({
+					"href": "${pageContext.request.contextPath }/user/pages/edit_message.jsp",
+					"target": "_blank"
+				});
+			}
 		});
 	</script>
   </head>
@@ -30,7 +36,7 @@
    	<div class="bd"></div>
    	<div class="main">
    		<div class="title">最新资讯消息</div>
-   		<div class="release-news"><a href="${pageContext.request.contextPath }/user/pages/edit_message.jsp" target="_blank">发布消息</a></div>
+   		<div class="release-news"><a href="javascript:void(0);">发布消息</a></div>
    		<div class="me-box">
    			<c:forEach items="${mList}" var="messages">
    			<div class="me-main">
