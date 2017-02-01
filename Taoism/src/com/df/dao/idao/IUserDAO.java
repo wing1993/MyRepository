@@ -74,4 +74,19 @@ public interface IUserDAO extends IBaseHibernateDAO<User, Integer> {
 	 * @throws Exception
 	 */
 	public List<User> findUnexamined()throws Exception;
+
+	/**
+	 * 获取用户记录数
+	 * @return
+	 * @throws Exception
+	 */
+	public int queryResultsCount()throws Exception;
+
+	/**
+	 * 获取显示的记录
+	 * @param from
+	 * @param length
+	 * @return
+	 */
+	public List<User> queryByPage(int from, int length)throws Exception;
 }

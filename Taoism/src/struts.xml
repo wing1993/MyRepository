@@ -38,6 +38,9 @@
 			<result name="error" type="json"></result>
 			<result name="Unexamined" type="dispatcher">/admin/pages/rsgCheck_new.jsp</result>
 		</action>
+		<action name="user" class="listUserAction" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
 	</package>
 	<package name="dashi_action" namespace="/" extends="json-default">
         <action name="dashi_findDashi" class="dashiAction">
@@ -89,4 +92,15 @@
     		<result name="error" type="json"></result>
     	</action>
     </package>
+	<package name="list_action" namespace="/" extends="json-default">
+		<action name="list_*" class="listUserAction" method="{1}">
+			<result name="success" type="json">
+				<param name="includeProperties">  
+  					 ^gridModel\[\d+\]\.\w+, rows, page, total, record  
+      		    </param>  
+				<param name="noCache">true</param>  		
+				<param name="ignoreHierarchy">false</param>  
+			</result>
+		</action>
+	</package>
 </struts>
