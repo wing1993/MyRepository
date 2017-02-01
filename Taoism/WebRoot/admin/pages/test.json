@@ -1,0 +1,14 @@
+{
+	"page":"1",
+	"total":2,
+	"records":"6",	
+	"rows":[
+			{"username": "Tom", "userType": "弟子", "gender":"", "city":"", "phone":"", "realname":"","birthday":"","qq":"","weixin":"","mail":"","introduce":""},
+			{"username": "John", "userType": "学员", "gender":"", "city":"", "phone":"", "realname":"","birthday":"","qq":"","weixin":"","mail":"","introduce":""},
+			{"username": "Mike", "userType": "学员", "gender":"", "city":"", "phone":"", "realname":"","birthday":"","qq":"","weixin":"","mail":"","introduce":""},
+			{"username": "Lily", "userType": "学员", "gender":"", "city":"", "phone":"", "realname":"","birthday":"","qq":"","weixin":"","mail":"","introduce":""},
+			{"username": "Joe", "userType": "学员", "gender":"", "city":"", "phone":"", "realname":"","birthday":"","qq":"","weixin":"","mail":"","introduce":""},
+			{"username": "ye", "userType": "猪", "gender":"", "city":"", "phone":"", "realname":"","birthday":"","qq":"","weixin":"","mail":"","introduce":""}
+	]
+	
+}

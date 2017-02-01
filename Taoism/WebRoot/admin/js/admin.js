@@ -1,11 +1,12 @@
-var tab, h, w;
+var tab, h, w,
+	iframe_h;
 
 function initDom(){	
 	h = $(window).height() - $(".top").height();
 	w = $(window).width();
 	$(".main").width(w - 30);
 	$(".left").height(h);
-	$("#main-bd").height(h);
+	$("#main_bd").height(h);
 	$(".right").width(w -30 - $(".left").width());
 	tab = $("#page_tab").ligerTab({
 		height: 200, //高度
@@ -48,4 +49,5 @@ function initEvent(){
 $(function(){
 	initDom();
 	initEvent();	
+	iframe_h = $("#main_bd").height() - $(".l-tab-links").height();
 });

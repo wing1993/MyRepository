@@ -55,16 +55,7 @@
 				</li>
 			</ul>
 		</div>
-		<!-- <div class="right">
-			<div class="r-top">
-				<span class="icon-r">&nbsp;&nbsp;&#xe911;&nbsp;当前位置&#xe903;</span>
-				<span class="loc"></span>
-			</div>
-			<div class="r-bottom">
-				<iframe frameborder="0" id="r_iframe" src=""></iframe>
-			</div>
-		</div> -->
-		<div id="main-bd"  class="right">
+		<div id="main_bd"  class="right">
 			<div class="page-tab" id="page_tab">
 				
 			</div>
