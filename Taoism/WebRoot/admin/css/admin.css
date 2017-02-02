@@ -70,8 +70,8 @@ html,body,div,span,ul,input{
 	width:32px;
 }
 .title{
-	height:80px;
-
+	height:70px;
+	line-height:70px;
 	padding:6px;
 }
 .title span:not(:last-child),a{
@@ -89,6 +89,7 @@ html,body,div,span,ul,input{
 	font-size:30px;
 }
 .logout,.admin_ico{
+	display:inline-block;
 	float:right !important;
 	margin-right:30px;
 	background-image: url(../../images/logout.png);
@@ -96,6 +97,8 @@ html,body,div,span,ul,input{
 	background-position: center;
 	cursor:pointer;
 	width:30px;
+	height:40px;
+	margin-top:10px;
 }
 .admin_ico{
 	background-image: url(../../images/administrator.png) !important;

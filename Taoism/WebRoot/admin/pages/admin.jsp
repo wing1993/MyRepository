@@ -38,7 +38,7 @@
 			</ul>
 			<div class="left-item"><span class="icon-qz">&#xe920;</span>&nbsp;问题管理</div>
 			<ul class="sub-item">
-				<li tabid="typeManage">
+				<li tabid="typeManage" tab_url="qType.jsp?<%=System.currentTimeMillis()%>">
 					<span class="icon-sub">&#xe924;</span>&nbsp;<span id="ma_q_type">类型管理</span>
 				</li>
 				<li tabid="replyManage">

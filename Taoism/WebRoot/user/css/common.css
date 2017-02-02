@@ -50,3 +50,6 @@ html{font-family:'Microsoft YaHei';}
 }.btn-gradient:hover{
 	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#2888FF), to(#0072E3));
 }
+.ellipsis{
+	text-overflow: ellipsis;
+}

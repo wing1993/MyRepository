@@ -3220,11 +3220,11 @@
 							po.reverse();
 							pot.reverse();
 						}
-						pgl += "<td id='" + po[0] + "' class='" + btc + "' title='" + pot[0] + "'" + "><span " + getstyle(stylemodule, 'icon_first', false, iconbase) + "></span></td>";
-						pgl += "<td id='" + po[1] + "' class='" + btc + "'  title='" + pot[1] + "'" + "><span " + getstyle(stylemodule, 'icon_prev', false, iconbase) + "></span></td>";
+						pgl += "<td id='" + po[0] + "' class='" + btc + "' title='首页'><span " + getstyle(stylemodule, 'icon_first', false, iconbase) + "></span></td>";
+						pgl += "<td id='" + po[1] + "' class='" + btc + "'  title='上一页'><span " + getstyle(stylemodule, 'icon_prev', false, iconbase) + "></span></td>";
 						pgl += pginp !== "" ? sep + pginp + sep : "";
-						pgl += "<td id='" + po[2] + "' class='" + btc + "' title='" + pot[2] + "'" + "><span " + getstyle(stylemodule, 'icon_next', false, iconbase) + "></span></td>";
-						pgl += "<td id='" + po[3] + "' class='" + btc + "' title='" + pot[3] + "'" + "><span " + getstyle(stylemodule, 'icon_end', false, iconbase) + "></span></td>";
+						pgl += "<td id='" + po[2] + "' class='" + btc + "' title='下一页'><span " + getstyle(stylemodule, 'icon_next', false, iconbase) + "></span></td>";
+						pgl += "<td id='" + po[3] + "' class='" + btc + "' title='尾页'><span " + getstyle(stylemodule, 'icon_end', false, iconbase) + "></span></td>";
 					} else if(pginp !== "") {
 						pgl += pginp;
 					}
