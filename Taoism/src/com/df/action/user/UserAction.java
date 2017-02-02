@@ -204,7 +204,16 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		sessionMap.put("UsersfromActions", u);
 		return msg;
 	}
-
+	/**
+	 * 账号注销
+	 * @return
+	 * @throws IOException
+	 */
+	public String logout() throws IOException {
+		sessionMap.remove("UsersfromActions");
+		return "success";
+	}
+	
 	public String registry() throws Exception {
 		//System.out.println((User)requestMap.get("user"));
 		//用户出生年月可以不写  但是存入数据库datetime类型不允许置空

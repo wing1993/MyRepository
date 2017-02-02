@@ -84,6 +84,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	}*/
 
 	public String save() {
+		question.setCon3("0");
 		return questionService.save(question);
 	}
 
@@ -112,8 +113,8 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	public String findByDynamicData(){
 		String userType = null;
 		if(null!=u) {userType = u.getUserType();
-		question.setAskWho(u.getUsername());
-		question.setUsername(u.getUsername());}
+			question.setAskWho(u.getUsername());
+			question.setUsername(u.getUsername());}
 		String msg = "error";
 		try {
 			System.out.println(question+"wwwwwwwwwwwwwwwwww");

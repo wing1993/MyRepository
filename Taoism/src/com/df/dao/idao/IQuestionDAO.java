@@ -26,5 +26,10 @@ public interface IQuestionDAO extends IBaseHibernateDAO<Question, Integer> {
      */
 	public void addReadTimes(Integer k1) throws Exception;
 
+	/**
+	 * 最后回复的时间，以及用户名
+	 */
+	public void updateLastReplyData(String username, String lastReplyTime, Integer qId) throws Exception;
+
 
 }

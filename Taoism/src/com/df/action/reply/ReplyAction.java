@@ -21,6 +21,8 @@ import com.df.dao.pojo.Question;
 import com.df.dao.pojo.StudentReply;
 import com.df.dao.pojo.User;
 import com.df.dao.util.DateUtil;
+import com.df.service.impl.QuestionServiceImpl;
+import com.df.service.iservice.IQuestionService;
 import com.df.service.iservice.IReplyService;
 
 @Controller("replyAction")
@@ -33,6 +35,10 @@ public class ReplyAction implements Serializable,RequestAware{
 	@Qualifier("replyService")
 	private IReplyService<Object> replyService;
 
+	@Autowired
+	@Qualifier("questionService")
+	private IQuestionService questionService;
+	
 	private Map<String, Object> requestMap;
 	private List<Object> replyList;
 	private String replyContent;
@@ -59,6 +65,12 @@ public class ReplyAction implements Serializable,RequestAware{
 			else{//保存对问题的回复
 				q.setQId(QId);
 				object = new PublicReply(q,u.getUsername(),replyTime,replyContent);
+				//将最后回复的用户，时间存放到对应的question对象中去
+				try {
+					questionService.updateLastReplyData(u.getUsername(),replyTime,QId);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			msg = replyService.saveReply(object,sharezone);
 		}
@@ -71,6 +83,12 @@ public class ReplyAction implements Serializable,RequestAware{
 			else{
 				q.setQId(QId);
 				object = new StudentReply(q,u.getUsername(),replyTime,replyContent);
+				//将最后回复的用户，时间存放到对应的question对象中去
+				try {
+					questionService.updateLastReplyData(u.getUsername(),replyTime,QId);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			msg = replyService.saveReply(object,sharezone);
 		}
@@ -83,6 +101,12 @@ public class ReplyAction implements Serializable,RequestAware{
 			else{
 				q.setQId(QId);
 				object = new DiscipleReply(q,u.getUsername(),replyTime,replyContent);
+				//将最后回复的用户，时间存放到对应的question对象中去
+				try {
+					questionService.updateLastReplyData(u.getUsername(),replyTime,QId);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			msg = replyService.saveReply(object,sharezone);
 		}
@@ -95,6 +119,12 @@ public class ReplyAction implements Serializable,RequestAware{
 			else{
 				q.setQId(QId);
 				object = new MyquestionReply(q,u.getUsername(),replyTime,replyContent);
+				//将最后回复的用户，时间存放到对应的question对象中去
+				try {
+					questionService.updateLastReplyData(u.getUsername(),replyTime,QId);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			msg = replyService.saveReply(object,sharezone);
 		}

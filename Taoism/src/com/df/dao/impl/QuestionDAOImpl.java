@@ -183,5 +183,16 @@ public class QuestionDAOImpl implements IQuestionDAO {
 				.executeUpdate();
 		
 	}
+
+	@Override
+	public void updateLastReplyData(String username, String lastReplyTime,Integer qId)
+			throws Exception {
+		sessionFactory.getCurrentSession()
+			.createQuery("UPDATE Question q SET q.con1=?,q.con2=?,q.con3=q.con3+1 WHERE q.QId=?")
+			.setString(0, username).setString(1, lastReplyTime).setInteger(2, qId)
+			.executeUpdate();
+
+		
+	}
 	
 }

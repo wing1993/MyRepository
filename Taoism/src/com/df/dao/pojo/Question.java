@@ -28,9 +28,9 @@ public class Question  implements java.io.Serializable {
      private Integer visits;
      private String sharezone;
      private Integer shareState;
-     private String con1;
-     private String con2;
-     private String con3;
+     private String con1;    //最后回复的人
+     private String con2;	 //最后回复的时间
+     private String con3;	 //回复的人数
      private String con4;
      private String con5;
      private String con6;

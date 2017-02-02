@@ -11,12 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.df.dao.idao.IDiscipleReplyDAO;
 import com.df.dao.idao.IMyquestionReplyDAO;
 import com.df.dao.idao.IPublicReplyDAO;
+import com.df.dao.idao.IQuestionDAO;
 import com.df.dao.idao.IStudentReplyDAO;
 import com.df.dao.pojo.DiscipleReply;
 import com.df.dao.pojo.MyquestionReply;
 import com.df.dao.pojo.PublicReply;
+import com.df.dao.pojo.Question;
 import com.df.dao.pojo.StudentReply;
-import com.df.dao.util.DateUtil;
 import com.df.service.iservice.IReplyService;
 
 @Service("replyService")
@@ -37,6 +38,10 @@ public class ReplyServiceImpl implements IReplyService<Object> {
 	@Autowired
 	@Qualifier("myquestionReplyDao")
 	private IMyquestionReplyDAO myquestionReplyDao;
+	
+	@Autowired
+	@Qualifier("questionDao")
+	private IQuestionDAO questionDao;
 
 	@Transactional
 	@Override

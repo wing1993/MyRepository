@@ -131,4 +131,11 @@ public class QuestionServiceImpl implements IQuestionService {
 		}
 		return replyList;
 	}
+	@Transactional
+	@Override
+	public void updateLastReplyData(String username, String lastReplyTime,Integer qId)
+			throws Exception {
+		questionDao.updateLastReplyData(username, lastReplyTime, qId);
+		
+	}
 }

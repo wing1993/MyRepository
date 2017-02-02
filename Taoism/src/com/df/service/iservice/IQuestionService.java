@@ -24,4 +24,11 @@ public interface IQuestionService extends IBaseService<Question, Integer> {
 	 * @return
 	 */
 	public List<Object> findByQid(Question question);
+	/**
+	 * 用户回复之后保存最后回复的用户名，以及时间
+	 * @param username
+	 * @param replyTime
+	 * @throws Exception
+	 */
+	public void updateLastReplyData(String username, String lastReplyTime, Integer qId)throws Exception;
 }
