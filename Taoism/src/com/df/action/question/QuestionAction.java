@@ -84,7 +84,13 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	}*/
 
 	public String save() {
+		question.setCon1("");
+		question.setCon2("");
 		question.setCon3("0");
+		question.setState(0);
+		question.setShareState(1);
+		question.setVisits(0);
+		System.out.println("save:"+question);
 		return questionService.save(question);
 	}
 
@@ -97,15 +103,29 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	}	
 	
 	public String AskDashi() {
+		question.setCon1("");
+		question.setCon2("");
+		question.setCon3("0");
+		question.setState(0);
+		question.setShareState(1);
 		question.setVisits(0);
+		question.setSharezone("我的问题");
+		System.out.println("AskDashi:"+question);
 		String msg = questionService.save(question);
 		return msg;
 	}
 
 	public String findReplyByQId(){
 		System.out.println("123456789"+question);
-		replyList = questionService.findByQid(question);
+		try {
+			replyList = questionService.findByQid(question);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		question = questionService.getById(question.getQId());
 		requestMap.put("replysfromAction", replyList);
+		requestMap.put("questionfromAction", question);
+		System.out.println("question"+question);
 		System.out.println("123456789"+replyList);
 		return "replys";
 	}

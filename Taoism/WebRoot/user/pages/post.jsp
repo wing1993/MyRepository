@@ -28,7 +28,7 @@
 	<script>
 		var editor;
 		KindEditor.ready(function(K) {
-			editor = K.create('textarea[name="content"]', {
+			editor = K.create('textarea[name="QContent"]', {
 				cssPath : '${pageContext.request.contextPath }/user/pages/kindeditor/plugins/code/prettify.css',
 				uploadJson : '${pageContext.request.contextPath }/user/pages/kindeditor/jsp/upload_json.jsp',
 				fileManagerJson : '${pageContext.request.contextPath }/user/pages/kindeditor/jsp/file_manager_json.jsp',
@@ -74,8 +74,25 @@
 				alert("请选择要分享的区域");
 			}else{
 				$("textarea").next().css("display","none");
+				$("textarea").val(editor.html());
+				//$("form").submit();
+				var now=new Date();
+				var year=now.getFullYear();
+				var month=now.getMonth()+1;
+				var day=now.getDate();
+				var hour=now.getHours();
+				var minute=now.getMinutes();
+				var second=now.getSeconds();
+				var now_time=null;
+				if(month<10)
+					month="0"+month;
+				if(day<10)
+					day="0"+day;
+				now_time=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+	
+				$("#QTime").val(now_time);
 				var obj={
-						url:'${pageContext.request.contextPath }/?',//还没写
+						url:'${pageContext.request.contextPath }/question_save.action',
 						type:'post',
 						success:function(str){						
 							if(str=="error"){
@@ -86,7 +103,7 @@
 							}
 						}
 					};
-				//$("form").ajaxSubmit(obj);
+				$("form").ajaxSubmit(obj);
 			}
 		}
 	</script>
@@ -95,16 +112,19 @@
 	<div class="bd"></div>
 	<div class="main">
 		<div class="title">发帖</div>
-		<form action="" method="post" name="example">
+		<form action="${pageContext.request.contextPath }/question_save.action" method="post" name="example">
+			<input type="hidden" value="${param.username }" name="username">
+			<input type="hidden" id="QTime" name="QTime">
+			<input type="hidden" id="state" name="state" value="0">
 			<table class="tb">
 				<tr>
 					<td>标题：</td>
-					<td><input type="text" id="q_title" onblur="disappear(this)">&nbsp;&nbsp;<span class="tip">请输入标题</span></td>
+					<td><input type="text" id="q_title" onblur="disappear(this)" name="QTitle">&nbsp;&nbsp;<span class="tip">请输入标题</span></td>
 				</tr>
 				<tr>
 					<td>问题类型：</td>
 					<td>
-						<select id="q_type">
+						<select id="q_type" name="QTypeName">
 						<c:forEach items="${qtList }" var="qtList">
 							<option value="${qtList.QTypeName }">${qtList.QTypeName }</option>
 						</c:forEach>
@@ -114,7 +134,7 @@
 				<tr>
 					<td>内容：</td>
 					<td>
-						<textarea name="content" style="width:100%;height:300px;visibility:hidden;"></textarea>
+						<textarea name="QContent" style="width:100%;height:300px;visibility:hidden;"></textarea>
 						<div class="tip">请输入问题内容</div>
 					</td>
 				</tr>

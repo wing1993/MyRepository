@@ -23,7 +23,7 @@ public interface IQuestionService extends IBaseService<Question, Integer> {
 	 * @param s   贴或问题的区域
 	 * @return
 	 */
-	public List<Object> findByQid(Question question);
+	public List<Object> findByQid(Question question)throws Exception;
 	/**
 	 * 用户回复之后保存最后回复的用户名，以及时间
 	 * @param username

@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main">
     	<div class="main-box"></div>
     	<div class="main-box-fixed">
-    		<div class="q_title">${requestScope.replysfromAction[0].question.QTitle }</div>
+    		<div class="q_title">${requestScope.question.QTitle }</div>
     		<a class="btn" id="forward">转发</a>
     		<a class="btn" id="btn">回复</a>
     	</div>

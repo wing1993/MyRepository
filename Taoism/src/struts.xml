@@ -59,6 +59,10 @@
 			<result name="error" type="json"></result>
 			<result name="replys" type="dispatcher">/user/pages/q_detail.jsp</result>
 		</action>
+        <action name="question_*" class="questionAction" method="{1}">
+			<result name="success" type="json"></result>
+			<result name="error" type="json"></result>
+		</action>
     </package>
      <package name="post_action" namespace="/" extends="json-default">
         <action name="post_find_*" class="postAction" method="{1}">

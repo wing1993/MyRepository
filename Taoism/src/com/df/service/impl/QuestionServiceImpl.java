@@ -77,10 +77,16 @@ public class QuestionServiceImpl implements IQuestionService {
 		return ql;
 	}
 
+	@Transactional
 	@Override
-	public Question getById(Integer k) {
-		// TODO Auto-generated method stub
-		return null;
+	public Question getById(Integer k){
+		Question question = new Question();
+		try {
+			question = questionDao.getById(k);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return question;
 	}
 
 	@Override

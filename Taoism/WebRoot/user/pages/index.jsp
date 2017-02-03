@@ -38,11 +38,12 @@
 					if(null!=data.qList){
 					/*  for(var i=0;i<data.postList.length;i++){ */
 						$.each(data.qList,function(i,value){
-							 var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";
+							if(value.state!=0){var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";}
+							else{var icon="<td class='icon-td' title='未回复'>&#xe906;</td>";}
 							 var str = "<tr>"+icon
 									+"<td><a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' title='"+value.QTitle+"'>"+value.QTitle+"</a></td>"
-									+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td></td>"
-									+"<td>"+value.con1+"</td><td>"+value.visits+"</td>"
+									+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td>"+value.con1+"<br>"+value.con2+"</td>"
+									+"<td>"+value.con3+"</td><td>"+value.visits+"</td>"
 									+"<td>"+value.QTypeName+"</td></tr>";
 							$("#q_detail").append(str);
 						});
@@ -124,7 +125,7 @@
 			<div class="logined">
 				Hi,<span id="username">${sessionScope.UsersfromActions.username }</span>
 				<span><a href="${pageContext.request.contextPath }/message_findByAuthor.action">个人中心</a></span>&nbsp;&nbsp;|&nbsp;
-				<span><a href="#">退出</a></span>
+				<span><a href="${pageContext.request.contextPath }/user_logout.action">退出</a></span>
 			</div>
 			</c:otherwise>
 		</c:choose>			
@@ -242,7 +243,7 @@
 							<option value="">是否回复</option><option value="0">未回复</option>
 							<option value="1">已回复</option>
 						</select>
-						<li><a href="${pageContext.request.contextPath }/user/pages/post.jsp" class="ask" target="_blank">发帖</a></li>
+						<li><a href="${pageContext.request.contextPath }/user/pages/post.jsp?username=${sessionScope.UsersfromActions.username }" class="ask" target="_blank">发帖</a></li>
 						<li style="float:right !important;margin-right:30px;">
 							<input type="text" id="search_value">
 							<input type="button" value="搜索" id="search" onclick="findData(this)">
