@@ -6,60 +6,6 @@
 	<meta charset="utf-8">
 	<title>用户登录</title>
 	<link rel="stylesheet" type="text/css" href="../css/login.css">
-	<script type="text/javascript" src="../../js/jquery.min.js"></script>
-	<script type="text/javascript" src="../../js/jquery.form.js"></script>
-	<script type="text/javascript">
-		$(function(){
-			$("#login_btn").click(function(){
-				var username=$("input[name='username']").val();
-				var pwd=$("input[name='password']").val();
-				if(username==""){
-					$("#wrong_info").text("请输入用户名");
-					//$("#wrong_info").addClass("wrong");
-					if(pwd=="")
-						$("#wrong_info").text("请输入用户名和密码");
-				}else if(pwd==""){
-					//$("#wrong_info").addClass("wrong");
-					$("#wrong_info").text("请输入密码");
-				}else if($("#valid_code").val()==""){
-					$("#wrong_info").text("请输入验证码");
-				}else {
-					$.ajax({
-						cache: false,
-						async: false,
-						url:'${pageContext.request.contextPath }/vcode.action',
-						type:'post',
-						data:{valid_code:$("#valid_code").val()},
-						success:function(str){
-							if(str=="success"){
-								var obj={
-										url:'${pageContext.request.contextPath }/user_login.action',
-										type:'post',
-										//dataType : "json",
-										success:function(str){							
-											$("form").submit();							
-										},
-										error : function(data) {  
-								            $("#wrong_info").text("用户名或密码错误");  
-								        }
-									};
-								$("form").ajaxSubmit(obj);
-							}else{
-								$("#wrong_info").text("验证码错误");
-								$("#valid_code").select();
-							}}
-					});
-				}
-			});
-		});
-		
-
-		//点击验证码图案刷新
-		function change_code(){
-			$("#valid_img").attr("src",
-					"/Taoism/VerifyCodeServlet?a=" + new Date().getTime());
-		}
-	</script>
 </head>
 <body>
 	<div class="bd"></div>
@@ -91,4 +37,64 @@
 		</form>
 	</div>
 </body>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.form.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#login_btn").click(function(){
+			var username=$("input[name='username']").val();
+			var pwd=$("input[name='password']").val();
+			if(username==""){
+				$("#wrong_info").text("请输入用户名");
+				//$("#wrong_info").addClass("wrong");
+				if(pwd=="")
+					$("#wrong_info").text("请输入用户名和密码");
+			}else if(pwd==""){
+				//$("#wrong_info").addClass("wrong");
+				$("#wrong_info").text("请输入密码");
+			}else if($("#valid_code").val()==""){
+				$("#wrong_info").text("请输入验证码");
+			}else {
+				$.ajax({
+					cache: false,
+					async: false,
+					url:'${pageContext.request.contextPath }/vcode.action',
+					type:'post',
+					data:{valid_code:$("#valid_code").val()},
+					success:function(str){
+						if(str=="success"){
+							var obj={
+									url:'${pageContext.request.contextPath }/user_login.action',
+									type:'post',
+									//dataType : "json",
+									success:function(str){							
+										$("form").submit();							
+									},
+									error : function(data) {  
+							            $("#wrong_info").text("用户名或密码错误");  
+							        }
+								};
+							$("form").ajaxSubmit(obj);
+						}else{
+							$("#wrong_info").text("验证码错误");
+							$("#valid_code").select();
+						}}
+				});
+			}
+		});
+		
+		$("#valid_code").keyup(function(e){
+			if(e.keyCode == 13){
+				$("#login_btn").click();	
+			}
+		});
+	});
+	
+
+	//点击验证码图案刷新
+	function change_code(){
+		$("#valid_img").attr("src",
+				"/Taoism/VerifyCodeServlet?a=" + new Date().getTime());
+	}
+</script>
 </html>

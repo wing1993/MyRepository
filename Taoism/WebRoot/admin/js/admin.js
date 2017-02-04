@@ -16,12 +16,23 @@ function initDom(){
 //			setCurrentNav(a);
 		},
 		onAfterSelectTabItem: function(a) { //选择后事件
-//			setCurrentNav(a);
+			
 		}
 	});
 }
 
 function initEvent(){
+	$(".page-tab").on("mouseover", "li", function(){
+		$(this).find(".l-tab-links-item-close").addClass("hover-close");
+	}).on("mouseout", "li", function(){
+		$(this).find(".l-tab-links-item-close").removeClass("hover-close");
+	});
+	
+	$(".page-tab").on("click", "li", function(){
+		var id = $(this).attr("tabid");
+		$(".sub-item li[tabid="+ id +"]").addClass("selected").siblings().removeClass("selected");
+		$(".sub-item li[tabid="+ id +"]").parent().siblings().find("li").removeClass("selected");
+	});
 	$(".left-item").click(function(){
 		$(this).next().slideToggle("slow");
 		//$(this).next().children("li").removeClass("selected");
@@ -32,7 +43,6 @@ function initEvent(){
 		$(this).parent().siblings().find("li").removeClass("selected");
 		$(this).addClass("selected");
 		var loc=$(($(this).find("span"))[1]).text();
-		$(".loc").text(loc);//显示当前位置
 		var tid = $(this).attr("tabid"),
 			_url = $(this).attr("tab_url");
 			
@@ -43,6 +53,13 @@ function initEvent(){
 			showClose: 1
 		});
 		$("#page_tab").find("iframe").height(h - $(".l-tab-links").height());
+	});
+	
+	//管理员退出
+	$(".logout").click(function(){
+		$.post('',function(data){
+		
+		});
 	});
 }
 

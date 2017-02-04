@@ -201,7 +201,7 @@ html,body,div,span,ul,input{
 	cursor: pointer;
 }
 
-.l-selected .l-tab-links-item-close {
+.l-selected .l-tab-links-item-close, .hover-close {
 	background-position: 0 -12px;
 	top: 12px;
 }

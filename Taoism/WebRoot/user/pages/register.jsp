@@ -41,6 +41,10 @@
 			}
 			
 		}
+		
+		function back(){
+			history.back();
+		}
 	</script>
 	<style type="text/css"></style>
 </head>
@@ -188,7 +192,7 @@
 				<input type="hidden" name="con7" value=""> -->
 				<div class="btn">
 					<input type="button" value="注册" id="register" onclick="sign_up()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="reset" value="取消">
+					<input type="reset" value="取消" onclick="back()">
 				</div>
 			</form>
 		</div>

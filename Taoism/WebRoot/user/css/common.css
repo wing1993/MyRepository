@@ -53,3 +53,13 @@ html{font-family:'Microsoft YaHei';}
 .ellipsis{
 	text-overflow: ellipsis;
 }
+.ope-width{
+	min-width:120px;
+}
+.search-btn{
+	display:inline-block;
+	width:22px;
+	height:22px;
+	cursor:pointer;
+	background-image:url('../../images/search.png');
+}

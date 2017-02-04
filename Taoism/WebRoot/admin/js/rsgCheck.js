@@ -1,3 +1,4 @@
+
 var grid;
 /**
  * 注册审核
@@ -61,4 +62,5 @@ function initEvent(){
 		console.log(data);		
 	});
 }
+
  

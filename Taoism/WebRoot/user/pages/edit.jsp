@@ -157,7 +157,7 @@
 				<input type="hidden" value="${userinfo.state }" name="state"> 
 				<div class="btn">
 					<a href="javascript:;" id="edit" onclick="edit()">提交</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="javascript:history.back()">返回</a>
+					<a href="javascript:window.close();">返回</a>
 				</div>
 			</form>
 		</div>

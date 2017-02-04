@@ -220,13 +220,13 @@ input[type=button]:hover,.ask:hover{
 	border:1px solid #d0d0d0;
 	height:40px;
 }
-.qz-tb1 td:nth-of-type(1){width:5%;}/*鐘舵�*/
-.qz-tb1 td:nth-of-type(2){width:35%;}/*鏍囬*/
-.qz-tb1 td:nth-of-type(3){width:12%;}/*鎻愰棶鑰�/
-.qz-tb1 td:nth-of-type(4){width:7%;}/*澶у笀*/
-.qz-tb1 td:nth-of-type(5){width:12%;}/*鏈�悗鍥炲*/
-.qz-tb1 td:nth-of-type(6){width:8%;}/*鍥炲浜烘暟*/
-.qz-tb1 td:nth-of-type(7){width:8%;}/*闂鍒嗙被*/
+.qz-tb1 td:nth-of-type(1){width:5%;}
+.qz-tb1 td:nth-of-type(2){width:35%;}
+.qz-tb1 td:nth-of-type(3){width:12%;}
+.qz-tb1 td:nth-of-type(4) {width:7%;}
+.qz-tb1 td:nth-of-type(5){width:12%;}
+.qz-tb1 td:nth-of-type(6){width:8%;}
+.qz-tb1 td:nth-of-type(7){width:8%;}
 
 .page-div{
 	text-align: center;
