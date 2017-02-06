@@ -38,7 +38,7 @@ html{font-family:'Microsoft YaHei';}
 .btn-gradient{
 	text-align:center;
 	text-decoration:none;
-	display:block;
+	display:inline-block;
 	cursor:pointer;
 	border:none;
 	border-radius:3px;
@@ -62,4 +62,52 @@ html{font-family:'Microsoft YaHei';}
 	height:22px;
 	cursor:pointer;
 	background-image:url('../../images/search.png');
+}
+.post-top, .post-best{
+	display:inline-block;
+	width:32px;
+	height:18px;
+	line-height:18px;
+	text-align:center;
+	background-color:#66a3ff;
+	color:#fff;
+	font-size:12px;
+}
+.post-best{
+	background-color:#FE6666;
+	width:20px;
+}
+.select{background:#DFE0E4;}
+
+/*分页按钮*/
+.page-div{
+	text-align: center;
+	margin-top:25px;
+}
+.page-div input{
+	cursor:pointer;
+	height:28px;
+}
+.page-div a{
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	width:27px;
+	height:27px;
+	line-height: 27px;
+	border-radius: 2px;
+	border:1px solid #d0d0d0;
+}
+.page-div a:hover{
+	border:1px solid #2877ff;
+}
+.page-div .abtn{
+	width:50px;
+	padding-left:8px;
+	padding-right:8px;
+	background:#2877ff;
+	color:#fff;
+}
+.now-page{
+	border:none !important;
 }

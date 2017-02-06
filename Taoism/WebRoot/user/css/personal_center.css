@@ -33,3 +33,42 @@ text-align:center;cursor:pointer;padding-left:8px;padding-right:8px;}
 .me-time{color:#988E8E;float:left;margin-left:20px;}
 .operate{float:right;}
 .btn-gradient{width:80px;height:30px;line-height:30px;margin-left:400px;margin-top:15px;}
+.me, .askHelp, .myPostings{display:none;}
+.post-wrap{border-bottom:1px dotted #b1b0b0;padding:10px 10px;overflow:auto;}
+.post-wrap .rep-num{
+	float:left;
+	
+    width: 50px;
+    height: 30px;
+    line-height: 26px;
+    margin-right: 20px;
+    text-align: center;
+    background: url('../../images/reply_bg.png') no-repeat;
+    background-position:0 -40px;
+}
+.post-wrap .post-content{
+	float:left;
+	width:790px;
+}
+.post-wrap .post-rep{
+	height:40px;
+	line-height:40px;
+}
+.post-wrap .post-content .first-rep{
+	width:500px;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	float:left;
+}
+.post-wrap .post-content .post-right{
+	float:right;
+}
+.post-wrap .post-content .post-right span{
+	cursor:pointer;
+	color:#939393;
+}
+.last-rep-time{
+	margin-rigth:10px;
+	margin-left:20px;
+}

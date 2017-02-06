@@ -12,25 +12,7 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/message.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/common.js"></script>
-	<script>
-		$(function(){
-			if(${sessionScope.UsersfromActions.userType!="弟子" }){
-				$(".release-news a").addClass("unuse");
-				$(".release-news a").attr("disabled",true);
-				$(".release-news a").attr("href","#");
-			}
-			
-			if($(".release-news a").attr("disabled") != "disabled"){
-				$(".release-news a").attr({
-					"href": "${pageContext.request.contextPath }/user/pages/edit_message.jsp",
-					"target": "_blank"
-				});
-			}
-		});
-	</script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/message.css?t=<%=System.currentTimeMillis()%>">
   </head>
   <body>
    	<div class="bd"></div>
@@ -57,10 +39,10 @@
 			<c:forEach items="${cList }" var="cList">
 				<c:choose>
 				<c:when test="${cList.page==0 }">
-					<a href="${pageContext.request.contextPath }/message_findAll.action?currentPage=${pages.currentPage }" onclick="aSelected(this)">${pages.currentPage }</a>
+					<a href="${pageContext.request.contextPath }/message_findAll.action?currentPage=${pages.currentPage }" data-pagenum="${pages.currentPage }">${pages.currentPage }</a>
 				</c:when>
 				<c:otherwise>
-					<a href="${pageContext.request.contextPath }/message_findAll.action?currentPage=${cList.page }" onclick="aSelected(this)" onclick="aSelected(this)">${cList.page }</a>
+					<a href="${pageContext.request.contextPath }/message_findAll.action?currentPage=${cList.page }" data-pagenum="${cList.page }">${cList.page }</a>
 				</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -71,4 +53,25 @@
 		</div>
    	</div>
   </body>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/common.js"></script>
+	<script>
+		$(function(){
+			if(${sessionScope.UsersfromActions.userType!="弟子" }){
+				$(".release-news a").addClass("unuse");
+				$(".release-news a").attr("disabled",true);
+				$(".release-news a").attr("href","#");
+			}
+			
+			if($(".release-news a").attr("disabled") != "disabled"){
+				$(".release-news a").attr({
+					"href": "${pageContext.request.contextPath }/user/pages/edit_message.jsp",
+					"target": "_blank"
+				});
+			}
+			var pNum = $("#now").html();
+			$(".page-div").find('a[data-pagenum="'+pNum+'"]').addClass('now-page');
+			console.log($(".page-div").find('a[data-pagenum="'+pNum+'"]'));
+		});
+	</script>
 </html>

@@ -35,7 +35,7 @@ html,body,div,span,ul,input{
 .top{
 	width:100%;
 	height:120px;
-	background:#6B99E4;
+	background-color:#6B99E4;
 	color:#fff;
 }
 .left{
@@ -43,7 +43,7 @@ html,body,div,span,ul,input{
 	position:absolute;
 	left:0;
 	width:170px;
-	background:#6B99E4;
+	background-color:#6B99E4;
 	color:#fff;
 }
 .right{

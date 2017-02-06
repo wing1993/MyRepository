@@ -42,9 +42,9 @@
 				<li tabid="typeManage" tab_url="qType.jsp?<%=System.currentTimeMillis()%>">
 					<span class="icon-sub">&#xe924;</span>&nbsp;<span id="ma_q_type">类型管理</span>
 				</li>
-				<li tabid="replyManage">
+				<li tabid="postsManage" tab_url="postsManage.jsp?<%=System.currentTimeMillis()%>">
 					<span class="icon-sub" style="font-weight:bold;font-size:17px !important;">&#xe909;</span>
-					<span id="m_message">留言管理</span>
+					<span id="m_message">帖子管理</span>
 				</li>
 			</ul>
 			<div class="left-item"><span class="icon-qz">&#xe991;</span>&nbsp;数据维护</div>

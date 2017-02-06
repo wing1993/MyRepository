@@ -5063,8 +5063,7 @@
         conditionSearchClick: null,      //下拉框表格搜索按钮自定义函数
         onChangeValue: null,
         delayLoadGrid: true,       //是否在按下显示下拉框的时候才 加载 grid
-        setTextBySource : true,       //设置文本框值时是否从数据源中加载
-        is_clear: true,         //输入下拉不存在的值，按回车或离开焦点时，自动清除该字段的值
+        setTextBySource : true       //设置文本框值时是否从数据源中加载
     };
 
     $.ligerDefaults.ComboBoxString = {
@@ -5282,24 +5281,6 @@
                 }
             }).blur(function ()
             {
-            	//----2016.11.11---wyl
-            	if(p.is_clear){//输入下拉不存在的值，按回车或离开焦点时，自动清除该字段的值
-	            	var findByVal = g.findValueByText($(this).val()),
-	            		valueField = p.valueField;
-	            		is_exist = false;//输入的值是否存在标识
-	            	for(var i in g.data){
-	            		if(findByVal == g.data[i][valueField]){//判断输入的值是否在下拉列表中
-	            			is_exist = true;
-	            			break;
-	            		}
-	            	}
-	            	if(is_exist){
-	            		
-	            	}else{
-	            		$(this).val('');//不存在则清空
-	            	}
-            	}
-            	//-------2016.11.11---wyl
                 if (p.disabled) return;
                 g.wrapper.removeClass("l-text-focus");
             }).focus(function ()
@@ -6872,24 +6853,6 @@
             {
                 if (event.keyCode == 38 || event.keyCode == 40 || event.keyCode == 13) //up 、down、enter
                 {
-                	//----2016.11.11---wyl
-	            	if(p.is_clear){//输入下拉不存在的值，按回车或离开焦点时，自动清除该字段的值
-		            	var findByVal = g.findValueByText($(this).val()),
-		            		valueField = p.valueField;
-		            		is_exist = false;//输入的值是否存在标识
-		            	for(var i in g.data){
-		            		if(findByVal == g.data[i][valueField]){//判断输入的值是否在下拉列表中
-		            			is_exist = true;
-		            			break;
-		            		}
-		            	}
-		            	if(is_exist){
-		            		
-		            	}else{
-		            		$(this).val('');//不存在则清空
-		            	}
-	            	}
-	            	//-------2016.11.11---wyl
                     return;
                 } 
                 if (this._acto)

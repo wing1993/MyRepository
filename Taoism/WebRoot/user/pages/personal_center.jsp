@@ -13,36 +13,8 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">	
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/personal_center.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
-	<script>
-		$(function(){
-			$(".nav-wrap ul li").click(function(){
-				$(this).addClass("select").siblings().removeClass("select");
-				if($(this).text()=="消息管理"){
-					$(".me").show();
-				}else if($(this).text()=="向老先生求助"){
-					$(".me").hide();
-				}
-				
-			});
-			$(".me").hide();
-		});
-		//删除消息
-		function delete_message(obj){
-			if(confirm("确定要删除该消息吗？")){
-				$.post("/Taoism/message_delete.action",{messageId:$(this).next().val()},function(data){
-					if(data=="success"){
-						alert("删除成功！");
-						$(this).parent().remove();
-					}else{
-						alert("删除失败！请稍候再试");
-					}
-				});
-			}
-		}
-	</script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/personal_center.css?<%=System.currentTimeMillis()%>">
+	
   </head>
   
   <body>
@@ -66,8 +38,13 @@
     	</div>
     	<div class="nav-wrap">
     		<ul>
-    			<li>消息管理</li>
-    			<li>向老先生求助</li>
+    			<c:if test="${sessionScope.UsersfromActions.userType=='弟子' }">
+	    			<li data-opt="me">消息管理</li>
+	    			<c:if test="${sessionScope.UsersfromActions.username != '老先生'}">
+	    				<li data-opt="askHelp">向老先生求助</li>
+	    			</c:if>
+    			</c:if>
+    			<li data-opt="myPostings">我的帖子</li>
     		</ul>
     	</div>
     	<div class="content">
@@ -89,11 +66,64 @@
 	   			</div>
 	    		</c:forEach>
 	    		<a href="${pageContext.request.contextPath }/user/pages/edit_message.jsp" target="_blank" class="btn-gradient">发布消息</a>
+	    		<c:if test="${messages }==null">
+	    			<div class="no-data ">暂无数据</div>
+	    		</c:if>
     		</div>
-    		<c:if test="${messages }==null">
-    			<div class="no-data">暂无数据</div>
-    		</c:if>
+    		<div class="askHelp">135</div>
+    		<div class="myPostings">
+    			<div class="post-wrap">
+    				<div class="rep-num" title="回复数">5000</div>
+    				<div class="post-content">
+    					<div class="post-title">
+    						<a href="${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId=&sharezone=" title="">三生三世十里桃花</a>
+    					</div>
+    					<div class="post-rep">
+	    					<div class="first-rep">那年的七月底，天君令我下界降服从大荒中长起来的一头赤炎金猊，
+	    					我与那赤炎金猊兽在中容国国境大战七日，天地失色之际，虽将这凶兽斩于剑下，却也因力竭被逼出了原身。
+	    					我的原身本是威风凛凛的一条黑龙，但觉得招摇，便缩得只同条小蛇一般大小，
+	    					在旁边的俊疾山上找了个不大起眼的山洞，便一闭眼睡了。</div>
+	    					<div class="post-right">
+	    						<span class="icon-message">&#xe929; </span><span class="last-replyer" title="最后回复人">bujifeiyu</span>
+	    						<span class="last-rep-time">16:50</span>
+	    					</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
     	</div>
     </div>
   </body>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
+	<script>
+		$(function(){
+			$(".nav-wrap ul li").click(function(){
+				$(this).addClass("select").siblings().removeClass("select");
+				var opt = $(this).data("opt");
+				$(".content").find('.'+opt).show().siblings().hide();
+			});
+			
+			$(".nav-wrap ul li:first").click();
+			
+			$(".post-wrap").mouseover(function(){
+				$(this).addClass('select');
+			}).mouseout(function(){
+				$(this).removeClass('select');
+			});
+		});
+		//删除消息
+		function delete_message(obj){
+			if(confirm("确定要删除该消息吗？")){
+				$.post("/Taoism/message_delete.action",{messageId:$(this).next().val()},function(data){
+					if(data=="success"){
+						alert("删除成功！");
+						$(this).parent().remove();
+					}else{
+						alert("删除失败！请稍候再试");
+					}
+				});
+			}
+		}
+	</script>
 </html>
