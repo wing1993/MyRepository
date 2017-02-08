@@ -142,7 +142,11 @@ public class MessageAction implements ModelDriven<Message>, Serializable,Request
 	
 	//删除消息
 	public String delete() throws IOException{
-		msg=messageService.delete(message);
+		try {
+			msg=messageService.delete(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		response.getWriter().print(msg);
 		return null;
 	}

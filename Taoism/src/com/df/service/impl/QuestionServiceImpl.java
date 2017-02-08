@@ -144,4 +144,10 @@ public class QuestionServiceImpl implements IQuestionService {
 		questionDao.updateLastReplyData(username, lastReplyTime, qId);
 		
 	}
+	@Transactional
+	@Override
+	public void daShiForwardPost(Question question) throws Exception {
+		questionDao.updateSharezone(question);
+		
+	}
 }

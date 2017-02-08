@@ -184,14 +184,28 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		
 	}
 
+	/**
+	 * 将问题最后回复的用户，时间，保存到Question中，回复人数+1，是否回复标志state置1
+	 */
 	@Override
 	public void updateLastReplyData(String username, String lastReplyTime,Integer qId)
 			throws Exception {
 		sessionFactory.getCurrentSession()
-			.createQuery("UPDATE Question q SET q.con1=?,q.con2=?,q.con3=q.con3+1 WHERE q.QId=?")
+			.createQuery("UPDATE Question q SET state=1,q.con1=?,q.con2=?,q.con3=q.con3+1 WHERE q.QId=?")
 			.setString(0, username).setString(1, lastReplyTime).setInteger(2, qId)
 			.executeUpdate();
 
+		
+	}
+
+	/**
+	 * 大师将提问他的问题分享到其他区域
+	 */
+	@Override
+	public void updateSharezone(Question question) throws Exception {
+		sessionFactory.getCurrentSession()
+			.createQuery("UPDATE Question q SET q.sharezone=?,q.shareState=0 WHERE q.QId=?")
+			.setString(0,question.getSharezone()).setInteger(1, question.getQId()).executeUpdate();
 		
 	}
 	

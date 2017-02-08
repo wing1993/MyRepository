@@ -31,4 +31,10 @@ public interface IQuestionService extends IBaseService<Question, Integer> {
 	 * @throws Exception
 	 */
 	public void updateLastReplyData(String username, String lastReplyTime, Integer qId)throws Exception;
+	/**
+	 * 大师将用户对他的提问转发到其他区
+	 * @param question
+	 * @throws Exception
+	 */
+	public void daShiForwardPost(Question question)throws Exception;
 }

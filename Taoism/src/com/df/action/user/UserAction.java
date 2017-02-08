@@ -138,25 +138,45 @@ public class UserAction implements Serializable, ModelDriven<User>,
 
 	// 2-处理
 	public String save() {
-		return userService.save(user);
+		try {
+			msg = userService.save(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
 	public String delete() {
-		return userService.delete(user);
+		try {
+			msg = userService.delete(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
-	public String update() throws IOException {
+	public String update()  {
 		response.setContentType("text/html;charset=UTF-8");
 		System.out.println(user);
-		msg=userService.update(user);
-		response.getWriter().print(msg);
+		try {
+			msg=userService.update(user);
+			response.getWriter().print(msg);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		sessionMap.clear();
 		sessionMap.put("UsersfromActions", user);
 		return null;
 	}
 
 	public String findAll(){
-		List<User> userList = userService.findAll();
+		try {
+			List<User> userList = userService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		//this.paging(userList);
 		return "success";
 	}

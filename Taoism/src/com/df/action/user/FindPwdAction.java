@@ -117,7 +117,11 @@ public class FindPwdAction implements ModelDriven<User>, RequestAware,ServletReq
             return "error";
         }
         u.clear();
-        u.add(userService.getById(user.getUserId()));
+        try {
+			u.add(userService.getById(user.getUserId()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         System.out.println(u.get(0).toString());
         if (u.size()>0) {
             

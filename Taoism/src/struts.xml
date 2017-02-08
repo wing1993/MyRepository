@@ -99,6 +99,16 @@
     		<result name="error" type="json"></result>
     	</action>
     </package>
+    <package name="questionType_action" namespace="/" extends="json-default">
+    	<action name="questionType_find_*" class="questionTypeAction" method="{1}">
+    		<result name="success" type="json">
+    			<param name="includeProperties">  
+  					 questionTypeList\[\d+\]\.\w+
+      		    </param>  
+    		</result>
+    		<result name="error" type="json"></result>
+    	</action>
+    </package>
 	<package name="list_action" namespace="/" extends="json-default">
 		<action name="list_*" class="listUserAction" method="{1}">
 			<result name="success" type="json">

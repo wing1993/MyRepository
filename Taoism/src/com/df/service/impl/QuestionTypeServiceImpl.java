@@ -19,20 +19,20 @@ public class QuestionTypeServiceImpl implements IQuestionTypeService {
 	@Qualifier("questionTypeDao")
 	private IQuestionTypeDAO questionTypeDao;
 	@Override
-	public String save(QuestionType t) {
-		// TODO Auto-generated method stub
+	public String save(QuestionType t) throws Exception{
+		questionTypeDao.save(t);
 		return null;
 	}
 
 	@Override
-	public String delete(QuestionType t) {
-		// TODO Auto-generated method stub
+	public String delete(QuestionType t) throws Exception{
+		questionTypeDao.delete(t);
 		return null;
 	}
 
 	@Override
-	public String update(QuestionType newObj) {
-		// TODO Auto-generated method stub
+	public String update(QuestionType newObj)throws Exception {
+		questionTypeDao.update(newObj);
 		return null;
 	}
 

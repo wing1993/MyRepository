@@ -83,7 +83,12 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		this.dp = dp;
 	}*/
 
+	/**
+	 * 用户发帖子
+	 * @return
+	 */
 	public String save() {
+		String msg = "error";
 		question.setCon1("");
 		question.setCon2("");
 		question.setCon3("0");
@@ -91,17 +96,39 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		question.setShareState(1);
 		question.setVisits(0);
 		System.out.println("save:"+question);
-		return questionService.save(question);
+		try {
+			msg = questionService.save(question);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
 	public String delete() {
-		return questionService.delete(question);
+		String msg = "error";
+		try {
+			msg = questionService.delete(question);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
 	public String update() {
-		return questionService.update(question);
+		String msg = "error";
+		try {
+			msg = questionService.update(question);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
 	}	
 	
+	/**
+	 * 用户向大师提问，大师可以向除了自己的大师提问
+	 * @return
+	 */
 	public String AskDashi() {
 		question.setCon1("");
 		question.setCon2("");
@@ -111,25 +138,52 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		question.setVisits(0);
 		question.setSharezone("我的问题");
 		System.out.println("AskDashi:"+question);
-		String msg = questionService.save(question);
+		String msg = "error";
+		try {
+			msg = questionService.save(question);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return msg;
 	}
-
+	
+	/**
+	 * 大师可以把对他提问的问题转发到其他区
+	 */
+	public String daShiForwardPost(){
+		try {
+			questionService.daShiForwardPost(question);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+	/**
+	 * 通过问题的id查找该问题的所有回复
+	 * @return
+	 */
 	public String findReplyByQId(){
 		System.out.println("123456789"+question);
 		try {
 			replyList = questionService.findByQid(question);
+		
+			question = questionService.getById(question.getQId());
+			requestMap.put("replysfromAction", replyList);
+			requestMap.put("questionfromAction", question);
+			System.out.println("question"+question);
+			System.out.println("123456789"+replyList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		question = questionService.getById(question.getQId());
-		requestMap.put("replysfromAction", replyList);
-		requestMap.put("questionfromAction", question);
-		System.out.println("question"+question);
-		System.out.println("123456789"+replyList);
 		return "replys";
 	}
 	
+	/**
+	 * 通过问题区域，问题类型，是否回复，按时间查找问题
+	 */
 	public String findByDynamicData(){
 		String userType = null;
 		if(null!=u) {userType = u.getUserType();

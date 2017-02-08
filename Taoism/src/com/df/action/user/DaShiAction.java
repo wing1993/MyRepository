@@ -1,5 +1,6 @@
 package com.df.action.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -96,7 +97,11 @@ public class DaShiAction extends ActionSupport implements ModelDriven<User>,
 
 	public String findAll() {	
 		if(u==null||u.getUserType()=="弟子"){
-			dashis = dashiService.findAll();//当用户还没有登录时，直接查找所有大师信息
+			try {
+				dashis = dashiService.findAll();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}//当用户还没有登录时，直接查找所有大师信息
 		}
 		else{
 			dashis = dashiService.findAllDaShi(u.getUsername());
@@ -117,7 +122,13 @@ public class DaShiAction extends ActionSupport implements ModelDriven<User>,
 	}
 	
 	public List<QuestionType> QTypeList(){
-		return questionTypeService.findAll();
+		List<QuestionType> questionTypeList = new ArrayList<QuestionType>();
+		try {
+			questionTypeList = questionTypeService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return questionTypeList;
 	}
 
 	

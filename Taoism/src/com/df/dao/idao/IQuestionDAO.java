@@ -31,5 +31,11 @@ public interface IQuestionDAO extends IBaseHibernateDAO<Question, Integer> {
 	 */
 	public void updateLastReplyData(String username, String lastReplyTime, Integer qId) throws Exception;
 
+	/**
+	 * 大师将对他提问的帖子转发到其他区    修改sharezone为转发的区域，shareState为0，只能转发一次
+	 * @param question
+	 */
+	public void updateSharezone(Question question)throws Exception;
+
 
 }

@@ -46,6 +46,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					'media',  'emoticons', 'link', 'unlink', ]
 			});			
 		});
+		function checkLogin_Repley(){
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能回复！");
+			}
+		}
+		
 		function subPost(obj){
 			var t=null;
 			if($(obj).parent().find(".add-re").val()==""){
@@ -129,11 +135,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="main-box"></div>
     	<div class="main-box-fixed">
     		<div class="q_title">${requestScope.question.QTitle }</div>
-    		<a class="btn" id="forward">转发</a>
-    		<a class="btn" id="btn">回复</a>
+    		<c:if test="${sessionScope.UsersfromActions.userType=='弟子' }"><a class="btn" id="forward">转发</a></c:if>
+    		<a class="btn" id="btn" onclick="checkLogin_Reply()">回复</a>
     	</div>
-    	<input type="hidden" value="${replysfromAction[0].question.sharezone }" class="sharezone">
-    	<input type="hidden" value="${replysfromAction[0].question.QId }" class="QId">  	
+    	<input type="hidden" value="${requestScope.question.sharezone }" class="sharezone">
+    	<input type="hidden" value="${requestScope.question.QId }" class="QId">  	
     	<c:forEach items="${replysfromAction }" var="reply">
     	<div class="w-content-box">
     		<!-- <div class="w-left">
