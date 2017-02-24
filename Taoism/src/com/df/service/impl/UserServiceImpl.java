@@ -2,6 +2,7 @@ package com.df.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -68,15 +69,31 @@ public class UserServiceImpl implements IUserService {
 
 	@Transactional
 	@Override
-	public int queryResultsCount() throws Exception{
-		int resultsCount = userDao.queryResultsCount();
+	public int queryCountState0() throws Exception{
+		int resultsCount = userDao.queryCountState0();
 		return resultsCount;
 	}
 	
 	@Transactional
 	@Override
-	public List<User> queryByPage(int from, int length) throws Exception{
-		List<User> users = userDao.queryByPage(from, length);
+	public List<Object[]> queryListState0(int from, int length) throws Exception{
+		List<Object[]> users = userDao.queryListState0(from, length);
+		return users;
+	}
+	
+	
+	
+	@Transactional
+	@Override
+	public int queryCountUpgrade() throws Exception{
+		int resultsCount = userDao.queryCountUpgrade();
+		return resultsCount;
+	}
+	
+	@Transactional
+	@Override
+	public List<Object[]> queryListUpgrade(int from, int length) throws Exception{
+		List<Object[]> users = userDao.queryListUpgrade(from, length);
 		return users;
 	}
 	
@@ -205,4 +222,8 @@ public class UserServiceImpl implements IUserService {
 		return users;
 	}
 
+	public void updateExaminUser(User user) throws Exception{
+		userDao.update(user);
+	}
+	
 }

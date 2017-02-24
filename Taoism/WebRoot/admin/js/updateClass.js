@@ -17,8 +17,8 @@ function createGrid(){
 			{label:'注册类型', name:'userType', index: 'userType', width:100, align:'center'},
 			{label:'真实姓名', name:'realname', index:'realname', width:100, align:'center'},
 			{label:'个人简介', name:'introduce', index:'introduce', width:300, align:'center',classes: 'ellipsis'},
-			{label:'升级类型', name:'updateType', index: 'updateType', width:100, align:'center'},
-			{label:'发帖次数', name:'postTimes', index:'postTimes', width:100, align:'center'},
+			{label:'升级类型', name:'con1', index: 'updateType', width:100, align:'center'},
+			{label:'发帖次数', name:'sumQuestion', index:'postTimes', width:100, align:'center'},
 			{label:'回复次数', name:'replyTimes', index:'replyTimes', width:100, align:'center'},
 			{label:'操作', width:120, align:'center', classess: 'ope-width', formatter: btnFormat}
 		];
@@ -28,7 +28,7 @@ function createGrid(){
 		height:h,
 		datatype: 'json',
 		mtype: "GET",
-		url: '/Taoism/list_getUserGridModel.action',//'admin/pages/test.json',
+		url: '/Taoism/list_getUpgradeUserList.action',//'admin/pages/test.json',
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
 		pager : '#pager',//表格页脚的占位符(一般是div)的id

@@ -21,7 +21,7 @@
 				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions.username }&askWho="+dashi);
 			}
 		}
-		function checkLogin_Post(){
+		function checkLogin_Post(obj){
 			if(${sessionScope.UsersfromActions==null}){
 				alert("您还没有登录，不能发帖！");
 			}else{			
@@ -250,7 +250,7 @@
 							<option value="">是否回复</option><option value="0">未回复</option>
 							<option value="1">已回复</option>
 						</select>
-						<li><a href="javascript:void(0);" class="ask" target="_blank" onclick="checkLogin_Post()">发帖</a></li>
+						<li><a href="javascript:void(0);" class="ask" target="_blank" onclick="checkLogin_Post(this)">发帖</a></li>
 						<li style="float:right !important;margin-right:30px;">
 							<input type="text" id="search_value">
 							<input type="button" value="搜索" id="search" onclick="findData(this)">

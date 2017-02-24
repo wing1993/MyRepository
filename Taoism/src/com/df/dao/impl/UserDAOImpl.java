@@ -2,11 +2,9 @@ package com.df.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.df.dao.idao.IUserDAO;
@@ -14,24 +12,24 @@ import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.User;
 
 @Repository("userDao")
-public class UserDAOImpl implements IUserDAO {
+public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 
-	@Autowired
+	/*@Autowired
 	@Qualifier("sessionFactory")
-	private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;*/
 	private User u;
 
 	@Override
 	public void save(User transientInstance) throws Exception {
 		transientInstance.setState(0);
-		sessionFactory.getCurrentSession().save(transientInstance);
+		this.getSessionFactory().getCurrentSession().save(transientInstance);
 
 	}
 
 	@Override
 	public void delete(User persistentInstance) {
 
-		sessionFactory.getCurrentSession().save(persistentInstance);
+		this.getSessionFactory().getCurrentSession().save(persistentInstance);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -39,7 +37,7 @@ public class UserDAOImpl implements IUserDAO {
 	public List<User> findAll() throws Exception {
 
 		List<User> userList = new ArrayList<User>();
-		userList = sessionFactory.getCurrentSession()
+		userList = this.getSessionFactory().getCurrentSession()
 				.createQuery("FROM User u where u.state=1").list();
 
 		return userList;
@@ -48,14 +46,14 @@ public class UserDAOImpl implements IUserDAO {
 	@Override
 	public void update(User user) {
 
-		sessionFactory.getCurrentSession().update(user);
+		this.getSessionFactory().getCurrentSession().update(user);
 
 	}
 
 	@Override
 	public User getById(Integer id) {
 
-		User user = (User) sessionFactory.getCurrentSession().get(User.class,
+		User user = (User) this.getSessionFactory().getCurrentSession().get(User.class,
 				id);
 		return user;
 	}
@@ -68,11 +66,11 @@ public class UserDAOImpl implements IUserDAO {
 		Long count = (long) 0;
 
 		// 查询总记录数
-		count = (Long) sessionFactory.getCurrentSession()
+		count = (Long) this.getSessionFactory().getCurrentSession()
 				.createQuery("SELECT COUNT(*) FROM User").uniqueResult();
 		System.out.println(firstResult + "---" + maxResults + "---" + count);
 		// 查询一页的数据列表
-		userList = sessionFactory.getCurrentSession().createQuery("FROM User")
+		userList = this.getSessionFactory().getCurrentSession().createQuery("FROM User")
 				.setFirstResult(firstResult).setMaxResults(maxResults).list();
 
 		return new QueryResult(count.intValue(), userList);
@@ -82,7 +80,7 @@ public class UserDAOImpl implements IUserDAO {
 	public String login(User user) throws Exception {
 		User loginUser = null;
 
-		loginUser = (User) sessionFactory
+		loginUser = (User) this.getSessionFactory()
 				.getCurrentSession()
 				.createQuery(
 						"from User u where u.username=? and u.password=? and u.state=1")
@@ -97,7 +95,7 @@ public class UserDAOImpl implements IUserDAO {
 
 		// 在事务中运行
 		user.setState(0);// 待审核状态
-		sessionFactory.getCurrentSession().save(user);
+		this.getSessionFactory().getCurrentSession().save(user);
 
 	}
 
@@ -105,7 +103,7 @@ public class UserDAOImpl implements IUserDAO {
 	public void examine(User user) throws Exception {
 		// 审核成功将state置1
 		user.setState(1);
-		sessionFactory.getCurrentSession().update(user);
+		this.getSessionFactory().getCurrentSession().update(user);
 	}
 
 	
@@ -115,14 +113,14 @@ public class UserDAOImpl implements IUserDAO {
 
 		// 审核通过将con1标志 赋值给userType属性
 		user.setUserType(user.getCon1());
-		user.setCon1(null);
-		sessionFactory.getCurrentSession().update(user);
+		user.setCon1("");
+		this.getSessionFactory().getCurrentSession().update(user);
 
 	}
 
 	@Override
 	public User findByUsername(User user) throws Exception {
-		user = (User) sessionFactory
+		user = (User) this.getSessionFactory()
 				.getCurrentSession()
 				.createQuery(
 						"from User u where u.username=? and u.password=? and u.state=1")
@@ -137,7 +135,7 @@ public class UserDAOImpl implements IUserDAO {
 	@Override
 	public List<User> findByMail(User user) throws Exception {
 		List<User> users = null;
-		users = (List<User>) sessionFactory
+		users = (List<User>) this.getSessionFactory()
 				.getCurrentSession()
 				.createQuery(
 						"from User u where u.mail=?")
@@ -148,7 +146,7 @@ public class UserDAOImpl implements IUserDAO {
 
 	@Override
 	public User findSameName(User user) throws Exception {
-		u=(User) sessionFactory.getCurrentSession()
+		u=(User) this.getSessionFactory().getCurrentSession()
 				.createQuery("from User u where u.username=?")
 				.setString(0, user.getUsername()).uniqueResult();	
 		return u;
@@ -159,27 +157,45 @@ public class UserDAOImpl implements IUserDAO {
 	public List<User> findUnexamined() throws Exception {
 		List<User> users=new ArrayList<User>();
 		String hql="from User u where u.state=0";
-		Query query=sessionFactory.getCurrentSession().createQuery(hql);
+		Query query=this.getSessionFactory().getCurrentSession().createQuery(hql);
 		users=query.list();
 		return users;
 	}
 
-	@Override
-	public int queryResultsCount() throws Exception {
-		// 查询总记录数
-		Long resultCount =  (Long) sessionFactory.getCurrentSession()
-				.createQuery("SELECT COUNT(*) FROM User u where u.state=0").uniqueResult();
-		return resultCount.intValue();
+	
+	/*
+	 * 查询未审核用户总记录数
+	 */
+	public int queryCountState0() throws Exception {
+		String sql = "SELECT COUNT(*) FROM User u where u.state=0";
+		return this.queryResultsCount(sql);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<User> queryByPage(int firstResult, int maxResults)throws Exception {
-		List<User> userList = new ArrayList<User>();
-		userList = sessionFactory.getCurrentSession().createQuery("FROM User u where u.state=0")
-				.setFirstResult(firstResult).setMaxResults(maxResults).list();
-
-		return userList;
+	/*
+	 * 查询未审核用户记录
+	 */
+	public List<Object[]> queryListState0(int from, int length)throws Exception {
+		String sql = "FROM User u where u.state=0";
+		return this.queryByPage_1(sql, from, length);
 	}
-
+	
+	/*
+	 * 查询申请身份升级的用户记录数
+	 */
+	public int queryCountUpgrade() throws Exception {
+		String sql = "SELECT COUNT(*) FROM User u where u.con1 <> ''";
+		return this.queryResultsCount(sql);
+	}
+	
+	/*
+	 * 查询申请身份升级的用户记录
+	 */
+	public List<Object[]> queryListUpgrade(int from, int length)throws Exception {
+		String sql = "SELECT u.userId as userId,u.realname as realname,u.username as username,u.userType as userType,u.introduce as introduce,"
+				+ "u.con1 as con1,COUNT(q.QId) as sumQuestion FROM User u,Question q "
+				+ "where u.con1 <> '' and u.username=q.username group by u.userId,u.username,u.userType,u.introduce,u.con1";
+		return this.queryByPage(sql, from, length);
+	}
+	
+	
 }

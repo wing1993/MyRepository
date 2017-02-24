@@ -1,8 +1,8 @@
 package com.df.dao.idao;
 
 import java.util.List;
+import java.util.Map;
 
-import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.User;
 
 public interface IUserDAO extends IBaseHibernateDAO<User, Integer> {
@@ -76,17 +76,28 @@ public interface IUserDAO extends IBaseHibernateDAO<User, Integer> {
 	public List<User> findUnexamined()throws Exception;
 
 	/**
-	 * 获取用户记录数
-	 * @return
-	 * @throws Exception
+	 * 查询未审核用户数量
 	 */
-	public int queryResultsCount()throws Exception;
+	public int queryCountState0()throws Exception;
 
 	/**
-	 * 获取显示的记录
+	 * 查询未审核用户记录
 	 * @param from
 	 * @param length
 	 * @return
+	 * @throws Exception
 	 */
-	public List<User> queryByPage(int from, int length)throws Exception;
+	public List<Object[]> queryListState0(int from, int length)throws Exception;
+
+	/*
+	 * 查询申请身份升级的用户记录数
+	 */
+	int queryCountUpgrade()throws Exception;
+
+	/*
+	 * 查询申请身份升级的用户记录
+	 */
+	List<Object[]> queryListUpgrade(int from, int length)throws Exception;
+
+	
 }

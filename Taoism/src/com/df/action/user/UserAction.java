@@ -299,4 +299,38 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		requestMap.put("findUnexamined", u);
 		return "Unexamined";
 	}
+	/**
+	 * 查询需要升级的用户
+	 * @return
+	 * @throws Exception
+	 */
+	public String findIdentityUpgrade()throws Exception{
+		u=userService.findUnexamined();
+		System.out.println(u.toString());
+		requestMap.put("findUnexamined", u);
+		return "success";
+	}
+	/**
+	 * 用户身份升级
+	 * @return
+	 * @throws Exception
+	 */
+	public String changeUserType(){
+		msg = userService.changeUserType(user);
+		return "success";
+	}
+	/**
+	 * 用户身份审核
+	 * @return
+	 * @throws Exception
+	 */
+	public String updateExaminUser(){
+		try {
+			userService.updateExaminUser(user);
+			msg = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
 }

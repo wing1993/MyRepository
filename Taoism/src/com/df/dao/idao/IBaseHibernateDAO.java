@@ -2,8 +2,6 @@ package com.df.dao.idao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-
 import com.df.dao.pojo.QueryResult;
 
 /**

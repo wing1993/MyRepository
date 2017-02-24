@@ -1,8 +1,8 @@
 package com.df.service.iservice;
 
 import java.util.List;
+import java.util.Map;
 
-import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.User;
 
 public interface IUserService extends IBaseService<User, Integer> {
@@ -63,7 +63,7 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 * @return
 	 * @throws Exception
 	 */
-	int queryResultsCount() throws Exception;
+	int queryCountState0() throws Exception;
 	
 	/**
 	 * 查询要显示的记录
@@ -72,6 +72,21 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 * @return
 	 * @throws Exception
 	 */
-	List<User> queryByPage(int from, int length) throws Exception;
+	List<Object[]> queryListState0(int from, int length) throws Exception;
+
+	/*
+	 * 查询申请身份升级的用户记录数
+	 */
+	int queryCountUpgrade() throws Exception;
+
+	/*
+	 * 查询申请身份升级的用户记录
+	 */
+	List<Object[]> queryListUpgrade(int from, int length) throws Exception;
+
+	/*
+	 * 用户身份审核
+	 */
+	void updateExaminUser(User user)throws Exception;
 
 }
