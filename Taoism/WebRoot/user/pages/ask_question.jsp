@@ -63,6 +63,11 @@
 			}
 		}
 		function check(){
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能向大师提问！");
+				
+				return false;
+			}
 			if($("#q_title").val()==""){
 				$("#q_title").next().css("display","inline-block");
 				$("#q_title").focus();

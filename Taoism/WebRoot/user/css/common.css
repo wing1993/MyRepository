@@ -111,3 +111,5 @@ html{font-family:'Microsoft YaHei';}
 .now-page{
 	border:none !important;
 }
+.icon-d{float:right;text-align:right;cursor:pointer;color:#969090;}
+.icon-d:hover{color:#E84747;}

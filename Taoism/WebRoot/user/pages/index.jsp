@@ -1,15 +1,16 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%String path = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>老先生答疑</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/index.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/common.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/index.css?t=<%System.currentTimeMillis(); %>">
+	<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/common.js"></script>
+	<script type="text/javascript" src="<%=path %>/user/js/index.js"></script>
 	<script type="text/javascript">
 		function ask_pa(obj){
 			checkLogin(obj,$('.hdashi_name').text());
@@ -40,15 +41,15 @@
 			$("#total").text("");
 			$("#now").text("");
 			$(".a-page").empty();$("#q_detail").empty();
-			$.post("${pageContext.request.contextPath }/question_find_findByDynamicData.action",{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),
+			$.post("<%=path %>/question_find_findByDynamicData.action",{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),
 						QTime:$("#QTime").val(),state:$("#state").val(),QTitle:qTitle,currentPage:$(obj).text()},function(data){
 					if(null!=data.qList){
 					/*  for(var i=0;i<data.postList.length;i++){ */
 						$.each(data.qList,function(i,value){
 							if(value.state!=0){var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";}
-							else{var icon="<td class='icon-td' title='未回复'>&#xe906;</td>";}
+							else{var icon="<td class='icon-td unreplied' title='未回复'>&#xe906;</td>";}
 							 var str = "<tr>"+icon
-									+"<td><a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' title='"+value.QTitle+"'>"+value.QTitle+"</a></td>"
+									+"<td><a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' target='_blank' title='"+value.QTitle+"'>"+value.QTitle+"</a></td>"
 									+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td>"+value.con1+"<br>"+value.con2+"</td>"
 									+"<td>"+value.con3+"</td><td>"+value.visits+"</td>"
 									+"<td>"+value.QTypeName+"</td></tr>";
@@ -124,22 +125,22 @@
 		<c:choose>
 			<c:when test="${sessionScope.UsersfromActions==null }">
 			<div class="unlogin">
-				<span><a href="${pageContext.request.contextPath }/user/pages/login.jsp">登录</a></span>&nbsp;&nbsp;|&nbsp;
-				<span><a href="${pageContext.request.contextPath }/user/pages/register.jsp">注册</a></span>
+				<span><a href="<%=path %>/user/pages/login.jsp">登录</a></span>&nbsp;&nbsp;|&nbsp;
+				<span><a href="<%=path %>/user/pages/register.jsp">注册</a></span>
 			</div>
 			</c:when>
 			<c:otherwise>
 			<div class="logined">
 				Hi,<span id="username">${sessionScope.UsersfromActions.username }</span>
-				<span><a href="${pageContext.request.contextPath }/message_findByAuthor.action">个人中心</a></span>&nbsp;&nbsp;|&nbsp;
-				<span><a href="${pageContext.request.contextPath }/user_logout.action">退出</a></span>
+				<span><a href="javascript:window.open('<%=path %>/message_findByAuthor.action','tag');" target="_blank">个人中心</a></span>&nbsp;&nbsp;|&nbsp;
+				<span><a href="<%=path %>/user_logout.action">退出</a></span>
 			</div>
 			</c:otherwise>
 		</c:choose>			
 		</div>
 		<div class="wrap">
 			<div class="top">
-				<img src="${pageContext.request.contextPath }/images/home.png">&nbsp;&nbsp;
+				<img src="<%=path %>/images/home.png">&nbsp;&nbsp;
 				<div class="top-box">
 					<a href="#" class="first-page">首页</a>&nbsp;&nbsp;>&nbsp;&nbsp;<span>老先生答疑</span>
 				</div>

@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>问题详情</title>   
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/q_detail.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/q_detail.css?t=<%System.currentTimeMillis();%>">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/q_detail.js"></script>
@@ -46,9 +46,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					'media',  'emoticons', 'link', 'unlink', ]
 			});			
 		});
-		function checkLogin_Repley(){
+		function checkLogin_Reply(){
 			if(${sessionScope.UsersfromActions==null}){
 				alert("您还没有登录，不能回复！");
+				return false;
 			}
 		}
 		
@@ -103,6 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		function Post(){
+			checkLogin_Reply();
 			if(editor.html()==""){
 				alert("请输入内容");
 			}else{
@@ -139,7 +141,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<a class="btn" id="btn" onclick="checkLogin_Reply()">回复</a>
     	</div>
     	<input type="hidden" value="${requestScope.question.sharezone }" class="sharezone">
-    	<input type="hidden" value="${requestScope.question.QId }" class="QId">  	
+    	<input type="hidden" value="${requestScope.question.QId }" class="QId"> 
+    	<div class="w-content-box">
+    		<div class="w-right">
+    			<div class="w-r-main">
+    				<a href="#" class="re-name">${requestScope.question.username }</a>（发帖作者）:
+						<span class="main-content">${requestScope.question.QContent }</span>							
+    			</div>
+    		</div>
+    	</div>
     	<c:forEach items="${replysfromAction }" var="reply">
     	<div class="w-content-box">
     		<!-- <div class="w-left">
