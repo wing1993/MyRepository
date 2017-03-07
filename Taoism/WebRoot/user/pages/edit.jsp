@@ -18,6 +18,9 @@
 			$("#selProvince option[value='${userinfo.con2}']").attr("selected","selected");
 			$("#selCity option[value='${userinfo.city}']").attr("selected","selected");
 			$("textarea").val("${userinfo.introduce}");
+			if(${userinfo.username == '老先生'}){
+				$("input[name='username']").attr('disabled', true);
+			}
 		});
 		//修改个人信息
 		function edit(){

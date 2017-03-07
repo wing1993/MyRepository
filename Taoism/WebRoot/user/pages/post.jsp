@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% String path = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +8,8 @@
 	<title>发帖</title>
 	<script type="text/javascript" src="../../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.form.js"></script>
-	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/kindeditor-min.js"></script>
-	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="<%=path%>/user/pages/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="<%=path%>/user/pages/kindeditor/lang/zh_CN.js"></script>
 	<style type="text/css">
 		body{font-family: 'Microsoft YaHei';}
 		.main{width:780px;margin:60px auto;padding:40px;background:#fff;}
@@ -63,6 +64,11 @@
 			}
 		}
 		function check(){
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能发帖！");
+				window.location.href = "<%=path%>/user/pages/login.jsp";
+				return false;
+			}
 			if($("#q_title").val()==""){
 				$("#q_title").next().css("display","inline-block");
 				$("#q_title").focus();

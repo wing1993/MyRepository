@@ -36,6 +36,11 @@
 			}
 		}
 		function check(){
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能发布信息");
+				window.location.href = "${pageContext.request.contextPath }/user/pages/login.jsp";
+				return false;
+			}
 			if($("#con1").val()==""){
 				$(".tip1").css("display","inline-block");
 			}else if($("#messageContent").val()==""){

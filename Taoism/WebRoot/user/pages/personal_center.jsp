@@ -12,8 +12,8 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">	
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/personal_center.css?<%=System.currentTimeMillis()%>">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css?t=<%=System.currentTimeMillis()%>">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/personal_center.css?t=<%=System.currentTimeMillis()%>">
 	
   </head>
   
@@ -45,9 +45,13 @@
 	    			</c:if>
     			</c:if>
     			<li data-opt="myPostings">我的帖子</li>
+    			<c:if test="${sessionScope.UsersfromActions.username == '老先生'}">
+    				<li data-opt="addAdmin">添加系统管理员</li>
+    			</c:if>
     		</ul>
     	</div>
     	<div class="content">
+    		<!-- 消息管理 -->
     		<div class="me">
 	    		<c:forEach items="${messages }" var="messages">
 	    		<div class="me-main">
@@ -65,12 +69,16 @@
 	   				</div>
 	   			</div>
 	    		</c:forEach>
-	    		<a href="${pageContext.request.contextPath }/user/pages/edit_message.jsp" target="_blank" class="btn-gradient">发布消息</a>
-	    		<c:if test="${messages }==null">
+	    		<c:if test="${empty messages }">
 	    			<div class="no-data ">暂无数据</div>
 	    		</c:if>
+	    		<a href="javascript:window.open('${pageContext.request.contextPath }/user/pages/edit_message.jsp','tag');" target="_blank" class="btn-gradient">发布消息</a>
     		</div>
+    		
+    		<!-- 向老先生求助 -->
     		<div class="askHelp">135</div>
+    		
+    		<!-- 我的帖子 -->
     		<div class="myPostings">
     			<div class="post-wrap">
     				<div class="rep-num" title="回复数">5000</div>
@@ -89,6 +97,19 @@
 	    					</div>
     					</div>
     				</div>
+    			</div>
+    		</div>
+    		
+    		<!-- 添加系统管理员 -->
+    		<div class="addAdmin">
+    			<span style="margin-left:40px;">已存在的系统管理员:</span>
+    			<ul class="existed">
+    				<li><span id="1">root1</span><span class="icon-d" title="删除">&#xe15c;</span></li>
+    				<li><span id="2">root2</span><span class="icon-d" title="删除">&#xe15c;</span></li>
+    				<li><span id="3">root3</span><span class="icon-d" title="删除">&#xe15c;</span></li>
+    			</ul>
+    			<div class="newAdmin">
+    				<input type="text" placeholder="请输入弟子的法号" class="add-input"> <input type="button" class="add-admin" value="新增管理员">
     			</div>
     		</div>
     	</div>
@@ -111,6 +132,30 @@
 			}).mouseout(function(){
 				$(this).removeClass('select');
 			});
+			
+			$(".existed").on("click", ".icon-d", function(){
+				if(confirm("确定要删除该管理员吗？")){
+					var id = $(this).prev().attr('id');
+					$.post('', {userid: id}, function(data){
+						if(1){ //测试
+							$(this).parents('li').remove();
+						}
+					});
+				}
+			});
+			
+			$(".add-admin").click(function(){
+				var new_admin = $(".add-input").val();
+				if( new_admin== ''){
+					alert("请输入弟子的法号！");
+				}else{
+					$.post('', {username: new_admin}, function(data){
+						if(1){//测试
+							$(".existed").append('<li><span>' + new_admin + '</span><span class="icon-d" title="删除">&#xe15c;</span></li>');
+						}
+					});
+				}
+			});
 		});
 		//删除消息
 		function delete_message(obj){
@@ -125,5 +170,6 @@
 				});
 			}
 		}
+		
 	</script>
 </html>

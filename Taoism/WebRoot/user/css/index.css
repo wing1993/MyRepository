@@ -352,6 +352,7 @@ input[type=button]:hover,.ask:hover{
 	font-size:20px;
 }
 .icon-td{font-size:20px;cursor:pointer;color:red;}
+.unreplied{color:#aaa;}
 #q_detail a{text-decoration:none;}
 .r-message{
 	height:35px;

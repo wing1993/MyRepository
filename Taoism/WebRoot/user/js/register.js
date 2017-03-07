@@ -246,7 +246,7 @@ function user_type_change(){
 function check_name(obj){
 	$("#null_name").css("display","none");
 	//检查用户名的长度
-	if($(obj).val().length!=0&&$(obj).val().length<4){
+	if($(obj).val().length!=0&&$(obj).val().length<3){
 		$("#wrong_name").css("display","block");
 	}else{
 		$("#wrong_name").css("display","none");
