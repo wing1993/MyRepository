@@ -320,13 +320,27 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		return "success";
 	}
 	/**
-	 * 用户身份审核
+	 * 用户身份审核通过
 	 * @return
 	 * @throws Exception
 	 */
-	public String updateExaminUser(){
+	public String updateExaminUser_1(){
 		try {
-			userService.updateExaminUser(user);
+			userService.updateExaminUser_1(user);
+			msg = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	/**
+	 * 用户身份审核不通过
+	 * @return
+	 * @throws Exception
+	 */
+	public String updateExaminUser_2(){
+		try {
+			userService.updateExaminUser_2(user);
 			msg = "success";
 		} catch (Exception e) {
 			e.printStackTrace();

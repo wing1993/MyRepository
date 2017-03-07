@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.df.dao.idao.IUserDAO;
 import com.df.dao.pojo.QueryResult;
+import com.df.dao.pojo.Question;
 import com.df.dao.pojo.User;
 
 @Repository("userDao")
@@ -163,20 +168,36 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 	}
 
 	
-	/*
-	 * 查询未审核用户总记录数
+	/**
+	 *  查询未审核用户总记录数
 	 */
-	public int queryCountState0() throws Exception {
-		String sql = "SELECT COUNT(*) FROM User u where u.state=0";
-		return this.queryResultsCount(sql);
+	public int queryCountState0(User user) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT COUNT(*) FROM User u where u.state=0");
+		if(null!=user&&null!=user.getUserType()&&""!=user.getUserType()){
+			System.out.println("1"+user.getUserType());
+			sql.append(" and userType = '"+ user.getUserType()+"'");
+		}
+		return this.queryResultsCount(sql.toString());
 	}
 
-	/*
+	/**
 	 * 查询未审核用户记录
 	 */
-	public List<Object[]> queryListState0(int from, int length)throws Exception {
-		String sql = "FROM User u where u.state=0";
-		return this.queryByPage_1(sql, from, length);
+	public List<Object[]> queryListState0(int from, int length, User user)throws Exception {
+
+		Session session = this.getSessionFactory().openSession();
+		DetachedCriteria dc = DetachedCriteria. forClass (User. class );
+		dc.add(Restrictions.eq("state", 0));
+		if(null!=user&&null!=user.getUserType()&&""!=user.getUserType()){
+			dc.add(Restrictions.eq("userType", user.getUserType()));
+		}
+		Criteria c = dc.getExecutableCriteria(session);
+		c.setMaxResults(length);
+	    c.setFirstResult(from);
+	    return c.list();
+		//String sql = "FROM User u where u.state=0";
+		//return this.queryByPage_1(sql, from, length);
 	}
 	
 	/*

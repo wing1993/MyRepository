@@ -60,19 +60,21 @@ public interface IUserService extends IBaseService<User, Integer> {
 	
 	/**
 	 * 查询记录数
+	 * @param user 
 	 * @return
 	 * @throws Exception
 	 */
-	int queryCountState0() throws Exception;
+	int queryCountState0(User user) throws Exception;
 	
 	/**
-	 * 查询要显示的记录
-	 * @param from
-	 * @param length
+	 * 查询要显示的记录 未审核用户
+	 * @param from  开始记录
+	 * @param length  需要查询的记录条数
+	 * @param user 
 	 * @return
 	 * @throws Exception
 	 */
-	List<Object[]> queryListState0(int from, int length) throws Exception;
+	List<Object[]> queryListState0(int from, int length, User user) throws Exception;
 
 	/*
 	 * 查询申请身份升级的用户记录数
@@ -84,9 +86,18 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 */
 	List<Object[]> queryListUpgrade(int from, int length) throws Exception;
 
-	/*
-	 * 用户身份审核
+	/**
+	 * 用户身份审核通过
+	 * @param user
+	 * @throws Exception
 	 */
-	void updateExaminUser(User user)throws Exception;
+	void updateExaminUser_1(User user)throws Exception;
+	
+	/**
+	 * 用户身份审核不通过
+	 * @param user
+	 * @throws Exception
+	 */
+	void updateExaminUser_2(User user)throws Exception;
 
 }

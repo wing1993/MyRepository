@@ -12,14 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.struts.ActionSupport;
 
 import com.df.action.admin.JqGridBaseAction;
 import com.df.dao.pojo.User;
 import com.df.service.iservice.IUserService;
+import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("listUserAction")
 @Scope("prototype")
-public class ListUserAction extends JqGridBaseAction<Object[]> {
+public class ListUserAction extends JqGridBaseAction<Object[]>  implements  ModelDriven<User> {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -28,15 +30,20 @@ public class ListUserAction extends JqGridBaseAction<Object[]> {
 	@Qualifier("userService")
 	private IUserService userService;
 	private List<Object[]> listUser;
+	private User user;
 	private int countUser;
 	private int from;
 	private int length;
 	
-	
+	/**
+	 * 获取需要审核的用户
+	 * @return
+	 */
 	public String getUserGridModel() {
 		try {
-			this.setCountUser(this.userService.queryCountState0());
-			this.setListUser(this.userService.queryListState0(from, length));
+			System.out.println(user+"12");
+			this.setCountUser(this.userService.queryCountState0(user));
+			this.setListUser(this.userService.queryListState0(from, length,user));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,7 +51,10 @@ public class ListUserAction extends JqGridBaseAction<Object[]> {
 		System.out.println("1"+this.getGridModel());
 		return this.refreshGridModel();
 	}
-	
+	/**
+	 * 获取申请身份升级的用户
+	 * @return
+	 */
 	public String getUpgradeUserList() {
 		try {
 			this.setCountUser(this.userService.queryCountUpgrade());
@@ -112,6 +122,17 @@ public class ListUserAction extends JqGridBaseAction<Object[]> {
 
 	public void setLength(int length) {
 		this.length = length;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	@Override
+	public User getModel() {
+		//user = new User();
+		return user;
 	}
 
 	

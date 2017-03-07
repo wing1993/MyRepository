@@ -69,15 +69,15 @@ public class UserServiceImpl implements IUserService {
 
 	@Transactional
 	@Override
-	public int queryCountState0() throws Exception{
-		int resultsCount = userDao.queryCountState0();
+	public int queryCountState0(User user) throws Exception{
+		int resultsCount = userDao.queryCountState0(user);
 		return resultsCount;
 	}
 	
 	@Transactional
 	@Override
-	public List<Object[]> queryListState0(int from, int length) throws Exception{
-		List<Object[]> users = userDao.queryListState0(from, length);
+	public List<Object[]> queryListState0(int from, int length, User user) throws Exception{
+		List<Object[]> users = userDao.queryListState0(from, length, user);
 		return users;
 	}
 	
@@ -222,7 +222,20 @@ public class UserServiceImpl implements IUserService {
 		return users;
 	}
 
-	public void updateExaminUser(User user) throws Exception{
+
+	@Transactional
+	@Override
+	public void updateExaminUser_1(User user) throws Exception{
+		user = userDao.getById(user.getUserId());
+		u.setState(1);//审核通过置1
+		userDao.update(user);
+	}
+	
+	@Transactional
+	@Override
+	public void updateExaminUser_2(User user) throws Exception{
+		user = userDao.getById(user.getUserId());
+		u.setState(2);//审核不通过置2
 		userDao.update(user);
 	}
 	

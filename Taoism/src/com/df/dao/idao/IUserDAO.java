@@ -77,17 +77,19 @@ public interface IUserDAO extends IBaseHibernateDAO<User, Integer> {
 
 	/**
 	 * 查询未审核用户数量
+	 * @param user 
 	 */
-	public int queryCountState0()throws Exception;
+	public int queryCountState0(User user)throws Exception;
 
 	/**
 	 * 查询未审核用户记录
 	 * @param from
 	 * @param length
+	 * @param user 
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Object[]> queryListState0(int from, int length)throws Exception;
+	public List<Object[]> queryListState0(int from, int length, User user)throws Exception;
 
 	/*
 	 * 查询申请身份升级的用户记录数
