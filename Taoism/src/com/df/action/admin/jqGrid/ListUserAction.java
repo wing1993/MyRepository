@@ -131,7 +131,7 @@ public class ListUserAction extends JqGridBaseAction<Object[]>  implements  Mode
 	}
 	@Override
 	public User getModel() {
-		//user = new User();
+		user = new User();
 		return user;
 	}
 

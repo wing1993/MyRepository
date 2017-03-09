@@ -13,9 +13,11 @@ import com.df.dao.idao.IMyquestionReplyDAO;
 import com.df.dao.idao.IPublicReplyDAO;
 import com.df.dao.idao.IQuestionDAO;
 import com.df.dao.idao.IStudentReplyDAO;
+import com.df.dao.idao.IUserDAO;
 import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.Question;
+import com.df.dao.pojo.User;
 import com.df.service.iservice.IQuestionService;
 
 @Service("questionService")
@@ -40,16 +42,26 @@ public class QuestionServiceImpl implements IQuestionService {
 	@Qualifier("myquestionReplyDao")
 	private IMyquestionReplyDAO myquestionReplyDao;
 	
+	@Autowired
+	@Qualifier("userDao")
+	private IUserDAO userDao;
+	
 	@Transactional
 	@Override
-	public String save(Question t) {
+	public String save(Question t) throws Exception{
 		String msg = "error";
-		try {
-			questionDao.save(t);
-			msg = "success";
-		} catch (Exception e) {
-			e.printStackTrace();
+		questionDao.save(t);
+		User user = new User();System.out.println(t);
+		user.setUsername(t.getUsername());
+		user = userDao.getByUsername(user);
+		System.out.println(user);
+		if(null!=user.getCon5()&&"".equals(user.getCon5())){
+			user.setCon5(String.valueOf(Double.parseDouble(user.getCon5())+1));
+		}else{
+			user.setCon5("1");
 		}
+		userDao.update(user);
+		msg = "success";
 		return msg;
 	}
 

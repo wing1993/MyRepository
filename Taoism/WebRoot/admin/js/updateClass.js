@@ -18,8 +18,8 @@ function createGrid(){
 			{label:'真实姓名', name:'realname', index:'realname', width:100, align:'center'},
 			{label:'个人简介', name:'introduce', index:'introduce', width:300, align:'center',classes: 'ellipsis'},
 			{label:'升级类型', name:'con1', index: 'updateType', width:100, align:'center'},
-			{label:'发帖次数', name:'sumQuestion', index:'postTimes', width:100, align:'center'},
-			{label:'回复次数', name:'replyTimes', index:'replyTimes', width:100, align:'center'},
+			{label:'发帖次数', name:'con5', index:'postTimes', width:100, align:'center'},
+			{label:'回复次数', name:'con6', index:'replyTimes', width:100, align:'center'},
 			{label:'操作', width:120, align:'center', classess: 'ope-width', formatter: btnFormat}
 		];
 	grid = $("#update_tb").jqGrid({

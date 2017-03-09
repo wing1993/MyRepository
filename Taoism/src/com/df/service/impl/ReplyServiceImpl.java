@@ -13,11 +13,12 @@ import com.df.dao.idao.IMyquestionReplyDAO;
 import com.df.dao.idao.IPublicReplyDAO;
 import com.df.dao.idao.IQuestionDAO;
 import com.df.dao.idao.IStudentReplyDAO;
+import com.df.dao.idao.IUserDAO;
 import com.df.dao.pojo.DiscipleReply;
 import com.df.dao.pojo.MyquestionReply;
 import com.df.dao.pojo.PublicReply;
-import com.df.dao.pojo.Question;
 import com.df.dao.pojo.StudentReply;
+import com.df.dao.pojo.User;
 import com.df.service.iservice.IReplyService;
 
 @Service("replyService")
@@ -42,6 +43,10 @@ public class ReplyServiceImpl implements IReplyService<Object> {
 	@Autowired
 	@Qualifier("questionDao")
 	private IQuestionDAO questionDao;
+	
+	@Autowired
+	@Qualifier("userDao")
+	private IUserDAO userDao;
 
 	@Transactional
 	@Override
@@ -95,6 +100,17 @@ public class ReplyServiceImpl implements IReplyService<Object> {
 				msg = "success";  
 				System.out.println("4"+mr);
 			}
+			/*用户评论之后评论次数+1*/
+			User user = new User();
+			user.setUsername(((PublicReply)t).getRespondent());
+			user = userDao.getByUsername(user);
+			if(null!=user.getCon6()&&"".equals(user.getCon6())){
+				user.setCon6(String.valueOf(Double.parseDouble(user.getCon6())+1));
+			}else{
+				user.setCon6("1");
+			}
+			
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

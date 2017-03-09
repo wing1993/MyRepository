@@ -62,6 +62,17 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 				id);
 		return user;
 	}
+	
+	@Override
+	public User getByUsername(User user) throws Exception{
+		
+		user = (User) this.getSessionFactory()
+				.getCurrentSession()
+				.createQuery(
+						"from User u where u.username=?")
+				.setString(0, user.getUsername()).uniqueResult();
+		return user;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -211,12 +222,17 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 	/*
 	 * 查询申请身份升级的用户记录
 	 */
-	public List<Object[]> queryListUpgrade(int from, int length)throws Exception {
+	/*public List<Object[]> queryListUpgrade(int from, int length)throws Exception {
 		String sql = "SELECT u.userId as userId,u.realname as realname,u.username as username,u.userType as userType,u.introduce as introduce,"
 				+ "u.con1 as con1,COUNT(q.QId) as sumQuestion FROM User u,Question q "
 				+ "where u.con1 <> '' and u.username=q.username group by u.userId,u.username,u.userType,u.introduce,u.con1";
 		return this.queryByPage(sql, from, length);
 	}
-	
+	*/
+	public List<Object[]> queryListUpgrade(int from, int length)throws Exception {
+		String sql = "from User u where u.con1 <> ''";
+		return this.queryByPage_1(sql, from, length);
+	}
+	 
 	
 }

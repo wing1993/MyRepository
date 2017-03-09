@@ -76,13 +76,19 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 */
 	List<Object[]> queryListState0(int from, int length, User user) throws Exception;
 
-	/*
+	/**
 	 * 查询申请身份升级的用户记录数
+	 * @return
+	 * @throws Exception
 	 */
 	int queryCountUpgrade() throws Exception;
 
-	/*
+	/**
 	 * 查询申请身份升级的用户记录
+	 * @param from   开始查找记录数
+	 * @param length  记录条数
+	 * @return
+	 * @throws Exception
 	 */
 	List<Object[]> queryListUpgrade(int from, int length) throws Exception;
 
