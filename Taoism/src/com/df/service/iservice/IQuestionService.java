@@ -2,6 +2,7 @@ package com.df.service.iservice;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.Question;
@@ -37,4 +38,19 @@ public interface IQuestionService extends IBaseService<Question, Integer> {
 	 * @throws Exception
 	 */
 	public void daShiForwardPost(Question question)throws Exception;
+	/**
+	 * 根据条件查询帖子   返回记录数
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	int queryCountQuestioninfo(Map<String, Object> map) throws Exception;
+	/**
+	 * 根据条件查询帖子  返回查询结果
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	List<Object[]> queryListQuestioninfo(Map<String, Object> map) throws Exception;
+
 }

@@ -2,6 +2,7 @@ package com.df.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -161,5 +162,17 @@ public class QuestionServiceImpl implements IQuestionService {
 	public void daShiForwardPost(Question question) throws Exception {
 		questionDao.updateSharezone(question);
 		
+	}
+
+	@Transactional
+	@Override
+	public int queryCountQuestioninfo(Map<String, Object> map) throws Exception {
+		return questionDao.queryCountQuestioninfo(map);
+	}
+
+	@Transactional
+	@Override
+	public List<Object[]> queryListQuestioninfo(Map<String, Object> map) throws Exception {
+		return questionDao.queryListQuestioninfo(map);
 	}
 }

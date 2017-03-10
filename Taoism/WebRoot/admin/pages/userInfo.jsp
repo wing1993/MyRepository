@@ -7,7 +7,7 @@ String path = request.getContextPath();
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>注册审核</title>
+	<title>用户信息</title>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/common.css?<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/css/ui.jqgrid.css">
 	<link href="<%=path %>/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet">

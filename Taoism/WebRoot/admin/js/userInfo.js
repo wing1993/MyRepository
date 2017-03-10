@@ -30,7 +30,7 @@ function createGrid(){
 		height:h,
 		datatype: 'json',
 		mtype: "GET",
-		url: '/Taoism/list_getUserGridModel.action',//'admin/pages/test.json',
+		url: '/Taoism/list_getInfoUserList.action?userType=弟子',//'admin/pages/test.json',
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
 		pager : '#pager',//表格页脚的占位符(一般是div)的id
@@ -59,7 +59,7 @@ function initEvent(){
 		console.log(key);
 //		jQuery("#bigset").jqGrid('setGridParam',{url:"bigset.php?nm_mask="+nm_mask+"&cd_mask="+cd_mask,page:1}).trigger("reloadGrid");
 		grid.setGridParam({
-			url: '/Taoism/list_getUserGridModel.action?name='+ key,
+			url: '/Taoism/list_getUserGridModel.action?username='+ key,
 			page: 1
 		}).trigger('reloadGrid');
 	});

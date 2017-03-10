@@ -2,6 +2,7 @@ package com.df.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -18,6 +19,7 @@ import com.df.dao.idao.IQuestionDAO;
 import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.Question;
+import com.df.dao.pojo.User;
 import com.df.dao.util.PageUtil;
 
 @Repository("questionDao")
@@ -208,5 +210,52 @@ public class QuestionDAOImpl implements IQuestionDAO {
 			.setString(0,question.getSharezone()).setInteger(1, question.getQId()).executeUpdate();
 		
 	}
+	
+	/**
+	 * 根据条件获取帖子
+	 * @param from
+	 * @param length
+	 * @param question
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Object[]> queryListUserinfo(Map<String, Object> map)
+			throws Exception {
+
+		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
+		if(null!=map.get("startTime")&&null!=map.get("endTime")){
+			dc.add(Restrictions.between("QTime", map.get("startTime").toString(),
+					map.get("endTime").toString()));
+		}
+		if(null!=map.get("username").toString()){
+			dc.add(Restrictions.eq("username", map.get("username").toString()));
+		}
+
+		Criteria c = dc.getExecutableCriteria(sessionFactory.getCurrentSession());
+		c.setMaxResults(Integer.parseInt(map.get("length").toString()));
+	    c.setFirstResult(Integer.parseInt(map.get("from").toString()));
+	    return c.list();
+	}
+
+	/**
+	 * 获取查询的记录数
+	 * @param question
+	 * @return
+	 * @throws Exception
+	 */
+	public int queryCountUserinfo(Map<String, Object> map) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT COUNT(*) FROM User u where 1=1 ");
+		if(null!=map.get("startTime")&&null!=map.get("endTime")){
+			sql.append(" and QTime between '"+ map.get("startTime").toString()
+					+"' and '"+map.get("endTime").toString()+"'");
+		}if(null!=map.get("username").toString()){
+			sql.append("and username = '"+ map.get("username").toString());
+		}
+		Long resultCount =  (Long) sessionFactory.getCurrentSession()
+				.createQuery(sql.toString()).uniqueResult();
+		return resultCount.intValue();
+	}
+
 	
 }

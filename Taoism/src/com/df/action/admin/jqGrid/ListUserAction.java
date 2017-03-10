@@ -29,11 +29,11 @@ public class ListUserAction extends JqGridBaseAction<Object[]>  implements  Mode
 	@Autowired
 	@Qualifier("userService")
 	private IUserService userService;
-	private List<Object[]> listUser;
+	private List<Object[]> listUser;  //查询出来的记录
 	private User user;
-	private int countUser;
-	private int from;
-	private int length;
+	private int countUser;  //总记录条数
+	private int from;  //分页功能    起始位置
+	private int length;  //分页功能   一次性查询的记录数
 	
 	/**
 	 * 获取需要审核的用户
@@ -66,6 +66,25 @@ public class ListUserAction extends JqGridBaseAction<Object[]>  implements  Mode
 		System.out.println("1"+this.getGridModel());
 		return this.refreshGridModel();
 	}
+	
+	
+	/**
+	 * 获取所有用户的所有资料
+	 * @return
+	 */
+	public String getInfoUserList() {
+		try {
+			this.setCountUser(this.userService.queryCountUserinfo(user));
+			this.setListUser(this.userService.queryListUserinfo(from, length, user));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("1"+this.getGridModel());
+		return this.refreshGridModel();
+	}
+	
+	
 	
 	@Override
 	public int getResultSize() {

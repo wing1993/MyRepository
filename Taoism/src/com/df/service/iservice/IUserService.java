@@ -106,4 +106,18 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 */
 	void updateExaminUser_2(User user)throws Exception;
 
+	/**
+	 * 所有用户资料记录数
+	 * @return
+	 */
+	int queryCountUserinfo(User user) throws Exception;
+
+	/**
+	 * 所有用户资料记录数
+	 * @param from
+	 * @param length
+	 * @return
+	 */
+	List<Object[]> queryListUserinfo(int from, int length, User user) throws Exception;
+
 }

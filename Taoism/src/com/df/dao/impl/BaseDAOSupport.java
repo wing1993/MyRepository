@@ -28,15 +28,15 @@ public class BaseDAOSupport {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	public List<Object[]> queryByPage(String sql, int from, int length)throws Exception {
 		List<Object[]> objectList = new ArrayList<Object[]>();
 		objectList = sessionFactory.getCurrentSession().createQuery(sql)
 				.setFirstResult(from).setMaxResults(length).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
 
 		return objectList;	
-	}
-
+	}*/
+	
 	public int queryResultsCount(String sql) throws Exception {
 		// 查询总记录数
 		Long resultCount =  (Long) sessionFactory.getCurrentSession()

@@ -233,6 +233,38 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 		String sql = "from User u where u.con1 <> ''";
 		return this.queryByPage_1(sql, from, length);
 	}
+
+	public List<Object[]> queryListUserinfo(int from, int length, User user)
+			throws Exception {
+
+		Session session = this.getSessionFactory().openSession();
+		DetachedCriteria dc = DetachedCriteria. forClass (User. class );
+		if(null!=user&&null!=user.getUserType()&&""!=user.getUserType()){
+			dc.add(Restrictions.eq("userType", user.getUserType()));
+		}
+		if(null!=user&&null!=user.getUsername()&&""!=user.getUsername()){
+			dc.add(Restrictions.eq("username", user.getUsername()));
+		}
+		Criteria c = dc.getExecutableCriteria(session);
+		c.setMaxResults(length);
+	    c.setFirstResult(from);
+	    return c.list();
+	}
+
+	public int queryCountUserinfo(User user) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT COUNT(*) FROM User u where 1=1 ");
+		if(null!=user&&null!=user.getUserType()&&""!=user.getUserType()){
+			System.out.println("1"+user.getUserType());
+			sql.append(" and userType = '"+ user.getUserType()+"'");
+		}
+		if(null!=user&&null!=user.getUsername()&&""!=user.getUsername()){
+			sql.append(" and username = '"+ user.getUsername()+"'");
+		}
+		return this.queryResultsCount(sql.toString());
+	}
+
+	
 	 
 	
 }
