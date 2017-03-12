@@ -43,6 +43,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	private String valid_code;
 	private String msg="error";
 	private List<User> u=new ArrayList<User>();
+	private String[] userIdStrings;
 	HttpServletResponse response = ServletActionContext.getResponse(); 
 	public int getSumPage() {
 		return sumPage;
@@ -86,6 +87,14 @@ public class UserAction implements Serializable, ModelDriven<User>,
 
 	public void setValid_code(String valid_code) {
 		this.valid_code = valid_code;
+	}
+
+	public String[] getUserIdStrings() {
+		return userIdStrings;
+	}
+
+	public void setUserIdStrings(String[] userIdStrings) {
+		this.userIdStrings = userIdStrings;
 	}
 
 	@Override
@@ -316,7 +325,10 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	 * @throws Exception
 	 */
 	public String changeUserType(){
-		msg = userService.changeUserType(user);
+		for(int i=0;i<userIdStrings.length;i++){
+			user.setUserId(Integer.parseInt(userIdStrings[i]));
+			msg = userService.changeUserType(user);
+		}
 		return "success";
 	}
 	/**
@@ -334,6 +346,23 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		return msg;
 	}
 	/**
+	 * 用户身份  批量  审核通过
+	 * @return
+	 * @throws Exception
+	 */
+	public String updateExaminUserAll_1(){
+		try {
+			for(int i=0;i<userIdStrings.length;i++){
+				user.setUserId(Integer.parseInt(userIdStrings[i]));
+				userService.updateExaminUser_1(user);
+			}
+			msg = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	/**
 	 * 用户身份审核不通过
 	 * @return
 	 * @throws Exception
@@ -341,6 +370,23 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	public String updateExaminUser_2(){
 		try {
 			userService.updateExaminUser_2(user);
+			msg = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	/**
+	 * 用户身份  批量  审核不通过
+	 * @return
+	 * @throws Exception
+	 */
+	public String updateExaminUserAll_2(){
+		try {
+			for(int i=0;i<userIdStrings.length;i++){
+				user.setUserId(Integer.parseInt(userIdStrings[i]));
+				userService.updateExaminUser_2(user);
+			}
 			msg = "success";
 		} catch (Exception e) {
 			e.printStackTrace();

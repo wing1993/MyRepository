@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -23,9 +24,10 @@
     	<input type="button" value="新增" id="add">
     </div>
     <ul class="wrap-old">
-    	<li><span class="qType">应用解惑</span><span class="icon-d" title="删除">&#xe15c;</span></li>
-    	<li><span class="qType">问事</span><span class="icon-d" title="删除">&#xe15c;</span></li>
-    </ul>
+   	<c:forEach items="${questionTypeList}" var="questionType" >
+    	<li><span class="qType">${questionType.QTypeName}</span><span class="icon-d" title="删除">&#xe15c;</span></li>
+  	</c:forEach> 
+  	</ul>
   </body>
   <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	<script>
