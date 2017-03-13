@@ -30,7 +30,7 @@ String path = request.getContextPath();
 				<span class="search-btn" title="搜索"></span>
 			</div>
 			&nbsp;&nbsp;注册类型：
-			<select name="userType" id="user_type" onchange="findByUserType()">
+			<select name="userType" id="user_type">
 				<option value="所有类型">所有类型</option>
 				<option value="普通">普通</option>
 				<option value="学员">学员</option>

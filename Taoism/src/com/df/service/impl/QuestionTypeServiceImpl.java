@@ -18,22 +18,45 @@ public class QuestionTypeServiceImpl implements IQuestionTypeService {
 	@Autowired
 	@Qualifier("questionTypeDao")
 	private IQuestionTypeDAO questionTypeDao;
+	
+	@Transactional
 	@Override
 	public String save(QuestionType t) throws Exception{
-		questionTypeDao.save(t);
-		return null;
+		String msg = "error";
+		try {
+			questionTypeDao.save(t);
+			msg = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
+	@Transactional
 	@Override
 	public String delete(QuestionType t) throws Exception{
-		questionTypeDao.delete(t);
-		return null;
+		String msg = "error";
+		try {
+			questionTypeDao.delete(t);
+			msg = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return msg;
 	}
 
+	@Transactional
 	@Override
 	public String update(QuestionType newObj)throws Exception {
-		questionTypeDao.update(newObj);
-		return null;
+		String msg = "error";
+		try {
+			questionTypeDao.update(newObj);
+			msg = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
 	@Transactional

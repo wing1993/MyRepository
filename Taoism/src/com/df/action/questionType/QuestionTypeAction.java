@@ -70,7 +70,7 @@ public class QuestionTypeAction implements Serializable, ModelDriven<QuestionTyp
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return msg == "success" ? findAll() : msg;
 	}
 	
 	public String delete() {
@@ -80,7 +80,7 @@ public class QuestionTypeAction implements Serializable, ModelDriven<QuestionTyp
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return msg == "success" ? findAll() : msg;
 	}
 	
 	public String update() {
@@ -90,7 +90,7 @@ public class QuestionTypeAction implements Serializable, ModelDriven<QuestionTyp
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return msg == "success" ? findAll() : msg;
 	}
 	
 	public String findAll(){

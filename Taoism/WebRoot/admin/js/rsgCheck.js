@@ -11,7 +11,7 @@ var grid;
 
 function createGrid(){
 	var	w = $(".main").width();
-	var h = $(".main").height() - $(".search").height() - 65;
+	var h = $(".main").height() - $(".search").height() - 65 - 40;
 	var columns = [
 			{label:'userId', name:'userId', index:'userId', hidden: true, key: true},
 			{label:'用户名', name:'username', index:'username', width:120, align:'center'},
@@ -31,9 +31,10 @@ function createGrid(){
 		colModel: columns,
 		width:w,
 		height:h,
+		multiselect: true, //是否可以多选
 		datatype: 'json',
 		mtype: "GET",
-		url: '/Taoism/list_getUserGridModel.action?userType=弟子',//'admin/pages/test.json',
+		url: '/Taoism/list_getUserGridModel.action',
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
 		pager : '#pager',//表格页脚的占位符(一般是div)的id
@@ -55,11 +56,29 @@ function btnFormat(cellvalue, options, rowObject){
 	return '&nbsp;<input type="button" value="通过" class="operate">&nbsp;<input type="button" value="忽略" class="ignore">';
 }
 
+function findByUserType(){
+	
+}
+
 function initEvent(){
-	$("#r_tb").on("click", ".operate", function(){
+	$("#r_tb").on("click", ".operate", function(){//单个审核
 		var id = $(this).parents('tr').attr('id'),
 			data = grid.getRowData(id);
 		console.log(data);		
+	});
+	
+	$(".btn").click(function(){//批量审核
+		var ids = grid.getGridParam("selarrrow");
+		ids.length == 0 && alert("请选择要审核的用户"); 
+	});
+	
+	$("#user_type").change(function(){
+		var type = $(this).val(),
+			old_url = '/Taoism/list_getUserGridModel.action',
+			new_url = type == '所有类型' ? old_url : old_url + '?userType=' + type;
+		grid.setGridParam({
+			url: new_url
+		}).trigger('reloadGrid');
 	});
 }
 
