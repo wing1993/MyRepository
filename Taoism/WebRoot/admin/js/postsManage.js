@@ -48,3 +48,8 @@ function initEvent(){
 		}
 	});
 }
+
+function queryQuestion(){
+	alert("1");
+	$("form").submit();
+}

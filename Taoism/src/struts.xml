@@ -117,5 +117,11 @@
 				<param name="ignoreHierarchy">false</param>  
 			</result>
 		</action>
+		<action name="listquestion_*" class="listQuestionAction" method="{1}">
+    		<result name="success" type="dispatcher">
+    			  /admin/pages/postsManage.jsp
+    		</result>
+    		<result name="error" type="json"></result>
+    	</action>
 	</package>
 </struts>

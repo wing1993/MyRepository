@@ -211,50 +211,47 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		
 	}
 	
-	/**
-	 * 根据条件获取帖子
-	 * @param from
-	 * @param length
-	 * @param question
-	 * @return
-	 * @throws Exception
-	 */
-	public List<Object[]> queryListUserinfo(Map<String, Object> map)
-			throws Exception {
-
-		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
-		if(null!=map.get("startTime")&&null!=map.get("endTime")){
-			dc.add(Restrictions.between("QTime", map.get("startTime").toString(),
-					map.get("endTime").toString()));
-		}
-		if(null!=map.get("username").toString()){
-			dc.add(Restrictions.eq("username", map.get("username").toString()));
-		}
-
-		Criteria c = dc.getExecutableCriteria(sessionFactory.getCurrentSession());
-		c.setMaxResults(Integer.parseInt(map.get("length").toString()));
-	    c.setFirstResult(Integer.parseInt(map.get("from").toString()));
-	    return c.list();
-	}
-
+	
 	/**
 	 * 获取查询的记录数
 	 * @param question
 	 * @return
 	 * @throws Exception
 	 */
-	public int queryCountUserinfo(Map<String, Object> map) throws Exception {
+	public int queryCountQuestioninfo(Map<String, Object> map) throws Exception {
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT COUNT(*) FROM User u where 1=1 ");
 		if(null!=map.get("startTime")&&null!=map.get("endTime")){
-			sql.append(" and QTime between '"+ map.get("startTime").toString()
-					+"' and '"+map.get("endTime").toString()+"'");
-		}if(null!=map.get("username").toString()){
-			sql.append("and username = '"+ map.get("username").toString());
+			sql.append(" and QTime >= '"+ map.get("startTime").toString()
+					+"' and QTime <= '"+map.get("endTime").toString()+"'");
+		}if(null!=map.get("username")){
+			sql.append(" and username = '"+ map.get("username").toString());
 		}
 		Long resultCount =  (Long) sessionFactory.getCurrentSession()
 				.createQuery(sql.toString()).uniqueResult();
 		return resultCount.intValue();
+	}
+
+	/**
+	 * 根据  时间 ||发帖人   获取帖子记录
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Object[]> queryListQuestioninfo(Map<String, Object> map)
+			throws Exception {DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
+			if(null!=map.get("startTime")&&null!=map.get("endTime")){
+				dc.add(Restrictions.between("QTime", map.get("startTime").toString(),
+						map.get("endTime").toString()));
+			}
+			if(null!=map.get("username")){
+				dc.add(Restrictions.eq("username", map.get("username").toString()));
+			}
+
+			Criteria c = dc.getExecutableCriteria(sessionFactory.getCurrentSession());
+			c.setMaxResults(Integer.parseInt(map.get("length").toString()));
+		    c.setFirstResult(Integer.parseInt(map.get("from").toString()));
+		    return c.list();
 	}
 
 	

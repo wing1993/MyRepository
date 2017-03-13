@@ -1,6 +1,9 @@
 package com.df.dao.idao;
 
 
+import java.util.List;
+import java.util.Map;
+
 import com.df.dao.pojo.DataPage;
 import com.df.dao.pojo.Question;
 
@@ -36,6 +39,24 @@ public interface IQuestionDAO extends IBaseHibernateDAO<Question, Integer> {
 	 * @param question
 	 */
 	public void updateSharezone(Question question)throws Exception;
+
+
+	/**
+	 * 根据  时间 ||发帖人   获取帖子记录数
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public int queryCountQuestioninfo(Map<String, Object> map)throws Exception;
+
+
+	/**
+	 * 根据  时间 ||发帖人   获取帖子记录
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Object[]> queryListQuestioninfo(Map<String, Object> map)throws Exception;
 
 
 }

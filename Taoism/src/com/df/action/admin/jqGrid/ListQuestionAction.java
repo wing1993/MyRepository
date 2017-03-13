@@ -7,13 +7,18 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.df.action.admin.JqGridBaseAction;
 import com.df.dao.pojo.Question;
+import com.df.dao.pojo.User;
 import com.df.service.iservice.IQuestionService;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class ListQuestionAction extends JqGridBaseAction<Object[]>  {
+@Controller("listQuestionAction")
+@Scope("prototype")
+public class ListQuestionAction extends JqGridBaseAction<Object[]>   implements  ModelDriven<Question>  {
 
 	/**
 	 * 
@@ -30,12 +35,13 @@ public class ListQuestionAction extends JqGridBaseAction<Object[]>  {
 	private String username;
 	private String startTime;
 	private String endTime;
+	private Question question;
 	
 	/**
 	 * 根据查询条件获取帖子信息
 	 * @return
 	 */
-	public String getInfoUserList() {
+	public String getInfoUserList() {System.out.println("1");
 		try {
 			Map<String,Object> map = new HashMap<String, Object>();
 			map.put("from", from);
@@ -93,7 +99,7 @@ public class ListQuestionAction extends JqGridBaseAction<Object[]>  {
 		return countQuestion;
 	}
 	
-	public void setCount(int countQuestion) {
+	public void setCountQuestion(int countQuestion) {
 		this.countQuestion = countQuestion;
 	}
 	
@@ -147,6 +153,14 @@ public class ListQuestionAction extends JqGridBaseAction<Object[]>  {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+
+
+	@Override
+	public Question getModel() {
+		question = new Question();
+		return question;
 	}
 	
 }
