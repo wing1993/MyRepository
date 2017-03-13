@@ -30,10 +30,10 @@ public abstract class JqGridBaseAction<T> extends ActionSupport {
 			results = this.listResults(from, length);
 			this.setGridModel(results);
 			total = (int) Math.ceil((double) record / (double) rows);
-			System.out.println("2对象："+gridModel);
-			System.out.println("2总记录数："+record);
-			System.out.println("2每页记录数："+rows);
-			System.out.println("2页数："+page);
+			System.out.println("对象："+gridModel);
+			System.out.println("总记录数："+record);
+			System.out.println("每页记录数："+rows);
+			System.out.println("页数："+page);
 			return SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();

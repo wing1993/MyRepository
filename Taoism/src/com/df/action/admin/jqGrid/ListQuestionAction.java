@@ -44,11 +44,12 @@ public class ListQuestionAction extends JqGridBaseAction<Object[]>   implements 
 	public String getInfoUserList() {System.out.println("1");
 		try {
 			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("from", from);
-			map.put("length", length);
+			map.put("from", 1);
+			map.put("length", 10);
 			map.put("username", username);
 			map.put("startTime", startTime);
 			map.put("endTime", endTime);
+			System.out.println(map);
 			this.setCountQuestion(this.questionService.queryCountQuestioninfo(map));
 			this.setListQuestion(this.questionService.queryListQuestioninfo(map));
 			

@@ -28,7 +28,7 @@ function createGrid(){
 		height:h,
 		datatype: 'json',
 		mtype: "GET",
-		url: '/Taoism/list_getUpgradeUserList.action',//'admin/pages/test.json',
+		url: '/Taoism/list_getUpgradeUserList.action?method=updateClass',//'admin/pages/test.json',
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
 		pager : '#pager',//表格页脚的占位符(一般是div)的id

@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -196,7 +197,7 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 	 * 查询未审核用户记录
 	 */
 	public List<Object[]> queryListState0(int from, int length, User user)throws Exception {
-
+		System.out.println("dao层  from："+from+"  length:"+length);
 		Session session = this.getSessionFactory().openSession();
 		DetachedCriteria dc = DetachedCriteria. forClass (User. class );
 		dc.add(Restrictions.eq("state", 0));
@@ -243,7 +244,7 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 			dc.add(Restrictions.eq("userType", user.getUserType()));
 		}
 		if(null!=user&&null!=user.getUsername()&&""!=user.getUsername()){
-			dc.add(Restrictions.eq("username", user.getUsername()));
+			dc.add(Restrictions.like("username", user.getUsername(), MatchMode.ANYWHERE));
 		}
 		Criteria c = dc.getExecutableCriteria(session);
 		c.setMaxResults(length);
@@ -253,13 +254,13 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 
 	public int queryCountUserinfo(User user) throws Exception {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT COUNT(*) FROM User u where 1=1 ");
+		sql.append("SELECT COUNT(*) FROM User u WHERE 1=1 ");
 		if(null!=user&&null!=user.getUserType()&&""!=user.getUserType()){
 			System.out.println("1"+user.getUserType());
-			sql.append(" and userType = '"+ user.getUserType()+"'");
+			sql.append(" AND userType = '"+ user.getUserType()+"'");
 		}
 		if(null!=user&&null!=user.getUsername()&&""!=user.getUsername()){
-			sql.append(" and username = '"+ user.getUsername()+"'");
+			sql.append(" AND username LIKE CONCAT(CONCAT('%', "+user.getUsername()+"),'%')");
 		}
 		return this.queryResultsCount(sql.toString());
 	}
