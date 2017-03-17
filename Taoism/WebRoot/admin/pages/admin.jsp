@@ -43,7 +43,7 @@
 				<li tabid="typeManage" tab_url="/Taoism/questionType_find_findAll.action">
 					<span class="icon-sub">&#xe924;</span>&nbsp;<span id="ma_q_type">类型管理</span>
 				</li>
-				<li tabid="postsManage" tab_url="postsManage.jsp?<%=System.currentTimeMillis()%>">
+				<li tabid="postsManage" tab_url="/Taoism/listquestion_findByQTime.action?currentPage=1&rows=10">
 					<span class="icon-sub" style="font-weight:bold;font-size:17px !important;">&#xe909;</span>
 					<span id="m_message">帖子管理</span>
 				</li>
