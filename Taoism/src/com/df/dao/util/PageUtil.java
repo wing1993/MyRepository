@@ -17,14 +17,14 @@ public class PageUtil {
 
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public  static <T> DataPage<T> paging(List<T> tList,int listSize,int currentPage) {
+	public  static <T> DataPage<T> paging(List<T> tList,int listSize,int currentPage,int rows) {
 		if(sumPage != 0) {
 			if(currentPage > sumPage)  //判断输入的页数是否大于总页数
 				currentPage = sumPage;
 			else if(currentPage < 0)
 				currentPage = 1;
 		}
-		Page page = createPage(3, listSize, currentPage);
+		Page page = createPage(rows, listSize, currentPage);
 		
 		//前台页码显示
 		int sum = page.getTotalPage();

@@ -68,13 +68,14 @@ public class QuestionServiceImpl implements IQuestionService {
 
 	@Override
 	public String delete(Question t) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
+	@Transactional
 	@Override
-	public String update(Question newObj) {
-		// TODO Auto-generated method stub
+	public String update(Question newObj) throws Exception{
+		questionDao.update(newObj);
 		return null;
 	}
 
@@ -102,6 +103,7 @@ public class QuestionServiceImpl implements IQuestionService {
 		return question;
 	}
 
+	@Transactional
 	@Override
 	public QueryResult findAll(Integer k1, Integer k2) {
 		QueryResult query = null;
@@ -112,6 +114,19 @@ public class QuestionServiceImpl implements IQuestionService {
 			e.printStackTrace();
 		}
 		return query;
+	}
+
+	@Transactional
+	@Override
+	public DataPage<Question> findByQTime(Map<String, Object> map) {
+		DataPage<Question> dp = new DataPage<Question>();
+		try{
+			dp = questionDao.findByQTime(map);
+			System.out.println("service层"+dp.gettList());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return dp;
 	}
 
 
@@ -175,4 +190,5 @@ public class QuestionServiceImpl implements IQuestionService {
 	public List<Object[]> queryListQuestioninfo(Map<String, Object> map) throws Exception {
 		return questionDao.queryListQuestioninfo(map);
 	}
+
 }

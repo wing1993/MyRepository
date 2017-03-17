@@ -1,24 +1,30 @@
 package com.df.action.admin.jqGrid;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.df.action.admin.JqGridBaseAction;
+import com.df.dao.pojo.ClientPage;
+import com.df.dao.pojo.DataPage;
+import com.df.dao.pojo.Page;
 import com.df.dao.pojo.Question;
 import com.df.dao.pojo.User;
+import com.df.dao.util.DateUtil;
 import com.df.service.iservice.IQuestionService;
 import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("listQuestionAction")
 @Scope("prototype")
-public class ListQuestionAction extends JqGridBaseAction<Object[]>   implements  ModelDriven<Question>  {
+public class ListQuestionAction implements Serializable, ModelDriven<Question>,RequestAware {
 
 	/**
 	 * 
@@ -28,140 +34,122 @@ public class ListQuestionAction extends JqGridBaseAction<Object[]>   implements 
 	@Autowired
 	@Qualifier("questionService")
 	private IQuestionService questionService;
-	private List<Object[]> listQuestion;
-	private int countQuestion;
-	private int from;
-	private int length;
+	private Map<String,Object> requestMap;
+	private Question question;
+	private List<Question> qList;   //保存获取的问题
+	private List<ClientPage> cList; //保存要显示的页码
+	private Page page;              //分页的情况（每页显示的数量，总页数，当前页，是否有上一页下一页等）
 	private String username;
+	private int rows;
 	private String startTime;
 	private String endTime;
-	private Question question;
-	
+	private int currentPage; //当前页
+	private DataPage<Question> dp;
 	/**
 	 * 根据查询条件获取帖子信息
 	 * @return
 	 */
-	public String getInfoUserList() {System.out.println("1");
+	public String findByQTime() {
+		String msg = "error";
 		try {
 			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("from", 1);
-			map.put("length", 10);
-			map.put("username", username);
-			map.put("startTime", startTime);
-			map.put("endTime", endTime);
+			map.put("username", this.getUsername());
+			map.put("startTime", this.getStartTime());
+			map.put("endTime", this.getEndTime());
+			map.put("currentPage", this.getCurrentPage());
+			map.put("rows", this.getRows());
 			System.out.println(map);
-			this.setCountQuestion(this.questionService.queryCountQuestioninfo(map));
-			this.setListQuestion(this.questionService.queryListQuestioninfo(map));
+		
+			this.setDp(questionService.findByQTime(map));
+			if (dp.gettList() != null && dp.gettList().size() > 0) {
+				this.setcList(dp.getcList());
+				this.setqList(dp.gettList());
+				this.setPage(dp.getPage());
+				requestMap.put("qList",dp.gettList());
+				requestMap.put("cList",dp.getcList());
+				System.out.println("----"+this.getqList());
+				System.out.println("----"+dp.gettList());
+				msg = "success";
+			}
+			
+			
+			System.out.println(msg);
+			return msg;
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("1"+this.getGridModel());
-		return this.refreshGridModel();
+		return msg;
 	}
-	
-	
-	
-	@Override
-	public int getResultSize() {
-		int resultSize = 0;
-		try {
-			resultSize = this.getCountQuestion();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return resultSize;
+	public List<Question> getqList() {
+		return qList;
 	}
-
-	@Override
-	public List<Object[]> listResults(int from, int length) {
-
-		List<Object[]> results = Collections.emptyList();
-		this.setFrom(from);
-		this.setLength(length);
-		try {
-			results = this.getListQuestion();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return results;
+	public void setqList(List<Question> qList) {
+		this.qList = qList;
 	}
-	
-	public List<Object[]> getListQuestion() {
-		return listQuestion;
+	public List<ClientPage> getcList() {
+		return cList;
 	}
-	
-	public void setListQuestion(List<Object[]> listQuestion) {
-		this.listQuestion = listQuestion;
+	public void setcList(List<ClientPage> cList) {
+		this.cList = cList;
 	}
-
-	public int getCountQuestion() {
-		return countQuestion;
+	public Page getPage() {
+		return page;
 	}
-	
-	public void setCountQuestion(int countQuestion) {
-		this.countQuestion = countQuestion;
+	public void setPage(Page page) {
+		this.page = page;
 	}
-	
-	public int getFrom() {
-		return from;
-	}
-	
-	public void setFrom(int from) {
-		this.from = from;
-	}
-	
-	public int getLength() {
-		return length;
-	}
-	
-	public void setLength(int length) {
-		this.length = length;
-	}
-
-
-
 	public String getUsername() {
 		return username;
 	}
-
-
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
-
-
+	public int getRows() {
+		return rows;
+	}
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
 	public String getStartTime() {
 		return startTime;
 	}
-
-
-
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-
-
-
 	public String getEndTime() {
 		return endTime;
 	}
-
-
-
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-
-
-
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+	public DataPage<Question> getDp() {
+		return dp;
+	}
+	public void setDp(DataPage<Question> dp) {
+		this.dp = dp;
+	}
 	@Override
 	public Question getModel() {
 		question = new Question();
 		return question;
 	}
 	
+	@Override
+	public void setRequest(Map<String, Object> arg0) {
+		requestMap=arg0;
+		
+	}
+
+
+
+
 }

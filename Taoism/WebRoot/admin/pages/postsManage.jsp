@@ -14,15 +14,17 @@
 <body style="margin:8px">
 	<div class="main">
 		<div class="top">
-		<form action="${pageContext.request.contextPath }/listquestion_getInfoUserList.action" method="post">
+		<form action="${pageContext.request.contextPath }/listquestion_findByQTime.action?currentPage=1&rows=10" method="post">
 			<div class="time">
-				<span>发帖日期：</span><input type="text" id="from_date"> &macr; <input type="text" id="to_date"> 
+				<span>发帖日期：</span><input type="text" id="from_date" name="startTime"> &macr; <input type="text" id="to_date" name="endTime"> 
 			</div>
-			<input type="text" placeholder="发帖人" id="poster">
+			<input type="text" placeholder="发帖人" id="poster" name="username">
 			<input type="button" class="query" value="查询" id="query" onclick='queryQuestion()'>
 		</form>
 		</div>
-		<c:out value="${gridModel}"></c:out>
+		<c:out value="${qList}"></c:out>
+		<c:out value="${cList}"></c:out>
+		<c:out value="${page}"></c:out>
 		<div class="post">
 			<div class="post-wrap">
    				<div class="rep-num" title="回复数">5000</div>

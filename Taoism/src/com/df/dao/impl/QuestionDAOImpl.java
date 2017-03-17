@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.df.dao.idao.IQuestionDAO;
 import com.df.dao.pojo.DataPage;
+import com.df.dao.pojo.Message;
 import com.df.dao.pojo.QueryResult;
 import com.df.dao.pojo.Question;
 import com.df.dao.pojo.User;
@@ -169,7 +170,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	    c.setFirstResult((currentPage - 1) * 10);
 		List<Question> questionList = c.list();
 		System.out.println("daoceng"+questionList);
-	    DataPage<Question> dp = PageUtil.paging(questionList,count.intValue(),currentPage);
+	    DataPage<Question> dp = PageUtil.paging(questionList,count.intValue(),currentPage,10);
 		System.out.println("查询的记录"+questionList);
 		System.out.println("查询的数量"+count );
 		System.out.println("dao层"+dp.gettList().toString());
@@ -239,19 +240,55 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	 * @throws Exception
 	 */
 	public List<Object[]> queryListQuestioninfo(Map<String, Object> map)
-			throws Exception {DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
-			if(null!=map.get("startTime")&&null!=map.get("endTime")){
-				dc.add(Restrictions.between("QTime", map.get("startTime").toString(),
-						map.get("endTime").toString()));
-			}
-			if(null!=map.get("username")){
-				dc.add(Restrictions.eq("username", map.get("username").toString()));
-			}
+			throws Exception {
+		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
+		if(null!=map.get("startTime")&&null!=map.get("endTime")){
+			dc.add(Restrictions.between("QTime", map.get("startTime").toString(),
+					map.get("endTime").toString()));
+		}
+		if(null!=map.get("username")){
+			dc.add(Restrictions.eq("username", map.get("username").toString()));
+		}
 
-			Criteria c = dc.getExecutableCriteria(sessionFactory.getCurrentSession());
-			c.setMaxResults(Integer.parseInt(map.get("length").toString()));
-		    c.setFirstResult(Integer.parseInt(map.get("from").toString()));
-		    return c.list();
+		Criteria c = dc.getExecutableCriteria(sessionFactory.getCurrentSession());
+		c.setMaxResults(Integer.parseInt(map.get("length").toString()));
+	    c.setFirstResult(Integer.parseInt(map.get("from").toString()));
+	    return c.list();
+	}
+
+	@Override
+	public DataPage<Question> findByQTime(Map<String, Object> map)
+			throws Exception {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT COUNT(*) FROM Question u where 1=1 ");
+		if(null!=map.get("startTime")&&!"".equals(map.get("startTime").toString())
+				&&null!=map.get("endTime")&&!"".equals(map.get("endTime").toString())){
+			sql.append(" and u.QTime >= '"+ map.get("startTime").toString()
+					+"' and u.QTime <= '"+map.get("endTime").toString()+"'");
+		}if(null!=map.get("username")){
+			sql.append(" and u.username = '"+ map.get("username").toString()+"'");
+		}
+		Long resultCount =  (Long) sessionFactory.getCurrentSession()
+				.createQuery(sql.toString()).uniqueResult();
+
+		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
+		if(null!=map.get("startTime")&&!"".equals(map.get("startTime").toString())
+				&&null!=map.get("endTime")&&!"".equals(map.get("endTime").toString())){
+			dc.add(Restrictions.between("QTime", map.get("startTime").toString(),
+					map.get("endTime").toString()));
+		}
+		if(null!=map.get("username")){
+			dc.add(Restrictions.eq("username", map.get("username").toString()));
+		}
+
+		int rows = Integer.parseInt(map.get("rows").toString());
+		int currentPage = Integer.parseInt(map.get("currentPage").toString());
+		Criteria c = dc.getExecutableCriteria(sessionFactory.getCurrentSession());
+		c.setMaxResults(rows);
+	    c.setFirstResult((currentPage-1)*rows);
+		
+	    DataPage<Question> dp = PageUtil.paging(c.list(),resultCount.intValue(),currentPage,rows);
+		return dp;
 	}
 
 	
