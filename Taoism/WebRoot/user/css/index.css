@@ -154,8 +154,8 @@ input[type=button],.ask{
 	cursor:pointer;
 	padding:6px;
 	color:#fff;
-	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#28A6FF), to(#2877ff));/*璋锋瓕*/
-	background:-moz-linear-gradient(top,#28A6FF,#2877ff);/*鐏嫄*/
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#28A6FF), to(#2877ff));/*谷歌*/
+	background:-moz-linear-gradient(top,#28A6FF,#2877ff);/*火狐*/
 	background:-ms-linear-gradient(top,#28A6FF,#2877ff);/*ie10*/
 	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#28A6FF,endColorStr=#2877ff); /*IE 6 7 8*/ 
 	border:none;

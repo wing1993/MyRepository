@@ -10,6 +10,7 @@
 	<meta http-equiv="cache-control" content="no-cache">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/admin/css/admin.css">
 	<style>
+		.wrap-add .tip{margin-left:80px;;color:red;display:none;}
 		.wrap-old li{padding:6px;margin-top:10px;background:#ddd;width:240px;}
 		.wrap-old li span{display:inline-block;}
 		.icon-d{content:'\e9ac';float:right;text-align:right;cursor:pointer;color:#969090;}
@@ -22,7 +23,9 @@
 	    <div class="wrap-add">
 	    	<span>问题类型：</span>
 	    	<input type="text" id="new_qtype" name="QTypeName">
+	    	<input type="text" style="display:none;"><!-- 只有一个type="text"时，防止按下回车键直接提交 -->
 	    	<input type="button" value="新增" id="add">
+	    	<div class="tip">该问题类型已存在!</div>
 	    </div>
 	    <ul class="wrap-old">
 	   	<c:forEach items="${questionTypeList}" var="questionType" >
@@ -43,6 +46,7 @@
 		$(function(){
 			
 			$("#new_qtype").keyup(function(e){
+				$(".wrap-add .tip").hide();
 				if(e.keyCode == 13){
 					$("#add").click();
 				}
@@ -50,9 +54,21 @@
 			$("#add").click(function(){
 				var new_type= $("#new_qtype").val();
 				if(new_type == ""){
-					alert("请输入问题类型");
+					$(".wrap-add .tip").text("请输入问题类型").show();
+					
 				}else{
-					$("form").attr("action", "<%=path %>/questionType_find_save.action").submit();
+					var lis = $(".wrap-old").find("li"),
+						flag = 0;
+						console.log(lis);
+					for(var i = 0; i < lis.length; i ++){
+						if($(lis[i]).find(".qType").text() == new_type){
+							$("#new_qtype").focus();
+							$(".wrap-add .tip").text("该问题类型已存在!").show();
+							flag = 1;
+							break;
+						}
+					}
+					flag == 0 && $("form").attr("action", "<%=path %>/questionType_find_save.action").submit();
 				}				
 			});
 		});
