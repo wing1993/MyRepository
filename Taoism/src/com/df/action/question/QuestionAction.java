@@ -105,10 +105,17 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		return msg;
 	}
 
+	/**
+	 * 逻辑删除  删除标志con6置1
+	 * @return
+	 */
 	public String delete() {
 		String msg = "error";
 		try {
-			msg = questionService.delete(question);
+			question = questionService.getById(question.getQId());
+			question.setCon6("1");
+			questionService.update(question);
+			msg = "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -119,6 +126,40 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		String msg = "error";
 		try {
 			msg = questionService.update(question);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}	
+	
+	/**
+	 * 帖子置顶
+	 * @return
+	 */
+	public String setTop() {
+		String msg = "error";
+		try {
+			question = questionService.getById(question.getQId());
+			question.setCon4("1");
+			questionService.update(question);
+			msg = "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return msg;
+	}	
+	
+	/**
+	 * 设置精华贴
+	 * @return
+	 */
+	public String setNice() {
+		String msg = "error";
+		try {
+			question = questionService.getById(question.getQId());
+			question.setCon5("1");
+			questionService.update(question);
+			msg = "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -210,6 +251,9 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		System.out.println(msg);
 		return msg;
 	}
+	
+	
+	
 	
 	public IQuestionService getQuestionService() {
 		return questionService;

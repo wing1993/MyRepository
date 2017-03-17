@@ -32,8 +32,8 @@ public class Question  implements java.io.Serializable {
      private String con2;	 //最后回复的时间
      private String con3;	 //回复的人数
      private String con4;
-     private String con5;
-     private String con6;
+     private String con5;    
+     private String con6; 
      private String con7;
      private Set publicReplies = new HashSet(0);
      private Set replies = new HashSet(0);

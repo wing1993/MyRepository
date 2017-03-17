@@ -59,4 +59,12 @@ public interface IQuestionDAO extends IBaseHibernateDAO<Question, Integer> {
 	public List<Object[]> queryListQuestioninfo(Map<String, Object> map)throws Exception;
 
 
+	/**
+	 * 根据查询条件获取帖子信息    发帖时间   发帖人
+	 * @param map
+	 * @return
+	 */
+	public DataPage<Question> findByQTime(Map<String, Object> map)throws Exception;
+
+
 }
