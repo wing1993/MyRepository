@@ -19,10 +19,8 @@ function show_sp(){
 $(function(){
 	$li=$(".master-data");
 	$sub_box=$(".master-w");
-
 	var li_w=parseInt($li.css("padding-left"))+parseInt($li.css("padding-right"))+$li.width()+25;
 
-	//alert(li_w);
 	$sub_box.css("width",$li.length*li_w);
 	var left_p=0;//向左移动的图片数量
 	var right_p=$li.length-5;//被隐藏的图片，每次显示5张图
@@ -33,12 +31,10 @@ $(function(){
 		}
 		if(left_p<1){
 			$(".ico-left").toggle();
-			//$("ico-left").css("display","none");
 			return;
 		}
 		left_p--;
 		right_p++;
-		//$sub_box.animate({left:'+=185px'}, 800);
 		$sub_box.animate({left:"+="+li_w+"px"}, 800);
 	});
 
@@ -48,12 +44,10 @@ $(function(){
 		}
 		if(right_p<1){
 			$(".ico-right").toggle();
-			//$("ico-right").css("display","none");
 			return;
 		}
 		left_p++;
 		right_p--;
-		//$sub_box.animate({left:'-=185px'}, 800);
 		$sub_box.animate({left:"-="+li_w+"px"}, 800);
 	});
 });

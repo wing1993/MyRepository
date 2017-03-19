@@ -32,7 +32,8 @@
    				<div class="rep-num" title="回复数">${questions.con3 }</div>
    				<div class="post-content">
    					<div class="post-title">
-   						<span class="post-top" title="置顶">置顶</span>  <span class="post-best" title="精华帖">精</span>
+   						<c:if test="${questions.con4 == 1 }"><span class="post-top" title="置顶">置顶</span></c:if>  
+   						<c:if test="${questions.con5 == 1 }"><span class="post-best" title="精华帖">精</span></c:if>
    						<a href="javascript:void(0);" title="" class="title" id="">${questions.QTitle }</a>&nbsp;
    						<c:set var="qTime" value="${questions.QTime }"></c:set>
    						<span class="post-time">发帖时间：${fn:substring(qTime,0,10)}</span>
@@ -131,10 +132,34 @@
 			<c:if test="${pages.hasNextPage }">
 				<a href="<%=path %>/listquestion_findByQTime.action?currentPage=${pages.currentPage+1}&rows=10" class="abtn">下一页</a>
 			</c:if>
+			<input type="number" min="0" style="width:50px;" class="jump-in">
+			<a class="btn-sub" href="javascript:void(0);" onclick="Jump(this);"><span class="sure">确定</span></a>
 		</div>
 	</div>
 </body>
 	<script src="<%=path %>/js/jquery.min.js"></script>
 	<script src="<%=path %>/js/ligerui.js?t=<%= System.currentTimeMillis()%>"></script>
 	<script src="<%=path %>/admin/js/postsManage.js?t=<%= System.currentTimeMillis()%>"></script>
+	<script type="text/javascript">
+		$(function(){
+			var pNum = $("#now").html();
+			$(".jump-in").val(parseInt(pNum) + 1);
+			$(".page-div").find('a[data-pagenum="'+pNum+'"]').addClass('now-page');
+			$(".jump-in").keyup(function(e){
+				if(e.keyCode == 13){
+					$(".btn-sub").trigger("onclick");
+					$(".sure").click();
+				}
+			});
+						
+		});
+		
+		function Jump(obj){
+			if($(".jump-in").val() == ""){
+				$(".jump-in").focus();
+			}else{
+				$(obj).attr("href", "<%=path %>/listquestion_findByQTime.action?currentPage=" + $(".jump-in").val() + "&rows=10");
+			}
+		}
+	</script>
 </html>

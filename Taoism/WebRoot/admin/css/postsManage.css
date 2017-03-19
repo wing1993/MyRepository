@@ -102,3 +102,21 @@ body{
 	color:#aaa;
 	font-size:12px;
 }
+.page-div .btn-sub{
+	width:auto;
+	height:auto;
+	line-height:20px;
+	color:#000;
+	cursor:pointer;
+	background:#fff;
+	padding:3px 6px;
+	border:1px solid #a9a9a9;
+}
+.page-div .btn-sub:hover{
+	border:1px solid #f00000 !important;
+	color:#f00000;
+}
+.now-page{
+	background:#2877ff;
+	color:#fff;
+}
