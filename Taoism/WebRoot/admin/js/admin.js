@@ -11,13 +11,7 @@ function initDom(){
 	tab = $("#page_tab").ligerTab({
 		height: 200, //高度
 		changeHeightOnResize: !0, //自适应高度
-		dragToMove: true,
-		onBeforeAddTabItem: function(a) { //	增加前事件
-//			setCurrentNav(a);
-		},
-		onAfterSelectTabItem: function(a) { //选择后事件
-			
-		}
+		dragToMove: true
 	});
 }
 

@@ -69,7 +69,18 @@ function initEvent(){
 	
 	$(".btn").click(function(){//批量审核
 		var ids = grid.getGridParam("selarrrow");
-		ids.length == 0 && alert("请选择要审核的用户"); 
+		if(ids.length == 0){
+			alert("请选择要审核的用户")
+		}else{
+			$.post('/Taoism/user_updateExaminUser.action', {"user_ids": ids}, function(data){
+				alert(data);
+				console.log(data);
+				grid.setGridParam({
+					url: '/Taoism/list_getUserGridModel.action?method=rsgCheck'
+				}).trigger('reloadGrid');
+			});
+		}	
+		
 	});
 	
 	$("#user_type").change(function(){
