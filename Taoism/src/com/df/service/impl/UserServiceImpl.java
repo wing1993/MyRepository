@@ -168,13 +168,9 @@ public class UserServiceImpl implements IUserService {
 
 	@Transactional
 	@Override
-	public String changeUserType(User user) {
-		try {
-			userDao.changeUserType(user);
-			msg="success";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String changeUserType(User user) throws Exception{
+		userDao.changeUserType(user);
+		msg="success";
 		return msg;
 	}
 
@@ -235,7 +231,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void updateExaminUser_1(User user) throws Exception{
 		user = userDao.getById(user.getUserId());
-		u.setState(1);//审核通过置1
+		user.setState(1);//审核通过置1
 		userDao.update(user);
 	}
 	
@@ -243,7 +239,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void updateExaminUser_2(User user) throws Exception{
 		user = userDao.getById(user.getUserId());
-		u.setState(2);//审核不通过置2
+		user.setState(2);//审核不通过置2
 		userDao.update(user);
 	}
 

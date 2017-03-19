@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 
 import com.df.dao.pojo.User;
 import com.df.service.iservice.IUserService;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("userAction")
@@ -44,6 +46,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	private String msg="error";
 	private List<User> u=new ArrayList<User>();
 	private String[] userIdStrings;
+	private String user_ids;
 	HttpServletResponse response = ServletActionContext.getResponse(); 
 	public int getSumPage() {
 		return sumPage;
@@ -97,6 +100,14 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		this.userIdStrings = userIdStrings;
 	}
 
+	public String getUser_ids() {
+		return user_ids;
+	}
+
+	public void setUser_ids(String user_ids) {
+		this.user_ids = user_ids;
+	}
+	
 	@Override
 	public void setRequest(Map<String, Object> arg0) {
 		requestMap = arg0;
@@ -227,7 +238,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		
 		request.setAttribute("userByPages", userList);
 	}*/
-	public String login() throws IOException {
+	public String login() throws Exception {
 		msg = userService.login(user);
 		User u = userService.findByUsername(user);
 		sessionMap.put("UsersfromActions", u);
@@ -325,18 +336,48 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	 * @throws Exception
 	 */
 	public String changeUserType(){
-		for(int i=0;i<userIdStrings.length;i++){
-			user.setUserId(Integer.parseInt(userIdStrings[i]));
-			msg = userService.changeUserType(user);
+		try {
+			System.out.println(user_ids);
+			String[] userids = user_ids.split(",");
+			System.out.println(userids.length);
+			for(int i=0;i<userids.length;i++){
+				user.setUserId(Integer.parseInt(userids[i]));
+				user.setState(1);
+				msg = userService.changeUserType(user);
+			}
+			response.getWriter().print(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return "success";
+		return null;
+	}
+	/**
+	 * 用户身份审核
+	 * @return
+	 */
+	public String updateExaminUser(){
+		try {
+			System.out.println(user_ids);
+			String[] userids = user_ids.split(",");
+			System.out.println(userids.length);
+			for(int i=0;i<userids.length;i++){
+				user.setUserId(Integer.parseInt(userids[i]));
+				user.setState(1);
+				userService.updateExaminUser_1(user);
+			}
+			msg = "success";
+			response.getWriter().print(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	/**
 	 * 用户身份审核通过
 	 * @return
 	 * @throws Exception
 	 */
-	public String updateExaminUser_1(){
+	/*public String updateExaminUser_1(){
 		try {
 			userService.updateExaminUser_1(user);
 			msg = "success";
@@ -344,13 +385,13 @@ public class UserAction implements Serializable, ModelDriven<User>,
 			e.printStackTrace();
 		}
 		return msg;
-	}
+	}*/
 	/**
 	 * 用户身份  批量  审核通过
 	 * @return
 	 * @throws Exception
 	 */
-	public String updateExaminUserAll_1(){
+	/*public String updateExaminUserAll_1(){
 		try {
 			for(int i=0;i<userIdStrings.length;i++){
 				user.setUserId(Integer.parseInt(userIdStrings[i]));
@@ -361,13 +402,13 @@ public class UserAction implements Serializable, ModelDriven<User>,
 			e.printStackTrace();
 		}
 		return msg;
-	}
+	}*/
 	/**
 	 * 用户身份审核不通过
 	 * @return
 	 * @throws Exception
 	 */
-	public String updateExaminUser_2(){
+	/*public String updateExaminUser_2(){
 		try {
 			userService.updateExaminUser_2(user);
 			msg = "success";
@@ -375,13 +416,13 @@ public class UserAction implements Serializable, ModelDriven<User>,
 			e.printStackTrace();
 		}
 		return msg;
-	}
+	}*/
 	/**
 	 * 用户身份  批量  审核不通过
 	 * @return
 	 * @throws Exception
 	 */
-	public String updateExaminUserAll_2(){
+	/*public String updateExaminUserAll_2(){
 		try {
 			for(int i=0;i<userIdStrings.length;i++){
 				user.setUserId(Integer.parseInt(userIdStrings[i]));
@@ -392,5 +433,5 @@ public class UserAction implements Serializable, ModelDriven<User>,
 			e.printStackTrace();
 		}
 		return msg;
-	}
+	}*/
 }

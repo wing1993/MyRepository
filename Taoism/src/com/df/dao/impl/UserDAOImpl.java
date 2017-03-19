@@ -50,7 +50,7 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(User user) throws Exception{
 
 		this.getSessionFactory().getCurrentSession().update(user);
 

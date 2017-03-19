@@ -34,9 +34,9 @@ public interface IUserService extends IBaseService<User, Integer> {
 	String examine(User user);
 
 
-	String changeUserType(User user);
+	String changeUserType(User user) throws Exception;
 
-	User findByUsername(User user);
+	User findByUsername(User user) throws Exception;
 	
 	/**
 	 * 通过邮箱找用户
