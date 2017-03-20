@@ -3,7 +3,6 @@ package com.df.dao.pojo;
 /**
  * QuestionType entity. @author MyEclipse Persistence Tools
  */
-
 public class QuestionType implements java.io.Serializable {
 
 	// Fields
