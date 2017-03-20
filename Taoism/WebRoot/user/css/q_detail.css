@@ -22,7 +22,7 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 .q_title{
 	float:left;
 }
-.btn{
+.a-btn{
 	cursor:pointer;
 	display:inline-block;
 	float:right;
@@ -31,9 +31,10 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 	border:1px solid #ccc;
 	font-size:14px;
 }
-.btn:hover{
+.a-btn:hover{
 	background:#2888FF;
 	color:#fff;
+	border:none;
 }
 .w-content-box{
 	background:#fff;

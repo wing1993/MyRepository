@@ -34,12 +34,22 @@
    					<div class="post-title">
    						<c:if test="${questions.con4 == 1 }"><span class="post-top" title="置顶">置顶</span></c:if>  
    						<c:if test="${questions.con5 == 1 }"><span class="post-best" title="精华帖">精</span></c:if>
-   						<a href="javascript:void(0);" title="" class="title" id="">${questions.QTitle }</a>&nbsp;
+   						<a href="javascript:void(0);" title="" class="title" id="${questions.QId }">${questions.QTitle }</a>&nbsp;
    						<c:set var="qTime" value="${questions.QTime }"></c:set>
    						<span class="post-time">发帖时间：${fn:substring(qTime,0,10)}</span>
    						<div class="post-operate">
+   						<c:if test="${questions.con4 == 1 }">
    							<input type="button" class="reply-ope unset-top" value="取消置顶">&nbsp;
+   						</c:if>
+   						<c:if test="${questions.con5 == 1 }">
    							<input type="button" class="reply-ope unset-best" value="取消精华帖">&nbsp;
+   						</c:if>
+   						<c:if test="${questions.con4 == 0 || questions.con4 == null }">
+   							<input type="button" class="reply-ope set-top" value="置顶">&nbsp;
+   						</c:if>
+   						<c:if test="${questions.con5 == 0 || questions.con5 == null}">
+   							<input type="button" class="reply-ope set-best" value="设置精华帖">&nbsp;
+   						</c:if>
    							<input type="button" class="reply-ope delete" value="删除">&nbsp;
    						</div>
    					</div>
@@ -82,37 +92,7 @@
 <!--    				</div> -->
 <!--    			</div> -->
    			
-<!--    			<div class="post-wrap"> -->
-<!--    				<div class="rep-num" title="回复数">0</div> -->
-<!--    				<div class="post-content"> -->
-<!--    					<div class="post-title"> -->
-<!--    						<a href="javascript:void(0);" title="" class="title" id="">百年孤独</a>&nbsp; -->
-<!--    						<span class="post-time">发帖时间：2017-09-5 15:20</span> -->
-<!--    						<div class="post-operate"> -->
-<!--    							<input type="button" class="reply-ope set-top" value="置顶">&nbsp; -->
-<!--    							<input type="button" class="reply-ope set-best" value="设置为精华帖">&nbsp; -->
-<!--    							<input type="button" class="reply-ope delete" value="删除">&nbsp; -->
-<!--    						</div> -->
-<!--    					</div> -->
-<!--    					<div class="post-rep"> -->
-<!--     					<div class="first-rep">过去都是假的，回忆是一条没有归途的路，以往的一切春天都无法复原， -->
-<!--     					即使最狂热最坚贞的爱情，归根结底也不过是一种瞬息即逝的现实，唯有孤独永恒。</div> -->
-<!--     					<div class="post-right"> -->
-<!--     						<span class="icon-message">&#xe929; </span><span class="last-replyer" title="最后回复人">马尔克斯</span> -->
-<!--     						<span class="last-rep-time">16:50</span> -->
-<!--     					</div> -->
-<!--    					</div> -->
-<!--    				</div> -->
-<!--    			</div> -->
-		</div>
-		
-<!-- 		<div class="page-div"> -->
-<!-- 			<a href="#" class="abtn">上一页</a> -->
-<!-- 			<a href="#" data-pagenum="">1</a> -->
-<!-- 			<span>第&nbsp;<span id="now">1</span>/<span id="total">4</span>&nbsp;页</span> -->
-			
-<!-- 			<a href="#" class="abtn">下一页</a> -->
-<!-- 		</div> -->
+
 		<div class="page-div">
 			<c:set var="pages" value="${page }"></c:set>
 			<c:if test="${pages.hasPrePage }">
@@ -124,7 +104,7 @@
 					<a href="<%=path %>/listquestion_findByQTime.action?currentPage=${pages.currentPage }&rows=10" data-pagenum="${pages.currentPage }">${pages.currentPage }</a>
 				</c:when>
 				<c:otherwise>
-					<a href="<%=path %>/listquestion_findByQTime.action?currentPage=${cList.page }" data-pagenum="${cList.page }">${cList.page }</a>
+					<a href="<%=path %>/listquestion_findByQTime.action?currentPage=${cList.page }&rows=10" data-pagenum="${cList.page }">${cList.page }</a>
 				</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -155,8 +135,12 @@
 		});
 		
 		function Jump(obj){
+			var now_page = parseInt($(".jump-in").val()),//输入值
+				max_page = parseInt($("#total").text()); //最大页数
 			if($(".jump-in").val() == ""){
 				$(".jump-in").focus();
+			}else if(now_page > max_page){
+				$(".jump-in").select();
 			}else{
 				$(obj).attr("href", "<%=path %>/listquestion_findByQTime.action?currentPage=" + $(".jump-in").val() + "&rows=10");
 			}

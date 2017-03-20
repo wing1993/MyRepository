@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>老先生答疑</title>
-	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/index.css?t=<%System.currentTimeMillis(); %>">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/index.css?t=<%=System.currentTimeMillis() %>">
 	<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/js/common.js"></script>
 	<script type="text/javascript" src="<%=path %>/user/js/index.js"></script>
@@ -60,10 +60,10 @@
 						$.each(data.cList,function(i,value){
 							var str = "";
 							if(value.page==0){
-							    str = str+"<a href='javascript:;' onclick='findData(this)'>"+data.page.currentPage+"</a>&nbsp;";}
+							    str = str+"<a href='javascript:;' onclick='findData(this)'  data-pagenum='"+data.page.currentPage+"'>"+data.page.currentPage+"</a>&nbsp;";}
 							else if(value.page==-1){
 								str = str+"<span>...</span>&nbsp;";}
-							else {str = str+"<a href='javascript:;' onclick='findData(this)'>"+value.page+"</a>&nbsp;";}
+							else {str = str+"<a href='javascript:;' onclick='findData(this)'  data-pagenum='"+value.page+"'>"+value.page+"</a>&nbsp;";}
 							
 							$(".a-page").append(str);
 						});
@@ -72,6 +72,8 @@
 						$("#total").text(data.page.totalPage);
 						$("#now").text(data.page.currentPage);
 					
+						var pNum = $("#now").text();
+						$(".page-div").find('a[data-pagenum="'+pNum+'"]').addClass('now-page');
 					}
 					if($("#total").text()==""){
 						$(".page-div").css("display","none");
@@ -82,7 +84,7 @@
 					}
 				    
 				});
-			$("body").scrollTop($("body").height());//滚动到最底部
+// 			$("body").scrollTop($("body").height());//滚动到最底部
 		}
 		
 		//查找所有地区的大师

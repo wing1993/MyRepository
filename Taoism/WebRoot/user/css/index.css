@@ -368,3 +368,7 @@ input[type=button]:hover,.ask:hover{
 #q_detail a:hover{color:#f00000;}
 .r-box a:hover{color:#f00000;}
 .no-data{text-align:center;font-size:25px;margin-top:10px;color:#f00000;}
+.now-page{
+	background:#2897ff;
+	color:#fff;
+}

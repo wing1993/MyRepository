@@ -111,7 +111,8 @@ html{font-family:'Microsoft YaHei';}
 	color:#fff;
 }
 .now-page{
-	border:none !important;
+	background:#2877ff;
+	color:#fff;
 }
 .icon-d{float:right;text-align:right;cursor:pointer;color:#969090;}
 .icon-d:hover{color:#E84747;}

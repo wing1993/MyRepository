@@ -56,15 +56,27 @@ function btnFormat(cellvalue, options, rowObject){
 	return '&nbsp;<input type="button" value="通过" class="operate">&nbsp;<input type="button" value="忽略" class="ignore">';
 }
 
-function findByUserType(){
-	
+/**
+ * 审核用户
+ * @param {} IDs
+ */
+function Review(IDs){
+	var id = typeof(IDs) == "string" ? IDs : IDs.join(",");
+	$.post('/Taoism/user_updateExaminUser.action', {"user_ids": id}, function(data){
+		console.log(data);
+		if(data == "success"){
+			alert("审核成功");
+			grid.setGridParam({
+				url: '/Taoism/list_getUserGridModel.action?method=rsgCheck'
+			}).trigger('reloadGrid');
+		}
+	});
 }
 
 function initEvent(){
 	$("#r_tb").on("click", ".operate", function(){//单个审核
-		var id = $(this).parents('tr').attr('id'),
-			data = grid.getRowData(id);
-		console.log(data);		
+		var id = $(this).parents('tr').attr('id');
+		Review(id);	
 	});
 	
 	$(".btn").click(function(){//批量审核
@@ -72,13 +84,7 @@ function initEvent(){
 		if(ids.length == 0){
 			alert("请选择要审核的用户");
 		}else{
-			alert(ids);
-			console.log(ids);
-			$.post('/Taoism/user_updateExaminUser.action', {"user_ids": ids.join(",")}, function(data){
-				grid.setGridParam({
-					url: '/Taoism/list_getUserGridModel.action?method=rsgCheck'
-				}).trigger('reloadGrid');
-			});
+			Review(ids);
 		}	
 		
 	});
