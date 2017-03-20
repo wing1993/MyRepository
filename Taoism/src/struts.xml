@@ -123,5 +123,8 @@
     		</result>
     		<result name="error" type="json"></result>
     	</action>
+    	<action name="shield_*" class="questionAction" method="{1}">
+    		<result name="replys" type="dispatcher">/admin/pages/shieldReply.jsp</result>
+    	</action>
 	</package>
 </struts>
