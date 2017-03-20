@@ -85,6 +85,12 @@
 			<result name="error" type="json"></result>
 		</action>
     </package>
+    <package name="admin_action" namespace="/" extends="json-default">	
+        <action name="admin_*" class="adminAction" method="{1}">
+			<result name="success" type="json"></result>
+			<result name="error" type="json"></result>
+		</action>
+    </package>
     <package name="mail_action" namespace="/" extends="json-default">
     	<action name="sendmail" class="findPwdAction" method="sendmail">
     		<result name="success" type="json"></result>
@@ -122,6 +128,9 @@
     			  /admin/pages/postsManage.jsp
     		</result>
     		<result name="error" type="json"></result>
+    	</action>
+    	<action name="shield_*" class="questionAction" method="{1}">
+    		<result name="replys" type="dispatcher">/admin/pages/shieldReply.jsp</result>
     	</action>
 	</package>
 </struts>
