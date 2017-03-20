@@ -56,10 +56,10 @@
             </column>
         </property>
         <property name="lastLogin" type="java.lang.String">
-            <column name="lastLogin" length="20" not-null="true" />
+            <column name="lastLogin" length="20" not-null="false" />
         </property>
         <property name="loginIp" type="java.lang.String">
-            <column name="loginIp" length="20" not-null="true" />
+            <column name="loginIp" length="20" not-null="false" />
         </property>
         <property name="con1" type="java.lang.Integer">
             <column name="con1" not-null="true">
