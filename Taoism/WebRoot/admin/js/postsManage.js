@@ -31,14 +31,21 @@ function initEvent(){
 	});
 	
 	$(".post").on("click", ".title", function(){
+		var id = $(this).attr("id");
 		dialog = $.ligerDialog.open({
 			width:900,
 			height:500,
 			title: '',
 			isDrag: true,
-			url: '/Taoism/admin/pages/shieldReply.jsp'
+			url: '/Taoism/shield_findReplyByQId.action?QId=' + id
 		});
 		$(".l-dialog-tc-inner").parents("tr").hide();
+		
+		
+//    	<action name="shield_*" class="questionAction" method="{1}">
+//    		<result name="replys" type="dispatcher">/admin/pages/shieldReply.jsp</result>
+//    	</action>
+		
 	});
 	
 	$(".post").on("click", "input.delete", function(){

@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>问题详情</title>   
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/q_detail.css?t=<%System.currentTimeMillis();%>">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/q_detail.css?t=<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/q_detail.js"></script>
@@ -115,11 +115,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					replyContent:editor.html()},function(data){
 					if(null!=data){
 						alert(data);
-						str="<div class='w-content-box'><div class='w-right'><div class='w-r-main'><a href='#' class='re-name'>${sessionScope.UsersfromActions.username }</a>："+
+						str="<div class='w-content-box'><div class='w-right'><div class='w-r-main'>"+
+							"<a href='#' class='re-name'>${sessionScope.UsersfromActions.username }</a>："+
 							"<span class='main-content'>"+editor.html()+"</span></div><div class='w-reply'><div class='r-top'>"+
 			    			"<span class='r-time'>"+data.replyTime+"</span>&nbsp;<div class='r-fold'>回复</div></div><div class='sub-reply'>"+
 			   				"<div class='sub-add'><span class='comment'>我要评论</span></div><div class='sub-edit'>"+
-			    			"<textarea class='add-re'></textarea><input type='button' value='发表' class='sub-post' onclick='subPost(this)'></div></div></div></div></div>";
+			    			"<textarea class='add-re'></textarea><input type='button' value='发表' class='sub-post' onclick='subPost(this)'>"+
+			    			"</div></div></div></div></div>";
 					
 						$(".edit-div").before(str);
 						editor.html("");
@@ -137,8 +139,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="main-box"></div>
     	<div class="main-box-fixed">
     		<div class="q_title">${requestScope.question.QTitle }</div>
-    		<c:if test="${sessionScope.UsersfromActions.userType=='弟子' }"><a class="btn" id="forward">转发</a></c:if>
-    		<a class="btn" id="btn" onclick="checkLogin_Reply()">回复</a>
+    		<c:if test="${sessionScope.UsersfromActions.userType=='弟子' }"><a class="a-btn" id="forward">转发</a></c:if>
+    		<a class="a-btn" id="btn" onclick="checkLogin_Reply()">回复</a>
     	</div>
     	<input type="hidden" value="${requestScope.question.sharezone }" class="sharezone">
     	<input type="hidden" value="${requestScope.question.QId }" class="QId"> 
