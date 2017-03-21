@@ -11,11 +11,12 @@ import com.df.dao.idao.IQuestionDAO;
 import com.df.dao.impl.AdminDAOImpl;
 import com.df.dao.pojo.Admin;
 import com.df.dao.pojo.QueryResult;
+import com.df.service.iservice.IAdminService;
 import com.df.service.iservice.IBaseService;
 
 
 @Service("adminService")
-public class AdminServiceImpl implements IBaseService<Admin, Integer> {
+public class AdminServiceImpl implements IAdminService{
 
 	@Autowired
 	@Qualifier("adminDao")
@@ -61,6 +62,13 @@ public class AdminServiceImpl implements IBaseService<Admin, Integer> {
 	public QueryResult findAll(Integer k1, Integer k2) throws Exception {
 		adminDao.findAll(k1, k2);
 		return null;
+	}
+
+	@Transactional
+	@Override
+	public List<Admin> findByAdminId(Integer userId) throws Exception {
+		List<Admin> adminList = adminDao.findByAdminId(userId);
+		return adminList;
 	}
 
 }
