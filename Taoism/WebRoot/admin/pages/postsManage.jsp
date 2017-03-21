@@ -39,18 +39,18 @@
    						<span class="post-time">发帖时间：${fn:substring(qTime,0,10)}</span>
    						<div class="post-operate">
    						<c:if test="${questions.con4 == 1 }">
-   							<input type="button" class="reply-ope unset-top" value="取消置顶">&nbsp;
+   							<a href="" class="reply-ope unset-top">取消置顶</a>&nbsp;
    						</c:if>
    						<c:if test="${questions.con5 == 1 }">
-   							<input type="button" class="reply-ope unset-best" value="取消精华帖">&nbsp;
+   							<a href="" class="reply-ope unset-best">取消精华帖</a>&nbsp;
    						</c:if>
    						<c:if test="${questions.con4 == 0 || questions.con4 == null }">
-   							<input type="button" class="reply-ope set-top" value="置顶">&nbsp;
+   							<a href="" class="reply-ope set-top" >置顶</a>&nbsp;
    						</c:if>
    						<c:if test="${questions.con5 == 0 || questions.con5 == null}">
-   							<input type="button" class="reply-ope set-best" value="设置精华帖">&nbsp;
+   							<a href="" class="reply-ope set-best">设置精华帖</a>&nbsp;
    						</c:if>
-   							<input type="button" class="reply-ope delete" value="删除">&nbsp;
+   							<a href="" class="reply-ope delete">删除</a>&nbsp;
    						</div>
    					</div>
    					<div class="post-rep">

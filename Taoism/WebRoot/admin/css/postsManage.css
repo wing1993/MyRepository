@@ -84,6 +84,7 @@ body{
 	float:right;
 }
 .post-title .reply-ope{
+	text-decoration:none;
 	background-color:#fff;
 	color:#aaa;
 	padding:3px 6px;
