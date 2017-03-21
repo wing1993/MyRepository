@@ -72,26 +72,3 @@ text-align:center;cursor:pointer;padding-left:8px;padding-right:8px;}
 	margin-rigth:10px;
 	margin-left:20px;
 }
-.existed{
-	width:300px;
-}
-.existed li{
-	padding:5px;
-	background:#ddd;
-	margin-top:6px;
-}
-.add-admin{
-	background-color:#28A6FF;
-	border:none;
-	color:#fff;
-	cursor:pointer;
-	padding:6px 4px;
-	border-radius:4px;
-	
-}
-.add-admin:hover{
-	box-shadow:0px 0px 3px #2999e8;
-	
-}
-.add-input{height:27px;}
-.newAdmin{margin-left:40px;}

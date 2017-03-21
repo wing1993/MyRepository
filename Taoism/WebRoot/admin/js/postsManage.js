@@ -31,13 +31,14 @@ function initEvent(){
 	});
 	
 	$(".post").on("click", ".title", function(){
-		var id = $(this).attr("id");
+		var id = $(this).attr("id"),
+			sharezone = $(this).data("sharezone");
 		dialog = $.ligerDialog.open({
 			width:900,
 			height:500,
 			title: '',
 			isDrag: true,
-			url: '/Taoism/shield_findReplyByQId.action?QId=' + id
+			url: '/Taoism/shield_findReplyByQId.action?QId=' + id + '&sharezone=' + sharezone
 		});
 		$(".l-dialog-tc-inner").parents("tr").hide();
 		

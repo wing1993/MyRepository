@@ -20,7 +20,7 @@
 			<a href="javascript:void(0);" class="close">关闭</a>
 		</div>
 		<div class="reply-content">
-		<c:out value="${replysfromAction }"></c:out>
+<!-- 		<c:out value="${replysfromAction }"></c:out> -->
 		<c:forEach items="${replysfromAction }" var="reply">
 			<div class="content-box">   			
     			<div class="w-r-main">

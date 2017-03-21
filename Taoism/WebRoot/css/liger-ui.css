@@ -35,8 +35,8 @@ p,
 blockquote,
 th,
 td {
-	margin: 0;
-	padding: 0;
+	/* margin: 0;
+	padding: 0; */
 }
 
 table {
@@ -46,7 +46,7 @@ table {
 
 fieldset,
 img {
-	border: 0;
+	/* border: 0; */
 }
 
 address,
@@ -63,7 +63,7 @@ var {
 }
 
 li {
-	list-style: none;
+	/* list-style: none; */
 }
 
 caption,
@@ -93,9 +93,9 @@ sub {
 input,
 textarea,
 select {
-	font-family: inherit;
+	/* font-family: inherit;
 	font-size: inherit;
-	font-weight: inherit;
+	font-weight: inherit; */
 }
 
 legend {
@@ -108,8 +108,8 @@ ins {
 }
 
 body {
-	font-family: "微软雅黑", "宋体", Arial, sans-serif;
-	font-size: 12px;
+	/* font-family: "微软雅黑", "宋体", Arial, sans-serif;
+	font-size: 12px; */
 }
 
 .l-clear {

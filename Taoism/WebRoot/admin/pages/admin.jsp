@@ -48,6 +48,12 @@
 					<span id="m_message">帖子管理</span>
 				</li>
 			</ul>
+			<div class="left-item"><span class="icon-users">&#xe972;</span>&nbsp;管理人员</div>
+			<ul class="sub-item">
+				<li tabid="typeManage" tab_url="addAdmin.jsp?t=<%=System.currentTimeMillis() %>">
+					<span class="icon-sub">&#xe924;</span>&nbsp;<span id="ma_q_type">新增管理员</span>
+				</li>
+			</ul>
 			<div class="left-item"><span class="icon-qz">&#xe991;</span>&nbsp;数据维护</div>
 			<ul class="sub-item">
 				<li tabid="backups"><span class="icon-sub">&#xe92c;</span>&nbsp;<span id="">数据备份</span></li>

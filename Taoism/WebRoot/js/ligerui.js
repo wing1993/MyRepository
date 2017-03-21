@@ -6853,6 +6853,23 @@
             {
                 if (event.keyCode == 38 || event.keyCode == 40 || event.keyCode == 13) //up 、down、enter
                 {
+                	//-----------wyl------2017/03/21-------
+                	if(p.is_clear){//输入下拉不存在的值，按回车或离开焦点时，自动清除该字段的值
+		            	var findByVal = g.findValueByText($(this).val()),
+		            		valueField = p.valueField;
+		            		is_exist = false;//输入的值是否存在标识
+		            	for(var i in g.data){
+		            		if(findByVal == g.data[i][valueField]){//判断输入的值是否在下拉列表中
+		            			is_exist = true;
+		            			break;
+		            		}
+		            	}
+		            	if(!is_exist){
+		            		$(this).val('') && p.Illegal_input(); //非法输入则执行提示
+		            		
+		            	}
+	            	}
+	            	//-----------wyl------2017/03/21-------
                     return;
                 } 
                 if (this._acto)

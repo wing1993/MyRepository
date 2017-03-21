@@ -16,7 +16,7 @@ String path = request.getContextPath();
 		.search{margin-bottom:10px;}
 		.search select{width:120px;display:inline-block;height:27px;}
 		.search-wrap{position:relative;display:inline-block;border-radius:4px;border:1px solid #a9a9a9;}
-		.search-wrap input{border:none;outline:none;height:23px;width:80%;margin-left:5px;}
+		.search-wrap input{border:none;outline:none;height:22px;width:80%;margin-left:5px;}
 		.search-wrap .search-btn{position:absolute;right:4px;}
 		.operate, .ignore{border-radius:2px;border:none;color:#6b99e4;padding:4px;cursor:pointer;background:transparent;}
 		.operate:hover, .ignore:hover{text-decoration:underline;color:red;}

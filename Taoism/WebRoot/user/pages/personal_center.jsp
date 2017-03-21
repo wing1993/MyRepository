@@ -132,30 +132,6 @@
 			}).mouseout(function(){
 				$(this).removeClass('select');
 			});
-			
-			$(".existed").on("click", ".icon-d", function(){
-				if(confirm("确定要删除该管理员吗？")){
-					var id = $(this).prev().attr('id');
-					$.post('', {userid: id}, function(data){
-						if(1){ //测试
-							$(this).parents('li').remove();
-						}
-					});
-				}
-			});
-			
-			$(".add-admin").click(function(){
-				var new_admin = $(".add-input").val();
-				if( new_admin== ''){
-					alert("请输入弟子的法号！");
-				}else{
-					$.post('', {username: new_admin}, function(data){
-						if(1){//测试
-							$(".existed").append('<li><span>' + new_admin + '</span><span class="icon-d" title="删除">&#xe15c;</span></li>');
-						}
-					});
-				}
-			});
 		});
 		//删除消息
 		function delete_message(obj){

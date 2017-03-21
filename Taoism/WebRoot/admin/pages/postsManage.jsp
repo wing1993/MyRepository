@@ -34,7 +34,7 @@
    					<div class="post-title">
    						<c:if test="${questions.con4 == 1 }"><span class="post-top" title="置顶">置顶</span></c:if>  
    						<c:if test="${questions.con5 == 1 }"><span class="post-best" title="精华帖">精</span></c:if>
-   						<a href="javascript:void(0);" title="" class="title" id="${questions.QId }">${questions.QTitle }</a>&nbsp;
+   						<a href="javascript:void(0);" title="" class="title" id="${questions.QId }" data-sharezone="${questions.sharezone }">${questions.QTitle }</a>&nbsp;
    						<c:set var="qTime" value="${questions.QTime }"></c:set>
    						<span class="post-time">发帖时间：${fn:substring(qTime,0,10)}</span>
    						<div class="post-operate">
