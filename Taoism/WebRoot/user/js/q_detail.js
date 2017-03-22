@@ -3,7 +3,7 @@ $(function(){
 		$("body").scrollTop($("body").height());//滚动到最底部
 		$(".ke-edit-iframe").focus();
 	});
-	$(".comment").click(function(){
+	$("body").on("click", ".comment", function(){
 		$(this).parent().next().find('.add-re').val('');
 		$(this).parent().next().toggle();
 	});

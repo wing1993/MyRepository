@@ -50,8 +50,8 @@
 			</ul>
 			<div class="left-item"><span class="icon-users">&#xe972;</span>&nbsp;管理人员</div>
 			<ul class="sub-item">
-				<li tabid="typeManage" tab_url="addAdmin.jsp?t=<%=System.currentTimeMillis() %>">
-					<span class="icon-sub">&#xe924;</span>&nbsp;<span id="ma_q_type">新增管理员</span>
+				<li tabid="addAdmin" tab_url="addAdmin.jsp?t=<%=System.currentTimeMillis() %>">
+					<span class="icon-sub">&#xe924;</span>&nbsp;<span>新增管理员</span>
 				</li>
 			</ul>
 			<div class="left-item"><span class="icon-qz">&#xe991;</span>&nbsp;数据维护</div>

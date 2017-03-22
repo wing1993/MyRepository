@@ -1,3 +1,4 @@
+var grid;
 /**
  * 用户信息
  */
@@ -12,24 +13,25 @@ function createGrid(){
 	var h = $(".main").height() - $(".search").height() - 65;
 	var columns = [
 			{label:'userId', name:'userId', index:'userId', hidden: true, key: true},
-			{label:'用户名', name:'username', index:'username', width:120, align:'center'},
+			{label:'用户名', name:'username', index:'username', width:80, align:'center'},
 			{label:'注册类型', name:'userType', index: 'userType', width:80, align:'center'},
-			{label:'性别', name:'gender', index:'gender', width:60, align:'center'},
+			{label:'性别', name:'gender', index:'gender', width:40, align:'center'},
 			{label:'居住城市', name:'city', index:'city',width:80, align:'center'},
-			{label:'手机', name:'phone', index:'phone', width:130, align:'center'},
-			{label:'真实姓名', name:'realname', index:'realname', width:100, align:'center'},
-			{label:'生日', name:'birthday', index:'birthday', width:120, align:'center'},
-			{label:'qq', name:'qq', index:'qq', width:150, align:'center'},
-			{label:'微信', name:'weixin', index:'weixin', width:150, align:'center'},
-			{label:'邮箱', name:'mail', index:'mail', width:250, align:'center'},
-			{label:'个人简介', name:'introduce', index:'introduce', width:300, align:'center',classes: 'ellipsis'}
+			{label:'手机', name:'phone', index:'phone', width:100, align:'center'},
+			{label:'真实姓名', name:'realname', index:'realname', width:80, align:'center'},
+			{label:'生日', name:'birthday', index:'birthday', width:100, align:'center'},
+			{label:'qq', name:'qq', index:'qq', width:100, align:'center'},
+			{label:'微信', name:'weixin', index:'weixin', width:100, align:'center'},
+			{label:'邮箱', name:'mail', index:'mail', width:120, align:'center'},
+			{label:'个人简介', name:'introduce', index:'introduce', width:180, align:'center',classes: 'ellipsis'},
+			{label:'操作', name:'con7', index:'con7', width:80,align:'center',formatter: btnFormat}
 		];
 	grid = $("#r_tb").jqGrid({
 		colModel: columns,
 		width:w,
 		height:h,
 		datatype: 'json',
-		mtype: "GET",
+		mtype: "POST",
 		url: '/Taoism/list_getInfoUserList.action?method=userInfo',//'admin/pages/test.json',
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
@@ -48,6 +50,11 @@ function createGrid(){
 	});
 }
 
+function btnFormat(cellvalue, options, rowObject){
+	var ope = cellvalue == 1 ? "解除禁言" : "禁言";
+	return '<input type="button" class="slience" value="' + ope + '" data-ope="' + cellvalue + '">&nbsp;';//<input type="button" class="join-black" value="拉黑">&nbsp;
+}
+
 function initEvent(){
 	$("#search_val").keyup(function(e){
 		if(e.keyCode == 13){
@@ -63,6 +70,15 @@ function initEvent(){
 		}).trigger('reloadGrid');
 	});
 	
+	$("body").on("click", ".slience", function(){
+		var id = $(this).parents("tr").attr("id"),
+			new_ul = "";
+//			grid.setGridParam({
+//				url: new_url
+//			}).trigger('reloadGrid');
+		dataStop(id);	
+	});
+	
 	$("#user_type").change(function(){
 		var type = $(this).val(),
 			old_url = '/Taoism/list_getUserGridModel.action?method=userInfo',
@@ -71,4 +87,35 @@ function initEvent(){
 			url: new_url
 		}).trigger('reloadGrid');
 	});
+}
+
+/**
+ * 将禁言色用户设置为红色，id不为空时执行禁言操作，为空则遍历表格
+ * @param {} id
+ */
+function dataStop(id){
+	var rows = grid.getRowData();
+	console.log(rows);
+	for(var i = 0; i < rows.length; i++){
+		if(rows[i].userId == id){
+			if(rows[i].con7 == 0){
+				$(".stop-tip").addClass("stop-err").find("span").html("禁言失败").addClass("icon-error");
+			}else{
+				$(".stop-tip").addClass("stop-success").find("span").html("禁言成功").addClass("icon-success");
+			}
+			$(".stop-tip").fadeIn(500, function() {
+				setTimeout(function() {
+					$(".stop-tip").fadeOut(500, function() {
+						$(".stop-tip").hide();
+					});
+				}, 1000);
+			});
+			var __id = rows[i].userId;
+			$tds = grid.find('tr[id="' + __id + '"]').find('td[role="gridcell"]').addClass("td-stop-color");
+			break;
+		}else if(rows[i].con7 == 1){
+			var __id = rows[i].userId;
+			$tds = grid.find('tr[id="' + __id + '"]').find('td[role="gridcell"]').addClass("td-stop-color");
+		}
+	}
 }
