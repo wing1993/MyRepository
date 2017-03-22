@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/q_detail.css?t=<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/q_detail.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/q_detail.js?t=<%=System.currentTimeMillis()%>"></script>
 	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/kindeditor-min.js"></script>
 	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/lang/zh_CN.js"></script>
 	<script>
@@ -152,6 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</div>
     		</div>
     	</div>
+    	<%-- <c:out value="${replysfromAction }"></c:out> --%>
     	<c:forEach items="${replysfromAction }" var="reply">
     	<div class="w-content-box">
     		<!-- <div class="w-left">
@@ -166,12 +167,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="w-reply">
     				<div class="r-top">
     					<span class="r-time">${fn:substring(reply.replyTime,0,19) }</span>&nbsp;
-    					<c:set var="times" value="${reply.discipleReplies }"></c:set>
+    					<c:if test="${requestScope.question.sharezone == '弟子区' }"><c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
+    					<c:if test="${requestScope.question.sharezone == '公开区' }"><c:set var="times" value="${reply.publicReplies }"></c:set></c:if>
+    					<c:if test="${requestScope.question.sharezone == '学员区' }"><c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
+    					<c:if test="${requestScope.question.sharezone == '我的问题' }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
+    					
     					<div class="r-fold" onclick="fold(this)"><span class="r">回复</span>(<span class="t">${fn:length(times)}</span>)</div>
     				</div>    				
     				<div class="sub-reply">
-   						<!-- <div class="answerer-img"><img src=""/></div> -->
+    				<c:if test="${requestScope.question.sharezone == '弟子区' }">
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
+   						<!-- <div class="answerer-img"><img src=""/></div> -->
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">
    							<div class="ans-content">
    								<input type="hidden" value="${dReply.replyId}" id="${dReply.replyId}">
@@ -182,13 +188,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   								<a href="javascript:;" onclick="reply(this)">回复</a>
 	   							</div>
 	   						</div>
-   						<!-- <script>
-   							if(${dReply.replyId==null }){
-   								$("#"+"${dReply.replyId}").parent().parent().prev().find(".r-fold").text("回复");
-   								//$("#"+"${reply.replyId}").parent().next().css("display","none");
-   							}
-   						</script> -->
    						</c:forEach>
+   					</c:if>
+   					<c:if test="${requestScope.question.sharezone == '公开区' }">
+   						<c:forEach items="${reply.publicReplies }" var="pReply">
+   						<!-- <div class="answerer-img"><img src=""/></div> -->
+   							<input type="hidden" value="${fn:length(items)}" class="rTimes">
+   							<div class="ans-content">
+   								<input type="hidden" value="${pReply.replyId}" id="${pReply.replyId}">
+	   							<a href="#" class="re-name">${pReply.respondent }</a>:
+	   							<span class="main-content">${pReply.replyContent }</span>
+	   							<div class="ans-co-bottom">
+	   								<span class="ans-time">${fn:substring(pReply.replyTime,0,19) }</span>
+	   								<a href="javascript:;" onclick="reply(this)">回复</a>
+	   							</div>
+	   						</div>
+   						</c:forEach>
+   					</c:if>
+   					<c:if test="${requestScope.question.sharezone == '学员区' }">
+   						<c:forEach items="${reply.studentReplies }" var="sReply">
+   						<!-- <div class="answerer-img"><img src=""/></div> -->
+   							<input type="hidden" value="${fn:length(items)}" class="rTimes">
+   							<div class="ans-content">
+   								<input type="hidden" value="${sReply.replyId}" id="${sReply.replyId}">
+	   							<a href="#" class="re-name">${sReply.respondent }</a>:
+	   							<span class="main-content">${sReply.replyContent }</span>
+	   							<div class="ans-co-bottom">
+	   								<span class="ans-time">${fn:substring(sReply.replyTime,0,19) }</span>
+	   								<a href="javascript:;" onclick="reply(this)">回复</a>
+	   							</div>
+	   						</div>
+   						</c:forEach>
+   					</c:if>
+   					<c:if test="${requestScope.question.sharezone == '我的问题' }">
+   						<c:forEach items="${reply.myquestionReplies }" var="mReply">
+   						<!-- <div class="answerer-img"><img src=""/></div> -->
+   							<input type="hidden" value="${fn:length(items)}" class="rTimes">
+   							<div class="ans-content">
+   								<input type="hidden" value="${mReply.replyId}" id="${mReply.replyId}">
+	   							<a href="#" class="re-name">${mReply.respondent }</a>:
+	   							<span class="main-content">${mReply.replyContent }</span>
+	   							<div class="ans-co-bottom">
+	   								<span class="ans-time">${fn:substring(mReply.replyTime,0,19) }</span>
+	   								<a href="javascript:;" onclick="reply(this)">回复</a>
+	   							</div>
+	   						</div>
+   						</c:forEach>
+   					</c:if>
     					<div class="sub-add"><span class="comment">我要评论</span></div>
     					<div class="sub-edit">
     						<textarea class="add-re"></textarea>

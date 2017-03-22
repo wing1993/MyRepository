@@ -5111,7 +5111,7 @@
 				if(!(usedata && usedata === true && $t.p.data.length > 0)) {
 					usedata = false;
 				}
-				while(j < len) {
+				while(j <= len) {//----wyl--2017/03/22--
 					if(getall) {
 						ind = $t.rows[j];
 					}
