@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.df.dao.pojo.User;
+import com.df.dao.util.MD5Util;
 import com.df.service.iservice.IUserService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
@@ -239,6 +240,9 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		request.setAttribute("userByPages", userList);
 	}*/
 	public String login() throws Exception {
+		//user.setPassword(MD5Util.md5(user.getPassword()+user.getUsername()));
+		System.out.println("登录加密密码："+user.getPassword());
+		
 		msg = userService.login(user);
 		User u = userService.findByUsername(user);
 		sessionMap.put("UsersfromActions", u);
@@ -266,6 +270,8 @@ public class UserAction implements Serializable, ModelDriven<User>,
 					msg = userService.registry((User)requestMap.get("user"));
 				}else{
 					System.out.println(userService.findSameName(user));
+					//user.setPassword(MD5Util.md5(user.getPassword()+user.getUsername()));//密码MD5加密 方式：密码+用户名
+					System.out.println("加密密码："+user.getPassword());
 					msg = userService.registry(user);//当用户名和邮箱都未被注册的时候，验证成功					
 				}
 				System.out.println();
@@ -371,6 +377,21 @@ public class UserAction implements Serializable, ModelDriven<User>,
 			e.printStackTrace();
 		}
 		return null;
+	}
+	/**
+	 * 将用户列入黑名单==>禁言
+	 * @return
+	 */
+	public String shielUser()  {
+		try {
+			//String con7 = user.getCon7();
+			user = userService.getById(user.getUserId());
+			user.setCon7("1");
+			userService.update(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "userInfo";
 	}
 	/**
 	 * 用户身份审核通过

@@ -1,14 +1,20 @@
 package com.df.dao.pojo;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
  * PublicReply entity. @author MyEclipse Persistence Tools
  */
 
-public class PublicReply  implements java.io.Serializable {
+public class PublicReply  implements Comparable<PublicReply>, java.io.Serializable {
 
 
     // Fields    
@@ -31,7 +37,7 @@ public class PublicReply  implements java.io.Serializable {
      private String con5;
      private String con6;
      private String con7;
-     private Set publicReplies = new HashSet(0);
+     private Set<PublicReply> publicReplies = new TreeSet<PublicReply>();
 
 
     // Constructors
@@ -186,13 +192,33 @@ public class PublicReply  implements java.io.Serializable {
         this.con7 = con7;
     }
 
-    public Set getPublicReplies() {
+    public Set<PublicReply> getPublicReplies() {
         return this.publicReplies;
     }
     
-    public void setPublicReplies(Set publicReplies) {
+    public void setPublicReplies(Set<PublicReply> publicReplies) {
+    	List<PublicReply> pList = new ArrayList<PublicReply>(publicReplies);
+        Collections.sort(pList,new Comparator<PublicReply>(){
+
+			@Override
+			public int compare(PublicReply o1, PublicReply o2) {
+				// TODO Auto-generated method stub
+				return o1.replyId.compareTo(o2.replyId);
+			}
+       
+        });
+        publicReplies = new LinkedHashSet<PublicReply>(pList);
         this.publicReplies = publicReplies;
     }
+
+	@Override
+	public int compareTo(PublicReply o) {
+		int result = this.replyTime.compareTo(o.replyTime);
+		if (result == 0){
+			return this.replyId.compareTo(o.replyId);
+		}
+		return result;
+	}
    
 
 

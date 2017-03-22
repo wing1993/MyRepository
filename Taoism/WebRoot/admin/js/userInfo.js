@@ -72,10 +72,10 @@ function initEvent(){
 	
 	$("body").on("click", ".slience", function(){
 		var id = $(this).parents("tr").attr("id"),
-			new_ul = "";
-//			grid.setGridParam({
-//				url: new_url
-//			}).trigger('reloadGrid');
+			new_url = "/Taoism/user_shielUser.action?userId="+id;
+			grid.setGridParam({
+				url: new_url
+			}).trigger('reloadGrid');
 		dataStop(id);	
 	});
 	
