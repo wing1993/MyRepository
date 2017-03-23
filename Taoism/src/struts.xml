@@ -62,7 +62,6 @@
         <action name="question_*" class="questionAction" method="{1}">
 			<result name="success" type="json"></result>
 			<result name="error" type="json"></result>
-			<result name="postsManage" type="redirectAction">listquestion_findByQTime</result>
 		</action>
     </package>
      <package name="post_action" namespace="/" extends="json-default">

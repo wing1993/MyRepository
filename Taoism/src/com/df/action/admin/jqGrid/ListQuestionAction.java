@@ -56,8 +56,9 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 			map.put("username", this.getUsername());
 			map.put("startTime", this.getStartTime());
 			map.put("endTime", this.getEndTime());
-			map.put("currentPage", (0==this.getCurrentPage())?1:this.getCurrentPage());
-			map.put("rows", (0==this.getRows())?10:this.getRows());
+			map.put("currentPage", this.getCurrentPage());
+			map.put("rows", this.getRows());
+			System.out.println(map);
 		
 			this.setDp(questionService.findByQTime(map));
 			if (dp.gettList() != null && dp.gettList().size() > 0) {
@@ -66,6 +67,8 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 				this.setPage(dp.getPage());
 				requestMap.put("qList",dp.gettList());
 				requestMap.put("cList",dp.getcList());
+				System.out.println("----"+this.getqList());
+				System.out.println("----"+dp.gettList());
 				msg = "success";
 			}
 			
