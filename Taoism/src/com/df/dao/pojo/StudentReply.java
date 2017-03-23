@@ -1,6 +1,11 @@
 package com.df.dao.pojo;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -8,7 +13,7 @@ import java.util.Set;
  * StudentReply entity. @author MyEclipse Persistence Tools
  */
 
-public class StudentReply  implements java.io.Serializable {
+public class StudentReply  implements Comparable<StudentReply>, java.io.Serializable {
 
 
     // Fields    
@@ -186,13 +191,33 @@ public class StudentReply  implements java.io.Serializable {
         this.con7 = con7;
     }
 
-    public Set getStudentReplies() {
+    public Set<StudentReply> getStudentReplies() {
         return this.studentReplies;
     }
     
-    public void setStudentReplies(Set studentReplies) {
-        this.studentReplies = studentReplies;
+    public void setStudentReplies(Set<StudentReply> studentReplies) {
+    	List<StudentReply> sList = new ArrayList<StudentReply>(studentReplies);
+        Collections.sort(sList,new Comparator<StudentReply>(){
+
+			@Override
+			public int compare(StudentReply o1, StudentReply o2) {
+				// TODO Auto-generated method stub
+				return o1.replyId.compareTo(o2.replyId);
+			}
+       
+        });
+        studentReplies = new LinkedHashSet<StudentReply>(sList);
+    	this.studentReplies = studentReplies;
     }
+
+	@Override
+	public int compareTo(StudentReply o) {
+		int result = this.replyTime.compareTo(o.replyTime);
+		if (result == 0){
+			return this.replyId.compareTo(o.replyId);
+		}
+		return result;
+	}
    
 
 
