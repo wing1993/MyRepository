@@ -120,4 +120,11 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 */
 	List<Object[]> queryListUserinfo(int from, int length, User user) throws Exception;
 
+	/**
+	 * 查询出所有弟子 大师
+	 * @return
+	 * @throws Exception
+	 */
+	List<User> findDiscipleList()throws Exception;
+
 }

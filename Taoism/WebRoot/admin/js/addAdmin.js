@@ -54,7 +54,8 @@ function createCombo(data, str){
 			title: !str ? '新增管理员' : str,
 			content: _html
 		});
-		
+
+$.post("/Taoism/user_findDiscipleList.action", {}, function(data){
 	var Data = [{"id":1,"username":"nmae"},{"id":2,"username":"hhh"},{"id":3,"username":"uii"},{"id":4,"username":"uyyi"}];
 	com_opt = {
 		width:150,
@@ -97,6 +98,7 @@ function createCombo(data, str){
 		$("input[name='userId']").val(data.userId);
 		$(".add-input").attr("disabled", true);
 	}
+});
 }
 
 function initEvent(){

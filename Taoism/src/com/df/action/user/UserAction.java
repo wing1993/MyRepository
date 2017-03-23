@@ -46,6 +46,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	private String valid_code;
 	private String msg="error";
 	private List<User> u=new ArrayList<User>();
+	//private List<Object[]> userList=new ArrayList<Object[]>();
 	private String[] userIdStrings;
 	private String user_ids;
 	HttpServletResponse response = ServletActionContext.getResponse(); 
@@ -108,7 +109,20 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	public void setUser_ids(String user_ids) {
 		this.user_ids = user_ids;
 	}
-	
+
+	/*public List<Object[]> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<Object[]> userList) {
+		this.userList = userList;
+	}*/
+
+	public List<User> getU() {
+		return u;
+	}
+
+
 	@Override
 	public void setRequest(Map<String, Object> arg0) {
 		requestMap = arg0;
@@ -133,17 +147,14 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	 * this.currentPage = currentPage; }
 	 */
 
-	public IUserService getUserService() {
-		return userService;
-	}
 
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
 	}
 
-	public Map<String, Object> getRequestMap() {
+	/*public Map<String, Object> getRequestMap() {
 		return requestMap;
-	}
+	}*/
 
 	public void setRequestMap(Map<String, Object> requestMap) {
 		this.requestMap = requestMap;
@@ -315,6 +326,36 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		}		
 	}
 	/**
+	 * 查找所有大师 弟子
+	 * @return
+	 */
+	public String findDiscipleList(){
+		try {
+			u = userService.findDiscipleList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "success";
+	}
+	/**
+	 * 将用户列入黑名单==>禁言
+	 * @return
+	 */
+	public String shielUser()  {
+		String msg= "error";
+		try {
+			String con7 = user.getCon7();
+			user = userService.getById(user.getUserId());
+			user.setCon7(con7);
+			msg = userService.update(user);
+			PrintWriter out = response.getWriter();
+			out.print(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	/**
 	 * 查询未审核的用户
 	 * @return
 	 * @throws Exception
@@ -378,24 +419,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		}
 		return null;
 	}
-	/**
-	 * 将用户列入黑名单==>禁言
-	 * @return
-	 */
-	public String shielUser()  {
-		String msg= "error";
-		try {
-			String con7 = user.getCon7();
-			user = userService.getById(user.getUserId());
-			user.setCon7(con7);
-			msg = userService.update(user);
-			PrintWriter out = response.getWriter();
-			out.print(msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	
 	/**
 	 * 用户身份审核通过
 	 * @return

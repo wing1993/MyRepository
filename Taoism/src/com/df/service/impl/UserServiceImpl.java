@@ -243,5 +243,12 @@ public class UserServiceImpl implements IUserService {
 		userDao.update(user);
 	}
 
+
+	@Transactional
+	@Override
+	public List<User> findDiscipleList() throws Exception {
+		return userDao.findDiscipleList();
+	}
+
 	
 }

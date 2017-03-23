@@ -2,7 +2,6 @@ package com.df.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.df.dao.idao.IUserDAO;
 import com.df.dao.pojo.QueryResult;
-import com.df.dao.pojo.Question;
 import com.df.dao.pojo.User;
 
 @Repository("userDao")
@@ -263,6 +261,15 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 			sql.append(" AND username LIKE CONCAT(CONCAT('%', "+user.getUsername()+"),'%')");
 		}
 		return this.queryResultsCount(sql.toString());
+	}
+
+	@Override
+	public List<User> findDiscipleList() throws Exception {
+		List<User> userList=new ArrayList<User>();
+		String hql="select new com.df.dao.pojo.User(u.userId,u.username,u.password) from User u where u.state=0 and u.userType='弟子'";
+		Query query=this.getSessionFactory().getCurrentSession().createQuery(hql);
+		userList = query.list();System.out.println(userList);
+		return userList;
 	}
 
 	

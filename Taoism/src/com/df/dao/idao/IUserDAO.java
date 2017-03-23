@@ -130,5 +130,11 @@ public interface IUserDAO extends IBaseHibernateDAO<User, Integer> {
 	 */
 	int queryCountUserinfo(User user) throws Exception;
 
+	/**
+	 * 查询所有弟子大师
+	 * @return
+	 */
+	List<User> findDiscipleList()throws Exception;
+
 	
 }
