@@ -110,15 +110,16 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	 * @return
 	 */
 	public String delete() {
+		String msg = "error";
 		try {
-			String con6 = question.getCon6();
 			question = questionService.getById(question.getQId());
-			question.setCon6(con6);
+			question.setCon6("1");
 			questionService.update(question);
+			msg = "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "postsManage";
+		return msg;
 	}
 
 	public String update() {
@@ -132,19 +133,20 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	}	
 	
 	/**
-	 * 帖子设置置顶
+	 * 帖子置顶
 	 * @return
 	 */
 	public String setTop() {
+		String msg = "error";
 		try {
-			String con4 = question.getCon4();
 			question = questionService.getById(question.getQId());
-			question.setCon4(con4);
+			question.setCon4("1");
 			questionService.update(question);
+			msg = "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "postsManage";
+		return msg;
 	}	
 	
 	/**
@@ -152,15 +154,16 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	 * @return
 	 */
 	public String setNice() {
+		String msg = "error";
 		try {
-			String con5 = question.getCon5();
 			question = questionService.getById(question.getQId());
-			question.setCon5(con5);
+			question.setCon5("1");
 			questionService.update(question);
+			msg = "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "postsManage";
+		return msg;
 	}	
 	
 	/**

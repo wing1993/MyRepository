@@ -40,7 +40,7 @@
 			<result name="success" type="json"></result>
 			<result name="error" type="json"></result>
 			<result name="Unexamined" type="dispatcher">/admin/pages/rsgCheck_new.jsp</result>
-			<result name="userInfo" type="dispatcher">/admin/pages/userInfo.jsp</result>
+<!-- 			<result name="userInfo" type="dispatcher">/admin/pages/userInfo.jsp</result> -->
 		</action>
 		<action name="user" class="listUserAction" method="{1}">
 			<result name="success" type="json"></result>
@@ -63,7 +63,6 @@
         <action name="question_*" class="questionAction" method="{1}">
 			<result name="success" type="json"></result>
 			<result name="error" type="json"></result>
-			<result name="postsManage" type="redirectAction">listquestion_findByQTime</result>
 		</action>
     </package>
      <package name="post_action" namespace="/" extends="json-default">

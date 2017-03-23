@@ -23,6 +23,9 @@
 			<input type="button" class="query" value="查询" id="query" onclick='queryQuestion()'>
 		</form>
 		</div>
+		<c:out value="${qList}"></c:out>
+		<c:out value="${cList}"></c:out>
+		<c:out value="${page}"></c:out>
 		<div class="post">
 			<c:forEach items="${qList}" var="questions">
 			<div class="post-wrap">
@@ -36,18 +39,18 @@
    						<span class="post-time">发帖时间：${fn:substring(qTime,0,10)}</span>
    						<div class="post-operate">
    						<c:if test="${questions.con4 == 1 }">
-   							<a href="<%=path %>/question_setTop.action?con4=0&QId=${questions.QId}" class="reply-ope unset-top">取消置顶</a>&nbsp;
+   							<a href="" class="reply-ope unset-top">取消置顶</a>&nbsp;
    						</c:if>
    						<c:if test="${questions.con5 == 1 }">
-   							<a href="<%=path %>/question_setNice.action?con5=0&QId=${questions.QId}" class="reply-ope unset-best">取消精华帖</a>&nbsp;
+   							<a href="" class="reply-ope unset-best">取消精华帖</a>&nbsp;
    						</c:if>
    						<c:if test="${questions.con4 == 0 || questions.con4 == null }">
-   							<a href="<%=path %>/question_setTop.action?con4=1&QId=${questions.QId}" class="reply-ope set-top" >置顶</a>&nbsp;
+   							<a href="" class="reply-ope set-top" >置顶</a>&nbsp;
    						</c:if>
    						<c:if test="${questions.con5 == 0 || questions.con5 == null}">
-   							<a href="<%=path %>/question_setNice.action?con5=1&QId=${questions.QId}" class="reply-ope set-best">设置精华帖</a>&nbsp;
+   							<a href="" class="reply-ope set-best">设置精华帖</a>&nbsp;
    						</c:if>
-   							<a href="<%=path %>/question_delete.action?con6=1&QId=${questions.QId}" class="reply-ope delete">删除</a>&nbsp;
+   							<a href="" class="reply-ope delete">删除</a>&nbsp;
    						</div>
    					</div>
    					<div class="post-rep">

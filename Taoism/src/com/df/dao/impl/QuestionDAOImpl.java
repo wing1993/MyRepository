@@ -260,7 +260,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	public DataPage<Question> findByQTime(Map<String, Object> map)
 			throws Exception {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT COUNT(*) FROM Question u where con6='0' ");
+		sql.append("SELECT COUNT(*) FROM Question u where 1=1 ");
 		if(null!=map.get("startTime")&&!"".equals(map.get("startTime").toString())
 				&&null!=map.get("endTime")&&!"".equals(map.get("endTime").toString())){
 			sql.append(" and u.QTime >= '"+ map.get("startTime").toString()
@@ -272,7 +272,6 @@ public class QuestionDAOImpl implements IQuestionDAO {
 				.createQuery(sql.toString()).uniqueResult();
 
 		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
-		dc.add(Restrictions.eq("con6", "0"));
 		if(null!=map.get("startTime")&&!"".equals(map.get("startTime").toString())
 				&&null!=map.get("endTime")&&!"".equals(map.get("endTime").toString())){
 			dc.add(Restrictions.between("QTime", map.get("startTime").toString(),

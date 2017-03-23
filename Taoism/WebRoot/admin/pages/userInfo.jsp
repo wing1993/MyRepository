@@ -25,7 +25,9 @@ String path = request.getContextPath();
 		.icon-error:before{content:'\e5c9';}
 		.stop-err{display:inline-block;border:2px solid red;color:red;}
 		.stop-success{display:inline-block;border:2px solid #009900;color:#009900;}
-		.td-stop-color{color:red;}
+		.td-stop-color{color:red !important;}
+		.show{display:inline;}
+		.hide{display:none;}
 	</style>
 </head>
 <body>
