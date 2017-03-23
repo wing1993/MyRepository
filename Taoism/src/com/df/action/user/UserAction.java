@@ -383,15 +383,18 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	 * @return
 	 */
 	public String shielUser()  {
+		String msg= "error";
 		try {
-			//String con7 = user.getCon7();
+			String con7 = user.getCon7();
 			user = userService.getById(user.getUserId());
-			user.setCon7("1");
-			userService.update(user);
+			user.setCon7(con7);
+			msg = userService.update(user);
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "userInfo";
+		return null;
 	}
 	/**
 	 * 用户身份审核通过

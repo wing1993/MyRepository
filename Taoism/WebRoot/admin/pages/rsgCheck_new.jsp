@@ -11,7 +11,7 @@
 	<style>
 		html{font-family:'Microsoft Yahei';font-size:15.1px;}
 		.search{margin-bottom:10px;}
-		.search select{width:120px;}
+		.search select{width:120px;height:27px;}
 		.operate, .ignore{border-radius:2px;border:none;color:#6b99e4;padding:4px;cursor:pointer;background:transparent;}
 		.operate:hover, .ignore:hover{text-decoration:underline;color:red;}
 		.btn{margin-bottom:10px;}

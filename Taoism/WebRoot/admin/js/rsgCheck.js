@@ -11,7 +11,7 @@ var grid;
 
 function createGrid(){
 	var	w = $(".main").width();
-	var h = $(".main").height() - $(".search").height() - 65 - 40;
+	var h = $(".main").height() - $(".search").height() - 115;
 	var columns = [
 			{label:'userId', name:'userId', index:'userId', hidden: true, key: true},
 			{label:'用户名', name:'username', index:'username', width:120, align:'center'},
