@@ -30,6 +30,33 @@ $(function(){
 		}
 	});
 	
-	alert($(".r-fold").length);
+	$("#forward").click(function(){
+		$(".share-wrap").fadeToggle(500);
+	});
+	
+	$("#share_sure").click(function(){
+		var radios = $("input[type=radio]:checked").length;
+		if(radios == 0){
+			$(".for-tip").show();
+		}else{
+			var sharezone = $("input[type=radio]:checked").val(),
+				QId = $(".QId").val();
+			$.post('/Taoism/question_daShiForwardPost.action',{"sharezone": sharezone, "QId": QId},function(data){
+				console.log(data);
+				if(data == "success"){
+					alert("转发成功！");
+					window.close();
+				}
+			});
+		}
+	});
+	
+	$("input[type=radio]").click(function(){
+		$(".for-tip").hide();
+	});
+	
+	$(".back").click(function(){
+		window.location.href="/Taoism/dashi_load.action";
+	});
 });
 

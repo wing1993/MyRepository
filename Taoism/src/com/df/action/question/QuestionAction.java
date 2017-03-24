@@ -1,5 +1,6 @@
 package com.df.action.question;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -192,8 +193,12 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	 * 大师可以把对他提问的问题转发到其他区
 	 */
 	public String daShiForwardPost(){
+		String msg = "error";
 		try {
 			questionService.daShiForwardPost(question);
+			msg = "success";
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

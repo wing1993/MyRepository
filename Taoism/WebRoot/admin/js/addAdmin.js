@@ -10,7 +10,6 @@ function createGrid(){
 	var d = [{"userId":1,"username":"kkk","q1":"ss","q2":"rr"}];
 	var	w = $(".main").width();
 	var h = parent.iframe_h - $(".newAdmin").height() - 80;
-	console.log(parent.iframe_h  +""+ $(".newAdmin").height());
 	var columns = [
 			{label:'userId', name:'userId', index:'userId', hidden: true, key: true},
 			{label:'用户名', name:'username', index:'username', width:100, align:'center'},
@@ -31,7 +30,6 @@ function createGrid(){
 }
 
 function btnFormat(cellvalue, options, rowObject){
-	console.log(rowObject);
 	return ['<div class="btn-format"><span class="icon-d" title="删除">&#xe9ac;</span>',
 			'&nbsp;<span class="icon-e" title="编辑" data-robj="',rowObject.userId,'">&#xe92d;</span></div>'].join('');
 }
@@ -55,50 +53,49 @@ function createCombo(data, str){
 			content: _html
 		});
 
-$.post("/Taoism/user_findDiscipleList.action", {}, function(data){
-	var Data = [{"id":1,"username":"nmae"},{"id":2,"username":"hhh"},{"id":3,"username":"uii"},{"id":4,"username":"uyyi"}];
-	com_opt = {
-		width:150,
-		height:25,
-		valueField: 'id',
-		textField: 'username',
-		data:Data,
-		is_clear:true,
-		Illegal_input:function(){
-//   				$(".newAdmin").append("<div class='no-dizi' style='color:red;'>请输入弟子的法号</div>")
-		},
-		autocomplete: function(e) {
-			$(".l-box-select").find("tr").show();
-			var data = Data, 
-				tr_val = [],//过滤后的数据
-				_key = $.trim(e.key);
-			if(_key != "") {
-				for(var i = 0; i < data.length; i++) {
-					var str = data[i]['username'];
-					var index = str.indexOf(_key);
-					if(index != -1) {
-						tr_val.push(data[i]['id']);
-// 							$(".l-box-select").find("tr[value='" + tr_val + "'] span").addClass("l-highLight");
-					}else{
-						$(".l-box-select").find("tr[value='" + data[i]['id'] + "']").hide();
+	$.post("/Taoism/user_findDiscipleList.action", {"userId":data.userId}, function(datas){
+		var Data = [{"id":1,"username":"nmae"},{"id":2,"username":"hhh"},{"id":3,"username":"uii"},{"id":4,"username":"uyyi"}];//测试数据
+		com_opt = {
+			width:150,
+			height:25,
+			valueField: 'userId',
+			textField: 'username',
+			data:datas.u,
+			is_clear:true,
+			Illegal_input:function(){
+	//   				$(".newAdmin").append("<div class='no-dizi' style='color:red;'>请输入弟子的法号</div>")
+			},
+			autocomplete: function(e) {
+				$(".l-box-select").find("tr").show();
+				var data = datas.u, 
+					tr_val = [],//过滤后的数据
+					_key = $.trim(e.key);
+				if(_key != "") {
+					for(var i = 0; i < data.length; i++) {
+						var str = data[i]['username'];
+						var index = str.indexOf(_key);
+						if(index != -1) {
+							tr_val.push(data[i]['userId']);
+	// 							$(".l-box-select").find("tr[value='" + tr_val + "'] span").addClass("l-highLight");
+						}else{
+							$(".l-box-select").find("tr[value='" + data[i]['userId'] + "']").hide();
+						}
 					}
+				} 
+				for(var j = 0; j < tr_val.length; j++){
+					$(".l-box-select").find("tr[value='" + tr_val[j] + "']").show();
 				}
-			} 
-			
-			for(var j = 0; j < tr_val.length; j++){
-				$(".l-box-select").find("tr[value='" + tr_val[j] + "']").show();
+				e.show();
 			}
-			e.show();
-		}
-	};
-	combo = $(".add-input").ligerComboBox(com_opt);
+		};
+		combo = $(".add-input").ligerComboBox(com_opt);
+	});
 	if(data){
 		combo.setValue(data.userId);
 		combo.setDisabled(true);
 		$("input[name='userId']").val(data.userId);
 		$(".add-input").attr("disabled", true);
 	}
-});
 }
 
 function initEvent(){

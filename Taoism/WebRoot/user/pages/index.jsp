@@ -49,7 +49,7 @@
 							if(value.state!=0){var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";}
 							else{var icon="<td class='icon-td unreplied' title='未回复'>&#xe906;</td>";}
 							 var str = "<tr>"+icon
-									+"<td><a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' target='_blank' title='"+value.QTitle+"'>"+value.QTitle+"</a></td>"
+									+"<td><a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' title='"+value.QTitle+"'>"+value.QTitle+"</a></td>"
 									+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td>"+value.con1+"<br>"+value.con2+"</td>"
 									+"<td>"+value.con3+"</td><td>"+value.visits+"</td>"
 									+"<td>"+value.QTypeName+"</td></tr>";

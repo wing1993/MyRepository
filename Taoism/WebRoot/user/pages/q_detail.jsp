@@ -136,11 +136,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <div class="bd"></div>
     <div class="main">
+    <img src="<%=path%>/images/back.png" class="back" title="返回">
     	<div class="main-box"></div>
     	<div class="main-box-fixed">
     		<div class="q_title">${requestScope.question.QTitle }</div>
-    		<c:if test="${sessionScope.UsersfromActions.userType=='弟子' }"><a class="a-btn" id="forward">转发</a></c:if>
-    		<a class="a-btn" id="btn" onclick="checkLogin_Reply()">回复</a>
+    		<c:if test="${sessionScope.UsersfromActions.userType=='弟子' && requestScope.question.shareState == '1' }">
+    		<div class="for-wrap">
+    			<a class="a-btn" id="forward">转发帖子</a>
+    			<div class="share-wrap">
+    				<input type="radio" name="sharezone" value="公开区" <c:if test="${requestScope.question.sharezone == '公开区' }">disabled="disabled"</c:if>>公开区
+    				<input type="radio" name="sharezone" value="学员区" <c:if test="${requestScope.question.sharezone == '学员区' }">disabled="disabled"</c:if>>学员区
+    				<input type="radio" name="sharezone" value="弟子区" <c:if test="${requestScope.question.sharezone == '弟子区' }">disabled="disabled"</c:if>>弟子区
+    				<br><span class="for-tip">请选择转发区域</span><input type="button" class="a-btn" value="确定" id="share_sure">
+    			</div>
+    		</div>
+    		</c:if>
+    		<a class="a-btn" id="btn" onclick="checkLogin_Reply()">回复本帖</a>
     	</div>
     	<input type="hidden" value="${requestScope.question.sharezone }" class="sharezone">
     	<input type="hidden" value="${requestScope.question.QId }" class="QId"> 

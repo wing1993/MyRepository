@@ -34,7 +34,7 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 .a-btn:hover{
 	background:#2888FF;
 	color:#fff;
-	border:none;
+	/* border:none; */
 }
 .w-content-box{
 	background:#fff;
@@ -225,4 +225,40 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 .QContent{
 	padding:37px;
 	border-bottom:1px solid #E1E4E6;
+}
+.for-wrap{
+	position:relative;
+	float:right;
+}
+.share-wrap{
+	background-color:#fff;
+	padding:15px 10px;
+	width:250px;
+	position:absolute;
+	top:35px;
+	left:-30px;
+	border:1px solid #ccc; 
+	display:none;
+}
+.share-wrap input[type=radio]{zoom:120%;}
+.share-wrap .a-btn{
+	margin-top:10px;
+	background-color:#2888FF;
+	color:#fff;
+	border-radius:4px;
+	padding:5px 10px;
+	outline:none;
+}
+.for-tip{
+	color:red;
+	display:none;
+	margin-left:10px;
+}
+.back{
+	width:48px;
+	height:48px;
+	position:absolute;
+	top:20px;
+	left:40px;
+	cursor:pointer;
 }
