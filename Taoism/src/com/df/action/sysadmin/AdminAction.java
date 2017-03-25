@@ -58,18 +58,18 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 		//Admin admin = new Admin("admin", "123456", 1, 1, 1, 1, 1, 1, 1, "123", "127.0.0.1", 1, 1);
 		String msg = "error";
 		try {
-			User user = userService.getById(userId);
-			admin.setAdminName(user.getUsername());
+			//User user = userService.getById(userId);
+			/*admin.setAdminName(user.getUsername());
 			admin.setPassword(user.getPassword());
 			if(null!=a) {
-				admin.setAddAdmin(a.getAdminId());
-			}
+				admin.setParentId(a.getAdminId());
+			}*/
 			//获取权限
-			String[] adminqxs = admin_qxs.split(",");
+			/*String[] adminqxs = admin_qxs.split(",");
 			admin.setRsgCheck(Integer.parseInt(adminqxs[0]));
 			admin.setUpdateClass(Integer.parseInt(adminqxs[1]));
 			admin.setShieldUser(Integer.parseInt(adminqxs[2]));
-			/*admin.setQtype(Integer.parseInt(adminqxs[3]));
+			admin.setQtype(Integer.parseInt(adminqxs[3]));
 			admin.setPostsManage(Integer.parseInt(adminqxs[4]));
 			admin.setAddAdmin(Integer.parseInt(adminqxs[5]));*/
 			admin.setCon1(0);
