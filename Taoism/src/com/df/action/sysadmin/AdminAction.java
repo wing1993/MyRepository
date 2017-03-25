@@ -1,5 +1,6 @@
 package com.df.action.sysadmin;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.List;
@@ -68,9 +69,9 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 			admin.setRsgCheck(Integer.parseInt(adminqxs[0]));
 			admin.setUpdateClass(Integer.parseInt(adminqxs[1]));
 			admin.setShieldUser(Integer.parseInt(adminqxs[2]));
-			admin.setQtype(Integer.parseInt(adminqxs[3]));
+			/*admin.setQtype(Integer.parseInt(adminqxs[3]));
 			admin.setPostsManage(Integer.parseInt(adminqxs[4]));
-			admin.setAddAdmin(Integer.parseInt(adminqxs[5]));
+			admin.setAddAdmin(Integer.parseInt(adminqxs[5]));*/
 			admin.setCon1(0);
 			admin.setCon2(0);
 			
@@ -154,13 +155,17 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 			sessionMap.put("admin", admin);
 			return "success";
 		}else{
-			PrintWriter out = response.getWriter();
-			out.print("error");
-			return null;
+			return "error";
+			
 		}
 	}
-	public String load() throws Exception {
-		System.out.println("load");
+	/**
+	 * 账号注销
+	 * @return
+	 * @throws IOException
+	 */
+	public String logout() throws IOException {
+		sessionMap.remove("admin");
 		return "success";
 	}
 	

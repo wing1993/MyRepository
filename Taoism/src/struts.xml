@@ -100,9 +100,9 @@
 			<result name="error" type="json"></result>
 			<result name="success" type="dispatcher">/admin/pages/admin.jsp</result>
 		</action>
-		<!-- <action name="admin_load" class="adminAction" method="load">
-			<result name="success" type="dispatcher">/admin/pages/admin.jsp</result>
-		</action> -->
+		<action name="admin_logout" class="adminAction" method="logout">
+			<result name="success" type="dispatcher">/admin/pages/login.jsp</result>
+		</action>
         <action name="admin_*" class="adminAction" method="{1}">
 			<result name="success" type="json"></result>
 			<result name="error" type="json"></result>

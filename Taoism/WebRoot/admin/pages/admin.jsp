@@ -50,7 +50,7 @@
 			</ul>
 			<div class="left-item"><span class="icon-users">&#xe972;</span>&nbsp;管理人员</div>
 			<ul class="sub-item">
-				<li tabid="addAdmin" tab_url="addAdmin.jsp?t=<%=System.currentTimeMillis() %>">
+				<li tabid="addAdmin" tab_url="admin/pages/addAdmin.jsp?t=<%=System.currentTimeMillis() %>">
 					<span class="icon-sub">&#xe924;</span>&nbsp;<span>新增管理员</span>
 				</li>
 			</ul>

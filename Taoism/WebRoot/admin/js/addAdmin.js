@@ -38,8 +38,8 @@ function createCombo(data, str){
 	var btn_val = !str ? "添加" : "确定";
 	var _html = ['<form class="sub-form" action="">',
 				'<div class="newAdmin">',
-				'<input type="text" placeholder="请输入弟子的法号" class="add-input" name="">',
-				' <input type="button" class="add-admin" value="',btn_val,'" id="sub_add"></div>',
+				'<input type="text" placeholder="请输入弟子的法号" class="add-input" name="adminName">',
+				' <input type="button" class="add-admin" value="',btn_val,'" id="sub_add" name="admin_qxs"></div>',
 				'<input type="checkbox" checked="checked" name="" value=""><label>权限1</label><br>',
 				'<input type="checkbox" checked="checked" name="" value=""><label>权限2</label><br>',
 				'<input type="checkbox" checked="checked" name="" value=""><label>权限3</label><br>',
