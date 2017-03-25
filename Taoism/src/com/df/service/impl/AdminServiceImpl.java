@@ -71,4 +71,10 @@ public class AdminServiceImpl implements IAdminService{
 		return adminList;
 	}
 
+	@Transactional
+	@Override
+	public Admin login(Admin admin) throws Exception {
+		return adminDao.login(admin);
+		 
+	}
 }

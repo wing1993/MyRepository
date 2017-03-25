@@ -1,11 +1,15 @@
 package com.df.action.sysadmin;
 
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -21,7 +25,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Controller("adminAction")
 @Scope("prototype")
-public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAware{
+public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAware,SessionAware {
 
 	/**
 	 * 
@@ -35,13 +39,15 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 	@Qualifier("userService")
 	private IUserService userService;
 	
+	HttpServletResponse response = ServletActionContext.getResponse(); 
 	private Admin admin;
 	private Map<String, Object> requestMap;
+	private Map<String,Object> sessionMap;
 	private Integer userId;
 	private String admin_qxs;//管理员拥有的权限
 	private List<Admin> adminList;
-	private User u = (User) ServletActionContext.getRequest()
-			.getSession().getAttribute("UsersfromActions");
+	private Admin a = (Admin) ServletActionContext.getRequest()
+			.getSession().getAttribute("admin");
 	
 	/**
 	 * 新增管理员
@@ -54,8 +60,8 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 			User user = userService.getById(userId);
 			admin.setAdminName(user.getUsername());
 			admin.setPassword(user.getPassword());
-			if(null!=u) {
-				admin.setAddAdmin(u.getUserId());
+			if(null!=a) {
+				admin.setAddAdmin(a.getAdminId());
 			}
 			//获取权限
 			String[] adminqxs = admin_qxs.split(",");
@@ -124,14 +130,37 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 	 */
 	public String findByAdminId(){
 		try {
-			if(null!=u) {
-				adminList = adminService.findByAdminId(u.getUserId());
+			if(null!=a) {
+				adminList = adminService.findByAdminId(a.getAdminId());
 			}
 			requestMap.put("adminList", adminList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	/**
+	 * 管理员登录
+	 * @return
+	 * @throws Exception
+	 */
+	public String login() throws Exception {
+		//user.setPassword(MD5Util.md5(user.getPassword()+user.getUsername()));
+		System.out.println("登录加密密码："+admin.getPassword());
+		System.out.println(admin);
+		admin = adminService.login(admin);
+		System.out.println("login"+admin);
+		if(null!=admin){
+			sessionMap.put("admin", admin);
+			return "success";
+		}else{
+			return "error";
+			
+		}
+	}
+	public String load() throws Exception {
+		System.out.println("load");
+		return "success";
 	}
 	
 	public List<Admin> getAdminList() {
@@ -162,10 +191,35 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 	public void setRequest(Map<String, Object> arg0) {
 		requestMap = arg0;	
 	}
+	/*public Map<String, Object> getRequestMap() {
+		return requestMap;
+	}*/
 
 	@Override
 	public Admin getModel() {
 		admin = new Admin();
+		return admin;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> arg0) {
+		sessionMap=arg0;
+		
+	}
+
+	/*public Map<String, Object> getSessionMap() {
+		return sessionMap;
+	}*/
+
+	public void setSessionMap(Map<String, Object> sessionMap) {
+		this.sessionMap = sessionMap;
+	}
+
+	public void setRequestMap(Map<String, Object> requestMap) {
+		this.requestMap = requestMap;
+	}
+
+	public Admin getAdmin() {
 		return admin;
 	}
 

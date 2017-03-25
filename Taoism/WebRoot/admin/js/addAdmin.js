@@ -53,7 +53,7 @@ function createCombo(data, str){
 			content: _html
 		});
 
-	$.post("/Taoism/user_findDiscipleList.action", {"userId":data.userId}, function(datas){
+	$.post("/Taoism/user_findDiscipleList.action", {}, function(datas){
 		var Data = [{"id":1,"username":"nmae"},{"id":2,"username":"hhh"},{"id":3,"username":"uii"},{"id":4,"username":"uyyi"}];//测试数据
 		com_opt = {
 			width:150,

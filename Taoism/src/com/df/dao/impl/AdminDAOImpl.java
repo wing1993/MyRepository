@@ -68,6 +68,21 @@ public class AdminDAOImpl  extends BaseDAOSupport implements IAdminDAO {
 		return adminList;
 	}
 
-	
+	/**
+	 * 管理员登录
+	 * @param admin
+	 * @return
+	 */
+	public Admin login(Admin admin) {
+		admin = (Admin) this.getSessionFactory()
+				.getCurrentSession()
+				.createQuery(
+						"from Admin a where a.adminName=? and a.password=?")
+				.setString(0, admin.getAdminName())
+				.setString(1, admin.getPassword())
+				.uniqueResult();
+
+		return admin;
+	}
 
 }

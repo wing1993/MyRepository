@@ -152,9 +152,9 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		this.userService = userService;
 	}
 
-	/*public Map<String, Object> getRequestMap() {
+	public Map<String, Object> getRequestMap() {
 		return requestMap;
-	}*/
+	}
 
 	public void setRequestMap(Map<String, Object> requestMap) {
 		this.requestMap = requestMap;
