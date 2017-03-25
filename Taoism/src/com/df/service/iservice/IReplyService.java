@@ -26,4 +26,12 @@ public interface IReplyService<T>{
 	 * @return
 	 */
 	public String delete(T t,String sharezone);
+
+	/**
+	 * 屏蔽评论
+	 * @param replyId
+	 * @param sharezone
+	 * @return
+	 */
+	public String shieldReply(int replyId, String sharezone, String con1)throws Exception;
 }

@@ -65,4 +65,14 @@ public class DiscipleReplyDAOImpl implements IDiscipleReplyDAO {
 		System.out.println("5555555555555555"+discipleReplyList);
 		return discipleReplyList;
 	}
+
+	@Override
+	public void shieldReply(int replyId, String con1) throws Exception{
+		sessionFactory.getCurrentSession()
+		.createQuery("UPDATE DiscipleReply d SET d.con1=? WHERE d.replyId=?")
+		.setString(0, con1)
+		.setInteger(1, replyId)
+		.executeUpdate();
+		
+	}
 }

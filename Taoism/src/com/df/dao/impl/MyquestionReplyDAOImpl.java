@@ -63,4 +63,13 @@ public class MyquestionReplyDAOImpl implements IMyquestionReplyDAO {
 				.list();
 		return myquestionList;
 	}
+
+	@Override
+	public void shieldReply(int replyId, String con1)throws Exception {
+		sessionFactory.getCurrentSession()
+			.createQuery("UPDATE MyquestionReply m SET m.con1=? WHERE m.replyId=?")
+			.setString(0, con1)
+			.setInteger(1, replyId)
+			.executeUpdate();
+	}
 }

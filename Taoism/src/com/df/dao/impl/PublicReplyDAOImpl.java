@@ -63,4 +63,13 @@ public class PublicReplyDAOImpl implements IPublicReplyDAO {
 				.list();
 		return publicReplyList;
 	}
+
+	@Override
+	public void shieldReply(int replyId, String con1) throws Exception{
+		sessionFactory.getCurrentSession()
+			.createQuery("UPDATE PublicReply p SET p.con1=? WHERE p.replyId=?")
+			.setString(0, con1)
+			.setInteger(1, replyId)
+			.executeUpdate();
+	}
 }

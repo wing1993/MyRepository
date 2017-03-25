@@ -45,12 +45,17 @@ public class ReplyAction implements Serializable,RequestAware{
 	private int replyId;
 	private String replyTime;
 	private String sharezone;
+	private String con1;
 	private int QId;
 	private User u = (User) ServletActionContext.getRequest()
 			.getSession().getAttribute("UsersfromActions");
 	HttpServletResponse response=ServletActionContext.getResponse();
 	
-	
+	/**
+	 * 保存用户评论
+	 * @return
+	 * @throws IOException
+	 */
 	public String saveReply() throws IOException {
 		String msg = "error";
 		replyTime = DateUtil.getDateyMdHms();//获取当前时间
@@ -132,6 +137,15 @@ public class ReplyAction implements Serializable,RequestAware{
 		return msg;
 	}
 
+	public String shieldReply() {
+		try {
+			replyService.shieldReply(replyId,sharezone,con1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	public String delete() {
 		//return replyService.delete(Object object,String s);
@@ -193,4 +207,13 @@ public class ReplyAction implements Serializable,RequestAware{
 	public void setQId(int qId) {
 		QId = qId;
 	}
+
+	public String getCon1() {
+		return con1;
+	}
+
+	public void setCon1(String con1) {
+		this.con1 = con1;
+	}
+	
 }

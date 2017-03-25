@@ -27,7 +27,7 @@ public class DiscipleReply  implements Comparable<DiscipleReply>,java.io.Seriali
      private String replyTime;
      private String replyContent;
      private String voice;
-     private String con1;
+     private String con1;   //屏蔽标志    0 未屏蔽     1屏蔽
      private String con2;
      private String con3;
      private String con4;

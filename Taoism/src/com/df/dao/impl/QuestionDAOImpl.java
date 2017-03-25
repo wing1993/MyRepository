@@ -256,6 +256,9 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	    return c.list();
 	}
 
+	/**
+	 * 管理员 帖子管理
+	 */
 	@Override
 	public DataPage<Question> findByQTime(Map<String, Object> map)
 			throws Exception {

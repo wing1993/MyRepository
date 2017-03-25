@@ -123,5 +123,32 @@ public class ReplyServiceImpl implements IReplyService<Object> {
 		return null;
 	}
 
+	@Transactional
+	@Override
+	public String shieldReply(int replyId, String sharezone, String con1)throws Exception {
+		String msg = "error";
+		try{
+			if("公开区".equals(sharezone)){
+				publicReplyDao.shieldReply(replyId,con1);
+				msg = "success";
+			}
+			else if("学员区".equals(sharezone)){
+				studentReplyDao.shieldReply(replyId,con1);
+				msg = "success";
+			}
+			else if("弟子区".equals(sharezone)){
+				discipleReplyDao.shieldReply(replyId,con1);
+				msg = "success";
+			}
+			else if("我的问题".equals(sharezone)){
+				myquestionReplyDao.shieldReply(replyId,con1);
+				msg = "success";  
+			}			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return msg;
+	}
+
 	
 }

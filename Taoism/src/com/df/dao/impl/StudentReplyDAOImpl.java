@@ -66,4 +66,13 @@ public class StudentReplyDAOImpl implements IStudentReplyDAO {
 		return stdentList;
 	}
 
+	@Override
+	public void shieldReply(int replyId, String con1) {
+		sessionFactory.getCurrentSession()
+			.createQuery("UPDATE StudentReply s SET s.con1=? WHERE s.replyId=?")
+			.setString(0, con1)
+			.setInteger(0, replyId)
+			.executeUpdate();
+	}
+
 }
