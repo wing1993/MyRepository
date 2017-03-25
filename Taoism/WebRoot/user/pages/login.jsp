@@ -71,7 +71,7 @@
 										$("form").submit();							
 									},
 									error : function(data) {  
-							            $("#wrong_info").text("用户名或密码错误");  
+							            $("#wrong_info").text("用户名或密码错误(信息准确则请等待审核)");  
 							        }
 								};
 							$("form").ajaxSubmit(obj);

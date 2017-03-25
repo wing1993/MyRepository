@@ -154,8 +154,9 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 			sessionMap.put("admin", admin);
 			return "success";
 		}else{
-			return "error";
-			
+			PrintWriter out = response.getWriter();
+			out.print("error");
+			return null;
 		}
 	}
 	public String load() throws Exception {

@@ -45,9 +45,6 @@
 	    			</c:if>
     			</c:if>
     			<li data-opt="myPostings">我的帖子</li>
-    			<c:if test="${sessionScope.UsersfromActions.username == '老先生'}">
-    				<li data-opt="addAdmin">添加系统管理员</li>
-    			</c:if>
     		</ul>
     	</div>
     	<div class="content">
@@ -97,19 +94,6 @@
 	    					</div>
     					</div>
     				</div>
-    			</div>
-    		</div>
-    		
-    		<!-- 添加系统管理员 -->
-    		<div class="addAdmin">
-    			<span style="margin-left:40px;">已存在的系统管理员:</span>
-    			<ul class="existed">
-    				<li><span id="1">root1</span><span class="icon-d" title="删除">&#xe15c;</span></li>
-    				<li><span id="2">root2</span><span class="icon-d" title="删除">&#xe15c;</span></li>
-    				<li><span id="3">root3</span><span class="icon-d" title="删除">&#xe15c;</span></li>
-    			</ul>
-    			<div class="newAdmin">
-    				<input type="text" placeholder="请输入弟子的法号" class="add-input"> <input type="button" class="add-admin" value="新增管理员">
     			</div>
     		</div>
     	</div>

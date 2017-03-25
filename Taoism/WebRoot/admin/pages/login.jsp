@@ -8,40 +8,41 @@
 	<script src="../../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../../js/jquery.form.js"></script>
 	<script>
-		
-	function check(){
-		var adminName=$("input[name='adminName']").val();
-		var pwd=$("input[name='password']").val();
-		console.log(adminName);console.log(pwd);
-		if(adminName==""){
-			$(".msg_error").text("请输入用户名");
-		if(pwd=="")
-				$(".msg_error").text("请输入用户名和密码");
-		}else if(pwd==""){
-			$(".msg_error").text("请输入密码");
-		}else {
-			var obj={
-					url:'${pageContext.request.contextPath }/admin_login.action',
-					type:'post',
-					success:function(str){							
-						$("form").submit();							
-					},
-					error : function(data) {  
-			            $(".msg_error").text("用户名或密码错误");  
-			        }
-				};
-			$("form").ajaxSubmit(obj);
-			};
-	}
-	
-	
-		/* function check(){
-			if ($(".username").val()==""||$(".password").val()=="") {
-				$(".msg_error").css("display","block");
-			}else{
-				$("form").submit();
+		$(function(){
+			$(".username").keyup(function(e){
+				if(e.keyCode == 13){
+				$(".password").focus();
+				}
+			});
+			$(".password").keyup(function(e){
+				if(e.keyCode == 13){
+					check();
+				}
+			});
+		});
+		function check(){
+			var adminName=$("input[name='adminName']").val();
+			var pwd=$("input[name='password']").val();
+			if(adminName==""){
+				$(".msg_error").text("请输入用户名").show();
+			if(pwd=="")
+					$(".msg_error").text("请输入用户名和密码").show();
+			}else if(pwd==""){
+				$(".msg_error").text("请输入密码").show();
+			}else {
+				var obj={
+						url:'${pageContext.request.contextPath }/admin_login.action',
+						type:'post',
+						success:function(str){
+							console.log(str);
+							str == "error" ? $(".msg_error").text("用户名或密码错误").show() : $("form").submit();							
+						}
+					};
+				$("form").ajaxSubmit(obj);
 			}
-		} */
+		}
+		
+		
 		function dis(){
 			if($(".username").val()!="" && $(".password").val()!=""){
 				$(".msg_error").css("display","none");
@@ -60,7 +61,7 @@
 			<div class="item">
 				<input type="password" placeholder="密码" name="password" class="password" onblur="dis()">
 			</div>
-			<span class="msg_error">账号和密码不能为空</span>
+			<p class="msg_error" style="margin-top:0">账号和密码不能为空</p>
 			<div class="item"><input type="button" value="登录" onclick="check()"></div>
 		</form>
 	</div>
