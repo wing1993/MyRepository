@@ -266,7 +266,7 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 	@Override
 	public List<User> findDiscipleList() throws Exception {
 		List<User> userList=new ArrayList<User>();
-		String hql="select new com.df.dao.pojo.User(u.userId,u.username,u.password) from User u where u.state=0 and u.userType='弟子'";
+		String hql="select new com.df.dao.pojo.User(u.userId,u.username,u.password) from User u where u.state=1 and u.userType='弟子'";
 		Query query=this.getSessionFactory().getCurrentSession().createQuery(hql);
 		userList = query.list();System.out.println(userList);
 		return userList;

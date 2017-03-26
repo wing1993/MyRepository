@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%String path = request.getContextPath(); %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -10,7 +11,7 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css?t=<%=System.currentTimeMillis()%>">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/common.css?t=<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/liger-ui.css?t=<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/ui.jqgrid.css">
 	<link href="${pageContext.request.contextPath }/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet">
@@ -27,27 +28,22 @@
 	.add-input{height:27px;}
 	.newAdmin{height:20px;}
 	.l-text-wrapper{display:inline-block;}
-	.btn-format span{display:inline-block;width:45%;font-size:20px;}
-	.btn-format span:nth-child(1){text-align:left;}
-	.btn-format span:nth-child(2){text-align:right;margin-right:20px;}
+	.btn-format{text-align:center;}
+	.btn-format span{font-size:20px;}
+	/* .btn-format span:nth-child(1){text-align:left;}
+	.btn-format span:nth-child(2){text-align:right;margin-right:20px;} */
 	.ui-jqgrid tr.jqgrow td{height:30px;}
 	.l-dialog-winbtn{height:26px;}
 	.l-dialog-winbtn:before{content:'×';font-weight:bold;font-size:20px;margin-bottom:5px;}
+	.ui-jqgrid .ui-jqgrid-htable .ui-th-div{height:20px;}
+	.stop-tip{margin-left:200px;border-width:2px;}
 	</style>
   </head>
   <body>
-<!--     <span style="margin-left:40px;">已存在的系统管理员:</span> -->
-<!-- 	<ul class="existed"> -->
-<!-- 		<li><span id="1">root1</span><span class="icon-d" title="删除">&#xe15c;</span></li> -->
-<!-- 		<li><span id="2">root2</span><span class="icon-d" title="删除">&#xe15c;</span></li> -->
-<!-- 		<li><span id="3">root3</span><span class="icon-d" title="删除">&#xe15c;</span></li> -->
-<!-- 	</ul> -->
-<!-- 	<div class="newAdmin"> -->
-<!-- 		<input type="text" placeholder="请输入弟子的法号" class="add-input">  -->
-<!-- 		<input type="button" class="add-admin" value="新增管理员"> -->
-<!-- 	</div> -->
+		<input type="hidden" id="adminId" value="${admin.adminId }">
 		<div class="newAdmin">
 			<input type="button" class="add-admin" value="新增管理员">
+			<div class="stop-tip"><span class="tip">修改成功</span></div>
 		</div>
 		<div class="tb-wrap">
 			<table class="r-tb" id="r_tb">
@@ -55,7 +51,11 @@
 		</div>
   </body>
   <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.jqGrid.js?t=<%=System.currentTimeMillis()%>"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/js/ligerui.js?t=<%=System.currentTimeMillis()%>"></script>
   <script type="text/javascript" src="${pageContext.request.contextPath }/admin/js/addAdmin.js?t=<%=System.currentTimeMillis()%>"></script>
+  <script>
+  	var url = '<%=path %>';
+  </script>
 </html>

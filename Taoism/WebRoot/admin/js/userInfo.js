@@ -32,7 +32,7 @@ function createGrid(){
 		height:h,
 		datatype: 'json',
 		mtype: "GET",
-		url: '/Taoism/list_getInfoUserList.action?method=userInfo',//'admin/pages/test.json',
+		url: url + '/list_getInfoUserList.action?method=userInfo',//'admin/pages/test.json',
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
 		pager : '#pager',//表格页脚的占位符(一般是div)的id
@@ -71,7 +71,7 @@ function initEvent(){
 		var key = $(".search-wrap input").val();
 		console.log(key);
 		grid.setGridParam({
-			url: '/Taoism/list_getUserGridModel.action?method=userInfo&username='+ key
+			url: url + '/list_getUserGridModel.action?method=userInfo&username='+ key
 		}).trigger('reloadGrid');
 	});
 	
@@ -80,7 +80,7 @@ function initEvent(){
 			id = $(this).parents("tr").attr("id");
 			ope = $(this).data("ope"),
 			state = (ope == null || ope == "0") ? "1" : "0",
-			$.post("/Taoism/user_shielUser.action?userId="+id+"&con7="+state,{},function(str){
+			$.post(url + "/user_shielUser.action?userId="+id+"&con7="+state,{},function(str){
 				if(str == "success"){
 			 		$obj.parents("tr").toggleClass("td-stop-color");
 					$obj.hide().siblings().show();
@@ -92,7 +92,7 @@ function initEvent(){
 	
 	$("#user_type").change(function(){
 		var type = $(this).val(),
-			old_url = '/Taoism/list_getUserGridModel.action?method=userInfo',
+			old_url = url + '/list_getUserGridModel.action?method=userInfo',
 			new_url = type == '所有类型' ? old_url : old_url + '&userType=' + type;
 		grid.setGridParam({
 			url: new_url

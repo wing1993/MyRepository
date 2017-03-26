@@ -39,4 +39,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.jqGrid.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/admin/js/rsgCheck.js?t=<%= System.currentTimeMillis()%>"></script>
+<script>
+var url = '${pageContext.request.contextPath }';
+</script>
 </html>

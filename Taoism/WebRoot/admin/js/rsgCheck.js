@@ -34,7 +34,7 @@ function createGrid(){
 		multiselect: true, //是否可以多选
 		datatype: 'json',
 		mtype: "GET",
-		url: '/Taoism/list_getUserGridModel.action?method=rsgCheck',
+		url: url + '/list_getUserGridModel.action?method=rsgCheck',
 		rowNum : 10,//一页显示多少条
 		rowList : [ 10, 20, 30 ],//可供用户选择一页显示多少条
 		pager : '#pager',//表格页脚的占位符(一般是div)的id
@@ -62,12 +62,12 @@ function btnFormat(cellvalue, options, rowObject){
  */
 function Review(IDs){
 	var id = typeof(IDs) == "string" ? IDs : IDs.join(",");
-	$.post('/Taoism/user_updateExaminUser.action', {"user_ids": id}, function(data){
+	$.post(url + '/user_updateExaminUser.action', {"user_ids": id}, function(data){
 		console.log(data);
 		if(data == "success"){
 			alert("审核成功");
 			grid.setGridParam({
-				url: '/Taoism/list_getUserGridModel.action?method=rsgCheck'
+				url: url + '/list_getUserGridModel.action?method=rsgCheck'
 			}).trigger('reloadGrid');
 		}
 	});
@@ -91,7 +91,7 @@ function initEvent(){
 	
 	$("#user_type").change(function(){
 		var type = $(this).val(),
-			old_url = '/Taoism/list_getUserGridModel.action?method=rsgCheck',
+			old_url = url + '/list_getUserGridModel.action?method=rsgCheck',
 			new_url = type == '所有类型' ? old_url : old_url + '&userType=' + type;
 		grid.setGridParam({
 			url: new_url

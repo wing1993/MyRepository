@@ -77,10 +77,12 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 			
 			adminService.save(admin);
 			msg = "success";
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return null;
 	}
 	
 	/**
@@ -92,22 +94,24 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 		String msg = "error";
 		try {
 			//获取权限
-			String[] adminqxs = admin_qxs.split(",");
-			admin.setRsgCheck(Integer.parseInt(adminqxs[0]));
-			admin.setUpdateClass(Integer.parseInt(adminqxs[1]));
-			admin.setShieldUser(Integer.parseInt(adminqxs[2]));
-			admin.setQtype(Integer.parseInt(adminqxs[3]));
-			admin.setPostsManage(Integer.parseInt(adminqxs[4]));
-			admin.setAddAdmin(Integer.parseInt(adminqxs[5]));
+//			String[] adminqxs = admin_qxs.split(",");
+//			admin.setRsgCheck(Integer.parseInt(adminqxs[0]));
+//			admin.setUpdateClass(Integer.parseInt(adminqxs[1]));
+//			admin.setShieldUser(Integer.parseInt(adminqxs[2]));
+//			admin.setQtype(Integer.parseInt(adminqxs[3]));
+//			admin.setPostsManage(Integer.parseInt(adminqxs[4]));
+//			admin.setAddAdmin(Integer.parseInt(adminqxs[5]));
 			admin.setCon1(0);
 			admin.setCon2(0);
 			
 			adminService.update(admin);
 			msg = "success";
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return null;
 	}
 	
 	/**
@@ -119,10 +123,12 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 		try {
 			adminService.delete(admin);
 			msg = "success";
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return null;
 	}
 	
 	/**
@@ -134,11 +140,12 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 			if(null!=a) {
 				adminList = adminService.findByAdminId(a.getAdminId());
 			}
-			requestMap.put("adminList", adminList);
+			System.out.print(adminList+"123");
+//			requestMap.put("adminList", adminList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return "success";
 	}
 	/**
 	 * 管理员登录
@@ -155,7 +162,9 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 			sessionMap.put("admin", admin);
 			return "success";
 		}else{
-			return "error";
+			PrintWriter out = response.getWriter();
+			out.print("error");
+			return null;
 			
 		}
 	}

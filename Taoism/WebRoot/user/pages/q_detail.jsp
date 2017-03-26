@@ -46,14 +46,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					'media',  'emoticons', 'link', 'unlink', ]
 			});			
 		});
-		function checkLogin_Reply(){
-			if(${sessionScope.UsersfromActions==null}){
-				alert("您还没有登录，不能回复！");
-				return false;
-			}
-		}
 		
 		function subPost(obj){
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能回复！");
+				window.location.href="<%=path%>/user/pages/login.jsp";
+				return;
+			}
 			var t=null;
 			if($(obj).parent().find(".add-re").val()==""){
 				alert("请输入内容");
@@ -104,7 +103,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		function Post(){
-			checkLogin_Reply();
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能回复！");
+				window.location.href="<%=path%>/user/pages/login.jsp";
+				return;
+			}
 			if(editor.html()==""){
 				alert("请输入内容");
 			}else{

@@ -20,14 +20,7 @@ String path = request.getContextPath();
 		.search-wrap .search-btn{position:absolute;right:4px;width:25px;height:25px;background-position:0 3px;;}
 		.join-black, .slience{border-radius:2px;border:none;color:#6b99e4;padding:4px;cursor:pointer;background:transparent;}
 		.join-black:hover, .slience:hover{text-decoration:underline;color:red;}
-		.stop-tip{margin-left:20px;padding:2px 6px;}
-		.icon-success:before{content:'\e86c';}
-		.icon-error:before{content:'\e5c9';}
-		.stop-err{display:inline-block;border:2px solid red;color:red;}
-		.stop-success{display:inline-block;border:2px solid #009900;color:#009900;}
-		.td-stop-color{color:red !important;}
-		.show{display:inline;}
-		.hide{display:none;}
+		
 	</style>
 </head>
 <body>
@@ -56,4 +49,7 @@ String path = request.getContextPath();
 <script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/jquery.jqGrid.js?t=<%= System.currentTimeMillis()%>"></script>
 <script type="text/javascript" src="<%=path %>/admin/js/userInfo.js?t=<%= System.currentTimeMillis()%>"></script>
+<script>
+var url = '<%=path%>';
+</script>
 </html>

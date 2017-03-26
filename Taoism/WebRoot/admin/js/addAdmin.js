@@ -3,7 +3,7 @@ var grid,dialog,com_opt,combo;
 $(function(){
 	createGrid();
 	initEvent();
-	
+	FadeTip("添加chenggong");
 });
 
 function createGrid(){
@@ -11,22 +11,28 @@ function createGrid(){
 	var	w = $(".main").width();
 	var h = parent.iframe_h - $(".newAdmin").height() - 80;
 	var columns = [
-			{label:'userId', name:'userId', index:'userId', hidden: true, key: true},
-			{label:'用户名', name:'username', index:'username', width:100, align:'center'},
-			{label:'权限1', name:'q1', index:'q1',width:100,align:'center'},
-			{label:'权限2', name:'q2', index:'q2',width:100,align:'center'},
-			{label:'操作', width:150,align:'left',formatter: btnFormat}
+			{label:'adminId', name:'adminId', index:'adminId', hidden: true, key: true},
+			{label:'pwd', name:'password', index:'password', hidden: true},
+			{label:'用户名', name:'adminName', index:'adminName', width:100, align:'center'},
+			{label:'注册审核', name:'rsgCheck', index:'rsgCheck',width:80,align:'center'},
+			{label:'升级用户', name:'updateClass', index:'updateClass',width:80,align:'center'},
+			{label:'用户禁言', name:'shieldUser', index:'shieldUser',width:80,align:'center'},
+			{label:'修改问题类型', name:'qtype', index:'qtype',width:80,align:'center'},
+			{label:'帖子管理', name:'postsManage', index:'postsManage',width:80,align:'center'},
+			{label:'新增管理员', name:'addAdmin', index:'addAdmin',width:80,align:'center'},
+			{label:'操新', width:150,align:'left',formatter: btnFormat}
 		];
-	grid = $("#r_tb").jqGrid({
-		colModel: columns,
-		width:w,
-		height:h,
-		datatype: 'local',
-		rownumbers: true,
-		data:d,
-		autowidth:true
+	$.post(url + '/admin_findByAdminId.action', {"parentId": $("#adminId").val()}, function(data){
+		grid = $("#r_tb").jqGrid({
+			colModel: columns,
+			width:w,
+			height:h,
+			datatype: 'local',
+			rownumbers: true,
+			data:data.adminList,
+			autowidth:true
+		});
 	});
-	
 }
 
 function btnFormat(cellvalue, options, rowObject){
@@ -34,17 +40,22 @@ function btnFormat(cellvalue, options, rowObject){
 			'&nbsp;<span class="icon-e" title="编辑" data-robj="',rowObject.userId,'">&#xe92d;</span></div>'].join('');
 }
 
-function createCombo(data, str){
+function createCombo(rowdata, str){
 	var btn_val = !str ? "添加" : "确定";
-	var _html = ['<form class="sub-form" action="">',
+	var _html = ['<form class="sub-form" action="" method="post">',
 				'<div class="newAdmin">',
 				'<input type="text" placeholder="请输入弟子的法号" class="add-input" name="adminName">',
 				' <input type="button" class="add-admin" value="',btn_val,'" id="sub_add" name="admin_qxs"></div>',
-				'<input type="checkbox" checked="checked" name="" value=""><label>权限1</label><br>',
-				'<input type="checkbox" checked="checked" name="" value=""><label>权限2</label><br>',
-				'<input type="checkbox" checked="checked" name="" value=""><label>权限3</label><br>',
+				'<input type="checkbox" name="rsgCheck" value="0"><label>注册审核</label><br>',
+				'<input type="checkbox" name="updateClass" value="0"><label>升级用户</label><br>',
+				'<input type="checkbox" name="shieldUser" value="0"><label>用户禁言</label><br>',
+				'<input type="checkbox" name="qtype" value="0"><label>修改问题类型</label><br>',
+				'<input type="checkbox" name="postsManage" value="0"><label>帖子管理</label><br>',
+				'<input type="checkbox" name="addAdmin" value="0"><label>添加管理员</label><br>',
 				'<input type="text" style="display:none;">',
-				'<input type="hidden" name="userId" value="">',
+				'<input type="hidden" name="adminId" value="">',
+				'<input type="hidden" name="password" value="">',
+				'<input type="hidden" name="parentId" value="">',
 				'</form>'].join('');
 		dialog = $.ligerDialog.open({
 			width:300,
@@ -53,8 +64,7 @@ function createCombo(data, str){
 			content: _html
 		});
 
-	$.post("/Taoism/user_findDiscipleList.action", {}, function(datas){
-		var Data = [{"id":1,"username":"nmae"},{"id":2,"username":"hhh"},{"id":3,"username":"uii"},{"id":4,"username":"uyyi"}];//测试数据
+	$.post(url + "/user_findDiscipleList.action", {}, function(datas){
 		com_opt = {
 			width:150,
 			height:25,
@@ -62,8 +72,11 @@ function createCombo(data, str){
 			textField: 'username',
 			data:datas.u,
 			is_clear:true,
-			Illegal_input:function(){
+			Illegal_input:function(){//非法输入提示
 	//   				$(".newAdmin").append("<div class='no-dizi' style='color:red;'>请输入弟子的法号</div>")
+			},
+			onSelected:function(value,text){
+				$("input[name=adminId]").val(value);
 			},
 			autocomplete: function(e) {
 				$(".l-box-select").find("tr").show();
@@ -89,40 +102,46 @@ function createCombo(data, str){
 			}
 		};
 		combo = $(".add-input").ligerComboBox(com_opt);
-	});
-	if(data){
-		combo.setValue(data.userId);
-		combo.setDisabled(true);
-		$("input[name='userId']").val(data.userId);
-		$(".add-input").attr("disabled", true);
-	}
-}
-
-function initEvent(){
-	$(".existed").on("click", ".icon-d", function(){
-		if(confirm("确定要删除该管理员吗？")){
-			var id = $(this).prev().attr('id');
-			$.post('', {userid: id}, function(data){
-				if(1){ //测试
-					$(this).parents('li').remove();
-				}
-			});
+		if(rowdata){
+			console.log(rowdata);	
+			$(".add-input").val(rowdata.adminName);
+			$("input[name=password]").val(rowdata.password);
+			combo.setDisabled(true);
+			$("input[name='adminId']").val(rowdata.adminId);
+			$("input[name='rsgCheck']").val(rowdata.rsgCheck).attr("checked", rowdata.rsgCheck == "1");
+			$("input[name='updateClass']").val(rowdata.updateClass).attr("checked", rowdata.updateClass == "1");
+			$("input[name='shieldUser']").val(rowdata.shieldUser).attr("checked", rowdata.shieldUser == "1");
+			$("input[name='qtype']").val(rowdata.qtype).attr("checked", rowdata.qtype == "1");
+			$("input[name='postsManage']").val(rowdata.postsManage).attr("checked", rowdata.postsManage == "1");
+			$("input[name='addAdmin']").val(rowdata.addAdmin).attr("checked", rowdata.addAdmin == "1");
+//			$(".add-input").attr("disabled", true);
+		}else{
+			$(".sub-form").find("input[type=checkbox]").attr("checked", true);
+			$(".sub-form").find("input[type=checkbox]").attr("value", "1");
 		}
 	});
-	
+}
+
+function initEvent(){	
 	$(".add-admin").click(function(){
 		createCombo();
 	});
 	
 	$("body").on("click", ".icon-e", function(){//编辑管理员权限
-		var id = $(this).data("robj"),
+		var id = $(this).parents("tr").attr('id'),
 			data = grid.getRowData(id);
 		createCombo(data, "修改管理员权限");
 	});
 	
 	$("body").on("click", ".icon-d", function(){
+		var id = $(this).parents("tr").attr("id");
 		if(confirm("确定要删除该管理员吗？")){
-			
+			$.post(url + '/admin_delete.action', {"adminId":id}, function(data){
+				if(data == "success"){
+					FadeTip("删除成功");
+					grid.delRowData(id);
+				}
+			});
 		}
 	});
 	
@@ -131,7 +150,46 @@ function initEvent(){
 		if( new_admin== ''){
 			alert("请输入弟子的法号！");
 		}else{
-			$(".sub-form").submit();
+			var edit_add = $(this).val() == "确定" ? "edit" : "add",
+				selected = combo.getSelected(),
+				str = '';
+			selected && $("input[name=password]").val(selected.password);
+			$("input[name=parentId]").val($("#adminId").val());
+			var obj = {
+				url: edit_add == "edit" ? url + '/admin_edit.action' : url + '/admin_save.action',
+				success:function(data){
+					console.log(data);
+					if(data == "success"){
+						dialog.close();
+						edit_add =="edit" ? str = "修改成功" : str = "添加管理员成功";
+						$.post(url + '/admin_findByAdminId.action', {"parentId": $("#adminId").val()}, function(data){
+							grid.setGridParam({
+								data:data.adminList
+							}).trigger('reloadGrid');
+						});
+						FadeTip(str);
+					}else{
+						alert("操作失败");
+					}
+				}
+			};
+			$(".sub-form").ajaxSubmit(obj);
 		}
+	});
+	
+	$("body").on("click", ".sub-form input[type=checkbox]", function(){
+		var state = $(this).prop("checked");
+		state ? $(this).attr("value", "1") : $(this).attr("value", "0");
+	});
+}
+
+function FadeTip(str){//操作提示，500毫秒后消失
+	$(".stop-tip").addClass("stop-success").find("span").html(str).addClass("icon-success");
+	$(".stop-tip").fadeIn(500, function() {
+		setTimeout(function() {
+			$(".stop-tip").fadeOut(500, function() {
+				$(".stop-tip").hide();
+			});
+		}, 1000);
 	});
 }

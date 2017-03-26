@@ -115,7 +115,7 @@ html{font-family:'Microsoft YaHei';}
 	background:#2877ff;
 	color:#fff;
 }
-.icon-d,.icon-e{float:right;text-align:right;cursor:pointer;color:#969090;}
+.icon-d,.icon-e{cursor:pointer;color:#969090;}
 .icon-d:hover{color:#E84747;}
 .btn{
 	color:#fff;
@@ -126,3 +126,11 @@ html{font-family:'Microsoft YaHei';}
 	border:none;
 	border-radius:4px;
 }
+.stop-tip{margin-left:20px;padding:2px 6px;}
+.icon-success:before{content:'\e86c';}
+.icon-error:before{content:'\e5c9';}
+.stop-err{display:inline-block;border:2px solid red;color:red;}
+.stop-success{display:inline-block;border:2px solid #009900;color:#009900;}
+.td-stop-color{color:red !important;}
+.show{display:inline;}
+.hide{display:none;}

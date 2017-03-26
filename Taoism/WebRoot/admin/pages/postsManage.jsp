@@ -121,6 +121,7 @@
 	<script src="<%=path %>/js/ligerui.js?t=<%= System.currentTimeMillis()%>"></script>
 	<script src="<%=path %>/admin/js/postsManage.js?t=<%= System.currentTimeMillis()%>"></script>
 	<script type="text/javascript">
+		var url = '<%=path%>';
 		$(function(){
 			var pNum = $("#now").html();
 			$(".jump-in").val(parseInt(pNum) + 1);

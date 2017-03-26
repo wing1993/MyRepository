@@ -38,7 +38,7 @@ function initEvent(){
 			height:500,
 			title: '',
 			isDrag: true,
-			url: '/Taoism/shield_findReplyByQId.action?QId=' + id + '&sharezone=' + sharezone
+			url: url + '/shield_findReplyByQId.action?QId=' + id + '&sharezone=' + sharezone
 		});
 		$(".l-dialog-tc-inner").parents("tr").hide();
 		

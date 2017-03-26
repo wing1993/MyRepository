@@ -63,7 +63,7 @@ public class AdminDAOImpl  extends BaseDAOSupport implements IAdminDAO {
 		List<Admin> adminList = (List<Admin>) this.getSessionFactory()
 				.getCurrentSession()
 				.createQuery(
-						"from Admin a where u.parentId=?")
+						"from Admin a where a.parentId=?")
 				.setInteger(0, userId).list();
 		return adminList;
 	}

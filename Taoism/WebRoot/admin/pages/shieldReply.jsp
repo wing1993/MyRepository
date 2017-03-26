@@ -33,11 +33,16 @@
     					<a href="javascript:;" class="shield-com">屏蔽评论</a>&nbsp;
     					<span class="r-time">${reply.replyTime }</span>&nbsp;
     					<div class="r-fold">
-    						<c:set var="times" value="${reply.discipleReplies }"></c:set>
+    						<c:if test="${requestScope.question.sharezone == '弟子区' }"><c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
+	    					<c:if test="${requestScope.question.sharezone == '公开区' }"><c:set var="times" value="${reply.publicReplies }"></c:set></c:if>
+	    					<c:if test="${requestScope.question.sharezone == '学员区' }"><c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
+	    					<c:if test="${requestScope.question.sharezone == '我的问题' }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
+    					
     						<span class="r">回复</span>(<span class="t">${fn:length(times)}</span>)
 						</div>
     				</div>
     				<div class="sub-reply">
+    				<c:if test="${requestScope.question.sharezone == '弟子区' }">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
    						<div class="ans-content">
@@ -50,6 +55,38 @@
    							</div>
    						</div>
    						</c:forEach>
+   					</c:if>
+   					
+   					<c:if test="${requestScope.question.sharezone == '公开区' }">
+   						<c:forEach items="${reply.publicReplies }" var="pReply">
+   						<!-- <div class="answerer-img"><img src=""/></div> -->
+   							<input type="hidden" value="${fn:length(items)}" class="rTimes">
+   							<div class="ans-content">
+   								<input type="hidden" value="${pReply.replyId}" id="${pReply.replyId}">
+	   							<a href="#" class="re-name">${pReply.respondent }</a>:
+	   							<span class="main-content">${pReply.replyContent }</span>
+	   							<div class="ans-co-bottom">
+	   								<span class="ans-time">${fn:substring(pReply.replyTime,0,19) }</span>
+	   								<a href="javascript:;" onclick="reply(this)">回复</a>
+	   							</div>
+	   						</div>
+   						</c:forEach>
+   					</c:if>
+   					<c:if test="${requestScope.question.sharezone == '学员区' }">
+   						<c:forEach items="${reply.studentReplies }" var="sReply">
+   						<!-- <div class="answerer-img"><img src=""/></div> -->
+   							<input type="hidden" value="${fn:length(items)}" class="rTimes">
+   							<div class="ans-content">
+   								<input type="hidden" value="${sReply.replyId}" id="${sReply.replyId}">
+	   							<a href="#" class="re-name">${sReply.respondent }</a>:
+	   							<span class="main-content">${sReply.replyContent }</span>
+	   							<div class="ans-co-bottom">
+	   								<span class="ans-time">${fn:substring(sReply.replyTime,0,19) }</span>
+	   								<a href="javascript:;" onclick="reply(this)">回复</a>
+	   							</div>
+	   						</div>
+   						</c:forEach>
+   					</c:if>
     				</div>
     			</div>
     		</div>
@@ -122,7 +159,6 @@
 <script src="<%=path %>/js/jquery.min.js"></script>
 <script>
 	$(function(){
-	console.log(parent.dialog);
 		var h = parent.dialog._height - 25;
 		$(".main").height(h);
 		$(".reply-content").height($(".main").height() - $(".top").height());
@@ -132,6 +168,14 @@
 		
 		$(".reply-content").on("click", ".r-fold", function(){
 			fold(this);
+		});
+		
+		$("body").on("click", ".shield-com", function(){//屏蔽一级评论
+			
+		});
+		
+		$("body").on("click", "shield-sub", function(){//屏蔽二级评论
+		
 		});
 	});
 	

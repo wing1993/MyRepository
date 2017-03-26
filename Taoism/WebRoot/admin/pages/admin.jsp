@@ -32,11 +32,11 @@
 			<div class="left-item"><span class="icon-user">&#xe915;</span>&nbsp;用户管理</div>
 			<ul class="sub-item">
 				<!-- <li id="rsgCheck" tabid="rsgCheck" tab_url="/Taoism/user_findUnexamined.action"> -->
-				<li id="rsgCheck" tabid="rsgCheck" tab_url="rsgCheck_new.jsp">
+				<li id="rsgCheck" tabid="rsgCheck" tab_url="admin/pages/rsgCheck_new.jsp">
 					<span class="icon-sub">&#xe91a;</span>&nbsp;&nbsp;<span>注册审核</span>
 				</li>
-				<li id="updateClass" tabid="updateClass"  tab_url="updateClass.jsp"><span class="icon-sub">&#xe80c;</span>&nbsp;&nbsp;<span>身份升级</span></li>
-				<li id="userInfo" tabid="userInfo"  tab_url="userInfo.jsp"><span class="icon-sub">&#xe971;</span>&nbsp;&nbsp;<span>用户信息</span></li>
+				<li id="updateClass" tabid="updateClass"  tab_url="admin/pages/updateClass.jsp"><span class="icon-sub">&#xe80c;</span>&nbsp;&nbsp;<span>身份升级</span></li>
+				<li id="userInfo" tabid="userInfo"  tab_url="admin/pages/userInfo.jsp"><span class="icon-sub">&#xe971;</span>&nbsp;&nbsp;<span>用户信息</span></li>
 			</ul>
 			<div class="left-item"><span class="icon-qz">&#xe920;</span>&nbsp;问题管理</div>
 			<ul class="sub-item">
