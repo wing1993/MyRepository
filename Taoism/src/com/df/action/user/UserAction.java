@@ -409,7 +409,7 @@ public class UserAction implements Serializable, ModelDriven<User>,
 			System.out.println(userids.length);
 			for(int i=0;i<userids.length;i++){
 				user.setUserId(Integer.parseInt(userids[i]));
-				user.setState(1);
+				
 				userService.updateExaminUser_1(user);
 			}
 			msg = "success";
