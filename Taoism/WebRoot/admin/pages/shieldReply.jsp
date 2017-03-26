@@ -11,7 +11,6 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">    
 <title>屏蔽回复</title>
-<%-- <link rel="stylesheet" type="text/css" href="<%=path%>/user/css/q_detail.css"> --%>
 <link rel="stylesheet" type="text/css" href="<%=path%>/admin/css/shieldReply.css?t=<%=System.currentTimeMillis()%>">
 </head>
 <body>
@@ -21,16 +20,18 @@
 			<a href="javascript:void(0);" class="close">关闭</a>
 		</div>
 		<div class="reply-content">
-<!-- 		<c:out value="${replysfromAction }"></c:out> -->
+		<c:out value="${replysfromAction }"></c:out>
 		<c:forEach items="${replysfromAction }" var="reply">
-			<div class="content-box">   			
+			<div class="content-box <c:if test="${reply.con1 == 1 }">shield-color</c:if>">
+    			<input type="hidden" value="${reply.replyId }" class="reply-id">   			
     			<div class="w-r-main">
     				<a href="#" class="re-name">${reply.respondent }</a>:
 						<span class="main-content">${reply.replyContent }</span>							
     			</div>
     			<div class="w-reply">
     				<div class="r-top">
-    					<a href="javascript:;" class="shield-com">屏蔽评论</a>&nbsp;
+    					<c:if test="${reply.con1 ==null || reply.con1 == 0 }"><a href="javascript:;" class="shield-com">屏蔽评论</a>&nbsp;</c:if>
+    					<c:if test="${reply.con1 == 1 }"><a href="javascript:;" class="un-shield-com">取消屏蔽</a>&nbsp;</c:if>
     					<span class="r-time">${reply.replyTime }</span>&nbsp;
     					<div class="r-fold">
     						<c:if test="${requestScope.question.sharezone == '弟子区' }"><c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
@@ -46,11 +47,14 @@
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
    						<div class="ans-content">
-   							<input type="hidden" value="${dReply.replyId}" id="${dReply.replyId}">
+   							<input type="hidden" value="${dReply.replyId}" class="sub-replyid">
    							<a href="#" class="re-name">${dReply.respondent }</a>:
    							<span class="main-content">${dReply.replyContent }</span>
    							<div class="ans-co-bottom">
-   								<a href="javascript:void(0);" class="shield-sub">屏蔽</a>
+   								<c:if test="${dReply.con1 == null || dReply.con1 == 0}">
+   								<a href="javascript:void(0);" class="shield-sub <c:if test="${reply.con1 == 1 }">shide</c:if>">屏蔽</a></c:if>
+   								<c:if test="${dReply.con1 == 1}">
+   								<a href="javascript:void(0);" class="un-shield-sub <c:if test="${reply.con1 == 0 || reply.con1 == null }">shide</c:if>">取消屏蔽</a></c:if>
    								<span class="ans-time">${dReply.replyTime }</span>
    							</div>
    						</div>
@@ -62,12 +66,15 @@
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">
    							<div class="ans-content">
-   								<input type="hidden" value="${pReply.replyId}" id="${pReply.replyId}">
+   								<input type="hidden" value="${pReply.replyId}" class="sub-replyid">
 	   							<a href="#" class="re-name">${pReply.respondent }</a>:
 	   							<span class="main-content">${pReply.replyContent }</span>
 	   							<div class="ans-co-bottom">
+   								<c:if test="${pReply.con1 == null || pReply.con1 == 0}">
+   								<a href="javascript:void(0);" class="shield-sub <c:if test="${reply.con1 == 1 }">shide</c:if>">屏蔽</a></c:if>
+   								<c:if test="${pReply.con1 == 1}">
+   								<a href="javascript:void(0);" class="un-shield-sub <c:if test="${reply.con1 == 0 || reply.con1 == null }">shide</c:if>">取消屏蔽</a></c:if>
 	   								<span class="ans-time">${fn:substring(pReply.replyTime,0,19) }</span>
-	   								<a href="javascript:;" onclick="reply(this)">回复</a>
 	   							</div>
 	   						</div>
    						</c:forEach>
@@ -77,12 +84,15 @@
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">
    							<div class="ans-content">
-   								<input type="hidden" value="${sReply.replyId}" id="${sReply.replyId}">
+   								<input type="hidden" value="${sReply.replyId}" class="sub-replyid">
 	   							<a href="#" class="re-name">${sReply.respondent }</a>:
 	   							<span class="main-content">${sReply.replyContent }</span>
 	   							<div class="ans-co-bottom">
+   								<c:if test="${sReply.con1 == null || sReply.con1 == 0}">
+   								<a href="javascript:void(0);" class="shield-sub <c:if test="${reply.con1 == 1 }">shide</c:if>">屏蔽</a></c:if>
+   								<c:if test="${sReply.con1 == 1}">
+   								<a href="javascript:void(0);" class="un-shield-sub <c:if test="${reply.con1 == 0 || reply.con1 == null }">shide</c:if>">取消屏蔽</a></c:if>
 	   								<span class="ans-time">${fn:substring(sReply.replyTime,0,19) }</span>
-	   								<a href="javascript:;" onclick="reply(this)">回复</a>
 	   							</div>
 	   						</div>
    						</c:forEach>
@@ -91,66 +101,6 @@
     			</div>
     		</div>
     	</c:forEach>
-    	
-<!--     		<div class="content-box">   			 -->
-<!--     			<div class="w-r-main"> -->
-<!--     				<a href="#" class="re-name">一笑奈何</a>: -->
-<!-- 						<span class="main-content">微微忽然就觉得，自己纠结了半天的问题一点都不重要了。 就算哪天服务器真的关闭了也没关系。  -->
-<!--    							只要她记得他在何时何地跟她说了第一句话。 记得他们去哪里看了风景。 记得他们共乘白雕掠过了山山水水……  -->
-<!--    							那些回忆并不会因为数据的消失而消失。 所以，就算将来这个游戏关闭了，这个世界上也永远会有一处地方——也许我心, -->
-<!--    							也许彼心，白衣红影并肩而立。 看落霞峰上，永不落霞。陌上花开蝴蝶飞，江山犹是昔人非；遗民几度垂垂老，游女长歌缓缓归！</span>							 -->
-<!--     			</div> -->
-<!--     			<div class="w-reply"> -->
-<!--     				<div class="r-top"> -->
-<!--     					<a href="javascript:;" class="shield-com">屏蔽评论</a>&nbsp; -->
-<!--     					<span class="r-time">2016-8-18 22:15</span>&nbsp; -->
-<!--     					<div class="r-fold"> -->
-<!--     						<span class="r">回复</span>(<span class="t"></span>) -->
-<!-- 						</div> -->
-<!--     				</div> -->
-<!--     				<div class="sub-reply"> -->
-   						<!-- <div class="answerer-img"><img src=""/></div> -->
-<!--    						<div class="ans-content"> -->
-<!--    							<a href="#" class="re-name">芦苇微微</a>: -->
-<!--    							<span class="main-content">陌上花开蝴蝶飞，江山犹是昔人非；遗民几度垂垂老，游女长歌缓缓归！</span> -->
-<!--    							<div class="ans-co-bottom"> -->
-<!--    								<a href="javascript:void(0);" class="shield-sub">屏蔽</a> -->
-<!--    								<span class="ans-time">2016-8-18 22:15</span> -->
-<!--    							</div> -->
-<!--    						</div> -->
-<!--     				</div> -->
-<!--     			</div> -->
-<!--     		</div> -->
-    		
-<!--     		<div class="content-box">   			 -->
-<!--     			<div class="w-r-main"> -->
-<!--     				<a href="#" class="re-name">一笑奈何</a>: -->
-<!-- 						<span class="main-content">微微忽然就觉得，自己纠结了半天的问题一点都不重要了。 就算哪天服务器真的关闭了也没关系。  -->
-<!--    							只要她记得他在何时何地跟她说了第一句话。 记得他们去哪里看了风景。 记得他们共乘白雕掠过了山山水水……  -->
-<!--    							那些回忆并不会因为数据的消失而消失。 所以，就算将来这个游戏关闭了，这个世界上也永远会有一处地方——也许我心, -->
-<!--    							也许彼心，白衣红影并肩而立。 看落霞峰上，永不落霞。陌上花开蝴蝶飞，江山犹是昔人非；遗民几度垂垂老，游女长歌缓缓归！</span>							 -->
-<!--     			</div> -->
-<!--     			<div class="w-reply"> -->
-<!--     				<div class="r-top"> -->
-<!--     					<a href="javascript:;" class="shield-com">屏蔽评论</a>&nbsp; -->
-<!--     					<span class="r-time">2016-8-18 22:15</span>&nbsp; -->
-<!--     					<div class="r-fold"> -->
-<!--     						<span class="r">回复</span>(<span class="t"></span>) -->
-<!-- 						</div> -->
-<!--     				</div> -->
-<!--     				<div class="sub-reply"> -->
-   						<!-- <div class="answerer-img"><img src=""/></div> -->
-<!--    						<div class="ans-content"> -->
-<!--    							<a href="#" class="re-name">芦苇微微</a>: -->
-<!--    							<span class="main-content">陌上花开蝴蝶飞，江山犹是昔人非；遗民几度垂垂老，游女长歌缓缓归！</span> -->
-<!--    							<div class="ans-co-bottom"> -->
-<!--    								<a href="javascript:void(0);" class="shield-sub">屏蔽</a> -->
-<!--    								<span class="ans-time">2016-8-18 22:15</span> -->
-<!--    							</div> -->
-<!--    						</div> -->
-<!--     				</div> -->
-<!--     			</div> -->
-<!--     		</div> -->
     		
 		</div>
 	</div>
@@ -171,11 +121,19 @@
 		});
 		
 		$("body").on("click", ".shield-com", function(){//屏蔽一级评论
-			
+			Shield(this, "1");
 		});
 		
-		$("body").on("click", "shield-sub", function(){//屏蔽二级评论
+		$("body").on("click", ".un-shield-com", function(){//取消屏蔽
+			Shield(this, "0");
+		});
 		
+		$("body").on("click", ".shield-sub", function(){//屏蔽二级评论
+			subShield(this, "1");
+		});
+		
+		$("body").on("click", ".un-shield-sub", function(){//取消二级评论屏蔽
+			subShield(this, "0");
 		});
 	});
 	
@@ -187,6 +145,54 @@
 			$(obj).find(".r").text("收起回复");
 			$(obj).parent().next().css("display","block");
 		}
+	}
+	
+	function Shield(obj, str){//屏蔽一级回复
+		var id = $(obj).parents(".content-box").find(".reply-id").val(),
+			sharezone = '${requestScope.question.sharezone}';
+		$.post('<%=path%>/reply_shieldReply.action', {"replyId":id, "sharezone":sharezone, "con1": str}, function(data){
+			if(data == "success"){
+				var _ua = '<a href="javascript:;" class="un-shield-com">取消屏蔽</a>',
+					_a = '<a href="javascript:;" class="shield-com">屏蔽评论</a>';
+				if(str == "1"){
+					$(obj).after(_ua);
+					$(obj).parents(".content-box").addClass("shield-color");
+					$(obj).parents(".content-box").find(".sub-reply .ans-co-bottom a").hide();
+				}else{
+					$(obj).after(_a);
+					$(obj).parents(".content-box").removeClass("shield-color");
+					$(obj).parents(".content-box").find(".sub-reply .ans-co-bottom a").show();
+				}
+				$(obj).hide();
+				
+			}else{
+				alert("屏蔽失败");
+			}
+		});
+	}
+	
+	function subShield(obj, str){//屏蔽二级回复
+		var sub_id = $(obj).parents(".ans-content").find(".sub-replyid").val(),
+			sharezone = '${requestScope.question.sharezone}';
+		$.post('<%=path%>/reply_shieldReply.action', {"replyId":sub_id, "sharezone":sharezone, "con1": str}, function(data){
+			if(data == "success"){
+				var _ua = '<a href="javascript:;" class="un-shield-sub">取消屏蔽</a>',
+					_a = '<a href="javascript:;" class="shield-sub">屏蔽</a>';
+				if(str == "1"){
+					$(obj).after(_ua);
+					$(obj).parents(".ans-content").addClass("shield-color");
+// 					$(obj).parents(".ans-content").find(".sub-reply .ans-co-bottom a").hide();
+				}else{
+					$(obj).after(_a);
+					$(obj).parents(".ans-content").removeClass("shield-color");
+// 					$(obj).parents(".ans-content").find(".sub-reply .ans-co-bottom a").show();
+				}
+				$(obj).hide();
+				
+			}else{
+				alert("屏蔽失败");
+			}
+		});
 	}
 </script>
 </html>

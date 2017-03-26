@@ -23,9 +23,9 @@
 			<input type="button" class="query" value="查询" id="query" onclick='queryQuestion()'>
 		</form>
 		</div>
-		<c:out value="${qList}"></c:out>
+		<%-- <c:out value="${qList}"></c:out>
 		<c:out value="${cList}"></c:out>
-		<c:out value="${page}"></c:out>
+		<c:out value="${page}"></c:out> --%>
 		<div class="post">
 			<c:forEach items="${qList}" var="questions">
 			<div class="post-wrap">
@@ -65,33 +65,7 @@
    					</div>
    				</div>
    			</div>
-   			</c:forEach>
-<!-- 			<div class="post-wrap"> -->
-<!--    				<div class="rep-num" title="回复数">5000</div> -->
-<!--    				<div class="post-content"> -->
-<!--    					<div class="post-title"> -->
-<!--    						<span class="post-top" title="置顶">置顶</span>  <span class="post-best" title="精华帖">精</span> -->
-<!--    						<a href="javascript:void(0);" title="" class="title" id="">三生三世十里桃花</a>&nbsp; -->
-<!--    						<span class="post-time">发帖时间：2017-09-5 15:20</span> -->
-<!--    						<div class="post-operate"> -->
-<!--    							<input type="button" class="reply-ope unset-top" value="取消置顶">&nbsp; -->
-<!--    							<input type="button" class="reply-ope unset-best" value="取消精华帖">&nbsp; -->
-<!--    							<input type="button" class="reply-ope delete" value="删除">&nbsp; -->
-<!--    						</div> -->
-<!--    					</div> -->
-<!--    					<div class="post-rep"> -->
-<!--     					<div class="first-rep">那年的七月底，天君令我下界降服从大荒中长起来的一头赤炎金猊， -->
-<!--     					我与那赤炎金猊兽在中容国国境大战七日，天地失色之际，虽将这凶兽斩于剑下，却也因力竭被逼出了原身。 -->
-<!--     					我的原身本是威风凛凛的一条黑龙，但觉得招摇，便缩得只同条小蛇一般大小， -->
-<!--     					在旁边的俊疾山上找了个不大起眼的山洞，便一闭眼睡了。</div> -->
-<!--     					<div class="post-right"> -->
-<!--     						<span class="icon-message">&#xe929; </span><span class="last-replyer" title="最后回复人">bujifeiyu</span> -->
-<!--     						<span class="last-rep-time">16:50</span> -->
-<!--     					</div> -->
-<!--    					</div> -->
-<!--    				</div> -->
-<!--    			</div> -->
-   			
+   			</c:forEach>   			
 
 		<div class="page-div">
 			<c:set var="pages" value="${page }"></c:set>

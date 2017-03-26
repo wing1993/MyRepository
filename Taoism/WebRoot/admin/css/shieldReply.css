@@ -95,7 +95,7 @@ html{
 	display:inline-block;
 	font-size:12px;
 }
-.shield-sub, .shield-com{
+.shield-sub, .shield-com, .un-shield-com{
 	text-decoration:none;
 }
 .shield-sub:hover, .shield-com:hover{
@@ -105,3 +105,6 @@ html{
 	max-width:100px;
 	max-height:200px;
 }
+.shield-color{color:red;}
+.shield-color a{color:red;}
+.shide{display:none;}

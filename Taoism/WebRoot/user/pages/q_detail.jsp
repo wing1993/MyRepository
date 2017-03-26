@@ -168,7 +168,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</div>
     	<%-- <c:out value="${replysfromAction }"></c:out> --%>
     	<c:forEach items="${replysfromAction }" var="reply">
-    	<div class="w-content-box">
+    	<c:if test="${reply.con1 == 0 ||reply.con1 == null }">
+    	<div class="w-content-box" >
     		<!-- <div class="w-left">
     			<div class="ans-intro"><img src=""></div>
     			<div class="respondent">*****</div>
@@ -186,13 +187,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<c:if test="${requestScope.question.sharezone == '学员区' }"><c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
     					<c:if test="${requestScope.question.sharezone == '我的问题' }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
     					
-    					<div class="r-fold" onclick="fold(this)"><span class="r">回复</span>(<span class="t">${fn:length(times)}</span>)</div>
+    					<div class="r-fold" onclick="fold(this)"><span class="${reply.replyId }">回复</span>(<span class="t">${fn:length(times)}</span>)</div>
     				</div>    				
     				<div class="sub-reply">
     				<c:if test="${requestScope.question.sharezone == '弟子区' }">
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
-   							<input type="hidden" value="${fn:length(items)}" class="rTimes">
+   						<c:if test="${dReply.con1 == null || dReply.con1 == 0}">
+   							<input type="hidden" value="${fn:length(items) }" class="rTimes">
    							<div class="ans-content">
    								<input type="hidden" value="${dReply.replyId}" id="${dReply.replyId}">
 	   							<a href="#" class="re-name">${dReply.respondent }</a>:
@@ -202,11 +204,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   								<a href="javascript:;" onclick="reply(this)">回复</a>
 	   							</div>
 	   						</div>
+	   					</c:if>
    						</c:forEach>
    					</c:if>
    					<c:if test="${requestScope.question.sharezone == '公开区' }">
    						<c:forEach items="${reply.publicReplies }" var="pReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
+   						<c:if test="${pReply.con1 == null || pReply.con1 == 0}">
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">
    							<div class="ans-content">
    								<input type="hidden" value="${pReply.replyId}" id="${pReply.replyId}">
@@ -217,11 +221,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   								<a href="javascript:;" onclick="reply(this)">回复</a>
 	   							</div>
 	   						</div>
+	   					</c:if>
    						</c:forEach>
    					</c:if>
    					<c:if test="${requestScope.question.sharezone == '学员区' }">
    						<c:forEach items="${reply.studentReplies }" var="sReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
+   						<c:if test="${sReply.con1 == null || sReply.con1 == 0}">
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">
    							<div class="ans-content">
    								<input type="hidden" value="${sReply.replyId}" id="${sReply.replyId}">
@@ -232,6 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   								<a href="javascript:;" onclick="reply(this)">回复</a>
 	   							</div>
 	   						</div>
+	   					</c:if>
    						</c:forEach>
    					</c:if>
    					<c:if test="${requestScope.question.sharezone == '我的问题' }">
@@ -256,58 +263,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     						<input type="button" value="发表" class="sub-post" onclick="subPost(this)">
     					</div>
     				</div>
+					<script>
+						var no_shield = $('.'+'${reply.replyId}').parents(".w-content-box").find(".ans-content").length;
+						$('.'+'${reply.replyId}').next().html(no_shield);
+					</script>
     			</div>
     		</div>
     	</div>
+    	</c:if>
     	</c:forEach>
-    	<!-- <div class="w-content-box">
-    		<div class="w-left">
-    			<div class="ans-intro"><img src=""></div>
-    			<div class="respondent">*****</div>
-    		</div>
-    		<div class="w-right">
-    			<div class="w-r-main">
-    				<a href="#" class="re-name">一笑奈何</a>:
-						<span class="main-content">微微忽然就觉得，自己纠结了半天的问题一点都不重要了。 就算哪天服务器真的关闭了也没关系。 
-   							只要她记得他在何时何地跟她说了第一句话。 记得他们去哪里看了风景。 记得他们共乘白雕掠过了山山水水…… 
-   							那些回忆并不会因为数据的消失而消失。 所以，就算将来这个游戏关闭了，这个世界上也永远会有一处地方——也许我心,
-   							也许彼心，白衣红影并肩而立。 看落霞峰上，永不落霞。陌上花开蝴蝶飞，江山犹是昔人非；遗民几度垂垂老，游女长歌缓缓归！</span>							
-    			</div>
-    			<div class="w-reply">
-    				<div class="r-top">
-    					<span class="r-time">2016-8-18 22:15</span>&nbsp;
-    					<div class="r-fold">评论</div>
-    				</div>
-    				<div class="sub-reply">
-   						<div class="answerer-img"><img src=""/></div>
-   						<div class="ans-content">
-   							<a href="#" class="re-name">芦苇微微</a>:
-   							<span class="main-content">微微忽然就觉得，自己纠结了半天的问题一点都不重要了。 就算哪天服务器真的关闭了也没关系。 
-   							只要她记得他在何时何地跟她说了第一句话。 记得他们去哪里看了风景。 记得他们共乘白雕掠过了山山水水…… 
-   							那些回忆并不会因为数据的消失而消失。 所以，就算将来这个游戏关闭了，这个世界上也永远会有一处地方——也许我心,
-   							也许彼心，白衣红影并肩而立。 看落霞峰上，永不落霞。陌上花开蝴蝶飞，江山犹是昔人非；遗民几度垂垂老，游女长歌缓缓归！</span>
-   							<div class="ans-co-bottom">
-   								<span class="ans-time">2016-8-18 22:15</span>
-   								<a href="#">回复</a>
-   							</div>
-   						</div>
-    					<div class="sub-add"><span class="comment">我要评论</span></div>
-    					<div class="sub-edit">
-    						<textarea class="add-re"></textarea>
-    						<input type="button" value="发表" class="sub-post">
-    					</div>
-    				</div>
-    			</div>
-    		</div>
-    	</div>  -->
-    	
-    	<!-- <div class="page-div">
-			<input type="button" value="上一页" id="next"  class="abtn">
-			<a href="javascript:;">1</a>
-			<a href="javascript:;">2</a>
-			<span>第&nbsp;<span id="now">1</span>/<span id="total">2</span>&nbsp;页</span>
-			<input type="button" value="下一页" id="next"  class="abtn">
-		</div> -->
     	<div class="edit-div">
     		<textarea name="card" style="width:80%;height:200px;visibility:hidden;"></textarea>
     		<input type="button" value="发表" class="abtn" onclick="Post()">

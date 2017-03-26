@@ -1,6 +1,7 @@
 package com.df.action.reply;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -138,8 +139,11 @@ public class ReplyAction implements Serializable,RequestAware{
 	}
 
 	public String shieldReply() {
+		String msg = "error";
 		try {
-			replyService.shieldReply(replyId,sharezone,con1);
+			msg = replyService.shieldReply(replyId,sharezone,con1);
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -5,7 +5,7 @@
  var dialog;
  $(function(){
  	$(".main").height(parent.iframe_h - 16);
- 	$(".post").height($(".main").height() - $(".top").height() - 40);
+ 	$(".post").height($(".main").height() - $(".top").height() - 20);
 	initDom();	
 	initEvent();
 });
