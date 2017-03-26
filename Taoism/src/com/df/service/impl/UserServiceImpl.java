@@ -169,6 +169,7 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public String changeUserType(User user) throws Exception{
+		user = userDao.getById(user.getUserId());
 		userDao.changeUserType(user);
 		msg="success";
 		return msg;
@@ -230,8 +231,9 @@ public class UserServiceImpl implements IUserService {
 	@Transactional
 	@Override
 	public void updateExaminUser_1(User user) throws Exception{
+		int state = user.getState();
 		user = userDao.getById(user.getUserId());
-		user.setState(1);//审核通过置1
+		user.setState(state);//审核通过置1  不通过置2
 		userDao.update(user);
 	}
 	

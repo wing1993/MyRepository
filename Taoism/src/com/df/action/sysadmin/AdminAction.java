@@ -92,7 +92,7 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 			}
 			admin.setCon1(0);
 			admin.setCon2(0);
-			
+			System.out.println(admin);
 			adminService.save(admin);
 			msg = "success";
 			PrintWriter out = response.getWriter();
@@ -119,9 +119,27 @@ public class AdminAction implements Serializable, ModelDriven<Admin>,RequestAwar
 //			admin.setQtype(Integer.parseInt(adminqxs[3]));
 //			admin.setPostsManage(Integer.parseInt(adminqxs[4]));
 //			admin.setAddAdmin(Integer.parseInt(adminqxs[5]));
+			if(null==admin.getRsgCheck()){
+				admin.setRsgCheck(0);
+			}
+			if(null==admin.getUpdateClass()){
+				admin.setUpdateClass(0);;
+			}
+			if(null==admin.getShieldUser()){
+				admin.setShieldUser(0);;
+			}
+			if(null==admin.getQtype()){
+				admin.setQtype(0);;
+			}
+			if(null==admin.getPostsManage()){
+				admin.setPostsManage(0);;
+			}
+			if(null==admin.getAddAdmin()){
+				admin.setAddAdmin(0);
+			}
 			admin.setCon1(0);
 			admin.setCon2(0);
-			
+			System.out.println(admin);
 			adminService.update(admin);
 			msg = "success";
 			PrintWriter out = response.getWriter();
