@@ -7,7 +7,8 @@ String path = request.getContextPath();
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>用户信息</title>
+	<title>用户禁言</title>
+	<c:if test="${admin.shieldUser == 1 }">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/common.css?<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/css/ui.jqgrid.css">
 	<link href="<%=path %>/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet">
@@ -22,7 +23,12 @@ String path = request.getContextPath();
 		.join-black:hover, .slience:hover{text-decoration:underline;color:red;}
 		
 	</style>
+	</c:if>
 </head>
+<c:if test="${admin.shieldUser == 0 }">
+<body><h2 style="color:red;">您没有禁言用户的权限</h2></body>
+</c:if>
+<c:if test="${admin.shieldUser == 1 }">
 <body>
 	<div class="main">
 		<div class="search">
@@ -52,4 +58,5 @@ String path = request.getContextPath();
 <script>
 var url = '<%=path%>';
 </script>
+</c:if>
 </html>

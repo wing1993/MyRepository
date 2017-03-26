@@ -8,10 +8,18 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>帖子管理</title>
+	<c:if test="${admin.postsManage == 1 }">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/css/liger-ui.css?t=<%= System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/common.css?t=<%= System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/admin/css/postsManage.css?t=<%= System.currentTimeMillis()%>">
+	</c:if>
 </head>
+<c:if test="${admin.postsManage == 0 }">
+<body>
+	<h2 style="color:red;">您没有帖子管理的权限</h2>
+</body>
+</c:if>
+<c:if test="${admin.postsManage == 1 }">
 <body style="margin:8px">
 	<div class="main">
 		<div class="top">
@@ -121,4 +129,5 @@
 			}
 		}
 	</script>
+</c:if>
 </html>

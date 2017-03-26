@@ -37,25 +37,39 @@
 	.l-dialog-winbtn:before{content:'×';font-weight:bold;font-size:20px;margin-bottom:5px;}
 	.ui-jqgrid .ui-jqgrid-htable .ui-th-div{height:20px;}
 	.stop-tip{margin-left:200px;border-width:2px;}
+	.check{background-image:url(../../images/right.png);}
+	.cross{background-image:url(../../images/cross.png);}
+	.right{display:block;width:16px;height:16px;color:transparent;background-repeat:no-repeat;
+		background-size:cover;}
+	.readonly{background:#ccc;color:#fff;}
+	.td-stop-color{margin:30px 15px;}
 	</style>
   </head>
   <body>
 		<input type="hidden" id="adminId" value="${admin.adminId }">
 		<div class="newAdmin">
-			<input type="button" class="add-admin" value="新增管理员">
-			<div class="stop-tip"><span class="tip">修改成功</span></div>
+			<input type="button" class="add-admin <c:if test="${admin.addAdmin == 0 }">readonly</c:if>" value="新增管理员" id="add_admin">
+			<div class="stop-tip"><span class="tip"></span></div>
+			<c:if test="${admin.addAdmin == 0 }"><h2 class="td-stop-color">您没有添加管理员的权限</h2></c:if>
 		</div>
 		<div class="tb-wrap">
 			<table class="r-tb" id="r_tb">
 			</table>
 		</div>
   </body>
-  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.jqGrid.js?t=<%=System.currentTimeMillis()%>"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath }/js/ligerui.js?t=<%=System.currentTimeMillis()%>"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath }/admin/js/addAdmin.js?t=<%=System.currentTimeMillis()%>"></script>
-  <script>
-  	var url = '<%=path %>';
-  </script>
+  <c:if test="${admin.addAdmin == 0 }">
+  	<script>
+  		document.getElementById("add_admin").setAttribute('readonly', true);
+  	</script>
+  </c:if>
+  <c:if test="${admin.addAdmin == 1 }">
+	  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+	  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
+	  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.jqGrid.js?t=<%=System.currentTimeMillis()%>"></script>
+	  <script type="text/javascript" src="${pageContext.request.contextPath }/js/ligerui.js?t=<%=System.currentTimeMillis()%>"></script>
+	  <script type="text/javascript" src="${pageContext.request.contextPath }/admin/js/addAdmin.js?t=<%=System.currentTimeMillis()%>"></script>
+	  <script>
+	  	var url = '<%=path %>';
+	  </script>
+  </c:if>
 </html>

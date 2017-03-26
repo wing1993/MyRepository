@@ -104,8 +104,8 @@
     		
 		</div>
 	</div>
-
 </body>
+
 <script src="<%=path %>/js/jquery.min.js"></script>
 <script>
 	$(function(){

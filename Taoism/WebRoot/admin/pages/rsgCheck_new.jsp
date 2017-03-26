@@ -5,6 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>注册审核</title>
+	<c:if test="${admin.rsgCheck == 1 }">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css?t=<%= System.currentTimeMillis() %>">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/ui.jqgrid.css">
 	<link href="${pageContext.request.contextPath }/css/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet">
@@ -16,8 +17,11 @@
 		.operate:hover, .ignore:hover{text-decoration:underline;color:red;}
 		.btn{margin-bottom:10px;}
 	</style>
+	</c:if>
 </head>
 <body>
+<c:if test="${admin.rsgCheck == 0 }"><h2 style="color:red;">您没有注册审核的权限</h2></c:if>
+<c:if test="${admin.rsgCheck == 1 }">
 	<div class="main">
 		<div class="search">
 			注册类型：
@@ -35,11 +39,12 @@
 			<div id="pager"></div>
 		</div>
 	</div>
-</body>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.jqGrid.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/admin/js/rsgCheck.js?t=<%= System.currentTimeMillis()%>"></script>
 <script>
 var url = '${pageContext.request.contextPath }';
 </script>
+</c:if>
+</body>
 </html>

@@ -88,7 +88,7 @@ html,body,div,span,ul,input{
 .title span:nth-of-type(2){
 	font-size:30px;
 }
-.logout,.admin_ico{
+/* .logout,.admin_ico{
 	display:inline-block;
 	float:right !important;
 	margin-right:30px;
@@ -99,7 +99,7 @@ html,body,div,span,ul,input{
 	width:30px;
 	height:40px;
 	margin-top:10px;
-}
+} */
 .admin_ico{
 	background-image: url(../../images/administrator.png) !important;
 	width:40px !important;
@@ -208,4 +208,9 @@ html,body,div,span,ul,input{
 
 .l-tab-content-item iframe{
 	width:100%;
+}
+.logout{
+	color:#fff;
+	float:right;
+	text-decoration:none;
 }

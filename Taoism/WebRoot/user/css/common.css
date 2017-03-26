@@ -117,6 +117,8 @@ html{font-family:'Microsoft YaHei';}
 }
 .icon-d,.icon-e{cursor:pointer;color:#969090;}
 .icon-d:hover{color:#E84747;}
+.icon-check{content:'\ea10';color:#00CC00;}
+.icon-cross{color:red;}
 .btn{
 	color:#fff;
 	padding:6px 8px;

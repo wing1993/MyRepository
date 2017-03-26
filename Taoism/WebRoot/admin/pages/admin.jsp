@@ -1,16 +1,17 @@
 
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%String path = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>管理员页面</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/admin/css/admin.css?t=<%= System.currentTimeMillis()%>">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/admin/css/admin.css?t=<%= System.currentTimeMillis()%>">
 	
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/liger-ui.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/admin/js/admin.js?t=<%= System.currentTimeMillis()%>"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/ligerui.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=path %>/css/liger-ui.css">
+	<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/admin/js/admin.js?t=<%= System.currentTimeMillis()%>"></script>
+	<script type="text/javascript" src="<%=path %>/js/ligerui.js"></script>
 	<script type="text/javascript">
 		
 	</script>
@@ -20,12 +21,13 @@
 		<div class="top">
 			<div class="wel">
 				<span class="ico"></span>
-				<span>&nbsp;管理员，欢迎您登陆</span>
+				<span>&nbsp;${admin.adminName }管理员，欢迎您登陆</span>
 			</div>
 			<div class="title">
 				<span class="logo"></span><span>老先生答疑后台管理</span>
-				<span class="admin_ico" title="个人中心"></span>
-				<a class="logout" title="退出" href="#"></a>
+				<a class="logout" href="<%=path %>/admin_logout.action" title="退出">退出系统</a>
+<!-- 				<span class="admin_ico" title="个人中心"></span> -->
+<!-- 				<a class="logout" title="退出" href="#"></a> -->
 			</div>
 		</div>
 		<div class="left">
@@ -36,7 +38,7 @@
 					<span class="icon-sub">&#xe91a;</span>&nbsp;&nbsp;<span>注册审核</span>
 				</li>
 				<li id="updateClass" tabid="updateClass"  tab_url="admin/pages/updateClass.jsp"><span class="icon-sub">&#xe80c;</span>&nbsp;&nbsp;<span>身份升级</span></li>
-				<li id="userInfo" tabid="userInfo"  tab_url="admin/pages/userInfo.jsp"><span class="icon-sub">&#xe971;</span>&nbsp;&nbsp;<span>用户信息</span></li>
+				<li id="userInfo" tabid="userInfo"  tab_url="admin/pages/userInfo.jsp"><span class="icon-sub">&#xe971;</span>&nbsp;&nbsp;<span>用户禁言</span></li>
 			</ul>
 			<div class="left-item"><span class="icon-qz">&#xe920;</span>&nbsp;问题管理</div>
 			<ul class="sub-item">

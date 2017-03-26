@@ -1,12 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%String path = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>管理员登录</title>
-	<link rel="stylesheet" type="text/css" href="../css/login.css">
-	<script src="../../js/jquery.min.js"></script>
-	<script type="text/javascript" src="../../js/jquery.form.js"></script>
+	<link rel="stylesheet" type="text/css" href="<%=path %>/admin/css/login.css">
+	<script src="<%=path %>/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/jquery.form.js"></script>
 	<script>
 		$(function(){
 			$(".username").keyup(function(e){
@@ -31,7 +32,7 @@
 				$(".msg_error").text("请输入密码").show();
 			}else {
 				var obj={
-						url:'${pageContext.request.contextPath }/admin_login.action',
+						url:'<%=path %>/admin_login.action',
 						type:'post',
 						success:function(str){
 							console.log(str);
@@ -54,7 +55,7 @@
 	<div class="bd"></div>
 	<div class="main">
 		<div class="top">管理员登录</div>
-		<form action="${pageContext.request.contextPath }/admin_login.action" method="post">
+		<form action="<%=path %>/admin_login.action" method="post">
 			<div class="item">
 				<input type="text" placeholder="管理员账号" name="adminName" class="username" onblur="dis()">
 			</div>

@@ -3,24 +3,22 @@ var grid,dialog,com_opt,combo;
 $(function(){
 	createGrid();
 	initEvent();
-	FadeTip("添加chenggong");
 });
 
 function createGrid(){
-	var d = [{"userId":1,"username":"kkk","q1":"ss","q2":"rr"}];
 	var	w = $(".main").width();
 	var h = parent.iframe_h - $(".newAdmin").height() - 80;
 	var columns = [
 			{label:'adminId', name:'adminId', index:'adminId', hidden: true, key: true},
 			{label:'pwd', name:'password', index:'password', hidden: true},
 			{label:'用户名', name:'adminName', index:'adminName', width:100, align:'center'},
-			{label:'注册审核', name:'rsgCheck', index:'rsgCheck',width:80,align:'center'},
-			{label:'升级用户', name:'updateClass', index:'updateClass',width:80,align:'center'},
-			{label:'用户禁言', name:'shieldUser', index:'shieldUser',width:80,align:'center'},
-			{label:'修改问题类型', name:'qtype', index:'qtype',width:80,align:'center'},
-			{label:'帖子管理', name:'postsManage', index:'postsManage',width:80,align:'center'},
-			{label:'新增管理员', name:'addAdmin', index:'addAdmin',width:80,align:'center'},
-			{label:'操新', width:150,align:'left',formatter: btnFormat}
+			{label:'注册审核', name:'rsgCheck', index:'rsgCheck',width:80,align:'center', formatter: checkFormat, unformat:unFormat},
+			{label:'升级用户', name:'updateClass', index:'updateClass',width:80,align:'center', formatter: checkFormat, unformat:unFormat},
+			{label:'用户禁言', name:'shieldUser', index:'shieldUser',width:80,align:'center', formatter: checkFormat, unformat:unFormat},
+			{label:'修改问题类型', name:'qtype', index:'qtype',width:80,align:'center', formatter: checkFormat, unformat:unFormat},
+			{label:'帖子管理', name:'postsManage', index:'postsManage',width:80,align:'center', formatter: checkFormat, unformat:unFormat},
+			{label:'新增管理员', name:'addAdmin', index:'addAdmin',width:80,align:'center', formatter: checkFormat, unformat:unFormat},
+			{label:'操作', width:150,align:'center',formatter: btnFormat}
 		];
 	$.post(url + '/admin_findByAdminId.action', {"parentId": $("#adminId").val()}, function(data){
 		grid = $("#r_tb").jqGrid({
@@ -40,6 +38,19 @@ function btnFormat(cellvalue, options, rowObject){
 			'&nbsp;<span class="icon-e" title="编辑" data-robj="',rowObject.userId,'">&#xe92d;</span></div>'].join('');
 }
 
+//设置权限图标
+function checkFormat(cellvalue, options, rowObject){
+	var str = cellvalue == 1 ? '<span class="right check">1</span>' : '<span class="right cross">0</span>';
+	return str;
+}
+
+function unFormat(cellvalue){
+	if(cellvalue == '1'){
+		return 1;
+	}else{
+		return 0;
+	}
+}
 function createCombo(rowdata, str){
 	var btn_val = !str ? "添加" : "确定";
 	var _html = ['<form class="sub-form" action="" method="post">',
@@ -59,7 +70,7 @@ function createCombo(rowdata, str){
 				'</form>'].join('');
 		dialog = $.ligerDialog.open({
 			width:300,
-			height:250,
+			height:300,
 			title: !str ? '新增管理员' : str,
 			content: _html
 		});
@@ -103,7 +114,6 @@ function createCombo(rowdata, str){
 		};
 		combo = $(".add-input").ligerComboBox(com_opt);
 		if(rowdata){
-			console.log(rowdata);	
 			$(".add-input").val(rowdata.adminName);
 			$("input[name=password]").val(rowdata.password);
 			combo.setDisabled(true);
@@ -114,7 +124,7 @@ function createCombo(rowdata, str){
 			$("input[name='qtype']").val(rowdata.qtype).attr("checked", rowdata.qtype == "1");
 			$("input[name='postsManage']").val(rowdata.postsManage).attr("checked", rowdata.postsManage == "1");
 			$("input[name='addAdmin']").val(rowdata.addAdmin).attr("checked", rowdata.addAdmin == "1");
-//			$(".add-input").attr("disabled", true);
+			$(".add-input").attr("readonly", true);
 		}else{
 			$(".sub-form").find("input[type=checkbox]").attr("checked", true);
 			$(".sub-form").find("input[type=checkbox]").attr("value", "1");
@@ -158,7 +168,6 @@ function initEvent(){
 			var obj = {
 				url: edit_add == "edit" ? url + '/admin_edit.action' : url + '/admin_save.action',
 				success:function(data){
-					console.log(data);
 					if(data == "success"){
 						dialog.close();
 						edit_add =="edit" ? str = "修改成功" : str = "添加管理员成功";

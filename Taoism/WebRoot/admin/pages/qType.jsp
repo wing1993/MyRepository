@@ -8,6 +8,7 @@
 
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
+	<c:if test="${admin.qtype == 1 }">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/admin/css/admin.css">
 	<style>
 		.wrap-add .tip{margin-left:80px;;color:red;display:none;}
@@ -16,8 +17,12 @@
 		.icon-d{content:'\e9ac';float:right;text-align:right;cursor:pointer;color:#969090;}
 		.icon-d:hover{color:#E84747;}
 	</style>
+	</c:if>
   </head>
-  
+  <c:if test="${admin.qtype == 0 }">
+  <body><h2 style="color:red;">您没有问题类型管理的权限</h2></body>
+  </c:if>
+  <c:if test="${admin.qtype == 1 }">
   <body>
     <form action="">
 	    <div class="wrap-add">
@@ -73,4 +78,5 @@
 			});
 		});
 	</script>
+	</c:if>
 </html>
