@@ -372,3 +372,29 @@ input[type=button]:hover,.ask:hover{
 	background:#2897ff;
 	color:#fff;
 }
+.post-top, .post-best{
+	/* display:inline-block;
+	width:32px;
+	height:18px;
+	line-height:18px; */
+	text-align:center;
+	background-color:#66a3ff;
+	color:#fff;
+	font-size:12px;
+	margin-right:6px;
+	padding:0 5px;
+}
+.post-best{
+	background-color:#FE6666;
+	width:20px;
+}
+.q-title{position:relative;}
+.top-best{
+	position:absolute;
+	top:-15px;
+	left:-95px;
+}
+.td-title{
+	text-align:left;
+	padding:10px;
+}

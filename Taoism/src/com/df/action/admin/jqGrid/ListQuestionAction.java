@@ -67,17 +67,16 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 				this.setPage(dp.getPage());
 				requestMap.put("qList",dp.gettList());
 				requestMap.put("cList",dp.getcList());
+				requestMap.put("startTime", this.getStartTime());
+				requestMap.put("endTime", this.getEndTime());
+				requestMap.put("author", this.getUsername());
 				System.out.println("----"+this.getqList());
 				System.out.println("----"+dp.gettList());
 				msg = "success";
 			}
 			
-			
 			System.out.println(msg);
 			return msg;
-			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

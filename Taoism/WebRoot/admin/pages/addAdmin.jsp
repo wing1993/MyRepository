@@ -36,7 +36,7 @@
 	.l-dialog-winbtn{height:26px;}
 	.l-dialog-winbtn:before{content:'×';font-weight:bold;font-size:20px;margin-bottom:5px;}
 	.ui-jqgrid .ui-jqgrid-htable .ui-th-div{height:20px;}
-	.stop-tip{margin-left:200px;border-width:2px;}
+	.stop-tip{margin-left:45%;border-width:2px;}
 	.check{background-image:url(../../images/right.png);}
 	.cross{background-image:url(../../images/cross.png);}
 	.right{display:block;width:16px;height:16px;color:transparent;background-repeat:no-repeat;
@@ -69,7 +69,13 @@
 	  <script type="text/javascript" src="${pageContext.request.contextPath }/js/ligerui.js?t=<%=System.currentTimeMillis()%>"></script>
 	  <script type="text/javascript" src="${pageContext.request.contextPath }/admin/js/addAdmin.js?t=<%=System.currentTimeMillis()%>"></script>
 	  <script>
-	  	var url = '<%=path %>';
+	  	var url = '<%=path %>',
+	  		rsgCheck = '${admin.rsgCheck}',
+	  		updateClass = '${admin.updateClass}',
+	  		shieldUser = '${admin.shieldUser}',
+	  		qtype = '${admin.qtype}',
+	  		postsManage = '${admin.postsManage}',
+	  		addAdmin = '${admin.addAdmin}';
 	  </script>
   </c:if>
 </html>

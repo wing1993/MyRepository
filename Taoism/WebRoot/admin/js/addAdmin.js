@@ -52,17 +52,18 @@ function unFormat(cellvalue){
 	}
 }
 function createCombo(rowdata, str){
+	console.log(updateClass);
 	var btn_val = !str ? "添加" : "确定";
 	var _html = ['<form class="sub-form" action="" method="post">',
 				'<div class="newAdmin">',
 				'<input type="text" placeholder="请输入弟子的法号" class="add-input" name="adminName">',
 				' <input type="button" class="add-admin" value="',btn_val,'" id="sub_add" name="admin_qxs"></div>',
-				'<input type="checkbox" name="rsgCheck" value="0"><label>注册审核</label><br>',
-				'<input type="checkbox" name="updateClass" value="0"><label>升级用户</label><br>',
-				'<input type="checkbox" name="shieldUser" value="0"><label>用户禁言</label><br>',
-				'<input type="checkbox" name="qtype" value="0"><label>修改问题类型</label><br>',
-				'<input type="checkbox" name="postsManage" value="0"><label>帖子管理</label><br>',
-				'<input type="checkbox" name="addAdmin" value="0"><label>添加管理员</label><br>',
+				'<input type="checkbox" name="rsgCheck" value="',rsgCheck,'"><label>注册审核</label><br>',
+				'<input type="checkbox" name="updateClass" value="',updateClass,'"><label>升级用户</label><br>',
+				'<input type="checkbox" name="shieldUser" value="',shieldUser,'"><label>用户禁言</label><br>',
+				'<input type="checkbox" name="qtype" value="',qtype,'"><label>修改问题类型</label><br>',
+				'<input type="checkbox" name="postsManage" value="',postsManage,'"><label>帖子管理</label><br>',
+				'<input type="checkbox" name="addAdmin" value="',addAdmin,'"><label>添加管理员</label><br>',
 				'<input type="text" style="display:none;">',
 				'<input type="hidden" name="adminId" value="">',
 				'<input type="hidden" name="password" value="">',
@@ -124,14 +125,29 @@ function createCombo(rowdata, str){
 			$("input[name='qtype']").val(rowdata.qtype).attr("checked", rowdata.qtype == "1");
 			$("input[name='postsManage']").val(rowdata.postsManage).attr("checked", rowdata.postsManage == "1");
 			$("input[name='addAdmin']").val(rowdata.addAdmin).attr("checked", rowdata.addAdmin == "1");
+			setDisabled();
 			$(".add-input").attr("readonly", true);
 		}else{
-			$(".sub-form").find("input[type=checkbox]").attr("checked", true);
-			$(".sub-form").find("input[type=checkbox]").attr("value", "1");
+			$("input[name='rsgCheck']").attr("checked", rsgCheck == "1");
+			$("input[name='updateClass']").attr("checked", updateClass == "1");
+			$("input[name='shieldUser']").attr("checked", shieldUser == "1");
+			$("input[name='qtype']").attr("checked", qtype == "1");
+			$("input[name='postsManage']").attr("checked", postsManage == "1");
+			$("input[name='addAdmin']").attr("checked", addAdmin == "1");
+			setDisabled();
 		}
 	});
 }
 
+//当用户没有改权限时设置复选框不可用
+function setDisabled(){
+	rsgCheck == "0" && $("input[name='rsgCheck']").attr("disabled", "disabled");
+	updateClass == "0" && $("input[name='updateClass']").attr("disabled", "disabled");
+	shieldUser == "0" && $("input[name='shieldUser']").attr("disabled", "disabled");
+	qtype == "0" && $("input[name='qtype']").attr("disabled", "disabled");
+	postsManage =="0" && $("input[name='postsManage']").attr("disabled", "disabled");
+	addAdmin == "0" && $("input[name='addAdmin']").attr("disabled", "disabled");
+}
 function initEvent(){	
 	$(".add-admin").click(function(){
 		createCombo();

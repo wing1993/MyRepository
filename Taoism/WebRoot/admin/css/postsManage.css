@@ -97,7 +97,7 @@ body{
 	color:#6B99E4;
 }
 .page-div{
-	margin-top:5px;
+	margin:10px;
 }
 .post-time{
 	color:#aaa;
@@ -121,3 +121,20 @@ body{
 	background:#2877ff;
 	color:#fff;
 }
+.phide{display:none;}
+.tip-wrap{
+	position:absolute;
+	margin:15% auto;
+	left:40%;
+	color:#009900;
+	font-size:25px;
+	padding:8px 10px;
+	border:5px solid #009900;
+	display:none;
+}
+.del-color,.del-color .post-time,.post-content.del-color .post-right span{
+	color:red;
+}
+/* .del-color .post-right span{
+	color:red;
+} */

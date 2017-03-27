@@ -128,7 +128,7 @@ html{font-family:'Microsoft YaHei';}
 	border:none;
 	border-radius:4px;
 }
-.stop-tip{margin-left:20px;padding:2px 6px;}
+.stop-tip{margin-left:20%;padding:2px 6px;}
 .icon-success:before{content:'\e86c';}
 .icon-error:before{content:'\e5c9';}
 .stop-err{display:inline-block;border:2px solid red;color:red;}

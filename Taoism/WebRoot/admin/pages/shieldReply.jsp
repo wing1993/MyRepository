@@ -20,7 +20,6 @@
 			<a href="javascript:void(0);" class="close">关闭</a>
 		</div>
 		<div class="reply-content">
-		<c:out value="${replysfromAction }"></c:out>
 		<c:forEach items="${replysfromAction }" var="reply">
 			<div class="content-box <c:if test="${reply.con1 == 1 }">shield-color</c:if>">
     			<input type="hidden" value="${reply.replyId }" class="reply-id">   			

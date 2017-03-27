@@ -111,16 +111,19 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	 * @return
 	 */
 	public String delete() {
-		String msg = "error";
+		String msg = "error",
+			con6 = question.getCon6();
 		try {
 			question = questionService.getById(question.getQId());
-			question.setCon6("1");
+			question.setCon6(con6);
 			questionService.update(question);
 			msg = "success";
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return null;
 	}
 
 	public String update() {
@@ -138,16 +141,19 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	 * @return
 	 */
 	public String setTop() {
-		String msg = "error";
+		String msg = "error",
+				con4 = question.getCon4();
 		try {
 			question = questionService.getById(question.getQId());
-			question.setCon4("1");
+			question.setCon4(con4);
 			questionService.update(question);
 			msg = "success";
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return null;
 	}	
 	
 	/**
@@ -155,16 +161,19 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	 * @return
 	 */
 	public String setNice() {
-		String msg = "error";
+		String msg = "error",
+			con5 = question.getCon5();
 		try {
 			question = questionService.getById(question.getQId());
-			question.setCon5("1");
+			question.setCon5(con5);
 			questionService.update(question);
 			msg = "success";
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return msg;
+		return null;
 	}	
 	
 	/**

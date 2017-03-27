@@ -144,7 +144,9 @@
     		<result name="success" type="dispatcher">
     			  /admin/pages/postsManage.jsp
     		</result>
-    		<result name="error" type="json"></result>
+    		<result name="error" type="dispatcher">
+    			/admin/pages/postsManage.jsp
+    		</result>
     	</action>
     	<action name="shield_*" class="questionAction" method="{1}">
     		<result name="replys" type="dispatcher">/admin/pages/shieldReply.jsp</result>

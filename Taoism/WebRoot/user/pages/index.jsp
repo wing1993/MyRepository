@@ -42,20 +42,21 @@
 			$("#now").text("");
 			$(".a-page").empty();$("#q_detail").empty();
 			$.post("<%=path %>/question_find_findByDynamicData.action",{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),
-						QTime:$("#QTime").val(),state:$("#state").val(),QTitle:qTitle,currentPage:$(obj).text()},function(data){
+						QTime:$("#QTime").val(),state:$("#state").val(),QTitle:qTitle,currentPage:$(obj).text(),rows:10},function(data){
 					if(null!=data.qList){
-					/*  for(var i=0;i<data.postList.length;i++){ */
 						$.each(data.qList,function(i,value){
-							if(value.state!=0){var icon="<td class='icon-td' title='已回复'>&#xe905;</td>";}
-							else{var icon="<td class='icon-td unreplied' title='未回复'>&#xe906;</td>";}
-							 var str = "<tr>"+icon
-									+"<td><a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' title='"+value.QTitle+"'>"+value.QTitle+"</a></td>"
-									+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td>"+value.con1+"<br>"+value.con2+"</td>"
-									+"<td>"+value.con3+"</td><td>"+value.visits+"</td>"
-									+"<td>"+value.QTypeName+"</td></tr>";
-							$("#q_detail").append(str);
+							if(value.con6 != 1){
+								var icon = value.state != 0 ? "<td class='icon-td' title='已回复'>&#xe905;</td>" : "<td class='icon-td unreplied' title='未回复'>&#xe906;</td>",
+									top = value.con4 == 1 ? "<span class='post-top'>置顶</span>" : "",
+									best = value.con5 == 1 ? "<span class='post-best'>精华帖</span>" : "";
+								 var str = "<tr>"+icon
+										+"<td class='td-title'>"+top+best+"<a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' title='"+value.QTitle+"' class='q-title'>"+value.QTitle+"</a></td>"
+										+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td>"+value.con1+"<br>"+value.con2+"</td>"
+										+"<td>"+value.con3+"</td><td>"+value.visits+"</td>"
+										+"<td>"+value.QTypeName+"</td></tr>";
+								$("#q_detail").append(str);
+							}
 						});
-					/* }  */ 
 					
 						$.each(data.cList,function(i,value){
 							var str = "";
@@ -337,13 +338,8 @@
 	</div>
 	<div class="r-box">
 		<div class="r-box-top">招生传法信息&nbsp;<span class="icon-r">&#xe91a;</span></div>
-		<div class="r-message"><a href="#">招生</a></div>
-		<div class="r-message"><a href="#">招生</a></div>
-		<div class="r-message"><a href="#">招生</a></div>
-		<div class="r-message"><a href="#">招生</a></div>
-		<div class="r-message"><a href="#">招生</a></div>
-		<div class="r-message"><a href="#">招生</a></div>
-		<div class="r-more"><a href="${pageContext.request.contextPath }/message_findAll.action">更多</a></div>
+		
+		<div class="r-more"><a href="${pageContext.request.contextPath }/message_findAll.action" target="_blank">更多</a></div>
 	</div>
 </body>
 </html>
