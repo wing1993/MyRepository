@@ -90,6 +90,9 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		return count;
 	}
 
+	/**
+	 * 通过问题区域，问题类型，是否回复，按时间查找问题
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public DataPage<Question> findByDynamicData(Question question,int currentPage,String userType) throws Exception {
@@ -137,11 +140,16 @@ public class QuestionDAOImpl implements IQuestionDAO {
 					dc.add(Restrictions.eq("sharezone", question.getSharezone()));
 					dc1.add(Restrictions.eq("sharezone", question.getSharezone()));
 				}
+				//考虑到转帖   我的问题是   用户名匹配  + 提问对象不为空
 				if("我的问题".equals(question.getSharezone())){System.out.println("5");
-						dc.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
+						/*dc.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
 								Restrictions.eq("sharezone", question.getSharezone())));
 						dc1.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
-								Restrictions.eq("sharezone", question.getSharezone())));
+								Restrictions.eq("sharezone", question.getSharezone())));*/
+						dc.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
+								Restrictions.isNotNull("sharezone")));
+						dc1.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
+								Restrictions.isNotNull("sharezone")));
 				}
 				if("答疑区".equals(question.getSharezone())){System.out.println("6");
 						dc.add(Restrictions.eq("askWho", question.getAskWho()));
@@ -268,7 +276,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 				&&null!=map.get("endTime")&&!"".equals(map.get("endTime").toString())){
 			sql.append(" and u.QTime >= '"+ map.get("startTime").toString()
 					+"' and u.QTime <= '"+map.get("endTime").toString()+"'");
-		}if(null!=map.get("username")){
+		}if(null!=map.get("username")&&!"".equals(map.get("username").toString())){
 			sql.append(" and u.username = '"+ map.get("username").toString()+"'");
 		}
 		Long resultCount =  (Long) sessionFactory.getCurrentSession()
@@ -280,7 +288,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 			dc.add(Restrictions.between("QTime", map.get("startTime").toString(),
 					map.get("endTime").toString()));
 		}
-		if(null!=map.get("username")){
+		if(null!=map.get("username")&&!"".equals(map.get("username").toString())){
 			dc.add(Restrictions.eq("username", map.get("username").toString()));
 		}
 

@@ -101,5 +101,25 @@ public class DateUtil {
 		return result;
 	}
 
-	
+	/**
+     * 得到某一天   n天之后的日期
+     * @param days==>n为负数，n天之前，n为正数，n天之后      dateString String类型的日期  
+     * @return
+     */
+    public static String getAfterDayDate(String dateString, int days) throws Exception{
+    	
+    	//String转date
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+    	Date date = sdf.parse(dateString);
+    	
+        Calendar canlendar = Calendar.getInstance(); // java.util包
+        canlendar.setTime(date);//将当前时间设置为指定的时间
+        canlendar.add(Calendar.DATE, days); // 日期减 如果不够减会将月变动
+        date = canlendar.getTime();
+        
+        SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd");
+        String dateStr = sdfd.format(date);
+        
+        return dateStr;
+    }
 }

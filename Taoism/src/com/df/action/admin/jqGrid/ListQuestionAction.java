@@ -1,7 +1,6 @@
 package com.df.action.admin.jqGrid;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +38,6 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 	private List<Question> qList;   //保存获取的问题
 	private List<ClientPage> cList; //保存要显示的页码
 	private Page page;              //分页的情况（每页显示的数量，总页数，当前页，是否有上一页下一页等）
-	private String username;
 	private int rows;
 	private String startTime;
 	private String endTime;
@@ -53,9 +51,11 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 		String msg = "error";
 		try {
 			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("username", this.getUsername());
+			map.put("username", question.getUsername());
 			map.put("startTime", this.getStartTime());
-			map.put("endTime", this.getEndTime());
+			if(null!=this.getEndTime()&&!"".equals(this.getEndTime())){
+		    	map.put("endTime", DateUtil.getAfterDayDate(this.getEndTime(), 1));//结束时间+1天
+			}
 			map.put("currentPage", this.getCurrentPage());
 			map.put("rows", this.getRows());
 			System.out.println(map);
@@ -69,7 +69,7 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 				requestMap.put("cList",dp.getcList());
 				requestMap.put("startTime", this.getStartTime());
 				requestMap.put("endTime", this.getEndTime());
-				requestMap.put("author", this.getUsername());
+				requestMap.put("author", question.getUsername());
 				System.out.println("----"+this.getqList());
 				System.out.println("----"+dp.gettList());
 				msg = "success";
@@ -99,12 +99,6 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 	}
 	public void setPage(Page page) {
 		this.page = page;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
 	}
 	public int getRows() {
 		return rows;

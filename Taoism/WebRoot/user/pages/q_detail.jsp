@@ -182,15 +182,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="w-reply">
     				<div class="r-top">
     					<span class="r-time">${fn:substring(reply.replyTime,0,19) }</span>&nbsp;
-    					<c:if test="${requestScope.question.sharezone == '弟子区' }"><c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
-    					<c:if test="${requestScope.question.sharezone == '公开区' }"><c:set var="times" value="${reply.publicReplies }"></c:set></c:if>
-    					<c:if test="${requestScope.question.sharezone == '学员区' }"><c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
-    					<c:if test="${requestScope.question.sharezone == '我的问题' }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
+    					<c:if test="${requestScope.question.sharezone == '弟子区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
+    					<c:if test="${requestScope.question.sharezone == '公开区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.publicReplies }"></c:set></c:if>
+    					<c:if test="${requestScope.question.sharezone == '学员区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
+    					<c:if test="${null!=requestScope.question.askWho }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
     					
     					<div class="r-fold" onclick="fold(this)"><span class="${reply.replyId }">回复</span>(<span class="t">${fn:length(times)}</span>)</div>
     				</div>    				
     				<div class="sub-reply">
-    				<c:if test="${requestScope.question.sharezone == '弟子区' }">
+    				<c:if test="${requestScope.question.sharezone == '弟子区'&&null==requestScope.question.askWho }">
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:if test="${dReply.con1 == null || dReply.con1 == 0}">
@@ -207,7 +207,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   					</c:if>
    						</c:forEach>
    					</c:if>
-   					<c:if test="${requestScope.question.sharezone == '公开区' }">
+   					<c:if test="${requestScope.question.sharezone == '公开区'&&null==requestScope.question.askWho }">
    						<c:forEach items="${reply.publicReplies }" var="pReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:if test="${pReply.con1 == null || pReply.con1 == 0}">
@@ -224,7 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   					</c:if>
    						</c:forEach>
    					</c:if>
-   					<c:if test="${requestScope.question.sharezone == '学员区' }">
+   					<c:if test="${requestScope.question.sharezone == '学员区'&&null==requestScope.question.askWho }">
    						<c:forEach items="${reply.studentReplies }" var="sReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:if test="${sReply.con1 == null || sReply.con1 == 0}">
@@ -241,7 +241,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   					</c:if>
    						</c:forEach>
    					</c:if>
-   					<c:if test="${requestScope.question.sharezone == '我的问题' }">
+   					<c:if test="${null!=requestScope.question.askWho  }">
    						<c:forEach items="${reply.myquestionReplies }" var="mReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">

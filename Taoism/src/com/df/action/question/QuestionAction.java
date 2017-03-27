@@ -107,7 +107,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	}
 
 	/**
-	 * 逻辑删除  删除标志con6置1
+	 * 逻辑删除  删除标志con6置1   恢复  con6置0
 	 * @return
 	 */
 	public String delete() {
@@ -223,9 +223,9 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	public String findReplyByQId(){
 		System.out.println("123456789"+question);
 		try {
+			question = questionService.getById(question.getQId());
 			replyList = questionService.findByQid(question);
 		
-			question = questionService.getById(question.getQId());
 			requestMap.put("replysfromAction", replyList);
 			requestMap.put("questionfromAction", question);
 			System.out.println("question"+question);
