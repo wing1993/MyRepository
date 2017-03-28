@@ -103,7 +103,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		System.out.println(question.getSharezone()+"========="+(question.getSharezone()!=null));
 		System.out.println("---------------");
 		System.out.println(question.toString());
-		if(!"".equals(question.getQTitle())){
+		if(null!=question.getQTitle()&&!"".equals(question.getQTitle())){
 			dc.add(Restrictions.like("QTitle",question.getQTitle(),MatchMode.ANYWHERE));
 			dc1.add(Restrictions.like("QTitle",question.getQTitle(),MatchMode.ANYWHERE));
 		}
@@ -147,9 +147,9 @@ public class QuestionDAOImpl implements IQuestionDAO {
 						dc1.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
 								Restrictions.eq("sharezone", question.getSharezone())));*/
 						dc.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
-								Restrictions.isNotNull("sharezone")));
+								Restrictions.isNotNull("askWho")));
 						dc1.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
-								Restrictions.isNotNull("sharezone")));
+								Restrictions.isNotNull("askWho")));
 				}
 				if("答疑区".equals(question.getSharezone())){System.out.println("6");
 						dc.add(Restrictions.eq("askWho", question.getAskWho()));

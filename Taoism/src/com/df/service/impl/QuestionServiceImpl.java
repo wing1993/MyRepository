@@ -151,13 +151,13 @@ public class QuestionServiceImpl implements IQuestionService {
 		List<Object> replyList = new ArrayList<Object> ();
 		try {
 			questionDao.addReadTimes(question.getQId());
-			if("公开区".equals(question.getSharezone())&&null!=question.getAskWho()&&"".equals(question.getAskWho())){
+			if("公开区".equals(question.getSharezone())&&(null==question.getAskWho()||"".equals(question.getAskWho()))){
 				replyList = publicReplyDao.findByQid(question.getQId());
 			}
-			else if("学员区".equals(question.getSharezone())&&null!=question.getAskWho()&&"".equals(question.getAskWho())){
+			else if("学员区".equals(question.getSharezone())&&(null==question.getAskWho()||"".equals(question.getAskWho()))){
 				replyList = studentReplyDao.findByQid(question.getQId());
 			}
-			else if("弟子区".equals(question.getSharezone())&&null!=question.getAskWho()&&"".equals(question.getAskWho())){
+			else if("弟子区".equals(question.getSharezone())&&(null==question.getAskWho()||"".equals(question.getAskWho()))){
 				replyList = discipleReplyDao.findByQid(question.getQId());
 			}
 			else {
