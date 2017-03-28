@@ -302,5 +302,28 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		return dp;
 	}
 
+	/**
+	 * 根据用户id获取发表的帖子
+	 */
+	@Override
+	public DataPage<Question> findMyPosts(Map<String,Object> map) throws Exception {
+		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
+		if(null!=map.get("userId")){
+			dc.add(Restrictions.idEq(map.get("userId")));
+		}
+
+		int rows = Integer.parseInt(map.get("rows").toString());
+		int currentPage = Integer.parseInt(map.get("currentPage").toString());
+		Criteria c = dc.getExecutableCriteria(sessionFactory.getCurrentSession());
+		Criteria c1 = c;
+		c.setMaxResults(rows);
+	    c.setFirstResult((currentPage-1)*rows);
+	    //总记录数
+	    Long resultCount = (long)c1.setProjection(Projections.rowCount())
+	            .uniqueResult();
+	    DataPage<Question> dp = PageUtil.paging(c.list(),resultCount.intValue(),currentPage,rows);
+		return dp;
+	}
+
 	
 }

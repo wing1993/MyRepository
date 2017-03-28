@@ -98,9 +98,10 @@ public class UserDAOImpl  extends BaseDAOSupport implements IUserDAO{
 		loginUser = (User) this.getSessionFactory()
 				.getCurrentSession()
 				.createQuery(
-						"from User u where u.username=? and u.password=? and u.state=1")
+						"from User u where (u.username=? or u.mail=?) and u.password=? and u.state=1")
 				.setString(0, user.getUsername())
-				.setString(1, user.getPassword()).uniqueResult();
+				.setString(1, user.getUsername())
+				.setString(2, user.getPassword()).uniqueResult();
 
 		return loginUser != null ? "success" : "error";
 	}

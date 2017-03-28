@@ -194,4 +194,10 @@ public class QuestionServiceImpl implements IQuestionService {
 		return questionDao.queryListQuestioninfo(map);
 	}
 
+	@Transactional
+	@Override
+	public DataPage<Question> findMyPosts(Map<String,Object> map) throws Exception {
+		return questionDao.findMyPosts(map);
+	}
+
 }

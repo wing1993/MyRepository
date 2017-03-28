@@ -250,13 +250,19 @@ public class UserAction implements Serializable, ModelDriven<User>,
 		
 		request.setAttribute("userByPages", userList);
 	}*/
-	public String login() throws Exception {
-		//user.setPassword(MD5Util.md5(user.getPassword()+user.getUsername()));
-		System.out.println("登录加密密码："+user.getPassword());
+	public String login() {
+		try {
+			//user.setPassword(MD5Util.md5(user.getPassword()+user.getUsername()));
+			System.out.println("登录加密密码："+user.getPassword());
 		
-		msg = userService.login(user);
-		User u = userService.findByUsername(user);
-		sessionMap.put("UsersfromActions", u);
+			msg = userService.login(user);
+			User u;
+			u = userService.findByUsername(user);
+			sessionMap.put("UsersfromActions", u);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return msg;
 	}
 	/**

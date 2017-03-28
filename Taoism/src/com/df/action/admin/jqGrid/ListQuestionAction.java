@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -82,6 +83,37 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 		}
 		return msg;
 	}
+	
+	/**
+	 * 根据用户id获取发布的帖子     userId  用户id     rows  一页显示的记录数     currentPage   当前页
+	 * @return
+	 */
+	public String findMyPosts(){
+		try {
+			//获取登录者的信息
+			User user = (User)ServletActionContext.getRequest()
+					.getSession().getAttribute("UsersfromActions");
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("userId", user.getUserId());
+			map.put("currentPage", this.getCurrentPage());
+			map.put("rows", this.getRows());
+			this.setDp(questionService.findMyPosts(map));
+			if (dp.gettList() != null && dp.gettList().size() > 0) {
+				this.setcList(dp.getcList());
+				this.setqList(dp.gettList());
+				this.setPage(dp.getPage());
+				requestMap.put("qList",dp.gettList());
+				requestMap.put("cList",dp.getcList());
+				System.out.println("----"+this.getqList());
+				System.out.println("----"+dp.gettList());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "MyPosts";
+	}
+	
+	
 	public List<Question> getqList() {
 		return qList;
 	}

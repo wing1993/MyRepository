@@ -147,6 +147,9 @@
     		<result name="error" type="dispatcher">
     			/admin/pages/postsManage.jsp
     		</result>
+    		<result name="MyPosts" type="dispatcher">
+    			/user/pages/personal_center.jsp
+    		</result>
     	</action>
     	<action name="shield_*" class="questionAction" method="{1}">
     		<result name="replys" type="dispatcher">/admin/pages/shieldReply.jsp</result>

@@ -67,4 +67,13 @@ public interface IQuestionDAO extends IBaseHibernateDAO<Question, Integer> {
 	public DataPage<Question> findByQTime(Map<String, Object> map)throws Exception;
 
 
+	/**
+	 * 获取登录者发表的帖子
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	public DataPage<Question> findMyPosts(Map<String,Object> map)throws Exception;
+
+
 }

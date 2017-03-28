@@ -57,6 +57,13 @@ public interface IQuestionService extends IBaseService<Question, Integer> {
 	 * @param map
 	 * @return
 	 */
-	public DataPage<Question> findByQTime(Map<String, Object> map);
+	public DataPage<Question> findByQTime(Map<String, Object> map)throws Exception;
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	public DataPage<Question> findMyPosts(Map<String,Object> map)throws Exception;
 
 }
