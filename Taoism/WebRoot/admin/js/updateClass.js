@@ -54,16 +54,31 @@ function initEvent(){
 	$("#update_tb").on("click", ".update", function(e){
 		var id = $(this).parents('tr').attr('id'),
 			data = grid.getRowData(id);
-		var _html = data.username + '将由<span class="old-role"> ' + data.userType + ' </span>升级为<span class="new-role"> ' + data.realname + '</span>';
+		var _html = data.username + '将由<span class="old-role"> ' + data.userType + ' </span>升级为<span class="new-role"> ' + data.con1 + '</span>';
 		$.ligerDialog.confirm(_html, 
 			function (data) {
 				if(data){
-					$.post('', {userId: id}, function(data){
-						
+					$.post(url+'/user_changeUserType.action', {userId: id}, function(data){
+						if(data == "success"){
+							alert("升级成功！");
+							grid.delRowData(id);
+						}else{
+							alert("操作失败");
+						}
 					});
-					grid.delRowData(id);
+					
 				}
 			}
 		);	
+	});
+}
+function FadeTip(str){//操作提示，500毫秒后消失
+	$(".stop-tip").addClass("stop-success").find("span").html(str).addClass("icon-success");
+	$(".stop-tip").fadeIn(500, function() {
+		setTimeout(function() {
+			$(".stop-tip").fadeOut(500, function() {
+				$(".stop-tip").hide();
+			});
+		}, 1000);
 	});
 }

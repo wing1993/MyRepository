@@ -51,7 +51,8 @@
 					<tr>
 						<td>身份：</td>
 						<td>
-							<select name="userType" id="user_type" onchange="user_type_change()">
+							<input type="hidden" name="userType" value="${userinfo.userType}">
+							<select name="con1" id="user_type">
 								<option value="普通">普通</option>
 								<option value="学员">学员</option>
 								<option value="弟子">弟子</option>

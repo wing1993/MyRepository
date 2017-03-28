@@ -35,5 +35,6 @@ String path = request.getContextPath();
 <script src="<%=path%>/js/jquery.jqGrid.js"></script>
 <script src="<%=path%>/js/ligerui.js"></script>
 <script src="<%=path%>/admin/js/updateClass.js?<%= System.currentTimeMillis()%>"></script>
+<script>var url = '<%=path %>';</script>
 </c:if>
 </html>

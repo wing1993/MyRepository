@@ -383,16 +383,26 @@ public class UserAction implements Serializable, ModelDriven<User>,
 	 * @throws Exception
 	 */
 	public String changeUserType(){
+//		try {
+//			System.out.println(user_ids);
+//			String[] userids = user_ids.split(",");
+//			System.out.println(userids.length);
+//			for(int i=0;i<userids.length;i++){
+//				user.setUserId(Integer.parseInt(userids[i]));
+//				msg = userService.changeUserType(user);
+//			}
+//			response.getWriter().print(msg);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		String msg= "error";
 		try {
-			System.out.println(user_ids);
-			String[] userids = user_ids.split(",");
-			System.out.println(userids.length);
-			for(int i=0;i<userids.length;i++){
-				user.setUserId(Integer.parseInt(userids[i]));
-				user.setState(1);
-				msg = userService.changeUserType(user);
-			}
-			response.getWriter().print(msg);
+			String con1 = user.getCon1();
+			user = userService.getById(user.getUserId());
+			user.setUserType(con1);
+			msg = userService.changeUserType(user);
+			PrintWriter out = response.getWriter();
+			out.print(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

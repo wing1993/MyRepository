@@ -18,11 +18,16 @@
 		function checkLogin(obj,dashi){
 			if(${sessionScope.UsersfromActions==null}){
 				alert("您还没有登录，不能向大师提问");
-			}else{			
-				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions.username }&askWho="+dashi);
+			}else{
+				if(dashi == "老先生" && ${sessionScope.UsersfromActions.userType != "弟子" }){
+					alert("您只能向其他弟子提问");
+				}else{			
+					$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions.username }&askWho="+dashi);
+				}
 			}
 		}
-		function checkLogin_Post(obj){
+		function checkLogin_Post(obj, str){
+		console.log(str);
 			if(${sessionScope.UsersfromActions==null}){
 				alert("您还没有登录，不能发帖！");
 			}else{			
@@ -182,7 +187,7 @@
 								<div class="master-detail">法号：<label class="dashi_name">${dashis.username }</label></div>
 								<div class="master-detail">现居城市：<label class="now_city">${dashis.con2 }${dashis.city }</label></div>
 								<div class="master-detail">
-									<a href="javascript:void(0);" target="_blank" class="ask" onclick="checkLogin(this,$(this).parent().prev().prev().children('.dashi_name').text())">我要提问</a>
+									<a href="javascript:void(0);" target="_blank" class="ask" onclick="checkLogin(this,'${dashis.username }')">我要提问</a>
 								</div>
 								<input type="hidden" value="${dashis.gender }" class="h_gender">
 								<input type="hidden" value="${dashis.birthday }" class="h_birth">
