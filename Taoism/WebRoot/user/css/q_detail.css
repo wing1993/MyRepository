@@ -1,7 +1,7 @@
 html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 
 .main{
-	width:900px;
+	width:60%;
 	margin:-10px auto;
 	background:#FAFAFA;
 	border:1px solid #d0d0d0;
@@ -64,6 +64,7 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 	width:96%;
 	border-left:1px solid #E1E4E6;
 	padding:17px;
+	box-sizing:border-box;
 }
 .w-r-main{
 	min-height:70px;
@@ -185,6 +186,11 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 }
 .edit-div{padding:20px 0 15px 30px;}
 .edit-div input{margin:15px 0 0 350px;}
+.return{
+	position:absolute;
+	right:-10px;
+	top:850%;
+}
 .icon-rtop {
     display: none;
     text-align: center;
@@ -192,9 +198,7 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
     height: 35px;
     vertical-align: middle;
     font-size: 25px;
-    position: fixed;
-    right: 150px;
-    bottom: 200px;
+    position: absolute;
     cursor: pointer;
     color: rgb(125, 151, 190);
     padding-top: 10px;
@@ -206,9 +210,8 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
     text-align: center;
     width: 45px;
     height: 45px;
-    position: fixed;
-    right: 150px;
-    bottom: 200px;
+    position: absolute;
+	top:0;
     cursor: pointer;
     word-break: break-all;
     font-size: 16px;
@@ -259,6 +262,6 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 	height:48px;
 	position:absolute;
 	top:20px;
-	left:40px;
+	left:-60px;
 	cursor:pointer;
 }

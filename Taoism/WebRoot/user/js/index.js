@@ -99,4 +99,24 @@ $(function(){
 			
 		});
 	});
+	
+	$(".jump-in").keyup(function(e){
+		if(e.keyCode == 13){
+			$(".btn-sub").trigger("onclick");
+			$(".sure").click();
+		}
+	});
 });
+
+function Jump(obj){
+	var now_page = parseInt($(".jump-in").val()),//输入值
+		max_page = parseInt($("#total").text()); //最大页数
+	if($(".jump-in").val() == ""){
+		$(".jump-in").focus();
+	}else if(now_page > max_page){
+		$(".jump-in").select();
+	}else{
+//		$(obj).attr("href", url+"/listquestion_findByQTime.action?currentPage=" + $(".jump-in").val() + "&rows=10");
+		findData(obj);
+	}
+}

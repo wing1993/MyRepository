@@ -8,123 +8,7 @@
 	<meta charset="utf-8">
 	<title>老先生答疑</title>
 	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/index.css?t=<%=System.currentTimeMillis() %>">
-	<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
-	<script type="text/javascript" src="<%=path %>/js/common.js"></script>
-	<script type="text/javascript" src="<%=path %>/user/js/index.js"></script>
-	<script type="text/javascript">
-		function ask_pa(obj){
-			checkLogin(obj,$('.hdashi_name').text());
-		}
-		function checkLogin(obj,dashi){
-			if(${sessionScope.UsersfromActions==null}){
-				alert("您还没有登录，不能向大师提问");
-			}else{
-				if(dashi == "老先生" && ${sessionScope.UsersfromActions.userType != "弟子" }){
-					alert("您只能向其他弟子提问");
-				}else{			
-					$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions.username }&askWho="+dashi);
-				}
-			}
-		}
-		function checkLogin_Post(obj, str){
-		console.log(str);
-			if(${sessionScope.UsersfromActions==null}){
-				alert("您还没有登录，不能发帖！");
-			}else{			
-				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/post.jsp?username=${sessionScope.UsersfromActions.username }");
-			}
-		}
-		
-		//问题列表（glory）
-		function findData(obj){
-			//aSelected(obj);//无效？
-			var Id=$(obj).attr("id");
-			var qTitle = "";
-			if(Id=="sharezone"||Id=="QTypeName"||Id=="QTime"||Id=="state"){
-				$("#search_value").text("");
-			}else{qTitle = $("#search_value").val();}
-			$("#total").text("");
-			$("#now").text("");
-			$(".a-page").empty();$("#q_detail").empty();
-			$.post("<%=path %>/question_find_findByDynamicData.action",{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),
-						QTime:$("#QTime").val(),state:$("#state").val(),QTitle:qTitle,currentPage:$(obj).text(),rows:10},function(data){
-					if(null!=data.qList){
-						$.each(data.qList,function(i,value){
-							if(value.con6 != 1){
-								var icon = value.state != 0 ? "<td class='icon-td' title='已回复'>&#xe905;</td>" : "<td class='icon-td unreplied' title='未回复'>&#xe906;</td>",
-									top = value.con4 == 1 ? "<span class='post-top'>置顶</span>" : "",
-									best = value.con5 == 1 ? "<span class='post-best'>精华帖</span>" : "";
-								 var str = "<tr>"+icon
-										+"<td class='td-title'>"+top+best+"<a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' title='"+value.QTitle+"' class='q-title'>"+value.QTitle+"</a></td>"
-										+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td>"+value.con1+"<br>"+value.con2+"</td>"
-										+"<td>"+value.con3+"</td><td>"+value.visits+"</td>"
-										+"<td>"+value.QTypeName+"</td></tr>";
-								$("#q_detail").append(str);
-							}
-						});
-					
-						$.each(data.cList,function(i,value){
-							var str = "";
-							if(value.page==0){
-							    str = str+"<a href='javascript:;' onclick='findData(this)'  data-pagenum='"+data.page.currentPage+"'>"+data.page.currentPage+"</a>&nbsp;";}
-							else if(value.page==-1){
-								str = str+"<span>...</span>&nbsp;";}
-							else {str = str+"<a href='javascript:;' onclick='findData(this)'  data-pagenum='"+value.page+"'>"+value.page+"</a>&nbsp;";}
-							
-							$(".a-page").append(str);
-						});
-						$("#nowSub").text(data.page.currentPage-1);
-						$("#nowAdd").text(data.page.currentPage+1);
-						$("#total").text(data.page.totalPage);
-						$("#now").text(data.page.currentPage);
-					
-						var pNum = $("#now").text();
-						$(".page-div").find('a[data-pagenum="'+pNum+'"]').addClass('now-page');
-					}
-					if($("#total").text()==""){
-						$(".page-div").css("display","none");
-						$(".no-data").css("display","block");
-					}else{
-						$(".no-data").css("display","none");
-						$(".page-div").css("display","block");
-					}
-				    
-				});
-// 			$("body").scrollTop($("body").height());//滚动到最底部
-		}
-		
-		//查找所有地区的大师
-		function findDashi(obj){
-			$(".master-w").empty();
-			var action=null;
-			var loc=null;
-			if($(obj).text()=="所有地区"){
-				action="dashi_findDashi!findAll.action";
-				loc=null;
-			}else{
-				action="dashi_findDashi!findByLoc.action";
-				loc=$(obj).text();
-			}
-			$.post(action,{"con2":loc},function(data){
-				$.each(data.dashis,function(i,value){
-					var str="<div class='master-data'><div class='picture'><img src='${pageContext.request.contextPath }/"+value.picture+"' onclick='showDetail(this)'></div>"+
-							"<div class='master-detail'>法号：<label class='dashi_name'>"+value.username+"</label></div>"+
-							"<div class='master-detail'>现居城市：<label class='now_city'>"+value.con2+value.city+"</label></div>"+
-							"<div class='master-detail' class='detail1'><a href='${pageContext.request.contextPath }/user/pages/ask_question.jsp' target='_blank' class='ask'>我要提问" +
-							"</a></div>";
-					var hideinfo="<input type='hidden' class='h_gender' value='"+value.gender+"'><input type='hidden' class='h_phone' value='"+value.phone+"'>" +
-							"<input type='hidden' class='h_birth' value='"+value.birthday+"'>" +
-							"<input type='hidden' class='h_qq' value='"+value.qq+"'><input type='hidden' class='h_weixin' value='"+value.weixin+"'>" +
-							"<input type='hidden' class='h_mail' value='"+value.mail+"'><input type='hidden' class='h_introduce' value='"+value.introduce+"'></div>";
-					$(".master-w").append(str+hideinfo);
-				});
-			});
-		}
-		$(function(){
-			findData();
-		});
-		
-	</script>
+	
 </head>
 <body>
 	<div class="bd"></div>
@@ -305,6 +189,8 @@
 						<span>第&nbsp;<span id="now"></span>/<span id="total"></span>&nbsp;页</span>
 						<input type="hidden" id="nowAdd">
 						<input type="button" value="下一页" id="next" onclick="findData($('#nowAdd'))">
+						<input type="number" min="0" style="width:50px;height:28px;cursor:pointer;" class="jump-in">
+						<a class="btn-sub" href="javascript:void(0);" onclick="Jump(this);"><span class="sure">确定</span></a>
 					</div> 
 					<div class="no-data">暂无数据</div>
 				</div>
@@ -347,4 +233,125 @@
 		<div class="r-more"><a href="${pageContext.request.contextPath }/message_findAll.action" target="_blank">更多</a></div>
 	</div>
 </body>
+<script type="text/javascript" src="<%=path %>/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/common.js"></script>
+	<script type="text/javascript" src="<%=path %>/user/js/index.js?t=<%=System.currentTimeMillis() %>"></script>
+	<script type="text/javascript">
+		var url = '<%=path%>';
+		function ask_pa(obj){
+			checkLogin(obj,$('.hdashi_name').text());
+		}
+		function checkLogin(obj,dashi){
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能向大师提问");
+			}else{
+				if(dashi == "老先生" && ${sessionScope.UsersfromActions.userType != "弟子" }){
+					alert("您只能向其他弟子提问");
+				}else{			
+					$(obj).attr("href","${pageContext.request.contextPath }/user/pages/ask_question.jsp?username=${sessionScope.UsersfromActions.username }&askWho="+dashi);
+				}
+			}
+		}
+		function checkLogin_Post(obj, str){
+		console.log(str);
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能发帖！");
+			}else{			
+				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/post.jsp?username=${sessionScope.UsersfromActions.username }");
+			}
+		}
+		
+		//问题列表（glory）
+		function findData(obj){
+			//aSelected(obj);//无效？
+			var Id=$(obj).attr("id");
+			var qTitle = "";
+			if(Id=="sharezone"||Id=="QTypeName"||Id=="QTime"||Id=="state"){
+				$("#search_value").text("");
+			}else{qTitle = $("#search_value").val();}
+			$("#total").text("");
+			$("#now").text("");
+			$(".a-page").empty();$("#q_detail").empty();
+			var cpage = $(obj).text() == "确定" ? $(".jump-in").val() : $(obj).text();
+			$.post("<%=path %>/question_find_findByDynamicData.action",{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),
+						QTime:$("#QTime").val(),state:$("#state").val(),QTitle:qTitle,currentPage:cpage,rows:10},function(data){
+					if(null!=data.qList){
+						$.each(data.qList,function(i,value){
+							if(value.con6 != 1){
+								var icon = value.state != 0 ? "<td class='icon-td' title='已回复'>&#xe905;</td>" : "<td class='icon-td unreplied' title='未回复'>&#xe906;</td>",
+									top = value.con4 == 1 ? "<span class='post-top'>置顶</span>" : "",
+									best = value.con5 == 1 ? "<span class='post-best'>精华帖</span>" : "";
+								 var str = "<tr>"+icon
+										+"<td class='td-title'>"+top+best+"<a href='${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId="+value.QId+"&sharezone="+value.sharezone+"' title='"+value.QTitle+"' class='q-title'>"+value.QTitle+"</a></td>"
+										+"<td>"+value.username+"<br>"+value.QTime.split('.')[0]+"</td><td>"+value.askWho+"</td><td>"+value.con1+"<br>"+value.con2+"</td>"
+										+"<td>"+value.con3+"</td><td>"+value.visits+"</td>"
+										+"<td>"+value.QTypeName+"</td></tr>";
+								$("#q_detail").append(str);
+							}
+						});
+					
+						$.each(data.cList,function(i,value){
+							var str = "";
+							if(value.page==0){
+							    str = str+"<a href='javascript:;' onclick='findData(this)'  data-pagenum='"+data.page.currentPage+"'>"+data.page.currentPage+"</a>&nbsp;";}
+							else if(value.page==-1){
+								str = str+"<span>...</span>&nbsp;";}
+							else {str = str+"<a href='javascript:;' onclick='findData(this)'  data-pagenum='"+value.page+"'>"+value.page+"</a>&nbsp;";}
+							
+							$(".a-page").append(str);
+						});
+						$("#nowSub").text(data.page.currentPage-1);
+						$("#nowAdd").text(data.page.currentPage+1);
+						$("#total").text(data.page.totalPage);
+						$("#now").text(data.page.currentPage);
+					
+						var pNum = $("#now").text();
+						$(".page-div").find('a[data-pagenum="'+pNum+'"]').addClass('now-page');
+						$(".jump-in").val(parseInt(pNum) + 1);
+						$(".page-div").find('a[data-pagenum="'+pNum+'"]').addClass('now-page');
+					}
+					if($("#total").text()==""){
+						$(".page-div").css("display","none");
+						$(".no-data").css("display","block");
+					}else{
+						$(".no-data").css("display","none");
+						$(".page-div").css("display","block");
+					}
+				    
+				});
+// 			$("body").scrollTop($("body").height());//滚动到最底部
+		}
+		
+		//查找所有地区的大师
+		function findDashi(obj){
+			$(".master-w").empty();
+			var action=null;
+			var loc=null;
+			if($(obj).text()=="所有地区"){
+				action="dashi_findDashi!findAll.action";
+				loc=null;
+			}else{
+				action="dashi_findDashi!findByLoc.action";
+				loc=$(obj).text();
+			}
+			$.post(action,{"con2":loc},function(data){
+				$.each(data.dashis,function(i,value){
+					var str="<div class='master-data'><div class='picture'><img src='${pageContext.request.contextPath }/"+value.picture+"' onclick='showDetail(this)'></div>"+
+							"<div class='master-detail'>法号：<label class='dashi_name'>"+value.username+"</label></div>"+
+							"<div class='master-detail'>现居城市：<label class='now_city'>"+value.con2+value.city+"</label></div>"+
+							"<div class='master-detail' class='detail1'><a href='${pageContext.request.contextPath }/user/pages/ask_question.jsp' target='_blank' class='ask'>我要提问" +
+							"</a></div>";
+					var hideinfo="<input type='hidden' class='h_gender' value='"+value.gender+"'><input type='hidden' class='h_phone' value='"+value.phone+"'>" +
+							"<input type='hidden' class='h_birth' value='"+value.birthday+"'>" +
+							"<input type='hidden' class='h_qq' value='"+value.qq+"'><input type='hidden' class='h_weixin' value='"+value.weixin+"'>" +
+							"<input type='hidden' class='h_mail' value='"+value.mail+"'><input type='hidden' class='h_introduce' value='"+value.introduce+"'></div>";
+					$(".master-w").append(str+hideinfo);
+				});
+			});
+		}
+		$(function(){
+			findData();
+		});
+		
+	</script>
 </html>
