@@ -38,6 +38,8 @@ public class PageUtil {
 				index=1;
 			}else if(sum>10 && current<=5){
 				index=1;
+			}else if(current+5>=sum){
+				index=sum-current;
 			}else{
 				index=current-4;
 			}
@@ -118,6 +120,12 @@ public class PageUtil {
 		}else if(totalCount>10&&currentPage<=5){
 			for(int i=1;i<=10;i++){
 				ClientPage cp = new ClientPage(i);
+				cpList.add(cp);
+				System.out.println(i);
+			}
+		}else if(currentPage+5>=totalCount){
+			for(int i=1;i<=10;i++){
+				ClientPage cp = new ClientPage(totalCount-10+i);
 				cpList.add(cp);
 				System.out.println(i);
 			}

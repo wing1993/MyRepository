@@ -75,41 +75,48 @@ public class ReplyServiceImpl implements IReplyService<Object> {
 	@Override
 	public String saveReply(Object t,String sharezone) {
 		String msg = "error";
+		User user = new User();
 		try{
 			if("公开区".equals(sharezone)){
 				PublicReply pr = (PublicReply)t;
+				user.setUsername(pr.getRespondent());
 				publicReplyDao.save(pr);
 				msg = "success";
 				System.out.println("1"+pr);
 			}
 			else if("学员区".equals(sharezone)){
 				StudentReply sr = (StudentReply)t;
+				user.setUsername(sr.getRespondent());
 				studentReplyDao.save(sr);
 				msg = "success";
 				System.out.println("2"+sr);
 			}
 			else if("弟子区".equals(sharezone)){
 				DiscipleReply dr = (DiscipleReply)t;
+				user.setUsername(dr.getRespondent());
 				discipleReplyDao.save(dr);
 				msg = "success";
 				System.out.println("3"+dr);
 			}
 			else if("我的问题".equals(sharezone)){
 				MyquestionReply mr = (MyquestionReply)t;
+				user.setUsername(mr.getRespondent());
 				myquestionReplyDao.save(mr);
 				msg = "success";  
 				System.out.println("4"+mr);
 			}
 			/*用户评论之后评论次数+1*/
-			User user = new User();
-			user.setUsername(((PublicReply)t).getRespondent());
+			System.out.println(user);
 			user = userDao.getByUsername(user);
-			if(null!=user.getCon6()&&"".equals(user.getCon6())){
-				user.setCon6(String.valueOf(Double.parseDouble(user.getCon6())+1));
+			System.out.println(user);
+			if(null!=user.getCon6()&&!"".equals(user.getCon6())){
+				
+				user.setCon6(String.valueOf(Integer.parseInt(user.getCon6())+1));
+				System.out.println(user);
 			}else{
 				user.setCon6("1");
 			}
-			
+			userDao.update(user);
 			
 		}catch(Exception e){
 			e.printStackTrace();
