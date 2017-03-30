@@ -77,24 +77,7 @@
     		
     		<!-- 我的帖子 -->
     		<div class="myPostings">
-    			<div class="post-wrap">
-    				<div class="rep-num" title="回复数">5000</div>
-    				<div class="post-content">
-    					<div class="post-title">
-    						<a href="${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId=&sharezone=" title="">三生三世十里桃花</a>
-    					</div>
-    					<div class="post-rep">
-	    					<div class="first-rep">那年的七月底，天君令我下界降服从大荒中长起来的一头赤炎金猊，
-	    					我与那赤炎金猊兽在中容国国境大战七日，天地失色之际，虽将这凶兽斩于剑下，却也因力竭被逼出了原身。
-	    					我的原身本是威风凛凛的一条黑龙，但觉得招摇，便缩得只同条小蛇一般大小，
-	    					在旁边的俊疾山上找了个不大起眼的山洞，便一闭眼睡了。</div>
-	    					<div class="post-right">
-	    						<span class="icon-message">&#xe929; </span><span class="last-replyer" title="最后回复人">bujifeiyu</span>
-	    						<span class="last-rep-time">16:50</span>
-	    					</div>
-    					</div>
-    				</div>
-    			</div>
+    			<iframe frameborder="0" src="${pageContext.request.contextPath }/listquestion_findMyPosts.action?userId=${sessionScope.UsersfromActions.userId}"></iframe>
     		</div>
     		
     	</div>

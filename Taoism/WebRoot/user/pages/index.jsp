@@ -263,7 +263,6 @@
 		
 		//问题列表（glory）
 		function findData(obj){
-			//aSelected(obj);//无效？
 			var Id=$(obj).attr("id");
 			var qTitle = "";
 			if(Id=="sharezone"||Id=="QTypeName"||Id=="QTime"||Id=="state"){
