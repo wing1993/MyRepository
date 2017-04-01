@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="cache-control" content="no-cache">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/q_detail.css?t=<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css">
+  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	
   </head>
   <body>
@@ -148,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					</div>
     				</div>
 					<script>
-						var no_shield = $('.'+'${reply.replyId}').parents(".w-content-box").find(".ans-content").length;
+						var no_shield = $('.'+'${reply.replyId}').parents(".w-content-box").find(".ans-content:visible").length;
 						$('.'+'${reply.replyId}').next().html(no_shield);
 					</script>
     			</div>
@@ -162,7 +163,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</div>
     </div>
   </body>
-  <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/user/js/q_detail.js?t=<%=System.currentTimeMillis()%>"></script>
 	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/kindeditor-min.js"></script>
 	<script charset="utf-8" src="${pageContext.request.contextPath }/user/pages/kindeditor/lang/zh_CN.js"></script>

@@ -45,7 +45,7 @@
     				<c:if test="${requestScope.question.sharezone == '弟子区'&&null==requestScope.question.askWho }">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
-   						<div class="ans-content">
+   						<div class="ans-content <c:if test="${dReply.con1 == 1}">shield-color</c:if>">
    							<input type="hidden" value="${dReply.replyId}" class="sub-replyid">
    							<a href="#" class="re-name">${dReply.respondent }</a>:
    							<span class="main-content">${dReply.replyContent }</span>
@@ -53,7 +53,7 @@
    								<c:if test="${dReply.con1 == null || dReply.con1 == 0}">
    								<a href="javascript:void(0);" class="shield-sub <c:if test="${reply.con1 == 1 }">shide</c:if>">屏蔽</a></c:if>
    								<c:if test="${dReply.con1 == 1}">
-   								<a href="javascript:void(0);" class="un-shield-sub <c:if test="${reply.con1 == 0 || reply.con1 == null }">shide</c:if>">取消屏蔽</a></c:if>
+   								<a href="javascript:void(0);" class="un-shield-sub <c:if test="${reply.con1 == 1 }">shide</c:if>">取消屏蔽</a></c:if>
    								<span class="ans-time">${dReply.replyTime }</span>
    							</div>
    						</div>
@@ -64,7 +64,7 @@
    						<c:forEach items="${reply.publicReplies }" var="pReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">
-   							<div class="ans-content">
+   							<div class="ans-content <c:if test="${pReply.con1 == 1}">shield-color</c:if>">
    								<input type="hidden" value="${pReply.replyId}" class="sub-replyid">
 	   							<a href="#" class="re-name">${pReply.respondent }</a>:
 	   							<span class="main-content">${pReply.replyContent }</span>
@@ -72,7 +72,7 @@
    								<c:if test="${pReply.con1 == null || pReply.con1 == 0}">
    								<a href="javascript:void(0);" class="shield-sub <c:if test="${reply.con1 == 1 }">shide</c:if>">屏蔽</a></c:if>
    								<c:if test="${pReply.con1 == 1}">
-   								<a href="javascript:void(0);" class="un-shield-sub <c:if test="${reply.con1 == 0 || reply.con1 == null }">shide</c:if>">取消屏蔽</a></c:if>
+   								<a href="javascript:void(0);" class="un-shield-sub <c:if test="${reply.con1 == 1 }">shide</c:if>">取消屏蔽</a></c:if>
 	   								<span class="ans-time">${fn:substring(pReply.replyTime,0,19) }</span>
 	   							</div>
 	   						</div>
@@ -82,7 +82,7 @@
    						<c:forEach items="${reply.studentReplies }" var="sReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">
-   							<div class="ans-content">
+   							<div class="ans-content <c:if test="${sReply.con1 == 1}">shield-color</c:if>">
    								<input type="hidden" value="${sReply.replyId}" class="sub-replyid">
 	   							<a href="#" class="re-name">${sReply.respondent }</a>:
 	   							<span class="main-content">${sReply.replyContent }</span>
@@ -90,7 +90,7 @@
    								<c:if test="${sReply.con1 == null || sReply.con1 == 0}">
    								<a href="javascript:void(0);" class="shield-sub <c:if test="${reply.con1 == 1 }">shide</c:if>">屏蔽</a></c:if>
    								<c:if test="${sReply.con1 == 1}">
-   								<a href="javascript:void(0);" class="un-shield-sub <c:if test="${reply.con1 == 0 || reply.con1 == null }">shide</c:if>">取消屏蔽</a></c:if>
+   								<a href="javascript:void(0);" class="un-shield-sub <c:if test="${reply.con1 == 1 }">shide</c:if>">取消屏蔽</a></c:if>
 	   								<span class="ans-time">${fn:substring(sReply.replyTime,0,19) }</span>
 	   							</div>
 	   						</div>
