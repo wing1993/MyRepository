@@ -33,16 +33,16 @@
     					<c:if test="${reply.con1 == 1 }"><a href="javascript:;" class="un-shield-com">取消屏蔽</a>&nbsp;</c:if>
     					<span class="r-time">${reply.replyTime }</span>&nbsp;
     					<div class="r-fold">
-    						<c:if test="${requestScope.question.sharezone == '弟子区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
-	    					<c:if test="${requestScope.question.sharezone == '公开区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.publicReplies }"></c:set></c:if>
-	    					<c:if test="${requestScope.question.sharezone == '学员区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
-	    					<c:if test="${null!=requestScope.question.askWho }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
+    						<c:if test="${requestScope.question.sharezone == '弟子区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }"><c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
+	    					<c:if test="${requestScope.question.sharezone == '公开区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }"><c:set var="times" value="${reply.publicReplies }"></c:set></c:if>
+	    					<c:if test="${requestScope.question.sharezone == '学员区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }"><c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
+	    					<c:if test="${null!=requestScope.question.askWho&&requestScope.question.askWho!=''  }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
     					
     						<span class="r">回复</span>(<span class="t">${fn:length(times)}</span>)
 						</div>
     				</div>
     				<div class="sub-reply">
-    				<c:if test="${requestScope.question.sharezone == '弟子区'&&null==requestScope.question.askWho }">
+    				<c:if test="${requestScope.question.sharezone == '弟子区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
    						<div class="ans-content <c:if test="${dReply.con1 == 1}">shield-color</c:if>">
@@ -60,7 +60,7 @@
    						</c:forEach>
    					</c:if>
    					
-   					<c:if test="${requestScope.question.sharezone == '公开区'&&null==requestScope.question.askWho }">
+   					<c:if test="${requestScope.question.sharezone == '公开区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
    						<c:forEach items="${reply.publicReplies }" var="pReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">
@@ -78,7 +78,7 @@
 	   						</div>
    						</c:forEach>
    					</c:if>
-   					<c:if test="${requestScope.question.sharezone == '学员区'&&null==requestScope.question.askWho }">
+   					<c:if test="${requestScope.question.sharezone == '学员区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
    						<c:forEach items="${reply.studentReplies }" var="sReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">

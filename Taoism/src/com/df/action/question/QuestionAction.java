@@ -255,6 +255,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 				System.out.println("----"+currentPage);
 				page = dp.getPage();
 				msg = "success";
+				System.out.println("帖子列表："+qList);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

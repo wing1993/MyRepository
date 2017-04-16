@@ -77,7 +77,7 @@
     		
     		<!-- 我的帖子 -->
     		<div class="myPostings">
-    			<iframe frameborder="0" src="${pageContext.request.contextPath }/listquestion_findMyPosts.action?userId=${sessionScope.UsersfromActions.userId}"></iframe>
+    			<iframe frameborder="0" src="${pageContext.request.contextPath }/listquestion_findMyPosts.action"></iframe>
     		</div>
     		
     	</div>

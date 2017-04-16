@@ -39,11 +39,11 @@ public class PageUtil {
 			}else if(sum>10 && current<=5){
 				index=1;
 			}else if(current+5>=sum){
-				index=sum-current;
+				index=sum-9;
 			}else{
 				index=current-4;
 			}
-					
+			System.out.println(page.getCurrentPage()-index);		
 			pageList.get(page.getCurrentPage()-index).setPage(0);
 			
 		}

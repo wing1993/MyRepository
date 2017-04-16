@@ -81,7 +81,7 @@
         <property name="con7" type="java.lang.String">
             <column name="con7" />
         </property>
-        <set name="publicReplies" inverse="true" order-by="reply_time">
+        <set name="publicReplies" inverse="true" order-by="reply_time" lazy="extra">
             <key>
                 <column name="q_id" not-null="true">
                     <comment>回复的问题的编号</comment>
@@ -89,7 +89,7 @@
             </key>
             <one-to-many class="com.df.dao.pojo.PublicReply" />
         </set>
-        <set name="replies" inverse="true" order-by="reply_time">
+        <set name="replies" inverse="true" order-by="reply_time" lazy="extra">
             <key>
                 <column name="q_id" not-null="true">
                     <comment>回复的问题的编号</comment>
@@ -97,7 +97,7 @@
             </key>
             <one-to-many class="com.df.dao.pojo.Reply" />
         </set>
-        <set name="discipleReplies" inverse="true" order-by="reply_time">
+        <set name="discipleReplies" inverse="true" order-by="reply_time" lazy="extra">
             <key>
                 <column name="q_id" not-null="true">
                     <comment>回复的问题的编号</comment>
@@ -105,7 +105,7 @@
             </key>
             <one-to-many class="com.df.dao.pojo.DiscipleReply" />
         </set>
-        <set name="myquestionReplies" inverse="true" order-by="reply_time">
+        <set name="myquestionReplies" inverse="true" order-by="reply_time" lazy="extra">
             <key>
                 <column name="q_id" not-null="true">
                     <comment>回复的问题的编号</comment>
@@ -113,7 +113,7 @@
             </key>
             <one-to-many class="com.df.dao.pojo.MyquestionReply" />
         </set>
-        <set name="studentReplies" inverse="true" order-by="reply_time">
+        <set name="studentReplies" inverse="true" order-by="reply_time" lazy="extra">
             <key>
                 <column name="q_id" not-null="true">
                     <comment>回复的问题的编号</comment>

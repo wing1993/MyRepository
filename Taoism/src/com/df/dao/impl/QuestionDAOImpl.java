@@ -169,6 +169,10 @@ public class QuestionDAOImpl implements IQuestionDAO {
 				}
 			}
 		}
+		//con6=0 表示帖子未被删除  con6=1  表示帖子已被删除   不显示
+		dc.add(Restrictions.eq("con6","0"));
+		dc1.add(Restrictions.eq("con6","0"));
+		
 		Criteria c = dc.getExecutableCriteria(session);
 		Criteria c1 = dc1.getExecutableCriteria(session);
 		//总记录数
@@ -308,14 +312,16 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	@Override
 	public DataPage<Question> findMyPosts(Map<String,Object> map) throws Exception {
 		DetachedCriteria dc = DetachedCriteria. forClass (Question. class );
+		DetachedCriteria dc1 = DetachedCriteria. forClass (Question. class );
 		if(null!=map.get("userId")){
-			dc.add(Restrictions.idEq(map.get("userId")));
+			dc.add(Restrictions.eq("username",map.get("username")));
+			dc1.add(Restrictions.eq("username",map.get("username")));
 		}
 
 		int rows = Integer.parseInt(map.get("rows").toString());
 		int currentPage = Integer.parseInt(map.get("currentPage").toString());
 		Criteria c = dc.getExecutableCriteria(sessionFactory.getCurrentSession());
-		Criteria c1 = c;
+		Criteria c1 = dc1.getExecutableCriteria(sessionFactory.getCurrentSession());
 		c.setMaxResults(rows);
 	    c.setFirstResult((currentPage-1)*rows);
 	    //总记录数

@@ -46,6 +46,7 @@ public class ReplyAction implements Serializable,RequestAware{
 	private int replyId;
 	private String replyTime;
 	private String sharezone;
+	private String askWho;
 	private String con1;
 	private int QId;
 	private User u = (User) ServletActionContext.getRequest()
@@ -62,7 +63,7 @@ public class ReplyAction implements Serializable,RequestAware{
 		replyTime = DateUtil.getDateyMdHms();//获取当前时间
 		Object object;
 		Question q = new Question();
-		if("公开区".equals(sharezone)){
+		if("公开区".equals(sharezone)&&(null==askWho||"".equals(askWho))){
 			PublicReply pr = new PublicReply();
 			if(replyId!=0){//保存二级回复（对问题回复的回复）
 				pr.setReplyId(replyId);
@@ -80,7 +81,7 @@ public class ReplyAction implements Serializable,RequestAware{
 			}
 			replyId = replyService.saveReply(object,sharezone);
 		}
-		else if("学员区".equals(sharezone)){
+		else if("学员区".equals(sharezone)&&(null==askWho||"".equals(askWho))){
 			StudentReply sr = new StudentReply();
 			if(replyId!=0){
 				sr.setReplyId(replyId);
@@ -98,7 +99,7 @@ public class ReplyAction implements Serializable,RequestAware{
 			}
 			replyId = replyService.saveReply(object,sharezone);
 		}
-		else if("弟子区".equals(sharezone)){
+		else if("弟子区".equals(sharezone)&&(null==askWho||"".equals(askWho))){
 			DiscipleReply dr = new DiscipleReply();
 			if(replyId!=0){
 				dr.setReplyId(replyId);
@@ -117,7 +118,7 @@ public class ReplyAction implements Serializable,RequestAware{
 			System.out.println(object);
 			replyId = replyService.saveReply(object,sharezone);
 		}
-		else if("我的问题".equals(sharezone)){
+		else if("我的问题".equals(sharezone)||null!=askWho||!"".equals(askWho)){
 			MyquestionReply mr = new MyquestionReply();
 			if(replyId!=0){
 				mr.setReplyId(replyId);
@@ -220,6 +221,14 @@ public class ReplyAction implements Serializable,RequestAware{
 
 	public void setCon1(String con1) {
 		this.con1 = con1;
+	}
+
+	public String getAskWho() {
+		return askWho;
+	}
+
+	public void setAskWho(String askWho) {
+		this.askWho = askWho;
 	}
 	
 }

@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	
   </head>
-  <body>
+  <body><c:out value="${requestScope.question }"></c:out>
     <div class="bd"></div>
     <div class="main">
     	<div class="main-box"></div>
@@ -67,9 +67,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<div class="w-reply">
     				<div class="r-top">
     					<span class="r-time">${fn:substring(reply.replyTime,0,19) }</span>&nbsp;
-    					<c:if test="${requestScope.question.sharezone == '弟子区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
-    					<c:if test="${requestScope.question.sharezone == '公开区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.publicReplies }"></c:set></c:if>
-    					<c:if test="${requestScope.question.sharezone == '学员区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
+    					<c:if test="${requestScope.question.sharezone == '弟子区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
+    					<c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
+    					<c:if test="${requestScope.question.sharezone == '公开区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
+    					<c:set var="times" value="${reply.publicReplies }"></c:set></c:if>
+    					<c:if test="${requestScope.question.sharezone == '学员区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
+    					<c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
     					<c:if test="${null!=requestScope.question.askWho&&requestScope.question.askWho!='' }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
     					
     					<div class="r-fold" onclick="fold(this)"><span class="${reply.replyId } r">回复</span>(<span class="t">${fn:length(times)}</span>)</div>
@@ -207,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				return;
 			}
 			$.post("${pageContext.request.contextPath }/reply_saveReply.action",
-					{sharezone:$(".sharezone").val(),replyId:$(obj).prev().val(),
+					{askWho:"${requestScope.question.askWho }",sharezone:$(".sharezone").val(),replyId:$(obj).prev().val(),
 					replyContent:$(obj).parent().find(".add-re").val()},function(data){
 					if(null!=data){
 						var str="<div class='ans-content'>"+

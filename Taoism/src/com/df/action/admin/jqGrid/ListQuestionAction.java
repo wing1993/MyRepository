@@ -44,6 +44,13 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 	private String endTime;
 	private int currentPage; //当前页
 	private DataPage<Question> dp;
+	
+
+	private User u = (User) ServletActionContext.getRequest()
+			.getSession().getAttribute("UsersfromActions");
+	
+	
+	
 	/**
 	 * 根据查询条件获取帖子信息
 	 * @return
@@ -94,7 +101,7 @@ public class ListQuestionAction implements Serializable, ModelDriven<Question>,R
 			User user = (User)ServletActionContext.getRequest()
 					.getSession().getAttribute("UsersfromActions");
 			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("userId", user.getUserId());
+			map.put("username", u.getUsername());
 			map.put("currentPage", this.getCurrentPage());
 			map.put("rows", this.getRows());
 			this.setDp(questionService.findMyPosts(map));
