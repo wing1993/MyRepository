@@ -78,7 +78,7 @@ public class ReplyAction implements Serializable,RequestAware{
 					e.printStackTrace();
 				}
 			}
-			msg = replyService.saveReply(object,sharezone);
+			replyId = replyService.saveReply(object,sharezone);
 		}
 		else if("学员区".equals(sharezone)){
 			StudentReply sr = new StudentReply();
@@ -96,7 +96,7 @@ public class ReplyAction implements Serializable,RequestAware{
 					e.printStackTrace();
 				}
 			}
-			msg = replyService.saveReply(object,sharezone);
+			replyId = replyService.saveReply(object,sharezone);
 		}
 		else if("弟子区".equals(sharezone)){
 			DiscipleReply dr = new DiscipleReply();
@@ -114,7 +114,8 @@ public class ReplyAction implements Serializable,RequestAware{
 					e.printStackTrace();
 				}
 			}
-			msg = replyService.saveReply(object,sharezone);
+			System.out.println(object);
+			replyId = replyService.saveReply(object,sharezone);
 		}
 		else if("我的问题".equals(sharezone)){
 			MyquestionReply mr = new MyquestionReply();
@@ -132,8 +133,9 @@ public class ReplyAction implements Serializable,RequestAware{
 					e.printStackTrace();
 				}
 			}
-			msg = replyService.saveReply(object,sharezone);
+			replyId = replyService.saveReply(object,sharezone);
 		}
+		msg = "success";
 		System.out.println(msg);
 		return msg;
 	}

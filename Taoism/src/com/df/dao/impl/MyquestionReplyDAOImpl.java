@@ -1,5 +1,6 @@
 package com.df.dao.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.df.dao.idao.IMyquestionReplyDAO;
 import com.df.dao.pojo.MyquestionReply;
+import com.df.dao.pojo.PublicReply;
 import com.df.dao.pojo.QueryResult;
 @Repository("myquestionReplyDao")
 public class MyquestionReplyDAOImpl implements IMyquestionReplyDAO {
@@ -23,6 +25,14 @@ public class MyquestionReplyDAOImpl implements IMyquestionReplyDAO {
 		sessionFactory.getCurrentSession().save(t);
 		}
 
+	@Override
+	public int saveReply(MyquestionReply t) throws Exception {
+		Serializable pKey = sessionFactory.getCurrentSession().save(t);
+		return Integer.parseInt(pKey.toString());
+	}
+	
+	
+	
 	@Override
 	public void delete(MyquestionReply t) throws Exception {
 		// TODO Auto-generated method stub

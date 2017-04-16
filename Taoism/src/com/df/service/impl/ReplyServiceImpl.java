@@ -73,36 +73,32 @@ public class ReplyServiceImpl implements IReplyService<Object> {
 
 	@Transactional
 	@Override
-	public String saveReply(Object t,String sharezone) {
-		String msg = "error";
+	public int saveReply(Object t,String sharezone) {
+		int replyId = 0;
 		User user = new User();
 		try{
 			if("公开区".equals(sharezone)){
 				PublicReply pr = (PublicReply)t;
 				user.setUsername(pr.getRespondent());
-				publicReplyDao.save(pr);
-				msg = "success";
+				replyId = publicReplyDao.saveReply(pr);
 				System.out.println("1"+pr);
 			}
 			else if("学员区".equals(sharezone)){
 				StudentReply sr = (StudentReply)t;
 				user.setUsername(sr.getRespondent());
-				studentReplyDao.save(sr);
-				msg = "success";
+				replyId = studentReplyDao.saveReply(sr);
 				System.out.println("2"+sr);
 			}
 			else if("弟子区".equals(sharezone)){
 				DiscipleReply dr = (DiscipleReply)t;
 				user.setUsername(dr.getRespondent());
-				discipleReplyDao.save(dr);
-				msg = "success";
+				replyId = discipleReplyDao.saveReply(dr);
 				System.out.println("3"+dr);
 			}
 			else if("我的问题".equals(sharezone)){
 				MyquestionReply mr = (MyquestionReply)t;
 				user.setUsername(mr.getRespondent());
-				myquestionReplyDao.save(mr);
-				msg = "success";  
+				replyId = myquestionReplyDao.saveReply(mr);
 				System.out.println("4"+mr);
 			}
 			/*用户评论之后评论次数+1*/
@@ -121,7 +117,7 @@ public class ReplyServiceImpl implements IReplyService<Object> {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return msg;
+		return replyId;
 	}
 
 	@Override

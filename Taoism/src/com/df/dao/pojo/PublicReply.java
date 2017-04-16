@@ -14,7 +14,7 @@ import java.util.TreeSet;
  * PublicReply entity. @author MyEclipse Persistence Tools
  */
 
-public class PublicReply  implements Comparable<PublicReply>, java.io.Serializable {
+public class PublicReply  implements /*Comparable<PublicReply>,*/ java.io.Serializable {
 
 
     // Fields    
@@ -37,7 +37,8 @@ public class PublicReply  implements Comparable<PublicReply>, java.io.Serializab
      private String con5;
      private String con6;
      private String con7;
-     private Set<PublicReply> publicReplies = new TreeSet<PublicReply>();
+     private Set publicReplies = new HashSet(0);
+     //private Set<PublicReply> publicReplies = new TreeSet<PublicReply>();
 
 
     // Constructors
@@ -192,7 +193,27 @@ public class PublicReply  implements Comparable<PublicReply>, java.io.Serializab
         this.con7 = con7;
     }
 
-    public Set<PublicReply> getPublicReplies() {
+	public Set getPublicReplies() {
+		return publicReplies;
+	}
+
+	public void setPublicReplies(Set publicReplies) {
+		this.publicReplies = publicReplies;
+	}
+
+	@Override
+	public String toString() {
+		return "PublicReply [replyId=" + replyId + ", question=" + question + ", respondent="
+				+ respondent + ", replyTime=" + replyTime + ", replyContent="
+				+ replyContent + ", voice=" + voice + ", con1=" + con1
+				+ ", con2=" + con2 + ", con3=" + con3 + ", con4=" + con4
+				+ ", con5=" + con5 + ", con6=" + con6 + ", con7=" + con7
+				+ ", publicReplies=" + publicReplies + "]";
+	}
+
+    
+    
+    /*public Set<PublicReply> getPublicReplies() {
         return this.publicReplies;
     }
     
@@ -218,7 +239,7 @@ public class PublicReply  implements Comparable<PublicReply>, java.io.Serializab
 			return this.replyId.compareTo(o.replyId);
 		}
 		return result;
-	}
+	}*/
    
 
 

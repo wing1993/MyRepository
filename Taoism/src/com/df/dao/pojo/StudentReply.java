@@ -13,7 +13,7 @@ import java.util.Set;
  * StudentReply entity. @author MyEclipse Persistence Tools
  */
 
-public class StudentReply  implements Comparable<StudentReply>, java.io.Serializable {
+public class StudentReply  implements /*Comparable<StudentReply>,*/ java.io.Serializable {
 
 
     // Fields    
@@ -191,7 +191,17 @@ public class StudentReply  implements Comparable<StudentReply>, java.io.Serializ
         this.con7 = con7;
     }
 
-    public Set<StudentReply> getStudentReplies() {
+	public Set getStudentReplies() {
+		return studentReplies;
+	}
+
+	public void setStudentReplies(Set studentReplies) {
+		this.studentReplies = studentReplies;
+	}
+
+    
+    
+   /* public Set<StudentReply> getStudentReplies() {
         return this.studentReplies;
     }
     
@@ -217,7 +227,7 @@ public class StudentReply  implements Comparable<StudentReply>, java.io.Serializ
 			return this.replyId.compareTo(o.replyId);
 		}
 		return result;
-	}
+	}*/
    
 
 

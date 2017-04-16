@@ -61,7 +61,7 @@
         <property name="con7" type="java.lang.String">
             <column name="con7" />
         </property>
-        <set name="discipleReplies" inverse="true">
+        <set name="discipleReplies" inverse="true" order-by="reply_time" lazy="false">
             <key>
                 <column name="sub_id">
                     <comment>二级回复id（依赖于reply_id）</comment>

@@ -228,8 +228,6 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		
 			requestMap.put("replysfromAction", replyList);
 			requestMap.put("questionfromAction", question);
-			System.out.println("question"+question);
-			System.out.println("123456789"+replyList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

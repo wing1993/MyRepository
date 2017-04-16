@@ -3,6 +3,7 @@ package com.df.dao.pojo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +14,7 @@ import java.util.TreeSet;
  * DiscipleReply entity. @author MyEclipse Persistence Tools
  */
 
-public class DiscipleReply  implements Comparable<DiscipleReply>,java.io.Serializable {
+public class DiscipleReply  implements /*Comparable<DiscipleReply>,*/java.io.Serializable {
 
 
     // Fields    
@@ -34,7 +35,8 @@ public class DiscipleReply  implements Comparable<DiscipleReply>,java.io.Seriali
      private String con5;
      private String con6;
      private String con7;
-     private Set<DiscipleReply> discipleReplies = new TreeSet<DiscipleReply>();
+     private Set discipleReplies = new HashSet(0);
+     //private Set<DiscipleReply> discipleReplies = new TreeSet<DiscipleReply>();
 
 
     // ConstructorsString
@@ -191,7 +193,15 @@ public class DiscipleReply  implements Comparable<DiscipleReply>,java.io.Seriali
         this.con7 = con7;
     }
 
-    public Set<DiscipleReply> getDiscipleReplies() {
+    public Set getDiscipleReplies() {
+        return this.discipleReplies;
+    }
+    
+    public void setDiscipleReplies(Set discipleReplies) {
+        this.discipleReplies = discipleReplies;
+    }
+    
+   /* public Set<DiscipleReply> getDiscipleReplies() {
         return this.discipleReplies;
     }
     
@@ -208,7 +218,7 @@ public class DiscipleReply  implements Comparable<DiscipleReply>,java.io.Seriali
         });
         discipleReplies = new LinkedHashSet<DiscipleReply>(dList);
         this.discipleReplies = discipleReplies;
-    }
+    }*/
 
 	@Override
 	public String toString() {
@@ -221,14 +231,14 @@ public class DiscipleReply  implements Comparable<DiscipleReply>,java.io.Seriali
 				+ "]";
 	}
 
-	@Override
+	/*@Override
 	public int compareTo(DiscipleReply o) {
 		int result = this.replyTime.compareTo(o.replyTime);
 		if (result == 0){
 			return this.replyId.compareTo(o.replyId);
 		}
 		return result;
-	}
+	}*/
 
 	 
 }

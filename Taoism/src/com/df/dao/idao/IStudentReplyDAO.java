@@ -11,4 +11,9 @@ public interface IStudentReplyDAO extends IBaseHibernateDAO<StudentReply, Intege
 	 * @param replyId
 	 */
 	public void shieldReply(int replyId, String con1);
+	/**
+	 * 保存 回复
+	 * @param sr
+	 */
+	public int saveReply(StudentReply sr)throws Exception;
 }

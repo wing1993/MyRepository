@@ -12,4 +12,11 @@ public interface IMyquestionReplyDAO extends IBaseHibernateDAO<MyquestionReply, 
 	 * @throws Exception 
 	 */
 	public void shieldReply(int replyId, String con1) throws Exception;
+	/**
+	 * 保存评论
+	 * @param mr
+	 * @return 
+	 * @throws Exception
+	 */
+	public int saveReply(MyquestionReply mr)throws Exception;
 }

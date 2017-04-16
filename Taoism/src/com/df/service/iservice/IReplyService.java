@@ -19,7 +19,7 @@ public interface IReplyService<T>{
 	 * @param t  使用了分表 不同的区域不同的类
 	 * @return
 	 */
-	public String saveReply(Object t,String sharezone);
+	public int saveReply(Object t,String sharezone);
 	/**
 	 * 删除回复
 	 * @param t

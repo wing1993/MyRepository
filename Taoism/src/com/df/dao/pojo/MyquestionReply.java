@@ -14,7 +14,7 @@ import java.util.TreeSet;
  * MyquestionReply entity. @author MyEclipse Persistence Tools
  */
 
-public class MyquestionReply  implements  Comparable<MyquestionReply>,java.io.Serializable {
+public class MyquestionReply  implements /* Comparable<MyquestionReply>,*/java.io.Serializable {
 
 
     // Fields    
@@ -37,7 +37,8 @@ public class MyquestionReply  implements  Comparable<MyquestionReply>,java.io.Se
      private String con5;
      private String con6;
      private String con7;
-     private Set<MyquestionReply> myquestionReplies = new TreeSet<MyquestionReply>();
+     private Set myquestionReplies = new HashSet(0);
+     //private Set<MyquestionReply> myquestionReplies = new TreeSet<MyquestionReply>();
 
 
     // Constructors
@@ -192,7 +193,16 @@ public class MyquestionReply  implements  Comparable<MyquestionReply>,java.io.Se
         this.con7 = con7;
     }
 
-    public Set<MyquestionReply> getMyquestionReplies() {
+	public Set getMyquestionReplies() {
+		return myquestionReplies;
+	}
+
+	public void setMyquestionReplies(Set myquestionReplies) {
+		this.myquestionReplies = myquestionReplies;
+	}
+
+    
+   /* public Set<MyquestionReply> getMyquestionReplies() {
         return this.myquestionReplies;
     }
     
@@ -219,7 +229,7 @@ public class MyquestionReply  implements  Comparable<MyquestionReply>,java.io.Se
 		}
 		return result;
 	}
-   
+   */
 
 
 

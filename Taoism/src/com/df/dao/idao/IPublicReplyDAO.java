@@ -8,6 +8,13 @@ public interface IPublicReplyDAO extends
 		IBaseHibernateDAO<PublicReply, Integer> {
 
 	/**
+	 * 保存一级回复  返回保存的回复id
+	 * @param t
+	 * @return
+	 * @throws Exception
+	 */
+	int saveReply(PublicReply t) throws Exception;
+	/**
 	 * 根据帖子id  获取该帖子的评论
 	 * @param k1
 	 * @return
@@ -21,4 +28,5 @@ public interface IPublicReplyDAO extends
 	 * @throws Exception 
 	 */
 	public void shieldReply(int replyId, String con1) throws Exception;
+
 }

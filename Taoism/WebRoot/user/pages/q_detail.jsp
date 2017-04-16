@@ -70,12 +70,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<c:if test="${requestScope.question.sharezone == '弟子区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>
     					<c:if test="${requestScope.question.sharezone == '公开区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.publicReplies }"></c:set></c:if>
     					<c:if test="${requestScope.question.sharezone == '学员区'&&null==requestScope.question.askWho }"><c:set var="times" value="${reply.studentReplies }"></c:set></c:if>
-    					<c:if test="${null!=requestScope.question.askWho }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
+    					<c:if test="${null!=requestScope.question.askWho&&requestScope.question.askWho!='' }"><c:set var="times" value="${reply.myquestionReplies }"></c:set></c:if>
     					
     					<div class="r-fold" onclick="fold(this)"><span class="${reply.replyId } r">回复</span>(<span class="t">${fn:length(times)}</span>)</div>
     				</div>    				
     				<div class="sub-reply">
-    				<c:if test="${requestScope.question.sharezone == '弟子区'&&null==requestScope.question.askWho }">
+    				<c:if test="${requestScope.question.sharezone == '弟子区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
    						<c:forEach items="${reply.discipleReplies }" var="dReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:if test="${dReply.con1 == null || dReply.con1 == 0}">
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   					</c:if>
    						</c:forEach>
    					</c:if>
-   					<c:if test="${requestScope.question.sharezone == '公开区'&&null==requestScope.question.askWho }">
+   					<c:if test="${requestScope.question.sharezone == '公开区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
    						<c:forEach items="${reply.publicReplies }" var="pReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:if test="${pReply.con1 == null || pReply.con1 == 0}">
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   					</c:if>
    						</c:forEach>
    					</c:if>
-   					<c:if test="${requestScope.question.sharezone == '学员区'&&null==requestScope.question.askWho }">
+   					<c:if test="${requestScope.question.sharezone == '学员区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
    						<c:forEach items="${reply.studentReplies }" var="sReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    						<c:if test="${sReply.con1 == null || sReply.con1 == 0}">
@@ -126,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   					</c:if>
    						</c:forEach>
    					</c:if>
-   					<c:if test="${null!=requestScope.question.askWho  }">
+   					<c:if test="${null!=requestScope.question.askWho&&requestScope.question.askWho!=''  }">
    						<c:forEach items="${reply.myquestionReplies }" var="mReply">
    						<!-- <div class="answerer-img"><img src=""/></div> -->
    							<input type="hidden" value="${fn:length(items)}" class="rTimes">
@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<div class="sub-add"><span class="comment">我要评论</span></div>
     					<div class="sub-edit">
     						<textarea class="add-re"></textarea>
-    						<input type="hidden" value="${reply.replyId}">
+    						<input type="text" value="${reply.replyId}">
     						<input type="button" value="发表" class="sub-post" onclick="subPost(this)">
     					</div>
     				</div>
@@ -273,8 +273,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							"<span class='main-content'>"+editor.html()+"</span></div><div class='w-reply'><div class='r-top'>"+
 			    			"<span class='r-time'>"+data.replyTime+"</span>&nbsp;<div class='r-fold'>回复</div></div><div class='sub-reply'>"+
 			   				"<div class='sub-add'><span class='comment'>我要评论</span></div><div class='sub-edit'>"+
-			    			"<textarea class='add-re'></textarea><input type='button' value='发表' class='sub-post' onclick='subPost(this)'>"+
-			    			"</div></div></div></div></div>";
+			    			"<textarea class='add-re'></textarea><input type='hidden' value='"+data.replyId+"'><input type='button'"+
+			    			" value='发表' class='sub-post' onclick='subPost(this)'></div></div></div></div></div>";
 					
 						$(".edit-div").before(str);
 						editor.html("");

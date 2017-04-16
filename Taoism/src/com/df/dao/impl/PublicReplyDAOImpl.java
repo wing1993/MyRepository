@@ -1,5 +1,6 @@
 package com.df.dao.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,13 @@ public class PublicReplyDAOImpl implements IPublicReplyDAO {
 	public void save(PublicReply t) throws Exception {
 		sessionFactory.getCurrentSession().save(t);
 	}
-
+	
+	@Override
+	public int saveReply(PublicReply t) throws Exception {
+		Serializable pKey = sessionFactory.getCurrentSession().save(t);
+		return Integer.parseInt(pKey.toString());
+	}
+	
 	@Override
 	public void delete(PublicReply t) throws Exception {
 		// TODO Auto-generated method stub
@@ -61,6 +68,7 @@ public class PublicReplyDAOImpl implements IPublicReplyDAO {
 				.createQuery("FROM PublicReply p where p.question.QId=? ORDER BY replyTime")
 				.setInteger(0,k1 )
 				.list();
+		//System.out.println(publicReplyList);
 		return publicReplyList;
 	}
 
