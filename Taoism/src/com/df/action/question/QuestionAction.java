@@ -90,9 +90,11 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 	 */
 	public String save() {
 		String msg = "error";
+		question.setAskWho("");
 		question.setCon1("");
 		question.setCon2("");
 		question.setCon3("0");
+		question.setCon6("0");
 		question.setState(0);
 		question.setShareState(1);
 		question.setVisits(0);
@@ -184,6 +186,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		question.setCon1("");
 		question.setCon2("");
 		question.setCon3("0");
+		question.setCon6("0");
 		question.setState(0);
 		question.setShareState(1);
 		question.setVisits(0);

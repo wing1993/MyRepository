@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<div class="q_title">${requestScope.question.QTitle }</div>
     		<c:if test="${sessionScope.UsersfromActions.userType=='弟子' && requestScope.question.shareState == '1' }">
     		<div class="for-wrap">
-    			<a class="a-btn" id="forward">转发帖子</a>
+    			<c:if test="${requestScope.question.sharezone == '我的问题' }"><a class="a-btn" id="forward">转发帖子</a></c:if>
     			<div class="share-wrap">
     				<input type="radio" name="sharezone" value="公开区" <c:if test="${requestScope.question.sharezone == '公开区' }">disabled="disabled"</c:if>>公开区
     				<input type="radio" name="sharezone" value="学员区" <c:if test="${requestScope.question.sharezone == '学员区' }">disabled="disabled"</c:if>>学员区
@@ -260,6 +260,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 		
+		function checkLogin_Reply(){
+			if(${sessionScope.UsersfromActions==null}){
+				alert("您还没有登录，不能回复！");
+				window.location.href="<%=path%>/user/pages/login.jsp";
+				return;
+			}else{
+				$(".ke-content").focus();
+			}
+		}
 		function Post(){
 			if(${sessionScope.UsersfromActions==null}){
 				alert("您还没有登录，不能回复！");

@@ -60,12 +60,14 @@ function btnFormat(cellvalue, options, rowObject){
  * 审核用户
  * @param {} IDs
  */
-function Review(IDs){
+function Review(IDs,state){
 	var id = typeof(IDs) == "string" ? IDs : IDs.join(",");
-	$.post(url + '/user_updateExaminUser.action', {"user_ids": id}, function(data){
+	$.post(url + '/user_updateExaminUser.action', {"user_ids": id,"state":state}, function(data){
 		console.log(data);
 		if(data == "success"){
-			alert("审核成功");
+			if(state == "1"){
+				alert("审核成功");
+			}
 			grid.setGridParam({
 				url: url + '/list_getUserGridModel.action?method=rsgCheck'
 			}).trigger('reloadGrid');
@@ -76,7 +78,12 @@ function Review(IDs){
 function initEvent(){
 	$("#r_tb").on("click", ".operate", function(){//单个审核
 		var id = $(this).parents('tr').attr('id');
-		Review(id);	
+		Review(id,"1");	
+	});
+	
+	$("#r_tb").on("click", ".ignore", function(){//忽略
+		var id = $(this).parents('tr').attr('id');
+		Review(id, "2");	
 	});
 	
 	$(".btn").click(function(){//批量审核
@@ -84,7 +91,7 @@ function initEvent(){
 		if(ids.length == 0){
 			alert("请选择要审核的用户");
 		}else{
-			Review(ids);
+			Review(ids, "1");
 		}	
 		
 	});

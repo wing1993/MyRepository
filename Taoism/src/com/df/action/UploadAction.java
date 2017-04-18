@@ -34,7 +34,7 @@ public class UploadAction extends ActionSupport implements ModelDriven<User>, Re
 
 	//上传用户照片存放的路径
 	//private final String UPLOADDIR = "/user_img";
-	private final String UPLOADDIR = "D:/myeclipse/MyRepository/Taoism/WebRoot/user_images";
+	//private String UPLOADDIR;
 	//上传的图片
 	private File imgfile;
 	//上传的图片名
@@ -104,7 +104,14 @@ public class UploadAction extends ActionSupport implements ModelDriven<User>, Re
             		.getServletContext()
             		.getRealPath(UPLOADDIR); */
             //String dir = "E:/MyEclipse/MyRepository/Taoism/WebRoot/user_images";
-            String dir = UPLOADDIR;
+            
+            String path = (String.valueOf(Thread.currentThread().getContextClassLoader().getResource(""))+"../../").replaceAll("file:/", "").replaceAll("%20", " ").trim();	
+    		if(path.indexOf(":") != 1){
+    			path = File.separator + path;
+    		}
+    		 
+            String dir = path+"/user_images";
+            System.out.println(dir);
             File fileLocation = new File(dir);  
            
             //此处也可以在应用根目录手动建立目标上传目录

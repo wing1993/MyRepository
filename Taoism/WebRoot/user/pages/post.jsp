@@ -102,9 +102,9 @@
 						type:'post',
 						success:function(str){						
 							if(str=="error"){
-								alert("提问失败");
+								alert("发帖失败");
 							}else{
-								alert("提问成功");
+								alert("发帖成功");
 								window.close();
 							}
 						}
@@ -149,7 +149,7 @@
 					<td>
 						<input type="radio" name="sharezone" value="公开区">公开区&nbsp;
 						<input type="radio" name="sharezone" value="学员区">学员区&nbsp;
-						<input type="radio" name="sharezone" value="大师区">大师区
+						<input type="radio" name="sharezone" value="弟子区">弟子区
 					</td>
 				</tr>
 			</table>

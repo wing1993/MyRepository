@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,9 +148,9 @@ public class QuestionDAOImpl implements IQuestionDAO {
 						dc1.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
 								Restrictions.eq("sharezone", question.getSharezone())));*/
 						dc.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
-								Restrictions.isNotNull("askWho")));
+								Restrictions.ne("askWho","")));
 						dc1.add(Restrictions.and(Restrictions.eq("username", question.getUsername()),
-								Restrictions.isNotNull("askWho")));
+								Restrictions.ne("askWho","")));
 				}
 				if("答疑区".equals(question.getSharezone())){System.out.println("6");
 						dc.add(Restrictions.eq("askWho", question.getAskWho()));
@@ -180,6 +181,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	            .uniqueResult();
 	    c.setMaxResults(10);
 	    c.setFirstResult((currentPage - 1) * 10);
+	    c.addOrder(Order.desc("QTime"));
 		List<Question> questionList = c.list();
 		System.out.println("daoceng"+questionList);
 	    DataPage<Question> dp = PageUtil.paging(questionList,count.intValue(),currentPage,10);

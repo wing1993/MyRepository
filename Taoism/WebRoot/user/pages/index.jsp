@@ -67,7 +67,7 @@
 						<div class="master-w">	
 						<c:forEach items="${dashis }" var="dashis">
 							<div class="master-data">
-								<div class="picture"><img src="${pageContext.request.contextPath }/${dashis.picture}" onclick="showDetail(this)"></div>
+								<div class="picture"><img src="${pageContext.request.contextPath }${dashis.picture}" onclick="showDetail(this)"></div>
 								<div class="master-detail">法号：<label class="dashi_name">${dashis.username }</label></div>
 								<div class="master-detail">现居城市：<label class="now_city">${dashis.con2 }${dashis.city }</label></div>
 								<div class="master-detail">
@@ -98,9 +98,9 @@
 								<option value="公开区">公开区</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions.userType=='普通' }">
-								<option value="所有问题">所有问题</option>
-								<option value="我的问题">我的问题</option>
 								<option value="公开区">公开区</option>
+								<option value="我的问题">我的问题</option>
+								<option value="所有问题">所有问题</option>
 							</c:if>
 							<c:if test="${sessionScope.UsersfromActions.userType=='学员' }">
 								<option value="学员区">学员区</option>
@@ -254,9 +254,10 @@
 			}
 		}
 		function checkLogin_Post(obj, str){
-		console.log(str);
 			if(${sessionScope.UsersfromActions==null}){
 				alert("您还没有登录，不能发帖！");
+			}else if(${sessionScope.UserfromActions.con7 == '1'}){
+				alert("你已被禁言，无法发帖");
 			}else{			
 				$(obj).attr("href","${pageContext.request.contextPath }/user/pages/post.jsp?username=${sessionScope.UsersfromActions.username }");
 			}
