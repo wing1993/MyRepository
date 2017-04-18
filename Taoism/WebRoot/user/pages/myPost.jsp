@@ -17,7 +17,25 @@
 	-->
 	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/common.css?t=<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/personal_center.css?t=<%=System.currentTimeMillis()%>">
-	
+	<style>
+	.post-right{margin-top:10px;}
+	.post-title .post-operate{
+		float:right;
+	}
+	.post-title .reply-ope{
+		text-decoration:none;
+		background-color:#fff;
+		color:#aaa;
+		padding:3px 6px;
+		border:1px solid #ccc;
+		cursor:pointer;
+		border-radius:4px;
+	}
+	.post-title .reply-ope:hover{
+		border:1px solid #6B99E4;
+		color:#6B99E4;
+	}
+	</style>
   </head>
   
   <body>
@@ -27,12 +45,16 @@
 		<div class="rep-num" title="回复数">${question.con3 }</div>
 		<div class="post-content">
 			<div class="post-title">
-				<a href="${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId=&sharezone=${question.sharezone }" title="${question.QTitle }" target="_blank">${question.QTitle }</a>
+				<a href="${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId=${question.QId }&sharezone=${question.sharezone }" title="${question.QTitle }" target="_blank">${question.QTitle }</a>
+				<div class="post-operate">
+					<input type="hidden" value="${question.QId }" class="qid">
+					<a href="javascript:void(0);" class="reply-ope delete">删除</a>
+				</div>
 			</div>
 			<div class="post-rep">
 				<div class="first-rep">${question.QContent }</div>
 				<div class="post-right">
-					<c:if test="${question.con1 != null}"><span class="icon-message">&#xe929; </span></c:if>
+					<c:if test="${question.con1 != null && question.con1 != ''}"><span class="icon-message">&#xe929; </span></c:if>
 					<span class="last-replyer" title="最后回复人">${question.con1 }</span>
 					<span class="last-rep-time">${question.con2 }</span>
 				</div>
@@ -81,8 +103,25 @@
 				$(".sure").click();
 			}
 		});
+		
+		$(".delete").click(function(){ //删除
+			if(confirm("确定要删除该帖子吗？")){
+				Delete(this, "1");
+			}
+		});
   	});
   	
+  	function Delete(obj, str){//删帖
+		var id = $(obj).prev().val();
+		$.post('<%=path %>/question_delete.action',{"QId":id, "con6": str}, function(data){
+			if(data == "success"){
+				alert("删除成功");
+				$(obj).parents(".post-wrap").remove();
+			}else{
+				alert("操作失败");
+			}
+		});
+	}
   	function Jump(obj){
 		var now_page = parseInt($(".jump-in").val()),//输入值
 			max_page = parseInt($("#total").text()); //最大页数
