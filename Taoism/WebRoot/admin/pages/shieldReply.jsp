@@ -160,7 +160,12 @@
 				}else{
 					$(obj).after(_a);
 					$(obj).parents(".content-box").removeClass("shield-color");
-					$(obj).parents(".content-box").find(".sub-reply .ans-co-bottom a").show();
+					var shield_sub = $(obj).parents(".content-box").find(".sub-reply .ans-content").hasClass("shield-color");
+					if(shield_sub){
+						$(obj).parents(".content-box").find(".sub-reply .ans-co-bottom .un-shield-sub").show();
+					}else{
+						$(obj).parents(".content-box").find(".sub-reply .ans-co-bottom .shield-sub").show();
+					}
 				}
 				$(obj).hide();
 				
@@ -178,13 +183,23 @@
 				var _ua = '<a href="javascript:;" class="un-shield-sub">取消屏蔽</a>',
 					_a = '<a href="javascript:;" class="shield-sub">屏蔽</a>';
 				if(str == "1"){
-					$(obj).after(_ua);
+					var exist_a = $(obj).parent().find(".un-shield-sub").length;
+					console.log(exist_a);
+					if(exist_a == 0){
+						$(obj).after(_ua);
+					}else{
+						$(obj).siblings(".un-shield-sub").show();
+					}
 					$(obj).parents(".ans-content").addClass("shield-color");
-// 					$(obj).parents(".ans-content").find(".sub-reply .ans-co-bottom a").hide();
 				}else{
-					$(obj).after(_a);
+					var exist_a1 = $(obj).parent().find(".shield-sub").length;
+					console.log(exist_a1);
+					if(exist_a1 == 0){
+						$(obj).after(_a);
+					}else{
+						$(obj).siblings(".shield-sub").show();
+					}
 					$(obj).parents(".ans-content").removeClass("shield-color");
-// 					$(obj).parents(".ans-content").find(".sub-reply .ans-co-bottom a").show();
 				}
 				$(obj).hide();
 				

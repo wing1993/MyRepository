@@ -231,6 +231,7 @@ input[type=button]:hover,.ask:hover{
 .page-div{
 	text-align: center;
 	margin-top:25px;
+	display:none;
 }
 .page-div a{
 	display: inline-block;
@@ -367,7 +368,7 @@ input[type=button]:hover,.ask:hover{
 #q_detail a,.r-box a{color:blue !important;}
 #q_detail a:hover{color:#f00000;}
 .r-box a:hover{color:#f00000;}
-.no-data{text-align:center;font-size:25px;margin-top:10px;color:#f00000;}
+.no-data{text-align:center;font-size:25px;margin-top:10px;color:#f00000;display:none;}
 .now-page{
 	background:#2897ff;
 	color:#fff;
@@ -411,4 +412,15 @@ input[type=button]:hover,.ask:hover{
 .page-div .btn-sub:hover{
 	border:1px solid #f00000 !important;
 	color:#f00000;
+}
+.l-dialog-loading {
+	margin:20px auto;
+	background: #fff url('../../images/ligerui/loading.gif') no-repeat; /*----wyl----2017/02/06---*/
+	background-size:cover;
+	padding: 8px;
+	z-index: 99000;
+	width:25px;
+	height:25px;
+	/* height:auto; */
+	border: 0;
 }

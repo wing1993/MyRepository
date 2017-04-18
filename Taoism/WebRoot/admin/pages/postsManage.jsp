@@ -38,6 +38,7 @@
 		<c:out value="${cList}"></c:out>
 		<c:out value="${page}"></c:out> --%>
 		<div class="post">
+		<div class='l-dialog-loading'></div>
 			<c:forEach items="${qList}" var="questions">
 			<div class="post-wrap">
    				<div class="rep-num" title="回复数">${questions.con3 }</div>
@@ -108,7 +109,9 @@
 	<script src="<%=path %>/admin/js/postsManage.js?t=<%= System.currentTimeMillis()%>"></script>
 	<script type="text/javascript">
 		var url = '<%=path %>';
-		
+		$(function(){
+			$(".l-dialog-loading").hide();
+		});
 	</script>
 </c:if>
 </html>

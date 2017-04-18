@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	
   </head>
-  <body><c:out value="${requestScope.question }"></c:out>
+  <body>
     <div class="bd"></div>
     <div class="main">
     	<div class="main-box"></div>
@@ -147,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<div class="sub-add"><span class="comment">我要评论</span></div>
     					<div class="sub-edit">
     						<textarea class="add-re"></textarea>
-    						<input type="text" value="${reply.replyId}">
+    						<input type="hidden" value="${reply.replyId}">
     						<input type="button" value="发表" class="sub-post" onclick="subPost(this)">
     					</div>
     				</div>
@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</c:if>
     	</c:forEach>
     	<div class="edit-div">
-    		<textarea name="card" style="width:80%;height:200px;visibility:hidden;"></textarea>
+    		<textarea name="card" style="width:100%;height:200px;visibility:hidden;"></textarea>
     		<input type="button" value="发表" class="abtn" onclick="Post()">
     	</div>
     </div>
@@ -202,6 +202,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			if(${sessionScope.UsersfromActions==null}){
 				alert("您还没有登录，不能回复！");
 				window.location.href="<%=path%>/user/pages/login.jsp";
+				return;
+			}
+			if(${sessionScope.UserfromActions.con7 == 1}){
+				alert("你已被禁言，无法评论或恢复");
 				return;
 			}
 			var t=null;
@@ -262,10 +266,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				window.location.href="<%=path%>/user/pages/login.jsp";
 				return;
 			}
+			if(${sessionScope.UserfromActions.con7 == '1'}){
+				alert("你已被禁言，无法评论或恢复");
+				return;
+			}
 			if(editor.html()==""){
 				alert("请输入内容");
 			}else{
-				alert(editor.html());
+				
 				var str=null;
 				$.post("${pageContext.request.contextPath }/reply_saveReply.action",
 					{sharezone:$(".sharezone").val(),QId:$(".QId").val(),

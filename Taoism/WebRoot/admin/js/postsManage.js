@@ -176,7 +176,6 @@ function queryQuestion(){
 		$("#from_date").focus();
 		$("#to_date").focus();
 	}else{
-		alert($("input[name=username]").val());
 		$("form").submit();
 	}	
 }

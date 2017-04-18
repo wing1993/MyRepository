@@ -164,6 +164,7 @@
 							</tr>
 						</thead>
 					</table>
+					<div class='l-dialog-loading'></div>
 					<div id="showquestion">
 					<table class="qz-tb1" id="q_detail">
 					<c:forEach items="${qList }" var="question">
@@ -272,6 +273,7 @@
 			$("#now").text("");
 			$(".a-page").empty();$("#q_detail").empty();
 			var cpage = $(obj).text() == "确定" ? $(".jump-in").val() : $(obj).text();
+			$(".l-dialog-loading").show();
 			$.post("<%=path %>/question_find_findByDynamicData.action",{sharezone:$("#sharezone").val(),QTypeName:$("#QTypeName").val(),
 						QTime:$("#QTime").val(),state:$("#state").val(),QTitle:qTitle,currentPage:cpage,rows:10},function(data){
 					if(null!=data.qList){
@@ -303,6 +305,13 @@
 						$("#nowAdd").text(data.page.currentPage+1);
 						$("#total").text(data.page.totalPage);
 						$("#now").text(data.page.currentPage);
+						if($("#now").text() == $("#total").text()){
+							$("#next").hide();
+						}else{
+							$("#next").show();
+						}
+						$("#now").text() == "1" && $("#pre").hide();
+						$("#now").text() != "1" && $("#pre").show();
 					
 						var pNum = $("#now").text();
 						$(".page-div").find('a[data-pagenum="'+pNum+'"]').addClass('now-page');
@@ -316,7 +325,7 @@
 						$(".no-data").css("display","none");
 						$(".page-div").css("display","block");
 					}
-				    
+				    $(".l-dialog-loading").hide();
 				});
 // 			$("body").scrollTop($("body").height());//滚动到最底部
 		}

@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<% String path = request.getContextPath(); %>   
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -15,47 +15,84 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/common.css?t=<%=System.currentTimeMillis()%>">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/user/css/personal_center.css?t=<%=System.currentTimeMillis()%>">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/common.css?t=<%=System.currentTimeMillis()%>">
+	<link rel="stylesheet" type="text/css" href="<%=path %>/user/css/personal_center.css?t=<%=System.currentTimeMillis()%>">
 	
   </head>
   
   <body>
-  <c:out value="${qList }"></c:out>
+  <%-- <c:out value="${qList }"></c:out> --%>
   <c:forEach items="${qList }" var="question">
-  	 <%-- <div class="post-wrap">
+  	 <div class="post-wrap">
 		<div class="rep-num" title="回复数">${question.con3 }</div>
 		<div class="post-content">
 			<div class="post-title">
-				<a href="${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId=&sharezone=" title="">${question.title }</a>
+				<a href="${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId=&sharezone=${question.sharezone }" title="${question.QTitle }" target="_blank">${question.QTitle }</a>
 			</div>
 			<div class="post-rep">
 				<div class="first-rep">${question.QContent }</div>
 				<div class="post-right">
-					<span class="icon-message">&#xe929; </span><span class="last-replyer" title="最后回复人">${question.con1 }</span>
+					<c:if test="${question.con1 != null}"><span class="icon-message">&#xe929; </span></c:if>
+					<span class="last-replyer" title="最后回复人">${question.con1 }</span>
 					<span class="last-rep-time">${question.con2 }</span>
 				</div>
 			</div>
 		</div>
-	</div> --%>
- </c:forEach>
-    <div class="post-wrap">
-		<div class="rep-num" title="回复数">5000</div>
-		<div class="post-content">
-			<div class="post-title">
-				<a href="${pageContext.request.contextPath }/question_find_findReplyByQId.action?QId=&sharezone=" title="">三生三世十里桃花</a>
-			</div>
-			<div class="post-rep">
-				<div class="first-rep">那年的七月底，天君令我下界降服从大荒中长起来的一头赤炎金猊，
-				我与那赤炎金猊兽在中容国国境大战七日，天地失色之际，虽将这凶兽斩于剑下，却也因力竭被逼出了原身。
-				我的原身本是威风凛凛的一条黑龙，但觉得招摇，便缩得只同条小蛇一般大小，
-				在旁边的俊疾山上找了个不大起眼的山洞，便一闭眼睡了。</div>
-				<div class="post-right">
-					<span class="icon-message">&#xe929; </span><span class="last-replyer" title="最后回复人">bujifeiyu</span>
-					<span class="last-rep-time">16:50</span>
-				</div>
-			</div>
-		</div>
 	</div>
+ </c:forEach>
+ <c:if test="${null != qList }">
+	<div class="page-div">
+		<c:set var="pages" value="${page }"></c:set>
+		<c:if test="${pages.hasPrePage }">
+			<a href="<%=path %>/listquestion_findMyPosts.action?
+    			username=${sessionScope.UsersfromActions.username}&currentPage=${pages.currentPage-1}&rows=10" class="abtn">上一页</a>
+		</c:if>
+		<c:forEach items="${cList }" var="cList">
+			<c:choose>
+			<c:when test="${cList.page==0 }">
+				<a href="<%=path %>/listquestion_findMyPosts.action?
+    			username=${sessionScope.UsersfromActions.username}&currentPage=${pages.currentPage }&rows=10" data-pagenum="${pages.currentPage }">${pages.currentPage }</a>
+			</c:when>
+			<c:otherwise>
+				<a href="<%=path %>/listquestion_findMyPosts.action?
+    			username=${sessionScope.UsersfromActions.username}&currentPage=${cList.page }&rows=10" data-pagenum="${cList.page }">${cList.page }</a>
+			</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<span>第&nbsp;<span id="now">${page.currentPage }</span>/<span id="total">${page.totalPage }</span>&nbsp;页</span>
+		<c:if test="${pages.hasNextPage }">
+			<a href="<%=path %>/listquestion_findMyPosts.action?
+    			username=${sessionScope.UsersfromActions.username}&currentPage=${pages.currentPage+1}&rows=10" class="abtn">下一页</a>
+		</c:if>
+		<input type="number" min="0" style="width:50px;" class="jump-in">
+		<a class="btn-sub" href="javascript:void(0);" onclick="Jump(this);"><span class="sure">确定</span></a>
+	</div>
+</c:if>
   </body>
+  <script src="<%=path %>/js/jquery.min.js"></script>
+  <script>
+  	$(function(){
+  		var pNum = $("#now").html();
+		$(".jump-in").val(parseInt(pNum) + 1);
+		$(".page-div").find('a[data-pagenum="'+pNum+'"]').addClass('now-page');
+		$(".jump-in").keyup(function(e){
+			if(e.keyCode == 13){
+				$(".btn-sub").trigger("onclick");
+				$(".sure").click();
+			}
+		});
+  	});
+  	
+  	function Jump(obj){
+		var now_page = parseInt($(".jump-in").val()),//输入值
+			max_page = parseInt($("#total").text()); //最大页数
+		if($(".jump-in").val() == ""){
+			$(".jump-in").focus();
+		}else if(now_page > max_page){
+			$(".jump-in").select();
+		}else{
+			$(obj).attr("href", "<%=path %>/listquestion_findMyPosts.action?username=${sessionScope.UsersfromActions.username}&currentPage=" + $(".jump-in").val() + "&rows=10");
+		}
+	}
+  </script>
 </html>

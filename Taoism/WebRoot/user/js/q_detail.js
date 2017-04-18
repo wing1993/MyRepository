@@ -1,4 +1,6 @@
 $(function(){
+	$(".main-box").height($(".main-box-fixed").height()+parseInt($(".main-box-fixed").css("padding-top"))*2);
+	
 	$("#btn").click(function(){
 		$("body").scrollTop($("body").height());//滚动到最底部
 		$(".ke-edit-iframe").focus();

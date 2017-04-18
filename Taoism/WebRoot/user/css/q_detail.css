@@ -5,17 +5,17 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 	margin:-10px auto;
 	background:#FAFAFA;
 	border:1px solid #d0d0d0;
-	padding-bottom:20px;
 }
 .main-box{
-	height:59px;
+	/* height:59px; */
 }
 .main-box-fixed{
+	/* box-sizing:border-box; */
 	background:#fff;
 	position:fixed;
 	top:0;
 	z-index:10;
-	padding:15px;
+	padding:8px 15px;
 	border-bottom:1px solid #bbbdbf;
 	width:870px;
 }
@@ -184,8 +184,8 @@ html{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
 	-moz-border-radius:2px;
 	-webkit-border-radius:2px;
 }
-.edit-div{padding:20px 0 15px 30px;}
-.edit-div input{margin:15px 0 0 350px;}
+.edit-div{padding:20px 15px;text-align:center;}
+.edit-div input{margin-top:15px;}
 .return{
 	position:absolute;
 	right:-10px;
