@@ -94,6 +94,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		question.setCon1("");
 		question.setCon2("");
 		question.setCon3("0");
+		question.setCon4("0");
 		question.setCon6("0");
 		question.setState(0);
 		question.setShareState(1);
@@ -186,6 +187,7 @@ public class QuestionAction implements Serializable, ModelDriven<Question>,Reque
 		question.setCon1("");
 		question.setCon2("");
 		question.setCon3("0");
+		question.setCon4("0");
 		question.setCon6("0");
 		question.setState(0);
 		question.setShareState(1);

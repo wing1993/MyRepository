@@ -103,7 +103,7 @@ $(function(){
 	$(".jump-in").keyup(function(e){
 		if(e.keyCode == 13){
 			$(".btn-sub").trigger("onclick");
-			$(".sure").click();
+//			$(".sure").click();
 		}
 	});
 });

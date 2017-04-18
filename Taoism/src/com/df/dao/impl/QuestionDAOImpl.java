@@ -181,7 +181,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	            .uniqueResult();
 	    c.setMaxResults(10);
 	    c.setFirstResult((currentPage - 1) * 10);
-	    c.addOrder(Order.desc("QTime"));
+	    c.addOrder(Order.desc("con4")).addOrder(Order.desc("QTime"));
 		List<Question> questionList = c.list();
 		System.out.println("daoceng"+questionList);
 	    DataPage<Question> dp = PageUtil.paging(questionList,count.intValue(),currentPage,10);
