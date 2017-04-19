@@ -43,11 +43,13 @@ $(function(){
 		}else{
 			var sharezone = $("input[type=radio]:checked").val(),
 				QId = $(".QId").val();
+				var $ob = $(this);
 			$.post('/Taoism/question_daShiForwardPost.action',{"sharezone": sharezone, "QId": QId},function(data){
 				console.log(data);
 				if(data == "success"){
 					alert("转发成功！");
-					window.close();
+					$ob.parents(".for-wrap").hide();
+//					window.close();
 				}
 			});
 		}
