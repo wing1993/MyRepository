@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</div>
     			<div class="w-reply">
     				<div class="r-top">
-    					<c:if test="${reply.respondent == sessionScope.UsersfromActions.username}"><a href="">删除</a></c:if>
+    					<%-- <c:if test="${reply.respondent == sessionScope.UsersfromActions.username}"><a href="">删除</a></c:if> --%>
     					<span class="r-time">${fn:substring(reply.replyTime,0,19) }</span>&nbsp;
     					<c:if test="${requestScope.question.sharezone == '弟子区'&&(null==requestScope.question.askWho||requestScope.question.askWho=='') }">
     					<c:set var="times" value="${reply.discipleReplies }"></c:set></c:if>

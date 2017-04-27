@@ -303,7 +303,9 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		Criteria c = dc.getExecutableCriteria(sessionFactory.getCurrentSession());
 		c.setMaxResults(rows);
 	    c.setFirstResult((currentPage-1)*rows);
+	    c.addOrder(Order.desc("con4")).addOrder(Order.desc("QTime"));
 		
+	    
 	    DataPage<Question> dp = PageUtil.paging(c.list(),resultCount.intValue(),currentPage,rows);
 		return dp;
 	}

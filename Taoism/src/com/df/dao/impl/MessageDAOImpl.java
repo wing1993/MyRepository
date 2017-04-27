@@ -105,7 +105,7 @@ public class MessageDAOImpl implements IMessageDAO {
 				.createQuery("FROM Message order by publish_time desc")
 				.setFirstResult((currentPage-1)*3)
 				.setMaxResults(3).list();
-		DataPage<Message> dp = PageUtil.paging(messageList,count.intValue(), currentPage,10);
+		DataPage<Message> dp = PageUtil.paging(messageList,count.intValue(), currentPage,3);
 		return dp;
 	}
 	
